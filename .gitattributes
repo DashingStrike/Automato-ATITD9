@@ -1,3 +1,2 @@
-# Set the default behavior, in case people don't have core.autocrlf set.
-# But, do CRLF locally in all cases
-* text=false
+# Leave everything alone, do not do line ending conversions
+* -text
