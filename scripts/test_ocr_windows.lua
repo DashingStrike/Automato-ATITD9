@@ -6,16 +6,17 @@ function doit()
   lsRequireVersion(2, 39);
   askForWindow("Test to display regions such as Clock Window, Friends window and building windows. Press Shift over ATITD window.");
   while true do
+    checkBreak();
     findStuff();
 
-    lsSleep(25);
     checkBreak();
     lsDoFrame();
+    lsSleep(25);
   end
 end
 
 
-function findAllTextRegions2()
+function findAllTextRegionsT9()
   local regions = {};
   local pos = srFindFirstTextRegion(0x6a4529, 0x6d472a);
   if not pos then
@@ -24,6 +25,22 @@ function findAllTextRegions2()
   while 1 do
     regions[#regions+1] = pos;
     pos = srFindNextTextRegion(pos[0] + 1, pos[1], 0x6a4529, 0x6d472a);
+    if not pos then
+      break;
+    end
+  end
+  return regions;
+end
+
+function findAllTextRegionsT8()
+  local regions = {};
+  local pos = srFindFirstTextRegion();
+  if not pos then
+    return nil;
+  end
+  while 1 do
+    regions[#regions+1] = pos;
+    pos = srFindNextTextRegion(pos[0] + 1, pos[1]);
     if not pos then
       break;
     end
@@ -49,7 +66,10 @@ function findStuff()
   srReadScreen();
   
   -- Test srFindFirstTextRegion/srFindNextTextRegion
-  local regions = findAllTextRegions2();
+  local regions = findAllTextRegionsT9();
+  if not (regions and #regions > 0) then
+    regions = findAllTextRegionsT8();
+  end
   if regions and windowIndex > #regions then
     windowIndex = 1;
   end
@@ -67,9 +87,22 @@ function findStuff()
     lsPrint(0, 0, 10, 1, 1, 0xFF8080ff, "No text regions found")
   end
   
+  local scale = 0.75;
   local pos = getMousePos();
   local y = lsScreenY / 2;
   lsPrint(10, y, 10, scale, scale, 0xFFFFFFff, "Current Mouse Position: " .. pos[0] .. ", " .. pos[1]);
+  y = y + 20;
+
+  -- Test srFindChatRegion()
+  local creg = srFindChatRegion();
+  lsPrint(10, y, 10, scale, scale, 0xFFFFFFff, "srFindChatRegion = " .. creg[0] .. "," .. creg[1] ..
+    " - " .. creg[2] .. "," .. creg[3]);
+  y = y + 20;
+
+  -- Test srFindInvRegion()
+  local invreg = srFindInvRegion();
+  lsPrint(10, y, 10, scale, scale, 0xFFFFFFff, "srFindInvRegion = " .. invreg[0] .. "," .. invreg[1] ..
+    " - " .. invreg[2] .. "," .. invreg[3]);
   y = y + 20;
   
   -- Test srGetWindowBorders
@@ -79,24 +112,25 @@ function findStuff()
     -- Try T8 for comarpision
     borders = srGetWindowBorders(pos[0], pos[1])
   end
-  if borders then
-    local color = 0xFFFFFFff;
-    if borders[0] == 0 or borders[1] == 0 or borders[2] == xyWindowSize[0] - 1 or borders[3] == xyWindowSize[1] - 1 then
-      color = 0xFF8080ff;
-      lsPrintWrapped(20, y + 20, 10, lsScreenX - 20, 1, 1, color, "No valid window border found under cursor");
-    else
-      showDebugInRange("current-window",
-        borders[0], borders[1], borders[2] - borders[0] + 1, borders[3] - borders[1] + 1,
-        5, y + 20, 2, lsScreenX - 10, lsScreenY - (y + 20) - 2);
-    end
-    lsPrint(20, y, 10, 0.5, 0.5, color, "srGetWindowBorders = " .. borders[0] .. "," .. borders[1] ..
-      " - " .. borders[2] .. "," .. borders[3]);
-  else
-    lsPrint(20, y, 10, 1, 1, 0xFF8080ff, "No window found under mouse cursor")
+  local color = 0xFFFFFFff;
+  local found = true;
+  if borders[0] == 0 or borders[1] == 0 or borders[2] == xyWindowSize[0] - 1 or borders[3] == xyWindowSize[1] - 1 then
+    color = 0xFF8080ff;
+    found = false;
   end
-  y = y + 20;
+
+  lsPrint(10, y, 10, scale, scale, color, "srGetWindowBorders = " .. borders[0] .. "," .. borders[1] ..
+    " - " .. borders[2] .. "," .. borders[3]);
+  y = y + 12;
   
-  
+  if not found then
+    y = y + lsPrintWrapped(20, y, 10, lsScreenX - 20, 0.75, 0.75, color, "No valid window border found under cursor");
+  else
+    showDebugInRange("current-window",
+      borders[0], borders[1], borders[2] - borders[0] + 1, borders[3] - borders[1] + 1,
+      5, y, 2, lsScreenX - 10, lsScreenY - (y + 20) - 2);
+    y = y + 20;
+  end
   
   
   if lsButtonText(lsScreenX - 110, lsScreenY - 30, 20, 100,
