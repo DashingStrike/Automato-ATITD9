@@ -602,6 +602,8 @@ function harvestAll(loop_count)
           trackClick(harvests[i][0], harvests[i][1]);
         end
       end
+	  
+	  
       
       -- check for beds needing ripping out
 	  local hsr = srFindImage("flax/" .. imgSeeds);
@@ -617,7 +619,7 @@ function harvestAll(loop_count)
       for i=#seedsList, 1, -1 do
         lastClick = lastClickTime(seedsList[i][0], seedsList[i][1]);
         if lastClick == nil or lsGetTimer() - lastClick >= CLICK_MIN_SEED then
-          clickText(seedsList[i]);
+		  safeClick(seedsList[i][0], seedsList[i][1]);
           trackClick(seedsList[i][0], seedsList[i][1]);
           numSeedsHarvested = numSeedsHarvested + 1;
         end
@@ -686,20 +688,11 @@ function ripOutAllSeeds()
   checkBreak();
   statusScreen("Ripping Out" .. "\n\nElapsed Time: " .. getElapsedTime(startTime));
   srReadScreen();
-  
-  flaxRegions = findAllImages(imgThisIs)
-  for i = 1, #flaxRegions do
-    checkBreak();
-	srReadScreen();
-		local utloc = srFindImage(imgUtility);
-			if utloc then
-			  clickAllImages(imgUtility)
-			  lsSleep(refresh_time);
-			  clickAllImages("flax/" .. imgRipOut)
-			  lsPrintln("Cleaning up windows");
-			  closeAllWindows();
-			end		
-  end
+  clickAllImages(imgUtility)
+  lsSleep(refresh_time)
+  clickAllImages("flax/" .. imgRipOut)
+  lsSleep(refresh_time)
+  clickAllImages(imgThisIs,10,20,1)
 end
 
 clicks = {};
