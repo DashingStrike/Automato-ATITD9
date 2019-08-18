@@ -137,15 +137,15 @@ function doit()
 				lsSleep(50);
 			end
 			if (autorun) then
-				srClickMouseNoMove(xyScreenSize[0] / 2, xyScreenSize[1] / 3);
+				safeClick(xyScreenSize[0] / 2, xyScreenSize[1] / 3);
 			else
-				srClickMouseNoMove(xyScreenSize[0] / 2, xyScreenSize[1] / 3, true);
+				safeClick(xyScreenSize[0] / 2, xyScreenSize[1] / 3, true);
 			end
 		end
 
 		if (autorun) then
 			if ((ctr % 30) == 0) then
-				srClickMouseNoMove(xyScreenSize[0] / 2, xyScreenSize[1] / 3);
+				safeClick(xyScreenSize[0] / 2, xyScreenSize[1] / 3);
 			end
 		end
 
