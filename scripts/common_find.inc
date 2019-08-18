@@ -415,3 +415,18 @@ function getCharacterSet(characterSet)
   end
   return prefix, sizeX, sizeY;
 end
+
+-- replacement for srFindChatRegion() for ATITD T9
+function srFindChatRegionReplacement()
+  local xyWindowSize = srGetWindowSize();
+  local borders = srGetWindowBorders(xyWindowSize[0] - 6, xyWindowSize[1] - 6, WINDOW_BORDER_MIN, WINDOW_BORDER_MAX);
+  -- Offset past blue background into text area
+  borders[0] = borders[0] + 5;
+  borders[1] = borders[1] + 5;
+  borders[2] = borders[2] - 22; -- in past scroll bar
+  borders[3] = borders[3] - 29; -- above text entry
+  borders[2] = borders[2] - borders[0]; -- return "width", not "right"
+  borders[3] = borders[3] - borders[1]; -- return "height", not "bottom"
+  return borders;
+end
+

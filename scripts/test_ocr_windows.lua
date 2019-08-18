@@ -62,6 +62,19 @@ function showDebugInRange(name, screenx, screeny, imgw, imgh, x, y, z, w, h)
   lsDrawRect(x - border, y - border, x + imgw * scale + border, y + imgh * scale + border, 1, 0xFF0000ff);
 end
 
+function srFindChatRegionReplacement()
+  local xyWindowSize = srGetWindowSize();
+  local borders = srGetWindowBorders(xyWindowSize[0] - 6, xyWindowSize[1] - 6, 0x6a4529, 0x6d472a, 0);
+  -- Offset past blue background into text area
+  borders[0] = borders[0] + 5;
+  borders[1] = borders[1] + 5;
+  borders[2] = borders[2] - 22; -- in past scroll bar
+  borders[3] = borders[3] - 29; -- above text entry
+  borders[2] = borders[2] - borders[0]; -- return "width", not "right"
+  borders[3] = borders[3] - borders[1]; -- return "height", not "bottom"
+  return borders;
+end
+
 function findStuff()
   srReadScreen();
   
@@ -93,9 +106,9 @@ function findStuff()
   lsPrint(10, y, 10, scale, scale, 0xFFFFFFff, "Current Mouse Position: " .. pos[0] .. ", " .. pos[1]);
   y = y + 20;
 
-  -- Test srFindChatRegion()
-  local creg = srFindChatRegion();
-  lsPrint(10, y, 10, scale, scale, 0xFFFFFFff, "srFindChatRegion = " .. creg[0] .. "," .. creg[1] ..
+  -- Test findChatRegion()
+  local creg = srFindChatRegionReplacement(); -- srFindChatRegion();
+  lsPrint(10, y, 10, scale, scale, 0xFFFFFFff, "ChatRegion = " .. creg[0] .. "," .. creg[1] ..
     " - " .. creg[2] .. "," .. creg[3]);
   y = y + 20;
 

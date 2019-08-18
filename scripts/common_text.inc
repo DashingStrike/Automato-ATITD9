@@ -76,10 +76,10 @@ end
 -------------------------------------------------------------------------------
 
 function getChatText()
-  local creg = srFindChatRegion();
+  local creg = srFindChatRegionReplacement();
   -- The below line is a hack introduced for T7 to handle the fact that
   -- there isn't as much of a buffer below chat as there was in T6 and prior.
-   creg[3] = creg[3] + 1;
+  creg[3] = creg[3] + 1;
   stripRegion(creg);
   local p = parseRegion(creg);
   local count = 1;
