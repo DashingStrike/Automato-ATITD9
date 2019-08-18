@@ -71,7 +71,7 @@ function getWindowBorders(x, y)
   if not x or not y then
     error("Incorrect number of arguments to getWindowBorders()");
   end
-  return boundsToBox(srGetWindowBorders(x, y, WINDOW_BORDER_MIN, WINDOW_BORDER_MAX, 3));
+  return boundsToBox(srGetWindowBorders(x, y, 3));
 end
 
 -------------------------------------------------------------------------------
@@ -81,7 +81,7 @@ end
 -------------------------------------------------------------------------------
 
 function findFirstTextRegion()
-  return regionToBox(srFindFirstTextRegion(WINDOW_BORDER_MIN, WINDOW_BORDER_MAX));
+  return regionToBox(srFindFirstTextRegion());
 end
 
 -------------------------------------------------------------------------------
@@ -91,7 +91,7 @@ end
 -------------------------------------------------------------------------------
 
 function findNextTextRegion()
-  return regionToBox(srFindNextTextRegion(WINDOW_BORDER_MIN, WINDOW_BORDER_MAX));
+  return regionToBox(srFindNextTextRegion());
 end
 
 -------------------------------------------------------------------------------
