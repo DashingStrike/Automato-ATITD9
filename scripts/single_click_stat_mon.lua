@@ -46,13 +46,13 @@ function doit()
     local warning = "";
     local stats = srFindImage("AllStats-Black.png");
     if not stats then
-      stats = srFindImage("AllStats-Black2.png");
+      --stats = srFindImage("AllStats-Black2.png");
       if stats then
 	warning = largeWarning;
       end
     end
     if not stats then
-      stats = srFindImage("AllStats-Black3.png");
+      --stats = srFindImage("AllStats-Black3.png");
       if stats then
 	warning = smallWarning;
       end
