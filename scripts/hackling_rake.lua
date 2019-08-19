@@ -12,10 +12,6 @@ This macro will not break if you need to alt-tab out of game to do something or 
 Press Shift to continue.
 ]]);
 
-imgSeperate = "seperate.png";
-imgProcessing = "processing.png";
-imgClean = "clean.png";
-
 do_click_refresh = 1;
 do_click_refresh_when_end_red = 1;
 improved_rake = 0;
@@ -109,8 +105,13 @@ function doit()
 		OK = srFindImage("ok.png"); -- If we got an OK popup, this suggests "Your Hackling Rake has wore out", quit
 		stats_black2 = nil;
 		stats_black3 = nil;
+		stats_blackB = nil;
+		stats_blackC = nil;
 		
-		stats_black = srFindImage("AllStats-Black.png");
+		stats_black = srFindImage("endurance.png");
+		stats_blackB = srFindImage("endurance2.png"); -- We can proceed when it's semi-dark red (same as white)
+		stats_blackC = srFindImage("endurance3.png"); -- We can proceed when it's dark red (same as white)
+
 		if not stats_black then
 			--stats_black2 = srFindImage("AllStats-Black2.png");
 			if not stats_black2 then
@@ -146,16 +147,16 @@ function doit()
 		
 		if loop_count > num_loops or OK then
 			num_loops = nil;
-		elseif not stats_black and not stats_black2 and not stats_black3 then
+		elseif not stats_black and not stats_black2 and not stats_black3 and not stats_blackB and not stats_blackC then
 			sleepWithStatus(100, "Next Step: " .. step .. "/4 - " .. task_text .. "\n\n----------------------------------------------\n1) Straw Removed: " .. straw .."/" .. num_loops*per_rake .. "\n2) Tow Seperated: " .. tow .. "/" .. num_loops*per_rake .. "\n3) Lint Refined: " .. lint .. "/" .. num_loops*per_rake .. "\n4) Cleanings: " .. clean .. "/" .. num_loops .. "\n----------------------------------------------\n\nFlax Processed: " .. (loop_count-1)*per_rake .. "\nFlax Remaining: " .. (num_loops*per_rake) - straw .. "\n\nElapsed Time: " .. getElapsedTime(startTime) .. "\n" .. warning, nil, 0.7, 0.7);
 		else
-			
+		
 			srReadScreen();
 			clickAllImages("ThisIs.png");
 			lsSleep(100);
 		
 			srReadScreen();
-			clickAllImages(task);
+			clickAllImages("hacklingRake/" .. task);
 			lsSleep(100);
 			if step == 1 then
 				straw = straw + per_rake;
