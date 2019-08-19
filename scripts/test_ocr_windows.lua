@@ -15,24 +15,7 @@ function doit()
   end
 end
 
-
-function findAllTextRegionsT9()
-  local regions = {};
-  local pos = srFindFirstTextRegion(0x6a4529, 0x6d472a);
-  if not pos then
-    return nil;
-  end
-  while 1 do
-    regions[#regions+1] = pos;
-    pos = srFindNextTextRegion(pos[0] + 1, pos[1], 0x6a4529, 0x6d472a);
-    if not pos then
-      break;
-    end
-  end
-  return regions;
-end
-
-function findAllTextRegionsT8()
+function findAllTextRegions()
   local regions = {};
   local pos = srFindFirstTextRegion();
   if not pos then
@@ -79,9 +62,11 @@ function findStuff()
   srReadScreen();
   
   -- Test srFindFirstTextRegion/srFindNextTextRegion
-  local regions = findAllTextRegionsT9();
+  srSetWindowBorderColorRange(0x6a4529, 0x6d472a);
+  local regions = findAllTextRegions();
   if not (regions and #regions > 0) then
-    regions = findAllTextRegionsT8();
+    srSetWindowBorderColorRange(0, 0); -- ATITD T8 colors
+    regions = findAllTextRegions();
   end
   if regions and windowIndex > #regions then
     windowIndex = 1;
@@ -119,12 +104,8 @@ function findStuff()
   y = y + 20;
   
   -- Test srGetWindowBorders
-  local borders = srGetWindowBorders(pos[0], pos[1], 0x6a4529, 0x6d472a, 3);
+  local borders = srGetWindowBorders(pos[0], pos[1], 3);
   local xyWindowSize = srGetWindowSize();
-  if borders[0] == 0 or borders[1] == 0 or borders[2] == xyWindowSize[0] - 1 or borders[3] == xyWindowSize[1] - 1 then
-    -- Try T8 for comarpision
-    borders = srGetWindowBorders(pos[0], pos[1])
-  end
   local color = 0xFFFFFFff;
   local found = true;
   if borders[0] == 0 or borders[1] == 0 or borders[2] == xyWindowSize[0] - 1 or borders[3] == xyWindowSize[1] - 1 then

@@ -12,14 +12,14 @@ function findAllTextRegions()
   local xyWindowSize = srGetWindowSize();
   local y = 0;
   local buttons = {};
-  local pos = srFindFirstTextRegion(WINDOW_BORDER_MIN, WINDOW_BORDER_MAX);
+  local pos = srFindFirstTextRegion();
   if not pos then
     return nil;
   end
   --trim off the outside edges of the window
   while 1 do
     buttons[#buttons+1] = pos;
-    pos = srFindNextTextRegion(pos[0] + 1, pos[1], WINDOW_BORDER_MIN, WINDOW_BORDER_MAX);
+    pos = srFindNextTextRegion(pos[0] + 1, pos[1]);
     if not pos then
       break;
     end

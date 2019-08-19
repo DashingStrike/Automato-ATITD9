@@ -30,7 +30,7 @@ function stashWindow(sourceX, sourceY, corner, bounds)
   stashBit = (stashBit + 2) % 4;
   if not bounds then
     srReadScreen();
-    bounds = srGetWindowBorders(sourceX, sourceY, WINDOW_BORDER_MIN, WINDOW_BORDER_MAX);
+    bounds = srGetWindowBorders(sourceX, sourceY);
   end
   local size = {};
   size[0] = bounds[2] - bounds[0];
@@ -227,7 +227,7 @@ function arrangeStashed(cascade, waterGap, varWidth, varHeight, sizeRight, offse
     safeClick(window[0], window[1]);
     lsSleep(click_delay);
     srReadScreen();
-    local bounds = srGetWindowBorders(window[0], window[1], WINDOW_BORDER_MIN, WINDOW_BORDER_MAX);
+    local bounds = srGetWindowBorders(window[0], window[1]);
     local width, height;
     if not varWidth then
       width = bounds[2] - bounds[0];

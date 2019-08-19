@@ -8,9 +8,17 @@
 -- List of colors which mark the edge of a window.
 -- T8: WINDOW_COLORS = {0x72502EFF, 0x714f2eff, 0x6f4e2dff, 0x785431ff};
 
--- For srFindNextTextRegion and related
-WINDOW_BORDER_MIN = 0x6a4529;
-WINDOW_BORDER_MAX = 0x6d472a;
+
+-- The following 3 functions were just added with version 2.41
+lsRequireVersion(2,41)
+-- The colors used by srFindFirst/NextTextRegion and srGetWindowBorders to determine
+-- the innermost border pixels
+srSetWindowBorderColorRange(0x6a4529, 0x6d472a);
+-- The colors that srStripRegion/Screen() looks for to decide it should invert (and
+-- treat as background when stripping)
+srSetWindowInvertColorRange(0x1e2e31, 0x263539);
+-- The color range that is treated as window background and stripped in srStripRegion()
+srSetWindowBackgroundColorRange(0xE7D2AB, 0xFFFFF2);
 
 -------------------------------------------------------------------------------
 -- findAllImages(image_name, range, tol)
@@ -198,10 +206,10 @@ end
 
 function findAllWindows()
   local windows = {};
-  local current = srFindFirstTextRegion(WINDOW_BORDER_MIN, WINDOW_BORDER_MAX);
+  local current = srFindFirstTextRegion();
   while current do
     breakupRegion(regionToBox(current), windows);
-    current = srFindNextTextRegion(current[0] + 1, current[1], WINDOW_BORDER_MIN, WINDOW_BORDER_MAX);
+    current = srFindNextTextRegion(current[0] + 1, current[1]);
   end
   return windows;
 end
@@ -419,7 +427,7 @@ end
 -- replacement for srFindChatRegion() for ATITD T9
 function srFindChatRegionReplacement()
   local xyWindowSize = srGetWindowSize();
-  local borders = srGetWindowBorders(xyWindowSize[0] - 6, xyWindowSize[1] - 6, WINDOW_BORDER_MIN, WINDOW_BORDER_MAX);
+  local borders = srGetWindowBorders(xyWindowSize[0] - 6, xyWindowSize[1] - 6);
   -- Offset past blue background into text area
   borders[0] = borders[0] + 5;
   borders[1] = borders[1] + 5;

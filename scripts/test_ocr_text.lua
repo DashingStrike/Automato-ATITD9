@@ -110,6 +110,9 @@ function findStuff()
   for i=#findBlah,1,-1 do
     local parse = findBlah[i];
     lsPrint(10, y, 10, scale, scale, 0xFFFFFFff, parse[0] .. "," .. parse[1] .. ": " .. parse[2]);
+    if lsMouseClick(10, y, 200, 16) then
+      srSetMousePos(parse[0]+xOffset,parse[1]+yOffset);
+    end
     if lsMouseOver(10, y, 200, 16) then
       showDebugInRange("capture",
         parse[0], parse[1], 50, 14,
@@ -119,6 +122,7 @@ function findStuff()
   end
 
   if findCount ~= 0 then
+    lsPrint(10, lsScreenY - 30 - 18*2, 20, scale, scale, 0xFFFFFFff, "Click a string above to move mouse to that location.");
     lsPrint(10, lsScreenY - 30 - 18, 20, scale, scale, 0xFFFFFFff, "Click Point to move mouse to location(s).");
     if lsButtonText(10, lsScreenY - 30, 20, 100, 0xFFFFFFff, "Point") then
       pointToLocation();

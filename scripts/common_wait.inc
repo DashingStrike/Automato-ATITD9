@@ -375,7 +375,7 @@ function waitForImageInWindow(file, x, y, timeout, bounds)
     error("Incorrect number of arguments for waitForImageInWindow");
   end
   if not bounds then
-    bounds = srGetWindowBorders(x, y, WINDOW_BORDER_MIN, WINDOW_BORDER_MAX);
+    bounds = srGetWindowBorders(x, y);
   end
   return waitForImageInRange(file, bounds[0], bounds[1],
            bounds[2] - bounds[0], bounds[3] - bounds[1],
