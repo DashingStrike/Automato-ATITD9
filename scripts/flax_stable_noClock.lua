@@ -11,8 +11,8 @@ dofile("common.inc");
 dofile("settings.inc");
 
 askText = singleLine([[
-  flax_stable v1.1 (by Jimbly, tweaked by Cegaiel and KasumiGhia,
-  revised by Tallow. Updated for T7 by Skyfeather) --
+  flax_stable v1.1 (by Jimbly, tweaked by Cegaiel, KasumiGhia,
+  Tallow, Skyfeather) --
   Plant flax and harvest either flax or seeds. --
   Make sure the plant flax window is pinned and on the RIGHT side of
   the screen. Your Automato window should also be on the RIGHT side
@@ -21,7 +21,6 @@ askText = singleLine([[
   planting and fails to move downward, it probably clicked on your
   chat window). 
   Will plant a spiral grid heading North-East of current  location.  
-  'Plant all crops where you stand' must be ON.  
   'Right click pins/unpins a menu' must be ON.
 ]]);
 
