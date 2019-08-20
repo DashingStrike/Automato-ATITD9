@@ -131,6 +131,7 @@ function openAndPin(x, y, timeout)
   local done = false;
   local anchor = nil;
   while not done do
+    checkBreak();
     srReadScreen();
     local newAnchors = findAllImages("ThisIs.png");
     done = false;
@@ -320,7 +321,7 @@ function closeAllWindows(x, y, width, height)
       while #images >= 1 do
         done = true;
         safeClick(images[#images][0], images[#images][1], right);
-        sleepWithStatus(200, "Closing Windows");
+        sleepWithStatus(10, "Closing Windows");
         srReadScreen();
         images = findAllImagesInRange(image, x, y, width, height);
       end
