@@ -53,7 +53,7 @@ function mainMenu()
       error "Clicked End Script button";
     end
   lsDoFrame();
-  lsSleep(100);
+  lsSleep(10);
  end
 end
 
@@ -80,7 +80,7 @@ function findPNG()
   end
 
   statusScreen(result, nil, 0.7, 0.7);
-  lsSleep(100);
+  lsSleep(10);
   end
 end
 
