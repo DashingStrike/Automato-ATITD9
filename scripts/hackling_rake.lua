@@ -132,16 +132,16 @@ function doit()
 		end
 
 		if step == 1 then
-		    task = "seperate.png";
+			task = "Separate Rotten Flax";
 			task_text = "Separate Straw";
 		elseif step == 2 then
-			task = "processing.png";
+			task = "Continue processing Rotten";
 			task_text = "Separate Tow";
 		elseif step == 3 then
-			task = "processing.png";
+			task = "Continue processing";
 			task_text = "Refine the Lint";
 		elseif step == 4 then
-			task = "clean.png";
+			task = "Clean the";
 			task_text = "Clean the Rake";
 		end
 		
@@ -152,11 +152,11 @@ function doit()
 		else
 		
 			srReadScreen();
-			clickAllImages("ThisIs.png");
+			clickAllText("This is");
 			lsSleep(100);
 		
 			srReadScreen();
-			clickAllImages("hacklingRake/" .. task);
+			clickAllText(task);
 			lsSleep(100);
 			if step == 1 then
 				straw = straw + per_rake;
@@ -174,7 +174,7 @@ function doit()
 			statusScreen("Timer Expired - Clicking window(s)\n\n----------------------------------------------\n1) Straw Removed: " .. straw .."/" .. num_loops*per_rake .. "\n2) Tow Seperated: " .. tow .. "/" .. num_loops*per_rake .. "\n3) Lint Refined: " .. lint .. "/" .. num_loops*per_rake .. "\n4) Cleanings: " .. clean .. "/" .. num_loops .. "\n----------------------------------------------\n\nFlax Processed: " .. (loop_count-1)*per_rake .. "\nFlax Remaining: " .. (num_loops*per_rake) - straw .. "\n\nElapsed Time: " .. getElapsedTime(startTime) .. "\n" .. warning, nil, 0.7, 0.7);
 			
 			srReadScreen();
-			clickAllImages("ThisIs.png")
+			clickAllText("This is")
 			lsSleep(100);
 		end
 
