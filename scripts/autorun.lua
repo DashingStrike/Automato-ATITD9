@@ -1,14 +1,14 @@
 -- autorun "plus" v1.1 by Ashen
 --
--- Auto run, dig for shards, inspect weeds, and forage. Those latter things disabled until new images are available.
+-- Auto run, dig for shards, inspect weeds, and forage.
 
 dofile("common.inc");
 
 askText = singleLine([[
 This script adds a crude auto-run support to ATITD, with convenient
 single-click actions for common things one tends to do while running
-all over Egypt that normally take multiple clicks (NOTE: disabled for
-now for T9). Press SHIFT in the ATITD window to begin.
+all over Egypt that normally take multiple clicks. Press SHIFT in
+the ATITD window to begin.
 ]]);
 
 lastX = 0;
@@ -48,10 +48,9 @@ function doit()
 	while true do
 		if ((ctr % 10) == 0) then
 			srReadScreen();
--- TODO: enable these when new images are available
---			clickAllImages("digroots.png");
---			clickAllImages("forage.png");
---			clickAllImages("inspectweed.png");
+			clickAllText("Dig under");
+			clickAllText("Forage this");
+			clickAllText("Inspect this");
 		end
 
 		if (lsControlHeld()) then
