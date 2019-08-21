@@ -34,6 +34,8 @@
 
 
 dofile("common.inc");
+dofile("settings.inc");
+
 
 Button = {};
 Button[0] = makePoint(45, 60); --NW
@@ -56,6 +58,7 @@ autoWater = true;
 pauseAfterHarvest = true;
 manualPin = false;
 saveCoords = true;
+seedName = "Tears";
 
 delayAfterHarvestPerPlant = 3000;
 grid_x = 260; -- Watermelon seeds are widest window width, 260
@@ -64,10 +67,10 @@ max_window_size = 425; -- We don't want to close out the Aquaduct window. This s
 
 firstLoop = 1;
 totalHarvests = 0;
---click_delay = 750;
+click_delay = 75;
 
 function doit()
-  askForWindow("This macro will assist you by planting seeds, watering/harvesting your pinned windows when you tap the hotkey. After seeds are planted, you will tap hotkey over each plant, it will then pin the windows for you and do first watering automatically. After first watering, you will then tap hotkey to water (after you see it grow).\n\nMust have 'Plant all crops where you stand' turned OFF! Right-Click pins/unpins a menu Must be ON! Right-Click opens a menu as pinned Must be ON! One-Click: Auto-take Piles ON!\n\nMake sure plant seed menu window AND Automato is in the TOP-RIGHT corner of the screen.");
+  askForWindow("This macro will assist you by planting seeds, watering/harvesting your pinned windows when you tap the hotkey. After seeds are planted, you will tap hotkey over each plant, it will then pin the windows for you and do first watering automatically. After first watering, you will then tap hotkey to water (after you see it grow).\n\nMust have 'Plant all crops where you stand': OFF! Right-Click pins/unpins a Menu: ON! Right-Click opens a menu as pinned: OFF! One-Click: Auto-take Piles: ON!\n\nMake sure plant seed menu window AND Automato is in the TOP-RIGHT corner of the screen.");
 
   center = getCenterPos();
   size = srGetWindowSize();
@@ -299,7 +302,7 @@ function main()
     safeClick(BuildButton[0], BuildButton[1]);
     lsSleep(click_delay);
   end
-    srSetMousePos(center[0],center[1]); -- BLAH
+    srSetMousePos(center[0],center[1]);
 end
 
 
@@ -318,7 +321,6 @@ function chooseMethod()
   was_shifted = lsMouseIsDown(2); --Button 3, which is middle mouse or mouse wheel
   key = "click MWheel ";
   end
-
   local is_done = false;
   count = 1;
   while not is_done do
@@ -328,49 +330,69 @@ function chooseMethod()
             "Key or Mouse to Trigger Watering/Harvest:");
 	y = y + 35;
 	lsSetCamera(0,0,lsScreenX*1.3,lsScreenY*1.3);
+  	dropdown_cur_value = readSetting("dropdown_cur_value",dropdown_cur_value);
 	dropdown_cur_value = lsDropdown("ArrangerDropDown", 10, y, 0, 200, dropdown_cur_value, dropdown_values);
+	writeSetting("dropdown_cur_value",dropdown_cur_value);
 	lsSetCamera(0,0,lsScreenX*1.1,lsScreenY*1.1);
 	y = y + 35;
       lsPrint(10, y, 0, 0.8, 0.8, 0xffffffff, "Seed Name:");
-      is_done, seedName = lsEditBox("seedName", 120, y-5, 0, 190, 30, 0.8, 0.8, 0x000000ff, "Tears");
+	seedName = readSetting("seedName",seedName);
+      is_done, seedName = lsEditBox("seedName", 120, y-5, 0, 190, 30, 0.8, 0.8, 0x000000ff, seedName);
+	writeSetting("seedName",seedName);
 	y = y + 35;
       lsPrint(10, y, 0, 0.8, 0.8, 0xffffffff, "How many plants (1-8):");
-      is_done, count = lsEditBox("count", 200, y, 0, 50, 30, 0.8, 0.8, 0x000000ff, 6);
+	count = readSetting("count",counter);
+      is_done, count = lsEditBox("count", 200, y, 0, 50, 30, 0.8, 0.8, 0x000000ff, count);
       count = tonumber(count);
       if not count then
         is_done = false;
         lsPrint(10, y+19, 10, 0.7, 0.7, 0xFF2020ff, "MUST BE A NUMBER");
         count = 6;
       end
+	writeSetting("count",count);
 	y = y + 35;
       lsPrint(10, y, 0, 0.8, 0.8, 0xffffffff, "Water per plant:");
-      is_done, water_req = lsEditBox("water_req", 200, y, 0, 50, 30, 0.8, 0.8, 0x000000ff, 1);
+	water_req = readSetting("water_req",water_req);
+      is_done, water_req = lsEditBox("water_req", 200, y, 0, 50, 30, 0.8, 0.8, 0x000000ff, water_req);
       water_req = tonumber(water_req);
       if not water_req then
         is_done = false;
         lsPrint(10, y+19, 10, 0.7, 0.7, 0xFF2020ff, "MUST BE A NUMBER");
         water_req = 1;
       end
+	writeSetting("water_req",water_req);
 	y = y + 35;
       lsPrint(10, y, 0, 0.8, 0.8, 0xffffffff, "Click Delay (ms):");
-      is_done, click_delay = lsEditBox("click_delay", 200, y, 0, 50, 30, 0.8, 0.8, 0x000000ff, 75);
+	click_delay = readSetting("click_delay",click_delay);
+      is_done, click_delay = lsEditBox("click_delay", 200, y, 0, 50, 30, 0.8, 0.8, 0x000000ff, click_delay);
       click_delay = tonumber(click_delay);
       if not click_delay then
         is_done = false;
         lsPrint(10, y+19, 10, 0.7, 0.7, 0xFF2020ff, "MUST BE A NUMBER");
         click_delay = 75;
       end
+	writeSetting("click_delay",click_delay);
 	y = y + 105;
       lsSetCamera(0,0,lsScreenX*1.5,lsScreenY*1.5);
+	autoWater = readSetting("autoWater",autoWater);
       autoWater = lsCheckBox(15, y, z, 0xffffffff, " Auto Gather Water", autoWater);
+	writeSetting("autoWater",autoWater);
 	y = y + 25;
+	pauseAfterHarvest = readSetting("pauseAfterHarvest",pauseAfterHarvest);
       pauseAfterHarvest = lsCheckBox(15, y, z, 0xffffffff, " Pause/Wait for Trigger after Harvest", pauseAfterHarvest);
+	writeSetting("pauseAfterHarvest",pauseAfterHarvest);
 	y = y + 25;
+	saveCoords = readSetting("saveCoords",saveCoords);
       saveCoords = lsCheckBox(15, y, z, 0xffffffff, " Remember plant coords between plantings", saveCoords);
+	writeSetting("saveCoords",saveCoords);
 	y = y + 25;
+	plantCloser = readSetting("plantCloser",plantCloser);
       plantCloser = lsCheckBox(15, y, z, 0xffffffff, " Plant Veggies closer together", plantCloser);
+	writeSetting("plantCloser",plantCloser);
 	y = y + 25;
+	manualPin = readSetting("manualPin",manualPin);
       manualPin = lsCheckBox(15, y, z, 0xffffffff, " Let me Pin plant windows Manually", manualPin);
+	writeSetting("manualPin",manualPin);
 	y = y + 35;
       lsPrint(10, y, 0, 0.9, 0.9, 0xffffffff, "Click Delay: Pause between clicking each plant");
 	y = y + 20;
@@ -387,7 +409,7 @@ function chooseMethod()
       error(quitMessage);
     end
   lsDoFrame();
-  lsSleep(50);
+  lsSleep(10);
   end
   return count;
 end
@@ -461,14 +483,23 @@ end
 
 
 function pinWindows()
-	srSetMousePos(bottomRightX, bottomRightY);
-	lsSleep(65);
-
     for i=1,#vegclickList do
 	checkBreak();
 	srSetMousePos(bottomRightX, bottomRightY);
-	safeClick(vegclickList[i][1], vegclickList[i][2], 1);
+	safeClick(vegclickList[i][1], vegclickList[i][2]); -- Open menu
+	lsSleep(50);
+	safeClick(bottomRightX, bottomRightY, 1); -- Right click to Pin
 	lsSleep(click_delay);
+    end
+	arrangeStashed(false, false, grid_x, grid_y, max_window_size);
+end
+
+
+function pinWindowsSLOW()
+--Alternative method (currently NOT used), but it's a bit slower
+    for i=1,#vegclickList do
+      openAndPin(vegclickList[i][1], vegclickList[i][2], 500)
+      stashWindow(vegclickList[i][1] + 5, vegclickList[i][2], BOTTOM_RIGHT);
     end
 	arrangeStashed(false, false, grid_x, grid_y, max_window_size);
 	srSetMousePos(center[0],center[1]);
@@ -690,8 +721,8 @@ function pickUpSeeds()
   	end
   srReadScreen();
 
-  bags = findText("Make nearby");
-  lsSleep(150);
+  bags = findText("nearby");
+  lsSleep(75);
 
 	if bags then
 	  srClickMouseNoMove(bags[0]+12,bags[1]+5);
