@@ -27,12 +27,9 @@ end
 function start()
 	for i=1, passCount do
 		-- refresh windows
-        message = "Refreshing"
-		clickAllText("This is");
+		clickAllText("This Rock Saw");
 		lsSleep(500);
 		
-		message = "Clicking " .. product;
-
         if cutstone then
 			clickAllText("Make a Cut Stone");
         elseif medstone then
