@@ -144,7 +144,7 @@ function doit()
 	if (pauseAfterHarvest and not fullAutoMode) or abort then
 	  waitForShift();
 	else
-	  sleepWithStatus(delayAfterHarvestPerPlant*#harvest, "Harvesting vegetables ...");
+	  sleepWithStatus(delayAfterHarvestPerPlant*#harvest, "Harvesting vegetables ...",nil, 0.7, 0.7);
 	end
 
   end
@@ -170,11 +170,12 @@ function waterThese()
   
   local is_done = false;
   while not is_done do
-	if lsButtonText(5, lsScreenY - 30, z, 100, 0xFFFFFFff, "Abort") then
+	if lsButtonText(lsScreenX - 110, lsScreenY - 60, z, 100, 0xFFFFFFff, "Abort") then
 	  abort = 1;
 	  fullAutoMode = nil;
 	  break;
 	end
+
     checkBreak();
     local is_shifted = lsShiftHeld();
     if (dropdown_cur_value == 1) then
@@ -191,7 +192,7 @@ function waterThese()
   if fullAutoMode then
     statusScreen("Waiting on Harvest ...\n\n[" .. tended .. "] Tendings -- All Plants Watered\n\n\nClick Abort button if something went wrong. This will close all veggie windows and start over.", nil, 0.7, 0.7);
   elseif not firstWater then
-    statusScreen("When ALL plants GROW:\n" .. key .. " to Water plants\n\n[" .. tended .. "] Tendings -- All Plants Watered\n\nYou can " .. key .. " even if you are still watering (animations) last growth. Watering/Harvests will be queued!\n\n\nClick Abort button if something went wrong. This will close all veggie windows and start over.", nil, 0.7, 0.7);
+    statusScreen("When ALL plants GROW:\n" .. key .. " to Water plants\n\n[" .. tended-1 .. "] Tendings -- All Plants Watered\n\nYou can " .. key .. " even if you are still watering (animations) last growth. Watering/Harvests will be queued!\n\n\nClick Abort button if something went wrong. This will close all veggie windows and start over.", nil, 0.7, 0.7);
   elseif firstWater == 1 and manualPin then
     statusScreen("After you pin your windows:\n\n" .. key .. " to water pinned plants", nil, 0.7, 0.7);
   end
@@ -201,7 +202,7 @@ function waterThese()
     if (is_shifted and not was_shifted) or (firstWater and not manualPin) or harvestReady or (fullAutoMode and not finalTending) then
 	checkBreak();
 	if #waters == 0 and #harvest == 0 then
-	  message = "Could not find any pinned veggies!\n\nThis usually happens if you missed a plant when you " .. key .. ".\n\nHigh resolutions, such as 1920x1080 has such a small margin of where you clicked on veggie.\n\nIf avatar moves or body is facing a certain direction MIGHT be a factor...\n\n" .. key .. " to continue"
+	  message = "Could not find any pinned veggies!\n\nThis usually happens if you missed a plant when you " .. key .. ".\n\nHigh resolutions, such as 1920x1080 has such a small margin of where you clicked on veggie.\n\nIf avatar moves or body is facing a certain direction MIGHT be a factor...\n\n" .. key .. " to return to Main menu."
 	  abort = 1;
 	  fullAutoMode = nil;
 	  displayError(message);
@@ -236,11 +237,11 @@ function waterThese()
 			end
 
 			  if tended == 1 then
-			    stats = stats .. "Tend #" .. tended .. " @ First Water / Timer Started\n"; 
+			    stats = stats .. "Tend #" .. tended-1 .. " @ First Water / Timer Started\n"; 
 			    waterTimer = lsGetTimer();
 			    waterTimerAuto = lsGetTimer();
 			  else
-			    stats = stats .. "Tend #" .. tended .. " @ " .. (lsGetTimer() - waterTimer) .. " ms - " .. round((lsGetTimer() - waterTimer)/1000, 2) .. " s\n";
+			    stats = stats .. "Tend #" .. tended-1 .. " @ " .. (lsGetTimer() - waterTimer) .. " ms - " .. round((lsGetTimer() - waterTimer)/1000, 2) .. " s\n";
 				if not fullAutoMode then
 				  vegclickTimer[#vegclickTimer + 1] = {lsGetTimer() - waterTimerAuto}
 				  waterTimerAuto = lsGetTimer();
@@ -268,15 +269,16 @@ function waterThese()
 
 
 		if fullAutoMode and tended == 1 then
-		  sleepWithStatus(vegclickTimer[tended][1]-3000, "Tended: " .. tended .. "\nTimer: " .. vegclickTimer[tended][1] .. " (-3000 water gather =" .. vegclickTimer[tended][1]-3000 .. ")");
+		  sleepWithStatus(vegclickTimer[tended][1]-3000, "Tended: " .. tended-1 .. "\nTimer: " .. vegclickTimer[tended][1] .. "\n              (-3000 water gather =" .. vegclickTimer[tended][1]-3000 .. ")",nil, 0.7, 0.7);
 		elseif fullAutoMode and (tended == #vegclickTimer+1) then
 		  finalTending = 1;
-		  lsSleep(100);
+		  --lsSleep(100);
 		elseif fullAutoMode then
-		  sleepWithStatus(vegclickTimer[tended][1], "Tended: " .. tended .. "\nTimer: " .. vegclickTimer[tended][1]);
-		else
-		    lsSleep(100);
+		  sleepWithStatus(vegclickTimer[tended][1], "Tended: " .. tended .. "\nTimer: " .. vegclickTimer[tended][1],nil, 0.7, 0.7);
+		--else
+		    --lsSleep(100);
 		end
+  lsSleep(10);
   end
 end
 
@@ -444,12 +446,18 @@ function closeAllWindows(x, y, width, height)
       while #images >= 1 do
 	done = true;
 	safeClick(images[#images][0], images[#images][1], right);
-	sleepWithStatus(click_delay, "Closing Windows");
+	sleepWithStatus(click_delay, "Closing Windows",nil, 0.7, 0.7);
 	srReadScreen();
 	images = findAllImagesInRange(image, x, y, width, height);
       end
     end
   end
+      --We just harvested and closed any windows... Is there anything we want to do before we continue to next round?
+	if fullAutoModeQueuedOff then
+	  fullAutoMode = nil; -- We clicked disengage button, turn off, reset flag
+	  fullAutoModeQueuedOff = nil;
+        sleepWithStatus(1500, "Disengaging Auto Mode...\n\nReturning to Menu, after Harvest!",nil, 0.7, 0.7)
+	end
 end
 
 
@@ -575,7 +583,7 @@ vegclickList = {};
       error "Clicked End Script button";
     end
     lsDoFrame();
-    lsSleep(50);
+    lsSleep(10);
   end
 end
 
@@ -600,8 +608,6 @@ function waitForShift()
 
   while not is_done do
 	if ButtonText(5, lsScreenY - 30, z, 150, 0xFFFFFFff, "Pick Seeds Up") then
-
-
 	  pickUpSeeds();
 	  closeAllWindows(0,0, size[0]-max_window_size, size[1]); -- Look for windows for any left over planted windows
 	  closeAllWindows(size[0]-500, size[1]-200, size[0], size[1]); -- Look for any leftover windows (stashed) at bottom right.
@@ -637,7 +643,7 @@ function waitForShift()
 	break;
     end
     was_shifted = is_shifted;
-    lsSleep(100);
+    lsSleep(10);
   end
 end
 
@@ -717,7 +723,7 @@ function pickUpSeeds()
 	  srClickMouseNoMove(utility[0]+12,utility[1]+5);
 	  lsSleep(75);
   	else
-	  sleepWithStatus(1250, "Error: Could not find menu option 'Utility'\n\nWas part of the menu obscured behind Automato, perhaps?");
+	  sleepWithStatus(1250, "Error: Could not find menu option 'Utility'\n\nWas part of the menu obscured behind Automato, perhaps?",nil, 0.7, 0.7);
   	end
   srReadScreen();
 
@@ -728,7 +734,7 @@ function pickUpSeeds()
 	  srClickMouseNoMove(bags[0]+12,bags[1]+5);
 	  lsSleep(200);
 	else
-	  sleepWithStatus(1250, "Error: Could not find menu option 'Make nearby portables look like bags'\n\nWas part of the menu obscured behind Automato, perhaps?");
+	  sleepWithStatus(1250, "Error: Could not find menu option 'Make nearby portables look like bags'\n\nWas part of the menu obscured behind Automato, perhaps?",nil, 0.7, 0.7);
   end
 
 
@@ -745,7 +751,7 @@ end
 function Stats()
     lsDoFrame();
   while 1 do
-	if lsButtonText(lsScreenX - 110, lsScreenY - 60, z, 100, 0xFFFFFFff, "Exit") then
+	if lsButtonText(lsScreenX - 110, lsScreenY - 60, z, 100, 0xFFFFFFff, "Back") then
 	  break;
 	end
 	if ButtonText(10, lsScreenY - 30, z, 175, 0x80ff80ff, "Engage Auto Mode!") then
@@ -760,7 +766,7 @@ function Stats()
 
     checkBreak();
     statusScreen("Macro has been running: " .. getElapsedTime(thisSessionTimer) .. "\n\nTotal Harvests: " .. totalHarvests .. "\n\nLast Tending/Harvest Timer Report:\n\n" .. stats, nil, 0.7, 0.7);
-    lsSleep(200);
+    lsSleep(10);
   end
 end
 
@@ -782,4 +788,94 @@ fullAutoMode = 1;
       end
     end
   io.close(file);
+end
+
+--This is the same function in common.inc/sub files.  This is added so that some buttons continue to display while "sleeping" 
+function sleepWithStatus(delay_time, message, color, scale)
+
+local waitChars = {"-", "\\", "|", "/"};
+local waitFrame = 1;
+
+
+  if not color then
+    color = 0xffffffff;
+  end
+  if not delay_time then
+    error("Incorrect number of arguments for sleepWithStatus()");
+  end
+  if not scale then
+    scale = 0.8;
+  end
+  local start_time = lsGetTimer();
+  while delay_time > (lsGetTimer() - start_time) do
+    local frame = math.floor(waitFrame/5) % #waitChars + 1;
+    time_left = delay_time - (lsGetTimer() - start_time);
+    local waitMessage = "Waiting ";
+    if delay_time >= 1000 then
+      waitMessage = waitMessage .. time_left .. " ms ";
+    end
+    lsPrintWrapped(10, 50, 0, lsScreenX - 20, scale, scale, 0xd0d0d0ff,
+		   waitMessage .. waitChars[frame]);
+    statusScreen(message, color, nil, scale);
+    lsSleep(tick_delay);
+    waitFrame = waitFrame + 1;
+  end
+
+--Add Extra Buttons here...
+
+	if fullAutoMode and not fullAutoModeQueuedOff then
+	  if ButtonText(10, lsScreenY - 30, z, 175, 0xff6666ff, "Disengage Auto Mode/Finish Up") then
+	    fullAutoModeQueuedOff = 1;
+          sleepWithStatus(1500, "Disengaging Auto Mode...\n\nReturning to Menu, after Harvest!",nil, 0.7, 0.7)
+	  end
+	end
+
+
+
+end
+
+
+function statusScreen(message, color, allow_break, scale)
+  if not message then
+    message = "";
+  end
+  if not color then
+    color = 0xFFFFFFff;
+  end
+  if allow_break == nil then
+    allow_break = true;
+  end
+  if not scale then
+    scale = 0.8;
+  end
+  lsPrintWrapped(10, 80, 0, lsScreenX - 20, scale, scale, color, message);
+  lsPrintWrapped(10, lsScreenY-100, 0, lsScreenX - 20, scale, scale, 0xffd0d0ff,
+		 error_status);
+  if lsButtonText(lsScreenX - 110, lsScreenY - 30, z, 100,
+		  0xFFFFFFff, "End script") then
+    error(quit_message);
+  end
+  if allow_break then
+    lsPrint(10, 10, 0, 0.7, 0.7, 0xB0B0B0ff,
+	    "Hold Ctrl+Shift to end this script.");
+    if allow_pause then
+      lsPrint(10, 24, 0, 0.7, 0.7, 0xB0B0B0ff,
+	      "Hold Alt+Shift to pause this script.");
+    end
+    checkBreak();
+  end
+
+--Add Extra Buttons here...
+
+	if fullAutoMode and not fullAutoModeQueuedOff then
+	  if ButtonText(10, lsScreenY - 30, z, 175, 0xff6666ff, "Disengage Auto Mode/Finish Up") then
+	    fullAutoModeQueuedOff = 1;
+          statusScreen("Disengaging Auto Mode...\n\nReturning to Menu, after Harvest!",nil, 0.7, 0.7)
+	  end
+	end
+
+
+
+  lsSleep(tick_delay);
+  lsDoFrame();
 end
