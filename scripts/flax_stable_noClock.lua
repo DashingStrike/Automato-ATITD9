@@ -21,7 +21,6 @@ askText = singleLine([[
   planting and fails to move downward, it probably clicked on your
   chat window). 
   Will plant a spiral grid heading North-East of current  location.  
-  'Right click pins/unpins a menu' must be ON.
 ]]);
 
 -- Global parameters set by prompt box.
@@ -33,6 +32,7 @@ seeds_per_pass = 4;
 seeds_per_iter = 0;
 finish_up = 0;
 finish_up_message = "";
+safeClicking = true;
 
 
 -- If getting popup errors about "don't stack flax, it's an exploit" then the extraGridSpacing option should increase gaps in the grid
@@ -228,12 +228,16 @@ function promptFlaxNumbers()
       y = y + 32;
     end
 
+    safeClicking = readSetting("safeClicking",safeClicking);
+    safeClicking = CheckBox(120, y-6, z+10, 0xFFFFFFff, " Use safeClick", safeClicking, 0.7, 0.7);
+    writeSetting("safeClicking",safeClicking);
+
     extraGridSpacing = readSetting("extraGridSpacing",extraGridSpacing);
-    extraGridSpacing = CheckBox(120, y+5, z+10, 0xFFFFFFff, " Extra Spacing on Grid", extraGridSpacing, 0.7, 0.7);
+    extraGridSpacing = CheckBox(120, y+10, z+10, 0xFFFFFFff, " Extra Spacing on Grid", extraGridSpacing, 0.7, 0.7);
     writeSetting("extraGridSpacing",extraGridSpacing);
 
     is_plant = readSetting("is_plant",is_plant);
-    is_plant = CheckBox(120, y+25, z+10, 0xFFFFFFff, " Grow Flax", is_plant, 0.7, 0.7);
+    is_plant = CheckBox(120, y+26, z+10, 0xFFFFFFff, " Grow Flax", is_plant, 0.7, 0.7);
     writeSetting("is_plant",is_plant);
 
     y = y + 36;
@@ -248,14 +252,14 @@ function promptFlaxNumbers()
       space_to_leave = false; 
       lsPrintWrapped(10, y, z+10, lsScreenX - 20, 0.7, 0.7, 0xffff40ff, "Uncheck \"Grow Flax\" for SEEDS!");
       y = y + 24;
-      lsPrintWrapped(10, y, z+10, lsScreenX - 20, 0.7, 0.7, 0xD0D0D0ff,
+      lsPrintWrapped(10, y, z+10, lsScreenX - 20, 0.65, 0.65, 0xD0D0D0ff,
                      "This will plant and harvest a " .. grid_w .. "x" ..
                      grid_w .. " grid of " .. seedType .. " Flax " .. num_loops ..
                      " times, requiring " .. math.floor(grid_w * grid_w * num_loops) ..
                      " seeds, doing " .. math.floor(grid_w*grid_w*num_loops) ..
                      " flax harvests.\n\n" ..
-                     "Put automato as far right as possible, you may need to " ..
-                     " reduce my width (or minimize me!)");
+                     "Put automato as far right as possible, you may need to" ..
+                     " reduce it\'s width, move partially offscreen or minimize it. Automato should not partially cover any planted windows. Unchecking safeClick (you must NOT move mouse when unchecked) may help on multi-monitors where dragging incorrectly sometimes.");
     else
     lsPrintWrapped(10, y, z+10, lsScreenX - 20, 0.7, 0.7, 0x00ff00ff, "Check \"Grow Flax\" for FLAX!");
     y = y + 24;
@@ -308,7 +312,11 @@ function getPlantWindowPos()
   else
     plantPos = lastPlantPos;
     if plantPos then
-      safeClick(plantPos[0], plantPos[1]);
+	if safeClicking then
+        safeClick(plantPos[0], plantPos[1]);
+	else
+        srClickMouse(plantPos[0], plantPos[1]);
+	end
       lsSleep(refresh_time);
     end
   end
@@ -411,17 +419,26 @@ function plantAndPin(loop_count)
         x_pos = x_pos + dx[dxi];
         y_pos = y_pos + dy[dxi];
 	local spot = getWaitSpot(xyFlaxMenu[0], xyFlaxMenu[1]);
+
+	if safeClicking then
         safeClick(xyCenter[0] + walk_px_x*dx[dxi],
                   xyCenter[1] + walk_px_y*dy[dxi], 0);
-
+	else
+        srClickMouse(xyCenter[0] + walk_px_x*dx[dxi],
+                  xyCenter[1] + walk_px_y*dy[dxi], 0);
+	end
 
 	--If you keep getting popups about don't stack flax, it's an exploit, then do a short extra walk before planting
 	if extraGridSpacing == true then
 	  lsSleep(100);
+	if safeClicking then
         safeClick(xyCenter[0] + walk_px_x*dx[dxi],
                   xyCenter[1] + walk_px_y*dy[dxi], 0);
+	else
+        srClickMouse(xyCenter[0] + walk_px_x*dx[dxi],
+                  xyCenter[1] + walk_px_y*dy[dxi], 0);
 	end
-
+	end
 	
         spot = getWaitSpot(xyFlaxMenu[0], xyFlaxMenu[1]);
 	if not waitForChange(spot, 1500) then
@@ -502,8 +519,11 @@ end
 function clickPlant(xyPlantFlax)
   local result = xyFlaxMenu;
   local spot = getWaitSpot(xyFlaxMenu[0], xyFlaxMenu[1]);
-  safeClick(xyPlantFlax[0], xyPlantFlax[1], 0);
-
+  if safeClicking then
+    safeClick(xyPlantFlax[0], xyPlantFlax[1], 0);
+  else
+    srClickMouse(xyPlantFlax[0], xyPlantFlax[1], 0);
+  end
   local plantSuccess = waitForChange(spot, 1500);
   if not plantSuccess then
     error_status = "No flax bed was placed when planting.";
@@ -549,7 +569,11 @@ function harvestAll(loop_count)
     srReadScreen();
     local tops = findAllText(thisIs);
     for i=1,#tops do
-      safeClick(tops[i][0], tops[i][1]);
+      if safeClicking then
+        safeClick(tops[i][0], tops[i][1]);
+      else
+        srClickMouse(tops[i][0], tops[i][1]);
+      end
     end
 
     if is_plant then
