@@ -191,15 +191,17 @@ function waterThese()
 
   if fullAutoMode then
     statusScreen("Waiting on Harvest ...\n\n[" .. tended .. "] Tendings -- All Plants Watered\n\n\nClick Abort button if something went wrong. This will close all veggie windows and start over.", nil, 0.7, 0.7);
+  refreshWindows();
   elseif not firstWater then
     statusScreen("When ALL plants GROW:\n" .. key .. " to Water plants\n\n[" .. tended-1 .. "] Tendings -- All Plants Watered\n\nYou can " .. key .. " even if you are still watering (animations) last growth. Watering/Harvests will be queued!\n\n\nClick Abort button if something went wrong. This will close all veggie windows and start over.", nil, 0.7, 0.7);
+  refreshWindows();
   elseif firstWater == 1 and manualPin then
     statusScreen("After you pin your windows:\n\n" .. key .. " to water pinned plants", nil, 0.7, 0.7);
   end
 
+    if (is_shifted and not was_shifted) or (firstWater and not manualPin) or harvestReady or (fullAutoMode and not finalTending) then
   refreshWindows();
 
-    if (is_shifted and not was_shifted) or (firstWater and not manualPin) or harvestReady or (fullAutoMode and not finalTending) then
 	checkBreak();
 	if #waters == 0 and #harvest == 0 then
 	  message = "Could not find any pinned veggies!\n\nThis usually happens if you missed a plant when you " .. key .. ".\n\nHigh resolutions, such as 1920x1080 has such a small margin of where you clicked on veggie.\n\nIf avatar moves or body is facing a certain direction MIGHT be a factor...\n\n" .. key .. " to return to Main menu."
@@ -304,7 +306,6 @@ function main()
     safeClick(BuildButton[0], BuildButton[1]);
     lsSleep(click_delay);
   end
-    srSetMousePos(center[0],center[1]);
 end
 
 
@@ -618,11 +619,12 @@ function waitForShift()
 	if saveCoords then
 		if ButtonText(5, lsScreenY - 60, z, 150, 0xFFFFFFff, "Reset Coords+Replant") then
 	  	  firstLoop = 1;
+		  srSetMousePos(center[0],center[1]);
 	  	  break;
 		end
 	end
 
-	if #harvest > 0 then
+	if #harvest > 0 and not manualPin then
 	  if ButtonText(lsScreenX - 140, lsScreenY - 60, z, 160, 0xFFFFFFff, "Stats/Full Auto Mode", 0.8, 0.8) then
 	    Stats();
 	  end
@@ -756,11 +758,11 @@ function Stats()
 	if lsButtonText(lsScreenX - 110, lsScreenY - 60, z, 100, 0xFFFFFFff, "Back") then
 	  break;
 	end
-	if ButtonText(10, lsScreenY - 30, z, 175, 0x80ff80ff, "Engage Auto Mode!") then
-	  saveWaterTimer();
-	  sleepWithStatus(1500, "Engaging Auto Water Mode!\n\nAlso wrote times to veggie_semiAuto.txt", nil, 0.7, 0.7);
-	  break;
-	end
+	  if ButtonText(10, lsScreenY - 30, z, 175, 0x80ff80ff, "Engage Auto Mode!") then
+	    saveWaterTimer();
+	    sleepWithStatus(1500, "Engaging Auto Water Mode!\n\nAlso wrote times to veggie_semiAuto.txt", nil, 0.7, 0.7);
+	    break;
+	  end
 --	if lsButtonText(10, lsScreenY - 60, z, 100, 0xFFFFFFff, "Load File") then
 --	  parseWaterTimer()
 --	end
