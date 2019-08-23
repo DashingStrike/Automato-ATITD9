@@ -1,14 +1,10 @@
 -- Gather_Resources.lua v1.0 -- by Darkfyre
 -- Revised by Rhaom -- Added auto click movement
 
-dofile("common.inc");
-dofile("settings.inc");
-dofile("flax_common.inc");
-dofile("screen_reader_common.inc");
-dofile("ui_utils.inc");
 
-loadfile("screen_reader_common.inc")();
-loadfile("ui_utils.inc")();
+dofile("common.inc");
+dofile("flax_common.inc");
+dofile("settings.inc");
 
 button_names = {"Grass","Slate","Clay"};
 counter = 0;
@@ -17,33 +13,6 @@ postClickDelay = 500;
 moveDirection = 0;
 moveCounter = 1;
 autoMove = false;
-
-function checkOK()
-	while 1 do
-		checkBreak();
-		srReadScreen();
-		OK = srFindImage("OK.png");
-			if OK then
-			sleepWithStatus(100, "A popup box has been detected!\n\nAre you out of water?\n\nRun to nearby water (leave this popup open).\n\nAs soon as water icon appears, moves will be refilled and popup window closed.");
-			  if drawWater(1) then
-			    closePopUp();
-			  end
-			else
-			break;
-		end
-	end
-end
-
-
-function closePopUp()
-	srReadScreen();
-	local OK = srFindImage("OK.png");
-		if OK then
-			safeClick(OK[0]+3, OK[1]-5);
-	end
-end
-
-
 
 
 function gatherGrass()
@@ -106,7 +75,6 @@ end
 
 function gatherClay()
 	while 1 do
-		checkOK();
 		
 		if (autoMove) then
 			while not is_done do
@@ -149,7 +117,7 @@ function gatherClay()
 end
 
 function doit()
-gatherResources();
+  gatherResources();
 end
 
 function gatherResources()
@@ -221,6 +189,7 @@ end
 
 function moveCharacter()
 	srReadScreen();
+	xyWindowSize = srGetWindowSize();
 	local xyCenter = getCenterPos();
 	if moveDirection == 0 then
 		if directionCounter == 0 then
