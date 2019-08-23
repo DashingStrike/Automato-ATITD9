@@ -70,7 +70,7 @@ totalHarvests = 0;
 click_delay = 75;
 
 function doit()
-  askForWindow("This macro will assist you by planting seeds, watering/harvesting your pinned windows when you tap the hotkey. After seeds are planted, you will tap hotkey over each plant, it will then pin the windows for you and do first watering automatically. After first watering, you will then tap hotkey to water (after you see it grow).\n\nMust have 'Plant all crops where you stand': OFF! Right-Click pins/unpins a Menu: ON! One-Click: Auto-take Piles: ON!\n\nMake sure plant seed menu window AND Automato is in the TOP-RIGHT corner of the screen.");
+  askForWindow("This macro will assist you by planting seeds, watering/harvesting your pinned windows when you tap the hotkey. After seeds are planted, you will tap hotkey over each plant, it will then pin the windows for you and do first watering automatically. After first watering, you will then tap hotkey to water (after you see it grow).\n\nMust have 'Plant all crops where you stand': OFF! Right-Click pins/unpins a Menu: ON! Right-Click opens a Menu as Pinned: ON! One-Click: Auto-take Piles: ON!\n\nMake sure plant seed menu window AND Automato is in the TOP-RIGHT corner of the screen.");
 
   center = getCenterPos();
   size = srGetWindowSize();
@@ -491,23 +491,17 @@ end
 
 
 function pinWindows()
+	srSetMousePos(bottomRightX, bottomRightY);
+	lsSleep(65);
+
     for i=1,#vegclickList do
 	checkBreak();
 	srSetMousePos(bottomRightX, bottomRightY);
-	safeClick(vegclickList[i][1], vegclickList[i][2], 1); -- Open menu
-	--lsSleep(50);
-	--lsSleep(10);
+	safeClick(vegclickList[i][1], vegclickList[i][2], 1);
 	lsSleep(click_delay);
-
-	srReadScreen();
-	foundPin = srFindImageInRange("unpin.png", size[0]-max_window_size, size[1]-200, max_window_size, 500) -- Check Lower Right corner if stashed window is pinned
-	if not foundPin then
-	  safeClick(bottomRightX-5, bottomRightY-5, 1); -- Right click to Pin
-	end
-
-	--lsSleep(click_delay);
     end
 	arrangeStashed(false, false, grid_x, grid_y, max_window_size);
+	srSetMousePos(center[0],center[1]);
 end
 
 
