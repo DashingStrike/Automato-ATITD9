@@ -26,7 +26,7 @@ function doit()
 		lsSleep(500)
 		srReadScreen()
 		
-		hasWood = srFindImageInRange("wood/GatherWood.png", winPosX, winPosY, 80, 15)
+		hasWood = srFindImageInRange("wood/GatherWood.png", winPosX, winPosY, 180, 115)
 		
 		if hasWood == nil then
 			statusScreen("Tree " .. harvestIndex .. "/" .. #buttons .. " has no wood.  Waiting...")
