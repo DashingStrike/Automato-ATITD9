@@ -3,8 +3,7 @@
 -- Updated by Manon for T9 Beta
 --
 
-dofile("screen_reader_common.inc");
-dofile("ui_utils.inc");
+dofile("common.inc");
 
 delay_time = 3000;
 total_delay_time = 300000;
@@ -15,7 +14,7 @@ function doit()
 	srReadScreen();
 	xyWindowSize = srGetWindowSize();
 	
-	buttons = findAllImages("wood/GatherWood.png");
+	buttons = findAllImages("wood/This.png");
 		
 	harvestIndex = 1
 	
