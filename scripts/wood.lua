@@ -21,7 +21,7 @@ function refreshWindows()
     this = findAllText("This");
     Bonfire = findAllText("Bonfire");
     for i=1,#this do
-        safeClick(this[i][0]+10, this[i][1]);
+        clickText(this[i]);
     end
     lsSleep(500);
 end
@@ -31,7 +31,7 @@ function findWood()
     clickWood = findAllText("Gather Wood");
     nowood = findAllText("no Wood")
     for i=1,#clickWood do
-        safeClick(clickWood[i][0]+10, clickWood[i][1]);
+        clickText(clickWood[i]);
     end
 end
 
@@ -46,7 +46,8 @@ function bonfire()
         if max then
             safeClick(max[0]+5,max[1]+5,1);
         else
-            sleepWithStatus(500, "Could not find a bonfire");
+            sleepWithStatus(500, "Could not add wood to the bonfire");
         end
     end
 end
+
