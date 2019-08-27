@@ -7,7 +7,7 @@ dofile("common.inc");
 
 function doit()
 	promptParameters();
-	askForWindow("Open and pin as many Wood Planes as you want to use.\n\nAutomatically planes boards from any number of Wood Plane or Carpentry Shop windows. Will repair the wood planes. Make sure to carry Slate blades!\n\nThe automato window must be in the TOP-RIGHT corner of the screen.\n\nStand where you can reach all Wood Planes with all ingredients on you.");
+	askForWindow("Open and pin as many Wood Planes as you want to use.\n\nAutomatically planes boards from any number of Wood Plane or Carpentry Shop windows. Will repair the wood planes. Make sure to carry Slate blades!\n\nThe automato window must be in the TOP-RIGHT corner of the screen.\nStand where you can reach all Wood Planes with all ingredients on you.\nYou need to have 'Use the chat area instead of popups for many messages' enabled in the interface options.");
     if(arrangeWindows) then
 		arrangeInGrid(false, false, 360, 130);
 		while (true) do
