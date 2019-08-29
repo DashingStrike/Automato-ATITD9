@@ -3,20 +3,21 @@
 --
 
 dofile("common.inc");
-
+dofile("settings.inc");
 
 function doit()
 	promptParameters();
-	askForWindow("Open and pin as many Wood Planes as you want to use.\n\nAutomatically planes boards from any number of Wood Plane or Carpentry Shop windows. Will repair the wood planes. Make sure to carry Slate blades!\n\nThe automato window must be in the TOP-RIGHT corner of the screen.\nStand where you can reach all Wood Planes with all ingredients on you.\nYou need to have 'Use the chat area instead of popups for many messages' enabled in the interface options.");
+	askForWindow("Open and pin as many Wood Planes as you want to use.\n\nAutomatically planes boards from any number of Wood Plane or Carpentry Shop windows. Will repair the wood planes. Make sure to carry Slate blades!\n\nThe automato window must be in the TOP-RIGHT corner of the screen.\nStand where you can reach all Wood Planes with all ingredients on you.");
     if(arrangeWindows) then
-		arrangeInGrid(false, false, 360, 130);
-		while (true) do
-        	checkBreak();
-        	refreshWindows();
-        	repairBoards(); -- Repairs Wood Planes
-        	planeBoards(); -- Planes Boards
-        end
+	arrangeInGrid(false, false, 360, 130);
     end
+		while (true) do
+        	  checkBreak();
+        	  closePopUp();
+        	  refreshWindows();
+        	  repairBoards(); -- Repairs Wood Planes
+        	  planeBoards(); -- Planes Boards
+        	end
 end
 
 function promptParameters()
@@ -38,14 +39,17 @@ function promptParameters()
 
 lsPrintWrapped(10, y, z+10, lsScreenX - 20, 0.7, 0.7, 0xD0D0D0ff, 
 			"Board Maker V2.0 Rewrite by Manon for T9\n\n");
-
+		arrangeWindows = readSetting("arrangeWindows",arrangeWindows);
 		arrangeWindows = lsCheckBox(10, 40, z, 0xFFFFFFff, "Arrange windows", arrangeWindows);
+		writeSetting("arrangeWindows",arrangeWindows);
 		y = y + 32;
 
 lsPrintWrapped(10, 60, z+10, lsScreenX - 20, 0.7, 0.7, 0xD0D0D0ff, 
 			"Will sort your pinned Wood Planes into a grid on your screen.");
 
+		unpinWindows = readSetting("unpinWindows",unpinWindows);
 		unpinWindows = lsCheckBox(10, 100, z, 0xFFFFFFff, "Unpin windows on exit", unpinWindows);
+		writeSetting("unpinWindows",unpinWindows);
 		y = y + 32;
 
 		lsPrintWrapped(10, 120, z+10, lsScreenX - 20, 0.7, 0.7, 0xD0D0D0ff, 
@@ -101,4 +105,18 @@ function cleanup()
 	if(unpinWindows) then
 		closeAllWindows();
 	end
+end
+
+function closePopUp()
+    while 1 do -- Perform a loop in case there are multiple pop-ups behind each other; this will close them all before continuing.
+        checkBreak();
+        srReadScreen();
+        OK = srFindImage("OK.png");
+        if OK then
+            srClickMouseNoMove(OK[0]+2,OK[1]+2, true);
+            lsSleep(100);
+        else
+            break;
+        end
+    end
 end
