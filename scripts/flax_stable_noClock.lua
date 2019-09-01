@@ -37,7 +37,10 @@ safeClicking = true;
 
 -- If getting popup errors about "don't stack flax, it's an exploit" then the extraGridSpacing option should increase gaps in the grid
 -- Default of extraGridSpacingDelay is 100. But if you're still getting errors, try increasing 50-100 at a time.
-extraGridSpacing = true;
+
+-- Well it seems this extraGridSpacing wasn't really needed. I thought this was the reason for the Exploit popup.  It turns out that sometimes when you don't move or minimize your icon tray, it might click on it and hence, you don't walk south correctly.
+
+extraGridSpacing = false;
 extraGridSpacingDelay = 100;
 
 seedType = "Old";
