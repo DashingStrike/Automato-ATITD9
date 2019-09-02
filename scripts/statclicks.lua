@@ -385,13 +385,13 @@ function doTasks()
             elseif curTask == "Hackling Rake" then
                hacklingRake();
             elseif curTask == "Dig Dirt" then
-               t = srFindImage("dirt.png", 10000);
+               t = srFindImage("statclicks/dirt.png", 10000);
                if t then
    --               lsPrintln("Found dirt");
                   safeClick(t[0] + 5, t[1] + 5);
                end
             elseif curTask == "Dig Limestone" then
-               t = srFindImage("limestone.png", 5000);
+               t = srFindImage("statclicks/limestone.png", 5000);
                if t then
  --                lsPrintln("Found limestone");
                   safeClick(t[0] + 5, t[1] + 5);
