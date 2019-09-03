@@ -493,7 +493,7 @@ end
 
 function pinWindows()
 	srSetMousePos(bottomRightX, bottomRightY);
-	lsSleep(65);
+	lsSleep(click_delay);
 
     for i=1,#vegclickList do
 	checkBreak();
@@ -575,7 +575,9 @@ vegclickList = {};
       index = index + 1;
     end
 
-
+  srReadScreen();
+  srMakeImage("mousePos", mx, my, 5, 5);
+  srShowImageDebug("mousePos", 15, lsScreenY-15, 0.0, 2.0);
 
     if #vegclickList == count then -- Break out of loop once #plants clicked
     lsDoFrame();
@@ -698,7 +700,8 @@ function displayError(message)
       is_shifted = lsMouseIsDown(2); --Button 3, which is middle mouse or mouse wheel
     end
     
-    if is_shifted and not was_shifted then
+    --if is_shifted and not was_shifted then
+    if lsShiftHeld() then
 	break;
     end
     was_shifted = is_shifted;
@@ -833,9 +836,6 @@ local waitFrame = 1;
           sleepWithStatus(1500, "Disengaging Auto Mode...\n\nReturning to Menu, after Harvest!",nil, 0.7, 0.7)
 	  end
 	end
-
-
-
 end
 
 
