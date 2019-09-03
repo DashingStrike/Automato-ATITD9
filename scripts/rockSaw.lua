@@ -1,6 +1,6 @@
 -- rockSaw.lua
 -- by Cegaiel - v1.0 added October 18, 2018
--- Revised by Rhaom - August 21, 2019
+
 
 dofile("common.inc");
 dofile("settings.inc");
@@ -11,32 +11,45 @@ flystoneTimer = 5;
 pulleyTimer = 10;
 duckTeppyOffset = 10; -- How many extra seconds to add (to each real-life minute) to compensate for game time
 timer = 0;   -- Just a default to prevent error
-arrangeWindows = true;
+tol = 5000;  -- Increase tolerance if Automato isn't finding images. Try increasing 500 at a time
 
-askText = "Rock Saw v1.0 - by Cegaiel & Revised by Rhaom\n\nMake Cut Stones, Pulleys or Flystones on Rock Saws.\n\nPin up windows manually or use Window Manager to pin/arrange windows.";
+askText = "Rock Saw v1.0 - by Cegaiel\n\nMake Cut Stones, Pulleys or Flystones on Rock Saws.\n\nPin up windows manually or use Window Manager to pin/arrange windows.";
 
 function doit()
-	askForWindow(askText);
-	config();
-		if(arrangeWindows) then
-			arrangeInGrid();
-		end
-	unpinOnExit(start);
+--	askForWindow("Pin up Windows manually or use Window Manager to pin/arrange");
+      -- windowManager(title, message, allowCascade, allowWaterGap, varWidth, varHeight, sizeRight, offsetWidth, offsetHeight, default_focus, default_waterGap)
+--	windowManager("Rock Saw Setup", nil, nil, nil);
+
+  askForWindow(askText);
+  windowManager("Rock Saw Setup", nil, nil, nil);
+  unpinOnExit(start);
 end
 
+
+
 function start()
+
+	config();
+
 	for i=1, passCount do
+
+		--function clickAllImages(image_name, offsetX, offsetY, rightClick, tol)
+
 		-- refresh windows
-		clickAllText("This Rock Saw");
+             message = "Refreshing"
+		clickAllImages("This.png", nil, nil, nil, tol);
 		lsSleep(500);
 		
-        if cutstone then
-			clickAllText("Make a Cut Stone");
-        elseif medstone then
-			clickAllText("Cut a Medium Stone");
-		elseif pulley then
-			clickAllText("Cut a Pulley");
-        end
+
+             message = "Clicking " .. product;
+
+             if cutstone then
+		  clickAllImages("MakeACutStone.png", nil, nil, nil, tol);
+             elseif medstone then
+		  clickAllImages("CutAMedStone.png", nil, nil, nil, tol);
+             elseif pulley then
+		  clickAllImages("CutAPulley.png", nil, nil, nil, tol);
+             end
 
 		lsSleep(500);
 		closePopUp();  --If you don't have enough cuttable stones in inventory, then a popup will occur. We don't want these, so check.
@@ -61,6 +74,7 @@ function closePopUp()
   end
 end
 
+
 function config()
   scale = 0.8;
   local z = 0;
@@ -81,11 +95,6 @@ function config()
     end
     writeSetting("passCount",passCount);
     y = y + 48;
-	
-	arrangeWindows = readSetting("arrangeWindows",arrangeWindows);
-	arrangeWindows = CheckBox(15, y, z+10, 0xFFFFFFff, "Arrange windows (Grid format)", arrangeWindows, 0.65, 0.65);
-	writeSetting("arrangeWindows",arrangeWindows);
-	y = y + 32;
 
     if cutstone then
       cutstoneColor = 0x80ff80ff;
@@ -103,9 +112,11 @@ function config()
       pulleyColor = 0xffffffff;
     end
 
+
     cutstone = readSetting("cutstone",cutstone);
     medstone = readSetting("medstone",medstone);
     pulley = readSetting("pulley",pulley);
+
 
     if not medstone and not pulley then
       cutstone = CheckBox(15, y, z+10, cutstoneColor, " Make Cut Stones from Cuttable Stone",
@@ -123,6 +134,7 @@ function config()
       medstone = false
     end
 
+
     if not cutstone and not medstone then
       pulley = CheckBox(15, y, z+10, pulleyColor, " Make Pulley from Cuttable Stone",
                               pulley, 0.65, 0.65);
@@ -131,9 +143,11 @@ function config()
       pulley = false;
     end
 
+
     writeSetting("cutstone",cutstone);
     writeSetting("pulley",pulley);
     writeSetting("medstone",medstone);
+
 
     if cutstone then
       product = "Cut Stones";
@@ -145,18 +159,9 @@ function config()
       product = "Pulley";
       timer = pulleyTimer;
     end
-	
-	msTimer = (timer * 60) * 1000
-	
-	if (medstone) then
-    msTimerTeppyDuckOffset = (duckTeppyOffset * timer) * 1300 -- Add extra time to compensate for duck/teppy time
-    elseif (pulley) then
-	msTimerTeppyDuckOffset = (duckTeppyOffset * timer) * 200 -- Add extra time to compensate for duck/teppy time
-	else
-	msTimerTeppyDuckOffset = (duckTeppyOffset * timer) * 1000 -- Add extra time to compensate for duck/teppy time
-	end
-	
-	adjustedTimer = msTimer + msTimerTeppyDuckOffset;
+    msTimer = (timer * 60) * 1000
+    msTimerTeppyDuckOffset = (duckTeppyOffset * timer) * 1000 -- Add extra time to compensate for duck/teppy time
+    adjustedTimer = msTimer + msTimerTeppyDuckOffset;
 
 
     if cutstone or medstone or pulley then
