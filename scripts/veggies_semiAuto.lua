@@ -75,6 +75,9 @@ function doit()
   center = getCenterPos();
   size = srGetWindowSize();
   thisSessionTimer = lsGetTimer();
+	refreshWindows();
+	closeAllWindows(0,0, size[0]-max_window_size, size[1]); -- Look for windows for any left over planted windows
+	closeAllWindows(size[0]-500, size[1]-200, size[0], size[1]); -- Look for any leftover windows (stashed) at bottom right.
 
 	chooseMethod();
 
@@ -259,10 +262,6 @@ function waterThese()
 				  lsSleep(click_delay);
 				end
 		           end
-
-			if firstWater and not manualPin then
-			  sleepWithStatus(2500, "Giving FIRST watering, to ALL plants ...", nil, 0.7, 0.7);
-			end
 		  firstWater = nil;
 		  end
 	  end
@@ -295,6 +294,16 @@ function main()
 	--Click Seed in Plant Window	
 	safeClick(plantPos[0], plantPos[1]);
 	lsSleep(click_delay);
+        if buildCheck == nil then
+          lsSleep(100); -- Add an extra delay. I've seen it miss it, super rare.
+          buildCheck = 1; -- One time check to make sure player has plant where you stand unchecked.
+          srReadScreen();
+          build = srFindImage("build.png")
+            if not build then
+              lsPlaySound("fail.wav")
+              error('Could not find Build menu. Options, One-Click, \'Plant all crops where you stand must be UN-CHECKED!');
+          end
+        end
 
 	--Click Build window to move veggies on ground
     safeClick(Button[i][0], Button[i][1]);
@@ -470,6 +479,13 @@ function refreshWindows()
   srReadScreen();
   waters = findAllImages(waterImage);
   harvest = findAllImages(harvestImage);
+  unPin = findAllImages("UnPin.png");
+  if #unPin > 0 then
+    for i=1,#unPin do
+      safeClick(unPin[i][0]-10, unPin[i][1]);
+      lsSleep(10);
+      end
+  end
   tops = findAllText(thisIs);
 	for i=1,#tops do
       	  safeClick(tops[i][0], tops[i][1]);
@@ -588,9 +604,15 @@ vegclickList = {};
       index = index + 1;
     end
 
-  srReadScreen();
-  srMakeImage("mousePos", mx, my, 5, 5);
-  srShowImageDebug("mousePos", 15, lsScreenY-15, 0.0, 2.0);
+    imageSize = 15;
+    rectangleSize = 30;
+    srReadScreen();
+    pixelColor = srReadPixel(mx, my)
+    --srMakeImage("mousePos", mx-(imageSize/2), my-(imageSize/2), imageSize, imageSize);
+    --srShowImageDebug("mousePos", 10, lsScreenY-140, 0.0, 2.0);
+    --lsPrint(80, lsScreenY-140, z, 0.7, 0.7, 0xffffffff, "Mouse Position Image Preview");
+    lsDrawRect(10, lsScreenY-70, rectangleSize+40, lsScreenY-10, 0, pixelColor)
+    lsPrint(80, lsScreenY-70, z, 0.7, 0.7, 0xffffffff, "Mouse Position Pixel Color");
 
     if #vegclickList == count then -- Break out of loop once #plants clicked
     lsDoFrame();
