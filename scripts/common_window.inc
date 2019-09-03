@@ -216,7 +216,7 @@ function arrangeStashed(cascade, waterGap, varWidth, varHeight, sizeRight, offse
   local currentX = 0;
   local currentY = 0;
   if waterGap then
-    currentY = 50;
+    currentY = 95;
   end
   local lastX = 0;
   local lastY = 0;

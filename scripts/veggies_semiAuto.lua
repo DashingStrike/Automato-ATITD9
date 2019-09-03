@@ -396,7 +396,11 @@ function chooseMethod()
 	manualPin = readSetting("manualPin",manualPin);
       manualPin = lsCheckBox(15, y, z, 0xffffffff, " Let me Pin plant windows Manually", manualPin);
 	writeSetting("manualPin",manualPin);
-	y = y + 35;
+	y = y + 25;
+	clearUI = readSetting("clearUI",clearUI);
+    clearUI = lsCheckBox(15, y, z, 0xffffffff, " Start pinning the plant grid below the UI", clearUI);
+	writeSetting("clearUI",clearUI);
+	y = y + 25;
       lsPrint(10, y, 0, 0.9, 0.9, 0xffffffff, "Click Delay: Pause between clicking each plant");
 	y = y + 20;
       lsPrint(10, y, 0, 0.9, 0.9, 0xffffffff, "Plant closer: Not for large veggy, like cabbage");
@@ -407,7 +411,7 @@ function chooseMethod()
     if lsButtonText(10, lsScreenY - 30, 0, 100, 0xFFFFFFff, "Next") then
         is_done = 1;
     end
-    if lsButtonText(lsScreenX - 110, lsScreenY - 30, 0, 110, 0xFFFFFFff,
+    if lsButtonText(lsScreenX - 110, lsScreenY - 30, 0, 100, 0xFFFFFFff,
                     "End script") then
       error(quitMessage);
     end
@@ -501,7 +505,12 @@ function pinWindows()
 	safeClick(vegclickList[i][1], vegclickList[i][2], 1);
 	lsSleep(click_delay);
     end
+	
+	if clearUI then 
+	arrangeStashed(false, true, grid_x, grid_y, max_window_size);
+	else
 	arrangeStashed(false, false, grid_x, grid_y, max_window_size);
+	end
 	srSetMousePos(center[0],center[1]);
 end
 
@@ -512,7 +521,11 @@ function pinWindowsSLOW()
       openAndPin(vegclickList[i][1], vegclickList[i][2], 500)
       stashWindow(vegclickList[i][1] + 5, vegclickList[i][2], BOTTOM_RIGHT);
     end
+	if clearUI then 
+	arrangeStashed(false, true, grid_x, grid_y, max_window_size);
+	else
 	arrangeStashed(false, false, grid_x, grid_y, max_window_size);
+	end
 	srSetMousePos(center[0],center[1]);
 end
 
