@@ -61,7 +61,6 @@ lagBound["Survey (Uncover)"] = true;
 takeAllWhenCombingFlax = false;
 
 local textLookup = {};
-textLookup["Dig Hole"] = "Dig Deeper";
 textLookup["Coconuts"] = "Separate Coconut Meat";
 textLookup["Gun Powder"] = "Gunpowder";
 textLookup["Pump Aqueduct"] = "Pump the Aqueduct";
@@ -188,6 +187,18 @@ function carve(item)
    
    if carveText ~= nil then
       clickText(carveText);
+      lsSleep(per_tick);
+	  srReadScreen();
+      closePopUp();
+      lsSleep(per_tick);
+   end
+end
+
+function digHole()
+   digText = findText("Dig Deeper");
+   
+   if digText ~= nil then
+      clickText(digText);
       lsSleep(per_tick);
 	  srReadScreen();
       closePopUp();
@@ -379,6 +390,12 @@ function doTasks()
          if statImg and timeDiff > delay then
             --check for special cases, like flax.
             lsPrint(10, 10, 0, 0.7, 0.7, 0xB0B0B0ff,"Working on " .. curTask);
+			
+			if lsButtonText(lsScreenX - 110, lsScreenY - 30, z, 100, 0xFFFFFFff,
+                "End script") then
+				error "Clicked End Script button";
+			end
+			
             lsDoFrame();
             if curTask == "Flax Comb" then
                combFlax();
@@ -416,8 +433,8 @@ function doTasks()
                churnButter();
 			elseif curTask == "Tinder" then
                carve(curTask);
-            else
-			   clickAllText(curTask);
+			elseif curTask == "Dig Hole" then
+			   digHole();
             end
             statTimer[i] = lsGetTimer();
             didTask = true;
@@ -426,6 +443,12 @@ function doTasks()
    end
    if didTask == false then
       lsPrint(10, 10, 0, 0.7, 0.7, 0xB0B0B0ff,"Waiting for task to be ready.");
+	  
+	  if lsButtonText(lsScreenX - 110, lsScreenY - 30, z, 100, 0xFFFFFFff,
+             "End script") then
+			error "Clicked End Script button";
+	  end
+	  
       lsDoFrame();
    else
       srReadScreen();
