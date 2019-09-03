@@ -701,7 +701,7 @@ function displayError(message)
     end
     
     --if is_shifted and not was_shifted then
-    if lsShiftHeld() then
+    if lsShiftHeld() and not was_shifted then
 	break;
     end
     was_shifted = is_shifted;
