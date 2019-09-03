@@ -389,13 +389,7 @@ function doTasks()
          end
          if statImg and timeDiff > delay then
             --check for special cases, like flax.
-            lsPrint(10, 10, 0, 0.7, 0.7, 0xB0B0B0ff,"Working on " .. curTask);
-			
-			if lsButtonText(lsScreenX - 110, lsScreenY - 30, z, 100, 0xFFFFFFff,
-                "End script") then
-				error "Clicked End Script button";
-			end
-			
+            lsPrint(10, 10, 0, 0.7, 0.7, 0xB0B0B0ff,"Working on " .. curTask);			
             lsDoFrame();
             if curTask == "Flax Comb" then
                combFlax();
