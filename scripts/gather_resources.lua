@@ -8,7 +8,7 @@ dofile("settings.inc");
 
 button_names = {"Grass","Slate","Clay"};
 counter = 0;
-postClickDelay = 4000;
+postClickDelay = 800;
 
 moveDirection = 0;
 moveCounter = 1;
@@ -50,10 +50,10 @@ function gatherGrass()
 		
 			if grass then
 				srClickMouseNoMove(grass[0]+5,grass[1],1);
-				sleepWithStatus(postClickDelay, "Clicking Grass Icon\n\nGrass Collected: " .. tostring(counter));
+				sleepWithStatus(2500, "Clicking Grass Icon\nWaiting on Animation\n\nGrass Collected: " .. tostring(counter));
 				counter = counter + 1;
 			else
-				sleepWithStatus(100, "Searching for Grass Icon\n\nGrass Collected: " ..tostring(counter));
+				sleepWithStatus(100, "Searching for Grass Icon\n\n\nGrass Collected: " ..tostring(counter));
 			end
 			closePopUp()
 	end
@@ -110,10 +110,10 @@ function gatherClay()
 		
 			if clay then
 			srClickMouseNoMove(clay[0]+5,clay[1],1);
-			sleepWithStatus(postClickDelay, "Clicking Clay Icon\n\nClay Collected: " .. tostring(counter));
+			sleepWithStatus(2500, "Clicking Clay Icon\n\nWaiting on Animation\n\nClay Collected: " .. tostring(counter));
 			counter = counter + 1;
 			else
-			sleepWithStatus(100, "Searching for Clay Icon\n\nClay Collected: " .. tostring(counter));
+			sleepWithStatus(100, "Searching for Clay Icon\n\n\nClay Collected: " .. tostring(counter));
 			end
 			closePopUp()
 	end
