@@ -425,9 +425,16 @@ function getCharacterSet(characterSet)
 end
 
 -- replacement for srFindChatRegion() for ATITD T9
-function srFindChatRegionReplacement()
-  local xyWindowSize = srGetWindowSize();
-  local borders = srGetWindowBorders(xyWindowSize[0] - 6, xyWindowSize[1] - 6);
+function findChatRegionReplacement()
+  local pos = findChatRegionSub()
+
+  while not pos do
+    pos = findChatRegionSub();
+    sleepWithStatus(100,"Cound not find \'Main\' Chat Tab...", nil, 0.7, 0.7);
+  end
+
+  local borders = srGetWindowBorders(pos[0], pos[1]+20);
+
   -- Offset past blue background into text area
   borders[0] = borders[0] + 5;
   borders[1] = borders[1] + 5;
@@ -438,3 +445,19 @@ function srFindChatRegionReplacement()
   return borders;
 end
 
+function findChatRegionSub()
+  local pos;
+  local mainChatRed;
+  local mainChatWhite;
+	  srReadScreen();
+	  mainChatRed = srFindImage("mainChatRed.png");
+	  mainChatWhite = srFindImage("mainChatWhite.png");
+	    if mainChatRed then
+	      pos = mainChatRed;
+	    elseif mainChatWhite then
+	      pos = mainChatWhite;
+	    else
+	      pos = nil;
+	    end
+	return pos;
+end
