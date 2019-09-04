@@ -24,7 +24,7 @@ function findStuff()
   srReadScreen();
   --local regions = findAllTextRegions();
 
-  local regions = srFindChatRegionReplacement();
+  local regions = findChatRegionReplacement();
   local chatBox = makeBox(regions[0],regions[1], lsScreenX, lsScreenY);
 
   --sleepWithStatus(5000, regions[0] .. ", " .. regions[1] .. ", " .. regions[2] .. ", " .. regions[3]);

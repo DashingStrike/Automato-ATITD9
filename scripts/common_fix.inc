@@ -101,7 +101,7 @@ end
 -------------------------------------------------------------------------------
 
 function findChatRegion()
-  return regionToBox(srFindChatRegionReplacement());
+  return regionToBox(findChatRegionReplacement());
 end
 
 -------------------------------------------------------------------------------
