@@ -20,8 +20,6 @@ function checkIfMain(chatText)
     return false;
 end
 
-
-
 function chatRead()
     srReadScreen();
     local chatText = getChatText();
@@ -39,7 +37,7 @@ function chatRead()
         srReadScreen();
         chatText = getChatText();
         onMain = checkIfMain(chatText);
-        sleepWithStatus(100, "Looking for Main chat screen ...\n\nIf main chat is showing, then try clicking Work Mine to clear this screen", nil, 0.7, 0.7);
+        sleepWithStatus(100, "Looking for Main chat screen ...\n\nIf Main Chat is showing, then type /afk once or twice so it shows two ** Asterisks in chat window. It parses those double asterisks!", nil, 0.7, 0.7);
     end
 
    -- Verify chat window is showing minimum 2 lines
@@ -50,7 +48,6 @@ function chatRead()
       chatText = getChatText();
       sleepWithStatus(500, "Error: We must be able to read at least the last 2 lines of main chat!\n\nCurrently we only see " .. #chatText .. " lines ...\n\nYou can overcome this error by typing ANYTHING in main chat.", nil, 0.7, 0.7);
    end
-
 
    --Read last line of chat and strip the timer ie [01m]+space from it.
    lastLine = chatText[#chatText][2];
