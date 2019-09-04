@@ -8,7 +8,7 @@ dofile("settings.inc");
 
 button_names = {"Grass","Slate","Clay"};
 counter = 0;
-postClickDelay = 500;
+postClickDelay = 4000;
 
 moveDirection = 0;
 moveCounter = 1;
@@ -55,6 +55,7 @@ function gatherGrass()
 			else
 				sleepWithStatus(100, "Searching for Grass Icon\n\nGrass Collected: " ..tostring(counter));
 			end
+			closePopUp()
 	end
 end
 
@@ -70,6 +71,7 @@ function gatherSlate()
 			else
 			sleepWithStatus(100, "Searching for Slate Icon\n\nSlate Collected: " .. tostring(counter));
 			end
+			closePopUp()
 	end
 end
 
@@ -113,6 +115,7 @@ function gatherClay()
 			else
 			sleepWithStatus(100, "Searching for Clay Icon\n\nClay Collected: " .. tostring(counter));
 			end
+			closePopUp()
 	end
 end
 
@@ -233,4 +236,18 @@ function moveCharacter()
 	else
 		moveCounter = moveCounter + 1;
 	end
+end
+
+function closePopUp()
+  while 1 do
+    srReadScreen()
+    local ok = srFindImage("OK.png")
+    if ok then
+      statusScreen("Found and Closing Popups ...", nil, 0.7, 0.7);
+      srClickMouseNoMove(ok[0]+5,ok[1],1);
+      lsSleep(100);
+    else
+      break;
+    end
+  end
 end
