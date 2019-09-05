@@ -10,7 +10,7 @@ dofile("settings.inc");
 
 button_names = {"Grass","Slate","Clay"};
 counter = 0;
-postClickDelay = 800;
+postClickDelay = 100;
 
 moveDirection = 0;
 moveCounter = 1;
@@ -76,7 +76,7 @@ function gatherSlate()
 			sleepWithStatus(postClickDelay, "Clicking Slate Icon\n\nSlate Collected: " .. tostring(counter) .. "\n\n\nElapsed Time: " .. getElapsedTime(timeStarted));
 			counter = counter + 1;
 			else
-			sleepWithStatus(100, "Searching for Slate Icon\n\nSlate Collected: " .. tostring(counter) .. "\n\n\nElapsed Time: " .. getElapsedTime(timeStarted));
+			sleepWithStatus(50, "Searching for Slate Icon\n\nSlate Collected: " .. tostring(counter) .. "\n\n\nElapsed Time: " .. getElapsedTime(timeStarted));
 			end
 			closePopUp()
 	end
@@ -251,14 +251,20 @@ end
 function closePopUp()
   while 1 do
     srReadScreen()
-    local ok = srFindImage("OK.png")
-    if ok then
+    local ok = srFindImage("ok.png")
+    local cancel = srFindImage("cancel.png")
+    if ok or cancel then
       statusScreen("Found and Closing Popups ...", nil, 0.7, 0.7);
+    end
+    if ok then
       srClickMouseNoMove(ok[0]+5,ok[1],1);
       lsSleep(100);
-    else
-      break;
     end
+    if cancel then
+      srClickMouseNoMove(cancel[0]+5,cancel[1],1);
+      lsSleep(100);
+    end
+    if not ok and not cancel then break; end
   end
 end
 
