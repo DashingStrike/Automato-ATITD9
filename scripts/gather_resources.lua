@@ -1,5 +1,7 @@
 -- Gather_Resources.lua v1.0 -- by Darkfyre
 -- Revised by Rhaom -- Added auto click movement
+-- Revised by Cegaiel -- Added checkElapsedTime() Attempt to refill jugs when you ran out (if a nearby water source is present), when using AutoMove mode.
+                      -- Also abort macro if resources aren't being found (doesn't apply to slate) in a certain amount of time.
 
 
 dofile("common.inc");
@@ -14,11 +16,11 @@ moveDirection = 0;
 moveCounter = 1;
 autoMove = false;
 lastGathered = lsGetTimer();
-timeOut = 10000; -- How many milliseconds before macro quits if it doesn't find a resource to click on.
+timeOut = 10000; -- How many milliseconds (1000 = 1 second) before macro quits if it doesn't find a resource to click on.
 
 function gatherGrass()
+	if not autoMove then timeStarted = lsGetTimer(); end
 	while 1 do
-                	if autoMove then checkElapsedTime() end
 			if (autoMove) then
 			while not is_done do
 				statusScreen("Select line of direction.");
@@ -38,6 +40,7 @@ function gatherGrass()
 						moveDirection = 3;
 						is_done = 1;
 					end
+			       timeStarted = lsGetTimer()
 				end
 			end
 			
@@ -46,40 +49,42 @@ function gatherGrass()
 		local grass = srFindImage("grass.png");
 		
 			if autoMove then
+				checkElapsedTime();
 				moveCharacter();
 			end
 		
 			if grass then
 				srClickMouseNoMove(grass[0]+5,grass[1],1);
-				sleepWithStatus(2300, "Clicking Grass Icon\nWaiting on Animation\n\nGrass Collected: " .. tostring(counter));
+				sleepWithStatus(2300, "Clicking Grass Icon\nWaiting on Animation\n\nGrass Collected: " .. tostring(counter) .. "\n\n\nElapsed Time: " .. getElapsedTime(timeStarted));
 				counter = counter + 1;
 				lastGathered = lsGetTimer()
 			else
-				sleepWithStatus(100, "Searching for Grass Icon\n\n\nGrass Collected: " ..tostring(counter));
+				sleepWithStatus(100, "Searching for Grass Icon\n\n\nGrass Collected: " ..tostring(counter) .. "\n\n\nElapsed Time: " .. getElapsedTime(timeStarted));
 			end
 			closePopUp()
 	end
 end
 
 function gatherSlate()
+	timeStarted = lsGetTimer();
 	while 1 do
 		checkBreak();
 		srReadScreen();
 		local slate = srFindImage("slate.png");
 			if slate then
 			srClickMouseNoMove(slate[0]+5,slate[1],1);
-			sleepWithStatus(postClickDelay, "Clicking Slate Icon\n\nSlate Collected: " .. tostring(counter));
+			sleepWithStatus(postClickDelay, "Clicking Slate Icon\n\nSlate Collected: " .. tostring(counter) .. "\n\n\nElapsed Time: " .. getElapsedTime(timeStarted));
 			counter = counter + 1;
 			else
-			sleepWithStatus(100, "Searching for Slate Icon\n\nSlate Collected: " .. tostring(counter));
+			sleepWithStatus(100, "Searching for Slate Icon\n\nSlate Collected: " .. tostring(counter) .. "\n\n\nElapsed Time: " .. getElapsedTime(timeStarted));
 			end
 			closePopUp()
 	end
 end
 
 function gatherClay()
+	if not autoMove then timeStarted = lsGetTimer(); end
 	while 1 do
-                if autoMove then checkElapsedTime() end
 		if (autoMove) then
 			while not is_done do
 				statusScreen("Select line of direction.");
@@ -99,6 +104,7 @@ function gatherClay()
 						moveDirection = 3;
 						is_done = 1;
 					end
+			timeStarted = lsGetTimer()
 			end
 		end
 		
@@ -107,16 +113,17 @@ function gatherClay()
 		local clay = srFindImage("clay.png");
 		
 			if autoMove then
+				checkElapsedTime();
 				moveCharacter();
 			end
 		
 			if clay then
 			srClickMouseNoMove(clay[0]+5,clay[1],1);
-			sleepWithStatus(2300, "Clicking Clay Icon\nWaiting on Animation\n\nClay Collected: " .. tostring(counter));
+			sleepWithStatus(2300, "Clicking Clay Icon\nWaiting on Animation\n\nClay Collected: " .. tostring(counter) .. "\n\n\nElapsed Time: " .. getElapsedTime(timeStarted));
 			counter = counter + 1;
 			lastGathered = lsGetTimer()
 			else
-			sleepWithStatus(100, "Searching for Clay Icon\n\n\nClay Collected: " .. tostring(counter));
+			sleepWithStatus(100, "Searching for Clay Icon\n\n\nClay Collected: " .. tostring(counter) .. "\n\n\nElapsed Time: " .. getElapsedTime(timeStarted));
 			end
 			closePopUp()
 	end
@@ -196,7 +203,7 @@ end
 function moveCharacter()
 	srReadScreen();
 	xyWindowSize = srGetWindowSize();
-	local xyCenter = getCenterPos();
+	xyCenter = getCenterPos();
 	if moveDirection == 0 then
 		if directionCounter == 0 then
 			srClickMouseNoMove(xyCenter[0]+300, xyCenter[1], 0);
@@ -257,12 +264,12 @@ end
 
 function checkElapsedTime()
 	  if lsGetTimer() - lastGathered > timeOut then
-	    srClickMouseNoMove(10,10, 1); --Right click ground (Stop player from walking)
-		if drawWater() then
+	    srClickMouseNoMove(xyCenter[0]-300, xyCenter[1], 1); --Right click ground (Stop player from walking)
+		if drawWater() then -- Attempt to refill jugs, in case we're doing Clay
 		  lastGathered = lsGetTimer(); -- Reset Timer and continue, after fetching water
 		else	
-	    lsPlaySound("fail.wav");
-	    error("No resources found within past " .. math.floor(timeOut/1000) .." seconds; Aborting...")
+		  lsPlaySound("fail.wav");
+		  error("No resources found within past " .. math.floor(timeOut/1000) .." seconds; Aborting...")
 		end
 	  end
 end
