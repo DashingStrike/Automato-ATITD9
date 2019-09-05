@@ -18,7 +18,7 @@ timeOut = 10000; -- How many milliseconds before macro quits if it doesn't find 
 
 function gatherGrass()
 	while 1 do
-                	checkElapsedTime();
+                	if autoMove then checkElapsedTime() end
 			if (autoMove) then
 			while not is_done do
 				statusScreen("Select line of direction.");
@@ -78,7 +78,7 @@ end
 
 function gatherClay()
 	while 1 do
-                checkElapsedTime();
+                if autoMove then checkElapsedTime() end
 		if (autoMove) then
 			while not is_done do
 				statusScreen("Select line of direction.");
@@ -259,7 +259,13 @@ end
 function checkElapsedTime()
 	  if lsGetTimer() - lastGathered > timeOut then
 	    srClickMouseNoMove(10,10, 1); --Right click ground (Stop player from walking)
+		if drawWater() then
+		  lastGathered = lsGetTimer(); -- Reset Timer and continue, after fetching water
+		else	
 	    lsPlaySound("fail.wav");
 	    error("No resources found within past " .. math.floor(timeOut/1000) .." seconds; Aborting...")
+		end
 	  end
 end
+
+
