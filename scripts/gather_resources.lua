@@ -13,11 +13,12 @@ postClickDelay = 800;
 moveDirection = 0;
 moveCounter = 1;
 autoMove = false;
-
+lastGathered = lsGetTimer();
+timeOut = 10000; -- How many milliseconds before macro quits if it doesn't find a resource to click on.
 
 function gatherGrass()
 	while 1 do
-	
+                	checkElapsedTime();
 			if (autoMove) then
 			while not is_done do
 				statusScreen("Select line of direction.");
@@ -77,7 +78,7 @@ end
 
 function gatherClay()
 	while 1 do
-		
+                checkElapsedTime();
 		if (autoMove) then
 			while not is_done do
 				statusScreen("Select line of direction.");
@@ -112,6 +113,9 @@ function gatherClay()
 			srClickMouseNoMove(clay[0]+5,clay[1],1);
 			sleepWithStatus(2300, "Clicking Clay Icon\nWaiting on Animation\n\nClay Collected: " .. tostring(counter));
 			counter = counter + 1;
+
+lastGathered = lsGetTimer()
+
 			else
 			sleepWithStatus(100, "Searching for Clay Icon\n\n\nClay Collected: " .. tostring(counter));
 			end
@@ -250,4 +254,12 @@ function closePopUp()
       break;
     end
   end
+end
+
+function checkElapsedTime()
+	  if lsGetTimer() - lastGathered > timeOut then
+	    srClickMouseNoMove(10,10, 1); --Right click ground (Stop player from walking)
+	    lsPlaySound("fail.wav");
+	    error("No resources found within past " .. math.floor(timeOut/1000) .." seconds; Aborting...")
+	  end
 end
