@@ -50,7 +50,7 @@ function gatherGrass()
 		
 			if grass then
 				srClickMouseNoMove(grass[0]+5,grass[1],1);
-				sleepWithStatus(2500, "Clicking Grass Icon\nWaiting on Animation\n\nGrass Collected: " .. tostring(counter));
+				sleepWithStatus(2300, "Clicking Grass Icon\nWaiting on Animation\n\nGrass Collected: " .. tostring(counter));
 				counter = counter + 1;
 			else
 				sleepWithStatus(100, "Searching for Grass Icon\n\n\nGrass Collected: " ..tostring(counter));
@@ -110,7 +110,7 @@ function gatherClay()
 		
 			if clay then
 			srClickMouseNoMove(clay[0]+5,clay[1],1);
-			sleepWithStatus(2500, "Clicking Clay Icon\n\nWaiting on Animation\n\nClay Collected: " .. tostring(counter));
+			sleepWithStatus(2300, "Clicking Clay Icon\nWaiting on Animation\n\nClay Collected: " .. tostring(counter));
 			counter = counter + 1;
 			else
 			sleepWithStatus(100, "Searching for Clay Icon\n\n\nClay Collected: " .. tostring(counter));
