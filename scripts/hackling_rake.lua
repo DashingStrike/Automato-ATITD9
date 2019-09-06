@@ -86,7 +86,7 @@ function doit()
 	promptRakeNumbers();
     askForWindow(askText);
 
-	local step = 1;
+	step = 1;
 	local task = "";
 	local task_text = "";
 	local warn_small_font=nil;
@@ -98,11 +98,15 @@ function doit()
 	local clean = 0;
 	local startTime = lsGetTimer();
 
+	checkCurrentStep(); -- Verify what step we're on when you start macro and update.
+        if step > 1 then
+          delay_loop_count = 1; --If we're starting in the middle of a previous session, then don't advance loop_count (later). Finish up what's already being processed.
+	  end
 	
 	while num_loops do
 		checkBreak();
 		srReadScreen();
-		OK = srFindImage("ok.png"); -- If we got an OK popup, this suggests "Your Hackling Rake has wore out", quit
+		OK = srFindImage("ok.png"); -- If we got an OK popup, this suggests "Your Flax Comb/Hackling Rake has wore out", quit
 		stats_black2 = nil;
 		stats_black3 = nil;
 		stats_blackB = nil;
@@ -121,6 +125,10 @@ function doit()
 				end
 			else
 				warn_small_font = true;
+
+
+
+
 			end
 		end
 		
@@ -133,7 +141,7 @@ function doit()
 
 		if step == 1 then
 			task = "Separate Rotten Flax";
-			task_text = "Separate Straw";
+			task_text = "Remove Straw";
 		elseif step == 2 then
 			task = "Continue processing Rotten";
 			task_text = "Separate Tow";
@@ -148,7 +156,7 @@ function doit()
 		if loop_count > num_loops or OK then
 			num_loops = nil;
 		elseif not stats_black and not stats_black2 and not stats_black3 and not stats_blackB and not stats_blackC then
-			sleepWithStatus(100, "Next Step: " .. step .. "/4 - " .. task_text .. "\n\n----------------------------------------------\n1) Straw Removed: " .. straw .."/" .. num_loops*per_rake .. "\n2) Tow Seperated: " .. tow .. "/" .. num_loops*per_rake .. "\n3) Lint Refined: " .. lint .. "/" .. num_loops*per_rake .. "\n4) Cleanings: " .. clean .. "/" .. num_loops .. "\n----------------------------------------------\n\nFlax Processed: " .. (loop_count-1)*per_rake .. "\nFlax Remaining: " .. (num_loops*per_rake) - straw .. "\n\nElapsed Time: " .. getElapsedTime(startTime) .. "\n" .. warning, nil, 0.7, 0.7);
+			sleepWithStatus(100, "Waiting on Endurance Timer ...\n\nNext Step: " .. step .. "/4 - " .. task_text .. "\n\n----------------------------------------------\n1) Straw Removed: " .. straw .."/" .. num_loops*per_rake .. "\n2) Tow Seperated: " .. tow .. "/" .. num_loops*per_rake .. "\n3) Lint Refined: " .. lint .. "/" .. num_loops*per_rake .. "\n4) Cleanings: " .. clean .. "/" .. num_loops .. "\n----------------------------------------------\n\nFlax Processed: " .. (loop_count-1)*per_rake .. "\nFlax Remaining: " .. (num_loops*per_rake) - straw .. "\n\nElapsed Time: " .. getElapsedTime(startTime) .. "\n" .. warning, nil, 0.7, 0.7);
 		else
 		
 			srReadScreen();
@@ -168,10 +176,14 @@ function doit()
 				step == 4 then
 				clean = clean + 1;			
 				step = 0;
-				loop_count= loop_count +1;
+				  if delay_loop_count then  -- We started macro while flax comb was in middle of processing... Finish this up before we advance loop counter (so that we can still process the "How much Flax?" at beginning.
+				    delay_loop_count = nil;
+				  else
+				    loop_count= loop_count +1;
+				  end
 			end
 			step = step + 1;
-			statusScreen("Timer Expired - Clicking window(s)\n\n----------------------------------------------\n1) Straw Removed: " .. straw .."/" .. num_loops*per_rake .. "\n2) Tow Seperated: " .. tow .. "/" .. num_loops*per_rake .. "\n3) Lint Refined: " .. lint .. "/" .. num_loops*per_rake .. "\n4) Cleanings: " .. clean .. "/" .. num_loops .. "\n----------------------------------------------\n\nFlax Processed: " .. (loop_count-1)*per_rake .. "\nFlax Remaining: " .. (num_loops*per_rake) - straw .. "\n\nElapsed Time: " .. getElapsedTime(startTime) .. "\n" .. warning, nil, 0.7, 0.7);
+			sleepWithStatus(100, "Endurance Timer OK - Clicking window(s)\n\nNext Step: " .. step .. "/4 - " .. task_text .. "\n\n----------------------------------------------\n1) Straw Removed: " .. straw .."/" .. num_loops*per_rake .. "\n2) Tow Seperated: " .. tow .. "/" .. num_loops*per_rake .. "\n3) Lint Refined: " .. lint .. "/" .. num_loops*per_rake .. "\n4) Cleanings: " .. clean .. "/" .. num_loops .. "\n----------------------------------------------\n\nFlax Processed: " .. (loop_count-1)*per_rake .. "\nFlax Remaining: " .. (num_loops*per_rake) - straw .. "\n\nElapsed Time: " .. getElapsedTime(startTime) .. "\n" .. warning, nil, 0.7, 0.7);
 			
 			srReadScreen();
 			clickAllText("This is")
@@ -185,3 +197,23 @@ end
 end
 
 
+function checkCurrentStep()
+  srReadScreen();
+  clickAllText("This is");
+  lsSleep(100);
+  taskStep1 = findText("Remove Straw");
+  taskStep2 = findText("Separate Tow");
+  taskStep3 = findText("Refine the Lint");
+  taskStep4 = findText("Clean the");
+  if taskStep1 then
+    step = 1;
+  elseif taskStep2 then
+    step = 2;
+  elseif taskStep3 then
+    step = 3;
+  elseif taskStep4 then
+    step = 4;
+  else
+    error("Could not find Flax Comb or Hackling Rake menus pinned");
+  end
+end
