@@ -8,7 +8,7 @@ dofile("common.inc");
 dofile("flax_common.inc");
 dofile("settings.inc");
 
-button_names = {"Grass","Slate","Clay"};
+button_names = {"Grass","Slate","Clay","Limestone"};
 counter = 0;
 postClickDelay = 100;
 
@@ -60,6 +60,23 @@ function gatherGrass()
 				lastGathered = lsGetTimer()
 			else
 				sleepWithStatus(100, "Searching for Grass Icon\n\n\nGrass Collected: " ..tostring(counter) .. "\n\n\nElapsed Time: " .. getElapsedTime(timeStarted));
+			end
+			closePopUp()
+	end
+end
+
+function gatherLimestone()
+	timeStarted = lsGetTimer();
+	while 1 do
+		checkBreak();
+		srReadScreen();
+		local slate = srFindImage("limestone.png");
+			if slate then
+			srClickMouseNoMove(slate[0]+5,slate[1],1);
+			sleepWithStatus(2300, "Clicking Limestone Icon\n\nLimestone Collected: " .. tostring(counter) .. "\n\n\nElapsed Time: " .. getElapsedTime(timeStarted));
+			counter = counter + 1;
+			else
+			sleepWithStatus(50, "Searching for Limestone Icon\n\nLimestone Collected: " .. tostring(counter) .. "\n\n\nElapsed Time: " .. getElapsedTime(timeStarted));
 			end
 			closePopUp()
 	end
@@ -154,7 +171,7 @@ function gatherResources()
 						
 			if autoMove then
 			lsPrintWrapped(25, 185, z+10, lsScreenX - 20, 0.7, 0.7, 0xd0d0d0ff,
-				"NOT COMPATIBLE WITH SLATE!\n\nChoose which resource to gather will prompt you to select which direction you wish to move in\n\nThere will be some drift, as movement is done via mouse click!");
+				"NOT COMPATIBLE WITH SLATE OR LIMESTONE!\n\nChoose which resource to gather will prompt you to select which direction you wish to move in\n\nThere will be some drift, as movement is done via mouse click!");
 			end
 			
 			for i=1, #button_names do
@@ -164,11 +181,15 @@ function gatherResources()
 					bsize = 130;
 				elseif button_names[i] == "Slate" then
 					x = 30;
-					y = 50;
+					y = 40;
 					bsize = 130;
 				elseif button_names[i] == "Clay" then
 					x = 30;
-					y = 90;
+					y = 70;
+					bsize = 130;
+				elseif button_names[i] == "Limestone" then
+					x = 30;
+					y = 100;
 					bsize = 130;
 				end
 				if lsButtonText(x, y, 0, 250, 0xe5d3a2ff, button_names[i]) then
@@ -190,6 +211,8 @@ function gatherResources()
 			gatherSlate();
 		elseif image_name == "Clay" then
 			gatherClay();
+		elseif image_name == "Limestone" then
+			gatherLimestone();
 		end
 	end
 end
