@@ -19,9 +19,7 @@ items = {
 {"",          
 "Churn Butter",
 "Flax Comb",
-"Dig Dirt",
 "Dig Hole",
-"Dig Limestone",
 "Excavate Blocks",
 "Hackling Rake",
 "Pump Aqueduct",
@@ -395,18 +393,6 @@ function doTasks()
                combFlax();
             elseif curTask == "Hackling Rake" then
                hacklingRake();
-            elseif curTask == "Dig Dirt" then
-               t = srFindImage("statclicks/dirt.png", 10000);
-               if t then
-   --               lsPrintln("Found dirt");
-                  safeClick(t[0] + 5, t[1] + 5);
-               end
-            elseif curTask == "Dig Limestone" then
-               t = srFindImage("statclicks/limestone.png", 5000);
-               if t then
- --                lsPrintln("Found limestone");
-                  safeClick(t[0] + 5, t[1] + 5);
-               end
             elseif curTask == "Weave Canvas" then
                weave("Canvas");
             elseif curTask == "Weave Linen" then
@@ -425,7 +411,23 @@ function doTasks()
                stirCement();
             elseif curTask == "Churn Butter" then
                churnButter();
+			elseif curTask == "Barrel Tap" then
+               carve(curTask);
+			elseif curTask == "Bottle Stopper" then
+               carve(curTask);
+			elseif curTask == "Crudely Carved Handle" then
+               carve(curTask);
+			elseif curTask == "Large Crude Handle" then
+               carve(curTask);
+			elseif curTask == "Personal Chit" then
+               carve(curTask);
+			elseif curTask == "Sharpened Stick" then
+               carve(curTask);
 			elseif curTask == "Tinder" then
+               carve(curTask);
+			elseif curTask == "Wooden Peg" then
+               carve(curTask);
+			elseif curTask == "Wooden Pestle" then
                carve(curTask);
 			elseif curTask == "Dig Hole" then
 			   digHole();
