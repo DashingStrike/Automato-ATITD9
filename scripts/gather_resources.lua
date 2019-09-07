@@ -1,6 +1,6 @@
 -- Gather_Resources.lua v1.0 -- by Darkfyre
 -- Revised by Rhaom -- Added auto click movement
--- Revised by Cegaiel -- Added checkElapsedTime() Attempt to refill jugs when you ran out (if a nearby water source is present), when using AutoMove mode.
+-- Revised by Cegaiel -- Added checkElapsedTime() Attempt to refill autoMoves when you ran out (if a nearby water source is present), when using AutoMove mode.
                       -- Also abort macro if resources aren't being found (doesn't apply to slate) in a certain amount of time.
 
 
@@ -8,7 +8,7 @@ dofile("common.inc");
 dofile("flax_common.inc");
 dofile("settings.inc");
 
-button_names = {"Grass","Slate","Clay","Limestone"};
+button_names = {"Clay","Dirt","Grass","Limestone","Slate"};
 counter = 0;
 postClickDelay = 100;
 
@@ -79,6 +79,61 @@ function gatherLimestone()
 			sleepWithStatus(50, "Searching for Limestone Icon\n\nLimestone Collected: " .. tostring(counter) .. "\n\n\nElapsed Time: " .. getElapsedTime(timeStarted));
 			end
 			closePopUp()
+	end
+end
+
+function gatherDirt()
+	timeStarted = lsGetTimer();
+	
+	local warn_small_font=nil;
+	local warn_large_font=nil;
+	
+	while 1 do
+		checkBreak();
+		srReadScreen();
+		
+		stats_black2 = nil;
+		stats_black3 = nil;
+		stats_blackB = nil;
+		stats_blackC = nil;
+		
+		stats_black = srFindImage("endurance.png");
+		stats_blackB = srFindImage("endurance2.png"); -- We can proceed when it's semi-dark red (same as white)
+		stats_blackC = srFindImage("endurance3.png"); -- We can proceed when it's dark red (same as white)
+
+		if not stats_black then
+			--stats_black2 = srFindImage("AllStats-Black2.png");
+			if not stats_black2 then
+				--stats_black3 = srFindImage("AllStats-Black3.png");
+				if stats_black3 then
+					warn_large_font = true;
+				end
+			else
+				warn_small_font = true;
+			end
+		end
+		
+		local warning="";
+		if warn_small_font then
+			warning = "Your font size appears to be smaller than the default, many macros here will not work correctly.";
+		elseif warn_large_font then
+			warning = "Your font size appears to be larger than the default, many macros here will not work correctly.";
+		end
+		
+		if not stats_black and not stats_black2 and not stats_black3 and not stats_blackB and not stats_blackC then
+			sleepWithStatus(100, "Waiting for Endurance timer to be visible and white");
+		else
+			srReadScreen();
+			local dirt = srFindImage("dirt.png");
+			if dirt then
+			srClickMouseNoMove(dirt[0]+5,dirt[1],1);
+			sleepWithStatus(2300, "Clicking Dirt Icon\n\nDirt Collected: " .. tostring(counter) .. "\n\n\nElapsed Time: " .. getElapsedTime(timeStarted));			
+			counter = counter + 1;
+			else
+			sleepWithStatus(50, "Searching for Dirt Icon\n\nDirt Collected: " .. tostring(counter) .. "\n\n\nElapsed Time: " .. getElapsedTime(timeStarted));
+			end
+			closePopUp()
+		end
 	end
 end
 
@@ -163,33 +218,51 @@ function gatherResources()
 			local bsize = nil;
 			checkBreak();
 			
-			lsPrint(45, 130, 2, 0.65, 0.65, 0xffffffff, "     Choose Grass, Slate, Clay button.");
-			
+				if autoMove then
+				  autoMoveColor = 0x80ff80ff;
+				else
+				  autoMoveColor = 0xffffffff;
+				end
+
 			autoMove = readSetting("autoMove",autoMove);
-			autoMove = CheckBox(35, 160, z, 0xFFFFFFff, " Set Automove Direction", autoMove, 0.65, 0.65);
+			
+			if autoMove then
+			 autoMove = CheckBox(35, 170, z, 0x80ff80ff, " Set Automove Direction",
+								  autoMove, 0.65, 0.65);
+			elseif not autoMove then
+			 autoMove = CheckBox(35, 170, z, 0xffffffff, " Set Automove Direction",
+								  autoMove, 0.65, 0.65);
+			end
+
 			writeSetting("autoMove",autoMove);
 						
 			if autoMove then
-			lsPrintWrapped(25, 185, z+10, lsScreenX - 20, 0.7, 0.7, 0xd0d0d0ff,
-				"NOT COMPATIBLE WITH SLATE OR LIMESTONE!\n\nChoose which resource to gather will prompt you to select which direction you wish to move in\n\nThere will be some drift, as movement is done via mouse click!");
+			lsPrintWrapped(15, 195, z+10, lsScreenX - 20, 0.7, 0.7, 0xffffffff,
+				"Selecting clay or grass will prompt you to select which direction you wish to move in.");
+			lsPrintWrapped(15, 235, z+10, lsScreenX - 20, 0.7, 0.7, 0xfd4018ff,
+				"There will be some drift, as movement is done via mouse click!");
 			end
 			
 			for i=1, #button_names do
-				if button_names[i] == "Grass" then
-					x = 30;
+			    if button_names[i] == "Clay" then
+					x = 25;
 					y = 10;
 					bsize = 130;
-				elseif button_names[i] == "Slate" then
-					x = 30;
+				elseif button_names[i] == "Dirt" then
+					x = 25;
 					y = 40;
 					bsize = 130;
-				elseif button_names[i] == "Clay" then
-					x = 30;
+				elseif button_names[i] == "Grass" then
+					x = 25;
 					y = 70;
 					bsize = 130;
 				elseif button_names[i] == "Limestone" then
-					x = 30;
+					x = 25;
 					y = 100;
+					bsize = 130;
+				elseif button_names[i] == "Slate" then
+					x = 25;
+					y = 130;
 					bsize = 130;
 				end
 				if lsButtonText(x, y, 0, 250, 0xe5d3a2ff, button_names[i]) then
@@ -213,6 +286,8 @@ function gatherResources()
 			gatherClay();
 		elseif image_name == "Limestone" then
 			gatherLimestone();
+		elseif image_name == "Dirt" then
+			gatherDirt();	
 		end
 	end
 end
@@ -229,33 +304,33 @@ function moveCharacter()
 	xyCenter = getCenterPos();
 	if moveDirection == 0 then
 		if directionCounter == 0 then
-			srClickMouseNoMove(xyCenter[0]+300, xyCenter[1], 0);
+			srClickMouseNoMove(xyCenter[0]+(300/1080) * srGetWindowSize()[1], xyCenter[1], 0);
 		else
-			srClickMouseNoMove(xyCenter[0]-300, xyCenter[1], 0);	
+			srClickMouseNoMove(xyCenter[0]-(300/1080) * srGetWindowSize()[1], xyCenter[1], 0);	
 		end
 		lsSleep(move_delay);
 	end
 	if moveDirection == 1 then
 		if directionCounter == 0 then
-			srClickMouseNoMove(xyCenter[0], xyCenter[1]+300, 0);
+			srClickMouseNoMove(xyCenter[0], xyCenter[1]+(300/1080) * srGetWindowSize()[1], 0);
 		else
-			srClickMouseNoMove(xyCenter[0], xyCenter[1]-300, 0);	
+			srClickMouseNoMove(xyCenter[0], xyCenter[1]-(300/1080) * srGetWindowSize()[1], 0);	
 		end
 		lsSleep(move_delay);
 	end
 	if moveDirection == 2 then
 		if directionCounter == 0 then
-			srClickMouseNoMove(xyCenter[0]-300, xyCenter[1], 0);
+			srClickMouseNoMove(xyCenter[0]-(300/1080) * srGetWindowSize()[1], xyCenter[1], 0);
 		else
-			srClickMouseNoMove(xyCenter[0]+300, xyCenter[1], 0);	
+			srClickMouseNoMove(xyCenter[0]+(300/1080) * srGetWindowSize()[1], xyCenter[1], 0);	
 		end
 		lsSleep(move_delay);
 	end
 	if moveDirection == 3 then
 		if directionCounter == 0 then
-			srClickMouseNoMove(xyCenter[0], xyCenter[1]-300, 0);
+			srClickMouseNoMove(xyCenter[0], xyCenter[1]-(300/1080) * srGetWindowSize()[1], 0);
 		else
-			srClickMouseNoMove(xyCenter[0], xyCenter[1]+300, 0);	
+			srClickMouseNoMove(xyCenter[0], xyCenter[1]+(300/1080) * srGetWindowSize()[1], 0);	
 		end
 		lsSleep(move_delay);
 	end
@@ -272,29 +347,23 @@ function moveCharacter()
 end
 
 function closePopUp()
-  while 1 do
-    srReadScreen()
-    local ok = srFindImage("ok.png")
-    local cancel = srFindImage("cancel.png")
-    if ok or cancel then
-      statusScreen("Found and Closing Popups ...", nil, 0.7, 0.7);
+    while 1 do -- Perform a loop in case there are multiple pop-ups behind each other; this will close them all before continuing.
+        checkBreak();
+        srReadScreen();
+        OK = srFindImage("OK.png");
+        if OK then
+            srClickMouseNoMove(OK[0]+2,OK[1]+2, true);
+            lsSleep(100);
+        else
+            break;
+        end
     end
-    if ok then
-      srClickMouseNoMove(ok[0]+5,ok[1],1);
-      lsSleep(100);
-    end
-    if cancel then
-      srClickMouseNoMove(cancel[0]+5,cancel[1],1);
-      lsSleep(100);
-    end
-    if not ok and not cancel then break; end
-  end
 end
 
 function checkElapsedTime()
 	  if lsGetTimer() - lastGathered > timeOut then
 	    srClickMouseNoMove(xyCenter[0]-300, xyCenter[1], 1); --Right click ground (Stop player from walking)
-		if drawWater() then -- Attempt to refill jugs, in case we're doing Clay
+		if drawWater() then -- Attempt to refill autoMoves, in case we're doing Clay
 		  lastGathered = lsGetTimer(); -- Reset Timer and continue, after fetching water
 		else	
 		  lsPlaySound("fail.wav");
