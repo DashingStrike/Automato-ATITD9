@@ -1,6 +1,6 @@
 -- Gather_Resources.lua v1.0 -- by Darkfyre
 -- Revised by Rhaom -- Added auto click movement
--- Revised by Cegaiel -- Added checkElapsedTime() Attempt to refill autoMoves when you ran out (if a nearby water source is present), when using AutoMove mode.
+-- Revised by Cegaiel -- Added checkElapsedTime() Attempt to refill jugs when you ran out (if a nearby water source is present), when using AutoMove mode.
                       -- Also abort macro if resources aren't being found (doesn't apply to slate) in a certain amount of time.
 
 
@@ -363,7 +363,7 @@ end
 function checkElapsedTime()
 	  if lsGetTimer() - lastGathered > timeOut then
 	    srClickMouseNoMove(xyCenter[0]-300, xyCenter[1], 1); --Right click ground (Stop player from walking)
-		if drawWater() then -- Attempt to refill autoMoves, in case we're doing Clay
+		if drawWater() then -- Attempt to refill jugs, in case we're doing Clay
 		  lastGathered = lsGetTimer(); -- Reset Timer and continue, after fetching water
 		else	
 		  lsPlaySound("fail.wav");
