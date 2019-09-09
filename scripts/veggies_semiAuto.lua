@@ -65,6 +65,7 @@ grid_x = 260; -- Watermelon seeds are widest window width, 260
 grid_y = 100;
 max_window_size = 425; -- We don't want to close out the Aquaduct window. This should be about 425. We can use 350 if no aquaduct window is present (to refill jugs).
 
+saveFileCreated = false;
 firstLoop = 1;
 totalHarvests = 0;
 click_delay = 75;
@@ -72,12 +73,13 @@ click_delay = 75;
 function doit()
   askForWindow("This macro will assist you by planting seeds, watering/harvesting your pinned windows when you tap the hotkey. After seeds are planted, you will tap hotkey over each plant, it will then pin the windows for you and do first watering automatically. After first watering, you will then tap hotkey to water (after you see it grow).\n\nMust have 'Plant all crops where you stand': OFF! Right-Click pins/unpins a Menu: ON! Right-Click opens a Menu as Pinned: ON! One-Click: Auto-take Piles: ON!\n\nMake sure plant seed menu window AND Automato is in the TOP-RIGHT corner of the screen.");
 
+  statusScreen("Closing Windows ...", nil, 0.7, 0.7);
   center = getCenterPos();
   size = srGetWindowSize();
   thisSessionTimer = lsGetTimer();
-	refreshWindows();
 	closeAllWindows(0,0, size[0]-max_window_size, size[1]); -- Look for windows for any left over planted windows
 	closeAllWindows(size[0]-500, size[1]-200, size[0], size[1]); -- Look for any leftover windows (stashed) at bottom right.
+	refreshWindows();
 
 	chooseMethod();
 
@@ -91,35 +93,69 @@ function doit()
 	  displayError(message);
 	end
 
+		--[[  This section is commented out, moved to other places in macro.
+		setCameraView(CARTOGRAPHER2CAM);
+		lsSleep(500);
+		repositionAvatar();
+		--]]
 
-	setCameraView(CARTOGRAPHER2CAM);
-	lsSleep(500);
-	repositionAvatar();
-	closeAllWindows(0,0, size[0]-max_window_size, size[1]); -- Look for windows for any left over planted windows
+	firstMenu();
+end
 
+
+function firstMenu()
+  while not fm_is_done do
+
+	if ButtonText(5, lsScreenY - 60, z, 150, 0xFFFFFFff, "Load Saved File") then
+	  lsDoFrame();
+	  loadMenu();
+	end
+
+	if ButtonText(5, lsScreenY - 30, z, 150, 0xFFFFFFff, "Plant Seeds") then
+	  srSetMousePos(center[0],center[1]);
+	  fm_is_done = 1;
+	  setCameraView(CARTOGRAPHER2CAM);
+	  lsSleep(500);
+	  repositionAvatar();
+	  main();
+	end
+
+	if ButtonText(lsScreenX - 110, lsScreenY - 60, z, 125, 0xFFFFFFff, "Make Bags") then
+	  pickUpSeeds(1);
+	  closeAllWindows(0,0, size[0]-max_window_size, size[1]); -- Look for windows for any left over planted windows
+	  closeAllWindows(size[0]-500, size[1]-200, size[0], size[1]); -- Look for any leftover windows (stashed) at bottom right.
+	end
+
+	message = "'Make Bags' will click \"Make nearby portables look like bags\" (in case you have seeds on ground).\n\n'Load Saved File' will load your last \"Test Auto Mode\" session (in case you want to try to reposition yourself a tad and try again).\n\nOtherwise, Click 'Plant Seeds' to continue ...";
+
+	statusScreen(message, nill, 0.65, 0.65);
+	lsSleep(10);
+  end
+end
+
+
+function main()
   while 1 do
-	refreshWindows();
 	drawWater(1);
 	firstWater = 1;
 	abort = nil;
 	finalTending = nil;
-
-	if not fullAutoMode then
+      if fullAutoMode then
+        firstLoop = nil;
+	else
 	  vegclickTimer = {};
-	end
+      end
+
 
 	closeAllWindows(0,0, size[0]-max_window_size, size[1]); -- Look for windows for any left over planted windows
 	closeAllWindows(size[0]-500, size[1]-200, size[0], size[1]); -- Look for any leftover windows (stashed) at bottom right.
+	refreshWindows();
 
 	 if autoWater and (manualPin or not saveCoords or firstLoop) then --If using manual Pin mode or not saving coords, then do autowater first, to avoid it getting in the way later.
 	   drawWater();
 	 end
 
---	if saveCoords then
---	  repositionAvatar();	
---	end
-
-	main();
+	plantSeeds();
 
 	 if autoWater and not manualPin and saveCoords and not firstLoop then
 		if not drawWater() then -- Attempt to gather water. If water not found or player is already full of water, then add 3 seconds below, otherwise gather animation takes 3 seconds
@@ -138,17 +174,27 @@ function doit()
 	  pinWindows();
 	end
 
-
 	waterThese();
 	closeAllWindows(0,0, size[0]-max_window_size, size[1]); -- Look for windows for any left over planted windows
 	closeAllWindows(size[0]-500, size[1]-200, size[0], size[1]); -- Look for any leftover windows (stashed) at bottom right.
 
 
+
 	if (pauseAfterHarvest and not fullAutoMode) or abort then
+        pickUpSeeds();
 	  waitForShift();
 	else
 	  sleepWithStatus(delayAfterHarvestPerPlant*#harvest, "Harvesting vegetables ...",nil, 0.7, 0.7);
 	end
+
+      --We just harvested and closed any windows... Is there anything we want to do before we continue to next round?
+	if fullAutoModeQueuedOff then
+	  fullAutoMode = nil; -- We clicked disengage button, turn off, reset flag
+	  fullAutoModeQueuedOff = nil;
+        sleepWithStatus(1500, "Disengaging Auto Mode...\n\nReturning to Menu, after Harvest!",nil, 0.7, 0.7)
+        --break;
+	end
+
 
   end
 end
@@ -159,16 +205,16 @@ function waterThese()
   local was_shifted = lsShiftHeld();
   if (dropdown_cur_value == 1) then
   was_shifted = lsShiftHeld();
-  key = "Tap Shift";
+  key = "Tap/Hold Shift";
   elseif (dropdown_cur_value == 2) then
   was_shifted = lsControlHeld();
-  key = "Tap Ctrl";
+  key = "Tap/Hold Ctrl";
   elseif (dropdown_cur_value == 3) then
   was_shifted = lsAltHeld();
-  key = "Tap Alt";
+  key = "Tap/Hold Alt";
   elseif (dropdown_cur_value == 4) then
   was_shifted = lsMouseIsDown(2); --Button 3, which is middle mouse or mouse wheel
-  key = "click MWheel ";
+  key = "Click/Hold MWheel ";
   end
   
   local is_done = false;
@@ -191,20 +237,24 @@ function waterThese()
       is_shifted = lsMouseIsDown(2); --Button 3, which is middle mouse or mouse wheel
     end
 
-
   if fullAutoMode then
-    statusScreen("Waiting on Harvest ...\n\n[" .. tended .. "] Tendings -- All Plants Watered\n\n\nClick Abort button if something went wrong. This will close all veggie windows and start over.", nil, 0.7, 0.7);
-  refreshWindows();
+	if tended == #vegclickTimer+1 then
+	  fullModeStatusMessage = "Waiting to AUTO-HARVEST";
+	else
+	  fullModeStatusMessage = "Waiting to Auto-Water";
+	end
+
+    statusScreen(fullModeStatusMessage .. "\n\n[" .. tended .. "] Tendings -- All Plants Watered\n\n\nClick Abort button if something went wrong. This will close all veggie windows and start over; BUT you can still continue watering plants OR Let Automode finish watering remaining plants.", nil, 0.7, 0.7);
+    refreshWindows();
   elseif not firstWater then
     statusScreen("When ALL plants GROW:\n" .. key .. " to Water plants\n\n[" .. tended-1 .. "] Tendings -- All Plants Watered\n\nYou can " .. key .. " even if you are still watering (animations) last growth. Watering/Harvests will be queued!\n\n\nClick Abort button if something went wrong. This will close all veggie windows and start over.", nil, 0.7, 0.7);
-  refreshWindows();
+    refreshWindows();
   elseif firstWater == 1 and manualPin then
     statusScreen("After you pin your windows:\n\n" .. key .. " to water pinned plants", nil, 0.7, 0.7);
   end
 
     if (is_shifted and not was_shifted) or (firstWater and not manualPin) or harvestReady or (fullAutoMode and not finalTending) then
-  refreshWindows();
-
+      refreshWindows();
 	checkBreak();
 	if #waters == 0 and #harvest == 0 then
 	  message = "Could not find any pinned veggies!\n\nThis usually happens if you missed a plant when you " .. key .. ".\n\nHigh resolutions, such as 1920x1080 has such a small margin of where you clicked on veggie.\n\nIf avatar moves or body is facing a certain direction MIGHT be a factor...\n\n" .. key .. " to return to Main menu."
@@ -213,7 +263,6 @@ function waterThese()
 	  displayError(message);
 	  break;
 	end
-
 
 	  if #harvest >= 1 and #waters == 0 then  --If there is any 'Water these' remaining and some can be harvested, that suggests one plant is lagging behind or shrunk and you're still trying to catch up. Don't harvest yet.
 			statusScreen("Harvesting [".. #harvest .. "] plants ...");
@@ -234,7 +283,7 @@ function waterThese()
 			  break;  -- Break the loop after Harvest found and clicked
 
 	  else
-
+			lsPlaySound("scribble.wav")
 			statusScreen("Watering [".. #waters .. "] plants ...");
 
 			if (fullAutoMode and tended-1 < #vegclickTimer) or not fullAutoMode then
@@ -284,7 +333,7 @@ function waterThese()
 end
 
 
-function main()
+function plantSeeds()
   getPlantWindowPos();
   tended = 0;
   stats = "";
@@ -407,15 +456,18 @@ function chooseMethod()
 	writeSetting("manualPin",manualPin);
 	y = y + 25;
 	clearUI = readSetting("clearUI",clearUI);
-    clearUI = lsCheckBox(15, y, z, 0xffffffff, " Start pinning the plant grid below the UI", clearUI);
+      clearUI = lsCheckBox(15, y, z, 0xffffffff, " Start pinning the plant grid below the UI", clearUI);
 	writeSetting("clearUI",clearUI);
 	y = y + 25;
       lsPrint(10, y, 0, 0.9, 0.9, 0xffffffff, "Click Delay: Pause between clicking each plant");
 	y = y + 20;
       lsPrint(10, y, 0, 0.9, 0.9, 0xffffffff, "Plant closer: Not for large veggy, like cabbage");
       lsSetCamera(0,0,lsScreenX*1.0,lsScreenY*1.0);
-
-
+	saveFileCreated = readSetting("saveFileCreated",saveFileCreated);
+	if not saveFileCreated then
+	  createSaveFile();
+	  writeSetting("saveFileCreated",true);
+	end
 
     if lsButtonText(10, lsScreenY - 30, 0, 100, 0xFFFFFFff, "Next") then
         is_done = 1;
@@ -452,7 +504,6 @@ function closeAllWindows(x, y, width, height)
   while found do
     found = false;
     for i=1,#closeImages do
-
       local image = closeImages[i];
       local right = closeRight[i];
       srReadScreen();
@@ -466,12 +517,6 @@ function closeAllWindows(x, y, width, height)
       end
     end
   end
-      --We just harvested and closed any windows... Is there anything we want to do before we continue to next round?
-	if fullAutoModeQueuedOff then
-	  fullAutoMode = nil; -- We clicked disengage button, turn off, reset flag
-	  fullAutoModeQueuedOff = nil;
-        sleepWithStatus(1500, "Disengaging Auto Mode...\n\nReturning to Menu, after Harvest!",nil, 0.7, 0.7)
-	end
 end
 
 
@@ -479,17 +524,17 @@ function refreshWindows()
   srReadScreen();
   waters = findAllImages(waterImage);
   harvest = findAllImages(harvestImage);
-  unPin = findAllImages("UnPin.png");
-  if #unPin > 0 then
-    for i=1,#unPin do
-      safeClick(unPin[i][0]-10, unPin[i][1]);
-      lsSleep(10);
-      end
-  end
+--  unPin = findAllImages("UnPin.png");
+--  if #unPin > 0 then
+--    for i=1,#unPin do
+--      safeClick(unPin[i][0]-10, unPin[i][1]);
+--      lsSleep(10);
+--      end
+--  end
   tops = findAllText(thisIs);
 	for i=1,#tops do
       	  safeClick(tops[i][0], tops[i][1]);
-	  --lsSleep(10);
+	  lsSleep(10);
        end
 
   if #harvest >= 1 and #waters == 0 then
@@ -497,6 +542,7 @@ function refreshWindows()
   else
     harvestReady = nil;
   end
+  lsSleep(100);
 end
 
 
@@ -647,14 +693,14 @@ function waitForShift()
   local is_done = false;
 
   while not is_done do
-	if ButtonText(5, lsScreenY - 30, z, 150, 0xFFFFFFff, "Pick Seeds Up") then
+	if ButtonText(lsScreenX - 110, lsScreenY - 60, z, 125, 0xFFFFFFff, "Pick Seeds Up") then
 	  pickUpSeeds();
 	  closeAllWindows(0,0, size[0]-max_window_size, size[1]); -- Look for windows for any left over planted windows
 	  closeAllWindows(size[0]-500, size[1]-200, size[0], size[1]); -- Look for any leftover windows (stashed) at bottom right.
 	end
 
 	if saveCoords then
-		if ButtonText(5, lsScreenY - 60, z, 150, 0xFFFFFFff, "Reset Coords+Replant") then
+		if ButtonText(5, lsScreenY - 30, z, 160, 0xFFFFFFff, "Start Over") then
 	  	  firstLoop = 1;
 		  srSetMousePos(center[0],center[1]);
 	  	  break;
@@ -662,12 +708,14 @@ function waitForShift()
 	end
 
 	if #harvest > 0 and not manualPin then
-	  if ButtonText(lsScreenX - 140, lsScreenY - 60, z, 160, 0xFFFFFFff, "Stats/Full Auto Mode", 0.8, 0.8) then
-	    Stats();
+	  if ButtonText(5, lsScreenY - 60, z, 160, 0xFFFFFFff, "Test Auto Mode", 0.8, 0.8) then
+	    saveWaterTimer();
+	    sleepWithStatus(3500, "Testing Auto Mode!\n\nWriting your last coordinates/water timings to ATITD9/veggie_semiAuto.txt\n\n\nIf this works out, you can reload file later.", nil, 0.7, 0.7);
+	    break;
 	  end
 	end
 
-    statusScreen(key .. " to continue planting!\n\nWait until ALL animations STOP and ALL plants disappear, FIRST.\n\nNote: 'Pick Seeds Up' button isn\'t foolproof.\n\nIt simply right-clicks where you previously set plant locations.\n\nIf you moved too far from starting position, it will likely misclick and fail!", nill, 0.7, 0.7);
+    statusScreen(key .. " to continue planting (at previous coordinates); Or Start Over ...\n\nWait until ALL animations STOP and ALL plants disappear, FIRST.\n\nNote: 'Pick Seeds Up' button isn\'t foolproof.\n\nIt simply Makes Bags and right-clicks where you previously set plant locations.\n\nIf you moved it will likely misclick and fail!", nill, 0.7, 0.7);
     local is_shifted = lsShiftHeld();
 
     if (dropdown_cur_value == 1) then
@@ -702,6 +750,7 @@ function getPlantWindowPos()
   return plantPos;
 end
 
+
 function displayError(message)
   local was_shifted = lsShiftHeld();
   if (dropdown_cur_value == 1) then
@@ -722,7 +771,7 @@ function displayError(message)
 
   while not is_done do
     checkBreak();
-    statusScreen(message, nil, 0.7, 0.7);
+    statusScreen(message, nil, 0.67, 0.67);
 
     local is_shifted = lsShiftHeld();
     if (dropdown_cur_value == 1) then
@@ -745,6 +794,7 @@ end
 
 
 function repositionAvatar()
+  lsDoFrame(); -- Just blank out screen real quick to cause buttons to disappear
   statusScreen("Repositioning Avatar to face N/S ...");
   safeClick(center[0],center[1]-200);
   lsSleep(500);
@@ -753,7 +803,7 @@ function repositionAvatar()
 end
 
 
-function pickUpSeeds()
+function pickUpSeeds(noClick)
   srSetMousePos(center[0],center[1]);
   lsSleep(75);
   srKeyEvent(string.char(27));  -- Send Esc Key to close the window
@@ -768,7 +818,6 @@ function pickUpSeeds()
 	  sleepWithStatus(1250, "Error: Could not find menu option 'Utility'\n\nWas part of the menu obscured behind Automato, perhaps?",nil, 0.7, 0.7);
   	end
   srReadScreen();
-
   bags = findText("nearby");
   lsSleep(75);
 
@@ -780,7 +829,7 @@ function pickUpSeeds()
   end
 
 
-  if bags then
+  if bags and not noClick then
     for i=1,#vegclickList do
 	checkBreak();
 	safeClick(vegclickList[i][1], vegclickList[i][2], 1);
@@ -790,47 +839,31 @@ function pickUpSeeds()
 end
 
 
-function Stats()
-    lsDoFrame();
-  while 1 do
-	if lsButtonText(lsScreenX - 110, lsScreenY - 60, z, 100, 0xFFFFFFff, "Back") then
-	  break;
-	end
-	  if ButtonText(10, lsScreenY - 30, z, 175, 0x80ff80ff, "Engage Auto Mode!") then
-	    saveWaterTimer();
-	    sleepWithStatus(1500, "Engaging Auto Water Mode!\n\nAlso wrote times to veggie_semiAuto.txt", nil, 0.7, 0.7);
-	    break;
-	  end
---	if lsButtonText(10, lsScreenY - 60, z, 100, 0xFFFFFFff, "Load File") then
---	  parseWaterTimer()
---	end
-
-
-    checkBreak();
-    statusScreen("Macro has been running: " .. getElapsedTime(thisSessionTimer) .. "\n\nTotal Harvests: " .. totalHarvests .. "\n\nLast Tending/Harvest Timer Report:\n\n" .. stats, nil, 0.7, 0.7);
-    lsSleep(10);
-  end
-end
-
 function round(num, numDecimalPlaces)
   local mult = 10^(numDecimalPlaces or 0)
   return math.floor(num * mult + 0.5) / mult
 end
 
+
 function saveWaterTimer()
-fullAutoMode = 1;
---pauseAfterHarvest = nil;
+  fullAutoMode = 1;
   local file = io.open("veggie_semiAuto.txt", "w+");
-    for i=1,#vegclickTimer do
-	checkBreak();
-	if i ~= 1 then
-      file:write("," .. vegclickTimer[i][1]);
-	else
-      file:write(vegclickTimer[i][1]);
+    file:write("vegclickTimer = {\n")
+      for i=1,#vegclickTimer do
+        file:write("{" .. vegclickTimer[i][1] .. "},\n");
       end
-    end
+    file:write("};")
+
+    file:write("\n\nvegclickList = {\n")
+      for i=1,#vegclickList do
+        file:write("{" .. vegclickList[i][1] .. "," .. vegclickList[i][2] .. "},\n");
+      end
+    file:write("};")
+
   io.close(file);
+  lsPlaySound("saved.wav")
 end
+
 
 --This is the same function in common.inc/sub files.  This is added so that some buttons continue to display while "sleeping" 
 function sleepWithStatus(delay_time, message, color, scale)
@@ -862,17 +895,7 @@ local waitFrame = 1;
     lsSleep(tick_delay);
     waitFrame = waitFrame + 1;
   end
-
---Add Extra Buttons here...
-
-	if fullAutoMode and not fullAutoModeQueuedOff then
-	  if ButtonText(10, lsScreenY - 30, z, 175, 0xff6666ff, "Disengage Auto Mode/Finish Up") then
-	    fullAutoModeQueuedOff = 1;
-          sleepWithStatus(1500, "Disengaging Auto Mode...\n\nReturning to Menu, after Harvest!",nil, 0.7, 0.7)
-	  end
-	end
 end
-
 
 function statusScreen(message, color, allow_break, scale)
   if not message then
@@ -907,14 +930,63 @@ function statusScreen(message, color, allow_break, scale)
 --Add Extra Buttons here...
 
 	if fullAutoMode and not fullAutoModeQueuedOff then
-	  if ButtonText(10, lsScreenY - 30, z, 175, 0xff6666ff, "Disengage Auto Mode/Finish Up") then
+	  if ButtonText(10, lsScreenY - 30, z, 175, 0xff6666ff, "Finish Up") then
 	    fullAutoModeQueuedOff = 1;
           statusScreen("Disengaging Auto Mode...\n\nReturning to Menu, after Harvest!",nil, 0.7, 0.7)
 	  end
 	end
-
-
-
   lsSleep(tick_delay);
   lsDoFrame();
+end
+
+
+function loadMenu()
+  dofile("veggie_semiAuto.txt");
+
+  while 1 do
+  local message = "";
+	if #vegclickTimer > 0 and #vegclickList > 0 then
+	  message = message .. #vegclickTimer .. " Tending Timers Found:\n";
+
+	  for i=1,#vegclickTimer do
+	    message = message .. "Tend [" .. i .. "] = " .. vegclickTimer[i][1] .. " ms\n";
+	  end
+
+	  message = message .. "\n\n" .. #vegclickList .. " Seed Click Points Found:\n";
+
+	  for i=1,#vegclickList do
+	  message = message .. "Plant [" .. i .. "] = " .. vegclickList[i][1] .. ", " .. vegclickList[i][1] .. "\n";
+	  end
+
+	else
+	  message = "ERROR: YOU HAVE NO SAVED FILE YET!\n\nNote: After you plants seeds at least once, you will see a 'Test Auto Mode' button.\n\nEach time you click that, it will write the click coordinates of seeds and watering times to T9/veggie_semiAuto.txt ... Then you can load this file next time.";
+	end
+
+	  if lsButtonText(lsScreenX - 110, lsScreenY - 60, z, 100, 0xFFFFFFff, "Back") then
+	    break;
+	  end
+
+	  if #vegclickTimer > 0 and #vegclickList > 0 then
+	    if ButtonText(10, lsScreenY - 30, z, 175, 0x80ff80ff, "Engage Auto Mode!") then
+	      setCameraView(CARTOGRAPHER2CAM);
+	      lsSleep(500);
+	      fullAutoMode = 1;
+	      count = #vegclickList; -- Make sure we override "How many Plants" in case it's different than saved file count
+	      sleepWithStatus(1500, "Engaging Auto Water Mode!", nil, 0.7, 0.7);
+	      fm_is_done = 1;
+	    --break;
+            main();
+	    end
+	  end
+
+  statusScreen("Make sure you\'re facing N/S. Avatar Auto-Repositioning is now disabled, in case you need to make some minor walk adjustments.\n\n" .. message, nill, 0.65, 0.65);
+  lsSleep(50);
+  end
+end
+
+
+function createSaveFile()
+  local file = io.open("veggie_semiAuto.txt", "w+");
+  file:write("vegclickTimer = {};\nvegclickList = {};");
+  io.close(file);
 end
