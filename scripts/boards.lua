@@ -23,6 +23,7 @@ end
 function promptParameters()
 	arrangeWindows = true;
 	unpinWindows = true;
+	carpShop = true;
 	scale = 1.1;
 
 	local z = 0;
@@ -39,20 +40,29 @@ function promptParameters()
 
 lsPrintWrapped(10, y, z+10, lsScreenX - 20, 0.7, 0.7, 0xD0D0D0ff, 
 			"Board Maker V2.0 Rewrite by Manon for T9\n\n");
+			
+		carpShop = readSetting("carpShop",carpShop);
+		carpShop = lsCheckBox(10, 40, z, 0xFFFFFFff, "Use carpentry shop", carpShop);
+		writeSetting("carpShop",carpShop);
+		y = y + 32;
+		
+		lsPrintWrapped(10, 60, z+10, lsScreenX - 20, 0.7, 0.7, 0xD0D0D0ff, 
+			"Will use Carpentry Shops instead of Wood Planes to plane boards.");
+			
 		arrangeWindows = readSetting("arrangeWindows",arrangeWindows);
-		arrangeWindows = lsCheckBox(10, 40, z, 0xFFFFFFff, "Arrange windows", arrangeWindows);
+		arrangeWindows = lsCheckBox(10, 100, z, 0xFFFFFFff, "Arrange windows", arrangeWindows);
 		writeSetting("arrangeWindows",arrangeWindows);
 		y = y + 32;
 
-lsPrintWrapped(10, 60, z+10, lsScreenX - 20, 0.7, 0.7, 0xD0D0D0ff, 
-			"Will sort your pinned Wood Planes into a grid on your screen.");
+lsPrintWrapped(10, 120, z+10, lsScreenX - 20, 0.7, 0.7, 0xD0D0D0ff, 
+			"Will sort your pinned Wood Planes or Carpentry Shops into a grid on your screen.");
 
 		unpinWindows = readSetting("unpinWindows",unpinWindows);
-		unpinWindows = lsCheckBox(10, 100, z, 0xFFFFFFff, "Unpin windows on exit", unpinWindows);
+		unpinWindows = lsCheckBox(10, 160, z, 0xFFFFFFff, "Unpin windows on exit", unpinWindows);
 		writeSetting("unpinWindows",unpinWindows);
 		y = y + 32;
 
-		lsPrintWrapped(10, 120, z+10, lsScreenX - 20, 0.7, 0.7, 0xD0D0D0ff, 
+		lsPrintWrapped(10, 180, z+10, lsScreenX - 20, 0.7, 0.7, 0xD0D0D0ff, 
 			"On exit will close all windows when you close this macro.\n\nPress OK to continue.");
 
 		if lsButtonText(10, (lsScreenY - 30) * scale, z, 100, 0xFFFFFFff, "OK") then
@@ -83,7 +93,13 @@ end
 
 function repairBoards()
     srReadScreen();
+	
+	if not carpShop then 
     clickrepair = findAllText("Repair this Wood Plane");
+	else
+	clickrepair = findAllText("Install a Slate Blade");
+	end
+	
     for i=1,#clickrepair do
         clickText(clickrepair[i]);
         lsSleep(100);
@@ -92,12 +108,41 @@ end
 
 function planeBoards()
     srReadScreen();
+	
+	if not carpShop then 
     clickplane = findAllText("Plane a piece");
     woodplane = findAllText("Wood Plane")
-    statusScreen("Found " .. #woodplane .. " Wood Planes.\nPlaning  " .. #clickplane .. " Boards\nRepairing " .. #clickrepair .. " Wood Planes.");
-    for i=1,#clickplane do
+		if(#woodplane < 1) then
+			error("Could not any Wood Planes.");
+		end
+    statusScreen("Found " .. #woodplane .. " Wood Planes.\nPlaning  " .. #clickplane .. " Boards\nRepaired " .. #clickrepair .. " Wood Planes.");
+	else
+	clickplane = findAllText("wood into boards");
+    carpentryShop = findAllText("Carpentry Shop")
+		if(#carpentryShop < 1) then
+			error("Could not any Carpentry Shops.");
+		end
+    statusScreen("Found " .. #carpentryShop .. " Wood Planes.\nRepaired " .. #clickrepair .. " Wood Planes.");
+	end
+	
+	for i=1,#clickplane do
+		waitForStats()
         clickText(clickplane[i]);
-        lsSleep(100);
+    end
+	lsSleep(100);
+	
+end
+
+function waitForStats()
+    while 1 do
+        checkBreak();
+        srReadScreen();
+        local stats = srFindImage("statclicks/endurance_black_small.png");
+        if not stats then
+			sleepWithStatus(999, "Waiting for Endurance timer to be visible and white")
+        else
+            break;
+        end
     end
 end
 
