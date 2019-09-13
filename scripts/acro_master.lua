@@ -1,4 +1,4 @@
--- Acrobat Master v1.1 by Cegaiel
+-- Acrobat Master v1.2 by Cegaiel
 --
 -- Immediately upon Starting:
 -- Searches your acro menu for all of your acro buttons. It will not include acro move names on the list, that is not inside of a button.
@@ -110,8 +110,10 @@ moveShortNames = {
 "WM",
 };
 
-perMoves = 3;
 startTime = 0;
+perMoves = 6;
+moveDelay = 6500; -- How many ms to wait to perform between each move to your partner.
+
 
 function doit()
   askForWindow(askText);
@@ -120,10 +122,10 @@ function doit()
   displayMoves();
 end
 
--- TODO: this should only find buttons north of the break
+
 function findMoves()
   lsDoFrame();
-  statusScreen("Scanning acro buttons...");
+  statusScreen("Scanning acro buttons...", nil, 0.7, 0.7);
   foundMovesName = {};
   foundMovesImage = {};
   foundMovesShortName = {};
@@ -135,8 +137,8 @@ function findMoves()
 	    foundMovesName[#foundMovesName + 1] = moveNames[i];
 	    foundMovesImage[#foundMovesImage + 1] = moveImages[i];
 	    foundMovesShortName[#foundMovesShortName + 1] = moveShortNames[i];
-      statusScreen("Scanning acro buttons...\n \nFound: " .. moveNames[i]);
-      lsSleep(25);
+      statusScreen("Scanning acro buttons...\n \nFound: " .. moveNames[i], nil, 0.7, 0.7);
+      lsSleep(10);
 	  end
     end
 
@@ -145,164 +147,102 @@ function findMoves()
   end
 end
 
-local enummt = {
-	__index = function(table, key)
-		if rawget(table.enums, key) then
-			return key
-		end
-	end
-}
-
-local function Enum(t)
-	local e = { enums = t}
-	return setmetatable(e, enummt)
-end
-
-local AcroState = Enum {
-	AcroClick = 1,
-	AcroStart = 1,
-	TimerEnd = 1
-}
 
 function doMoves()
-	local skip = false;
-		
-	local state = AcroState.AcroClick;
-	
-	local badLagMessageTimer = 5000;
-	
-	-- total timeout waiting for acro start time will be acroStartIttr * acroStartTimeout ms
-	local acroStartTries = 0;
-	local acroStartIttr = 15; 		-- increase total timeout here first
-	local acroStartTimeout = 1000; 	-- be careful extending this value.
-	
-	-- total timeout waiting for acro start time will be acroEndIttr * acroEndTimeout ms
-	local acroEndTries = 0;
-	local acroEndIttr = 20; 		-- increase total timeout here first
-	local acroEndTimeout = 1000; 	-- be careful extending this value.
+  local currentMove = 1;
+  local skip = false;
+  local now = 0;
+  local lastClick = 0;
+  local currentClick = 0;
+  local GUI = "";
+  startTime = lsGetTimer();
 
-	for currentMove=1,checkedBoxes do
-		checkBreak();
-	
-		for currentClick=1,perMoves do
-			checkBreak();
-			
-			if skip then
-				skip = false;
-				break;
-			end					
-					
-			-- reset state for safety's sake
-			state = AcroState.AcroClick;
-			
-			acroStartTries = 0;
-			acroEndTries = 0;
-			
-			while true do
-				checkBreak();
-				
-				local GUI = "...\n \n[" .. currentMove .. "/" .. checkedBoxes .. "] " .. checkedMovesName[currentMove] .. "\n[" .. currentClick .. "/" .. perMoves .. "] Clicked\n \nNote: Avatar animation will not keep up with macro. This is OK, each move clicked will still be recognized by your partner.\n\nClick Skip to advance to next move on list (ie partner follows the move).";
+	for i=1,checkedBoxes do
+   	    checkBreak();
 
-				if lsButtonText(10, lsScreenY - 30, z, 75, 0xffff80ff, "Menu") then
-					sleepWithStatus(1000, "Returning to Menu")
-					displayMoves();
-					break;
-				end
-				
-				if lsButtonText(100, lsScreenY - 30, z, 75, 0xff8080ff, "Skip") then
-					-- breaking the loop will happen in AcroClick state
-					skip = true;
-				end
+		for j=1,perMoves do
+		  checkBreak();
+
+	         if skip then
+                 currentClick = 0;
+	           skip = false;
+	           break;
+               end
 
 
-				-- handle do click state
-				if state == AcroState.AcroClick then
-					-- skip here to give AcroStart/End states time to complete
-					if skip == true then
-						break;
-					end
+		  local acroTimer = true;
+			while acroTimer do
+			    now = lsGetTimer();
 
-		     	clickMove = srFindImage("acro/" .. checkedMovesImage[currentMove]);
-					
-					if clickMove then
-						srReadScreen();
-						srClickMouseNoMove(clickMove[0], clickMove[1]-1);
-						status = checkedMovesName[currentMove] .. " clicked";
-						statusScreen(status .. GUI, nil, 0.65, 0.65);
-						
-						state = AcroState.AcroStart
-					else
-						status = "BUTTON NOT FOUND!\nSkipping: " .. checkedMovesName[currentMove];
-						statusScreen(status .. GUI, nil, 0.65, 0.65);
-						skip = true;
-						break;
-					end
-					lsSleep(1000); -- timer here to make sure the status message can be seen before moving on to acro timer
-				end
-				
-				-- handle acro start state
-				if state == AcroState.AcroStart then
-					statusScreen("WAITING FOR ACRO TIMER TO START " .. acroStartTries .. "/" .. acroStartIttr .. GUI, nil, 0.65, 0.65);
-		
-					img = lsSleep(7000);
-					
-					if img ~= true then
-						state = AcroState.AcroEnd
-					else
-						acroStartTries = acroStartTries + 1
-					end
-					
-					if acroStartTries == acroStartIttr then
-						acroStartTries = acroStartTries - 5;
-						statusScreen("The lag is pretty bad... are you sure you want to be acroing?  Trying 5 more times...", nil, 0.65, 0.65);
-						lsSleep(badLagMessageTimer);
-					end
-				end
-
-				if lsButtonText(10, lsScreenY - 30, z, 75, 0xffff80ff, "Menu") then
-					sleepWithStatus(1000, "Returning to Menu")
-					displayMoves();
-					break;
-				end
-				
-				if lsButtonText(100, lsScreenY - 30, z, 75, 0xff8080ff, "Skip") then
-					-- breaking the loop will happen in AcroClick state
-					skip = true;
-				end
-				
-				-- handle acro end state
-				if state == AcroState.AcroEnd then
-					if skip == true then
-					  statusScreen("Skip Queued ...\nWAITING FOR ACRO TIMER TO END " .. acroEndTries .. "/" .. acroEndIttr .. GUI, nil, 0.65, 0.65);
-					else
-					  statusScreen("WAITING FOR ACRO TIMER TO END " .. acroEndTries .. "/" .. acroEndIttr .. GUI, nil, 0.65, 0.65);
-					end
-					
-					img = lsSleep(100);
-					
-					if img == nil then
-						state = AcroState.AcroClick;
-						break;
-					else
-						acroEndTries = acroEndTries + 1
-					end
-					
-					if acroEndTries == acroEndIttr then
-						acroEndTries = acroEndTries - 5;
-						statusScreen("The lag is pretty bad... are you sure you want to be acroing?  Trying 5 more times...", nil, 0.65, 0.65);
-						lsSleep(badLagMessageTimer);
-					end
-					
-				end
-				
+			    if lsButtonText(10, lsScreenY - 30, z, 75, 0xffff80ff, "Menu") then
 				--lsDoFrame();
-			end
-			
-		end -- currentClick
-	
-	end -- currentMove
+				sleepWithStatus(1000, "Returning to Menu")
+				displayMoves();
+			    end
+			    if lsButtonText(100, lsScreenY - 30, z, 75, 0xff8080ff, "Skip") then
+				skip = true;
+	   			currentMove = currentMove + 1;
+	   			currentClick = 1;
+			    end
 
+			  checkBreak();
+			  srReadScreen();
+
+
+			    if ( (now - lastClick) < tonumber(moveDelay) ) then
+
+
+				  if skip then
+					break;
+				  else
+					if currentClick == 0 then
+				         statusScreen("Move Delay: " .. math.floor(moveDelay - (now - lastClick)) .. "\n\nSKIP MOVE QUEUED" .. GUI, nil, 0.7, 0.7);
+					else
+				         statusScreen("Move Delay: " .. math.floor(moveDelay - (now - lastClick)) .. "\n\nWaiting on Timer" .. GUI, nil, 0.7, 0.7);
+					end
+				  end
+
+
+			    else
+
+				  acroTimer = false;
+		     		  clickMove = srFindImage("acro/" .. checkedMovesImage[i]);
+
+		    			if clickMove then
+					  srClickMouseNoMove(clickMove[0]+3, clickMove[1]+2);
+					  --srSetMousePos(clickMove[0]+3, clickMove[1]+2);
+					  status = string.upper(checkedMovesName[i]);
+					  currentClick = currentClick + 1;
+					  lastClick = lsGetTimer();
+
+					else
+					  status = "BUTTON NOT FOUND!\nSkipping: " .. checkedMovesName[i];
+					  sleepWithStatus(2000, status, nil, 0.7, 0.7);
+					  skip = true;
+
+		    			end -- if clickMove
+
+
+
+		     		  		if skip then
+	   			    		  currentMove = currentMove + 1;
+				  		elseif tonumber(currentClick) > tonumber(perMoves) then
+	   			    		  currentMove = currentMove + 1;
+	   			    		  currentClick = 1;
+				  		end
+
+
+
+  GUI = "\n\n" .. status .. "\n \n[" .. currentMove .. "/" .. checkedBoxes .. "] " .. checkedMovesName[i] .. "\n[" .. currentClick .. "/" .. perMoves .. "] Clicked\n \nNote: Avatar animation might not keep up with macro. This is OK, each move clicked will still be recognized by your partner.\n\nClick Skip to advance to next move on list (ie partner follows the move).";
+
+			    end --if ( (now - lastClick) < tonumber(moveDelay) )
+		       end --while acroTimer
+		  end --for j
+        end --for i
+  sleepWithStatus(2000, "ALL DONE!\n \nReturning to Menu", nil, 0.7, 0.7)
+  displayMoves();
 end
+
 
 function processCheckedBoxes()
   checkedMovesName = {};
@@ -325,6 +265,7 @@ function processCheckedBoxes()
 	doMoves();
     end
 end
+
 
 function checkAllBoxes()
   for i=1,#foundMovesName do
@@ -374,6 +315,20 @@ function displayMoves()
     local y = 10;
     lsSetCamera(0,0,lsScreenX*1.5,lsScreenY*1.5);
 
+
+    foo, moveDelay = lsEditBox("ms Delay per Move", 15, y, z, 60, 30, 0.7, 0.7,
+                                   0x000000ff, moveDelay);
+
+     if not tonumber(moveDelay) then
+        is_done = nil;
+	  lsPrint(90, y, 0, 0.9, 0.9, 0xFF2020ff, "MUST BE A NUMBER!");
+	else
+	  is_done = true;
+        lsPrint(88, y+2, z, 0.9, 0.9, 0xf0f0f0ff, "ms (" .. round(moveDelay/1000,2) .. "s) between each Move Click");
+	end
+
+	y=y+30;
+
     foo, perMoves = lsEditBox("Time per Move", 15, y, z, 30, 30, 0.7, 0.7,
                                    0x000000ff, perMoves);
       if not tonumber(perMoves) then
@@ -381,12 +336,13 @@ function displayMoves()
 	  lsPrint(60, y, 0, 0.9, 0.9, 0xFF2020ff, "MUST BE A NUMBER!");
 	else
 	  is_done = true;
-        lsPrint(55, y, z, 0.9, 0.9, 0xf0f0f0ff, "Times to repeat each move: " .. #foundMovesName .. " found");
+        lsPrint(88, y+2, z, 0.9, 0.9, 0xf0f0f0ff, "# Times to Repeat each Move");
 	end
 
-    lsPrint(100, y+20, z, 0.8, 0.8, 0xf0f0f0ff, "Last Acro Session: " .. lastSession);
-    y = y + 50;
+    lsPrint(15, y+50, z, 0.8, 0.8, 0xf0f0f0ff, "Last Acro Session: " .. lastSession);
+    y = y + 90;
     lsPrint(15, y, 0, 0.9, 0.9, 0x40ff40ff, "Check moves you want to perform:");
+
     y = y + 30;
 
       for i=1,#foundMovesName do
@@ -428,6 +384,12 @@ function displayMoves()
       end
 
     lsDoFrame();
-    lsSleep(50);
+    lsSleep(10);
   end
+end
+
+
+function round(num, numDecimalPlaces)
+    local mult = 10^(numDecimalPlaces or 0)
+    return math.floor(num * mult + 0.5) / mult
 end
