@@ -13,7 +13,7 @@
 
 dofile("common.inc");
 
-askText = "Acrobat Master v1.1 by Cegaiel\n \nWait until you have Acrobat window open, from a partner, (won\'t work with Self Click, Acrobat, Show Moves) before you start macro! It will memorize your moves for future partners (even if you close acro window). You can move acro window while its running. You do not need to quit/restart macro between each partner. Click \"Menu\" button, when you are done acroing the current player. Optionally, click \"Refresh\" button when your next partner\'s acro window is open. This will prevent the same moves you both know from appearing in checklist. Make sure you resize the acro window so all the buttons are showing. Press Shift over ATITD window to continue.";
+askText = "Acrobat Master v1.2 by Cegaiel\n \nWait until you have Acrobat window open, from a partner, (won\'t work with Self Click, Acrobat, Show Moves) before you start macro! It will memorize your moves for future partners (even if you close acro window). You can move acro window while its running. You do not need to quit/restart macro between each partner. Click \"Menu\" button, when you are done acroing the current player. Optionally, click \"Refresh\" button when your next partner\'s acro window is open. Make sure you resize the acro window so all the buttons you know are showing (above the bar). Press Shift over ATITD window to continue.";
 
 
 moveImages = {
@@ -129,15 +129,40 @@ function findMoves()
   foundMovesName = {};
   foundMovesImage = {};
   foundMovesShortName = {};
+  local acroY;
+  local atitdY;
+  local message = "";
+
+
+	  --See if the acro bar (middle border on Acro window) is found.  If not, then just set Y to screenHeight
+	  --Moves above the acro bar are moves that your partner does not know yet. Moves below are moves your partner already knows.  Attempt to exclude those.
+      srReadScreen();
+      local bar = srFindImage("acro/acro_bar.png");
+
+	if bar then
+	  acroY = bar[1];   -- set Y position of the middle border
+	  message = message .. "\n\nAcro middle border found!\nIgnoring moves below the border...";
+	else
+	  atitdY = srGetWindowSize();
+	  acroY = atitdY[1];   -- No middle border found, so just use ATITD screen height
+	end
+
     for i=1,#moveNames do
 	checkBreak();
       srReadScreen();
       local found = srFindImage("acro/" .. moveImages[i]);
 	  if found then
+	    moveY = found[1];
+	  end
+	  if found and (moveY > acroY) then  --Button found, but below middle border, skip it (this means your partner already knows the move, too.
+          statusScreen("Scanning acro buttons...\n\nSkipping: " .. moveNames[i] .. message, nil, 0.7, 0.7);
+	  end
+
+	  if found and (moveY < acroY) then
 	    foundMovesName[#foundMovesName + 1] = moveNames[i];
 	    foundMovesImage[#foundMovesImage + 1] = moveImages[i];
 	    foundMovesShortName[#foundMovesShortName + 1] = moveShortNames[i];
-      statusScreen("Scanning acro buttons...\n \nFound: " .. moveNames[i], nil, 0.7, 0.7);
+	    statusScreen("Scanning acro buttons...\n\nFound: " .. moveNames[i] .. message, nil, 0.7, 0.7);
       lsSleep(10);
 	  end
     end
