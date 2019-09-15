@@ -145,6 +145,9 @@ function checkWindowSize(x, y)
     srReadScreen();
     window_check_done_once = true;
      local pos = srFindImageInRange(imgUseable, x-5, y-50, 150, 100)
+	 if pos then
+		window_h = window_h + 15;
+	 end
   end
 end
 
