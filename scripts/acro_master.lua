@@ -1,4 +1,4 @@
--- Acrobat Master v1.2 by Cegaiel
+-- Acrobat Master v2.0 by Cegaiel
 --
 -- Immediately upon Starting:
 -- Searches your acro menu for all of your acro buttons. It will not include acro move names on the list, that is not inside of a button.
@@ -13,7 +13,7 @@
 
 dofile("common.inc");
 
-askText = "Acrobat Master v1.2 by Cegaiel\n \nWait until you have Acrobat window open, from a partner, (won\'t work with Self Click, Acrobat, Show Moves) before you start macro! It will memorize your moves for future partners (even if you close acro window). You can move acro window while its running. You do not need to quit/restart macro between each partner. Click \"Menu\" button, when you are done acroing the current player. Optionally, click \"Refresh\" button when your next partner\'s acro window is open. Make sure you resize the acro window so all the buttons you know are showing (above the bar). Press Shift over ATITD window to continue.";
+askText = "Acrobat Master v2.0 by Cegaiel\n \nWait until you have Acrobat window open, from a partner, (won\'t work with Self Click, Acrobat, Show Moves) before you start macro! It will memorize your moves for future partners (even if you close acro window). You can move acro window while its running. You do not need to quit/restart macro between each partner. Click \"Menu\" button, when you are done acroing the current player. Optionally, click \"Refresh\" button when your next partner\'s acro window is open. Make sure you resize the acro window so all the buttons you know are showing (above the bar). Press Shift over ATITD window to continue.";
 
 
 moveImages = {
@@ -113,7 +113,7 @@ moveShortNames = {
 startTime = 0;
 perMoves = 6;
 moveDelay = 6500; -- How many ms to wait to perform between each move to your partner.
-
+debugClickMoves = nil; -- Change to true to make mouse point to where it's clicking. Change to nil to disable.
 
 function doit()
   askForWindow(askText);
@@ -174,12 +174,11 @@ end
 
 
 function doMoves()
-  local currentMove = 1;
   local skip = false;
   local now = 0;
   local lastClick = 0;
-  local currentClick = 0;
   local GUI = "";
+  local skipNotification = nil;
   startTime = lsGetTimer();
 
 	for i=1,checkedBoxes do
@@ -187,84 +186,97 @@ function doMoves()
 
 		for j=1,perMoves do
 		  checkBreak();
+		  skipNotification = nil;
 
-	         if skip then
-                 currentClick = 0;
-	           skip = false;
-	           break;
-               end
+
+		  if skip then
+		      if j ~= 1 then
+		        break;
+		      else
+		        skip = false;
+		      end
+		  end
 
 
 		  local acroTimer = true;
 			while acroTimer do
+			  checkBreak();
 			    now = lsGetTimer();
 
 			    if lsButtonText(10, lsScreenY - 30, z, 75, 0xffff80ff, "Menu") then
-				--lsDoFrame();
-				sleepWithStatus(1000, "Returning to Menu")
+				sleepWithStatus(1500, "Returning to Menu")
 				displayMoves();
 			    end
-			    if lsButtonText(100, lsScreenY - 30, z, 75, 0xff8080ff, "Skip") then
-				skip = true;
-	   			currentMove = currentMove + 1;
-	   			currentClick = 1;
-			    end
 
-			  checkBreak();
-			  srReadScreen();
+			    if lsButtonText(100, lsScreenY - 30, z, 75, 0xff8080ff, "Skip") then
+
+				if j == 1 then
+				  skipNotification = true;
+				else
+				  skip = true;
+				end
+
+				if j == 1 then
+				  nextMove = checkedMovesName[i];
+				elseif i < tonumber(checkedBoxes) then
+				  nextMove = checkedMovesName[i+1];
+				else
+				  nextMove = "Last Move (N/A)";
+				end
+
+			    end -- if Skip button
 
 
 			    if ( (now - lastClick) < tonumber(moveDelay) ) then
 
-
-				  if skip then
-					break;
-				  else
-					if currentClick == 0 then
-				         statusScreen("Move Delay: " .. math.floor(moveDelay - (now - lastClick)) .. "\n\nSKIP MOVE QUEUED" .. GUI, nil, 0.7, 0.7);
+					if skip or skipNotification then
+				         statusScreen("Move Delay: " .. math.floor(moveDelay - (now - lastClick)) .. "\n\nSkip Queued: " ..  string.upper(nextMove) .. GUI, nil, 0.7, 0.7);
 					else
 				         statusScreen("Move Delay: " .. math.floor(moveDelay - (now - lastClick)) .. "\n\nWaiting on Timer" .. GUI, nil, 0.7, 0.7);
 					end
-				  end
-
 
 			    else
 
+
+				  if skip then
+				    break;
+				  end
+
+
 				  acroTimer = false;
+		     		  srReadScreen();
 		     		  clickMove = srFindImage("acro/" .. checkedMovesImage[i]);
 
 		    			if clickMove then
-					  srClickMouseNoMove(clickMove[0]+3, clickMove[1]+2);
-					  --srSetMousePos(clickMove[0]+3, clickMove[1]+2);
 					  status = string.upper(checkedMovesName[i]);
-					  currentClick = currentClick + 1;
 					  lastClick = lsGetTimer();
-
+					      if debugClickMoves then srSetMousePos(clickMove[0]+3, clickMove[1]+2); end
+					  srClickMouseNoMove(clickMove[0]+3, clickMove[1]+2);
 					else
 					  status = "BUTTON NOT FOUND!\nSkipping: " .. checkedMovesName[i];
 					  sleepWithStatus(2000, status, nil, 0.7, 0.7);
 					  skip = true;
-
 		    			end -- if clickMove
 
 
 
-		     		  		if skip then
-	   			    		  currentMove = currentMove + 1;
-				  		elseif tonumber(currentClick) > tonumber(perMoves) then
-	   			    		  currentMove = currentMove + 1;
-	   			    		  currentClick = 1;
-				  		end
+  GUI = "\n\n" .. status .. "\n \n[" .. i .. "/" .. checkedBoxes .. "] Moves\n[" .. j .. "/" .. perMoves .. "] Clicked\n \nNote: Avatar animation might not keep up with macro. This is OK, each move clicked will still be recognized by your partner.\n\nClick Skip to advance to next move on list (ie partner follows the move).";
 
 
-
-  GUI = "\n\n" .. status .. "\n \n[" .. currentMove .. "/" .. checkedBoxes .. "] " .. checkedMovesName[i] .. "\n[" .. currentClick .. "/" .. perMoves .. "] Clicked\n \nNote: Avatar animation might not keep up with macro. This is OK, each move clicked will still be recognized by your partner.\n\nClick Skip to advance to next move on list (ie partner follows the move).";
 
 			    end --if ( (now - lastClick) < tonumber(moveDelay) )
 		       end --while acroTimer
 		  end --for j
         end --for i
-  sleepWithStatus(2000, "ALL DONE!\n \nReturning to Menu", nil, 0.7, 0.7)
+
+  if skip or skipNotification then
+    -- We skipped on final move; Simply announce we're returning to menu, with short delay
+    sleepWithStatus(1500, "\nALL DONE, RETURNING TO MAIN ...\n" .. GUI , nil, 0.7, 0.7)
+  else
+    -- Allow the full animation timer to finish before returning to menu.
+    sleepWithStatus(tonumber(moveDelay), "ALL DONE, RETURNING TO MAIN ...\n\nWaiting on Timer/Move Delay" .. GUI , nil, 0.7, 0.7)
+  end
+
   displayMoves();
 end
 
@@ -285,7 +297,9 @@ function processCheckedBoxes()
     end
 
     if checkedBoxes == 0 then
-	sleepWithStatus(2500, "No moves selected!\n \nAborting...");
+	sleepWithStatus(2500, "No moves selected!\n\nAborting...");
+
+
     else
 	doMoves();
     end
