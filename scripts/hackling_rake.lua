@@ -140,9 +140,9 @@ GUI = "\n\nNext Step: " .. step .. "/4 - " .. task_text .. "\n\n----------------
 		  repairRake();
 		  --checkCurrentStep();
 		end
-
 		if loop_count > num_loops or OK then
 			num_loops = nil;
+			break;
 		elseif not stats_black and not stats_blackB and not stats_blackC then
 			--sleepWithStatus(1000, stats_black_message .. "\n" .. stats_blackB_message .. "\n" .. stats_blackC_message);
 			sleepWithStatus(100, "Waiting on Endurance Timer ..." .. GUI, nil, 0.7, 0.7);
