@@ -112,6 +112,9 @@ function doit()
 	while num_loops do
 		checkBreak();
 		srReadScreen();
+		clickAllText("This is");
+		lsSleep(100);
+		srReadScreen();
 		repair = findText("Repair");
 		OK = srFindImage("ok.png"); -- If we got an OK popup, this suggests we got a "You don't have any Rotten Flax" message. 
 		stats_black = srFindImage("endurance.png", 7000);
