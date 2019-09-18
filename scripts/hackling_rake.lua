@@ -18,6 +18,7 @@ improved_rake = 0;
 num_flax = 0;
 num_loops = 0;
 per_rake = 10;
+repairAttempt = 0;
 
 function promptRakeNumbers()
 	scale = 0.8;
@@ -84,7 +85,7 @@ end
 
 function doit()
 	promptRakeNumbers();
-    askForWindow(askText);
+      askForWindow(askText);
 
 	step = 1;
 	local task = "";
@@ -99,6 +100,11 @@ function doit()
 	local startTime = lsGetTimer();
 
 	checkCurrentStep(); -- Verify what step we're on when you start macro and update.
+	  if repair then -- Initial Repair check is looked at during above checkCurrentStep();
+	    repairRake();
+	    --checkCurrentStep();
+	  end
+
         if step > 1 then
           delay_loop_count = 1; --If we're starting in the middle of a previous session, then don't advance loop_count (later). Finish up what's already being processed.
 	  end
@@ -106,38 +112,11 @@ function doit()
 	while num_loops do
 		checkBreak();
 		srReadScreen();
-		OK = srFindImage("ok.png"); -- If we got an OK popup, this suggests "Your Flax Comb/Hackling Rake has wore out", quit
-		stats_black2 = nil;
-		stats_black3 = nil;
-		stats_blackB = nil;
-		stats_blackC = nil;
-		
+		repair = findText("Repair");
+		OK = srFindImage("ok.png"); -- If we got an OK popup, this suggests we got a "You don't have any Rotten Flax" message. 
 		stats_black = srFindImage("endurance.png");
 		stats_blackB = srFindImage("endurance2.png"); -- We can proceed when it's semi-dark red (same as white)
 		stats_blackC = srFindImage("endurance3.png"); -- We can proceed when it's dark red (same as white)
-
-		if not stats_black then
-			--stats_black2 = srFindImage("AllStats-Black2.png");
-			if not stats_black2 then
-				--stats_black3 = srFindImage("AllStats-Black3.png");
-				if stats_black3 then
-					warn_large_font = true;
-				end
-			else
-				warn_small_font = true;
-
-
-
-
-			end
-		end
-		
-		local warning="";
-		if warn_small_font then
-			warning = "Your font size appears to be smaller than the default, many macros here will not work correctly.";
-		elseif warn_large_font then
-			warning = "Your font size appears to be larger than the default, many macros here will not work correctly.";
-		end
 
 		if step == 1 then
 			task = "Separate Rotten Flax";
@@ -153,12 +132,21 @@ function doit()
 			task_text = "Clean the Rake";
 		end
 		
+
+GUI = "\n\nNext Step: " .. step .. "/4 - " .. task_text .. "\n\n----------------------------------------------\n1) Straw Removed: " .. straw .."/" .. num_loops*per_rake .. "\n2) Tow Seperated: " .. tow .. "/" .. num_loops*per_rake .. "\n3) Lint Refined: " .. lint .. "/" .. num_loops*per_rake .. "\n4) Cleanings: " .. clean .. "/" .. num_loops .. "\n----------------------------------------------\n\nFlax Processed: " .. (loop_count-1)*per_rake .. "\nFlax Remaining: " .. (num_loops*per_rake) - straw .. "\nRepair Attempts: " .. repairAttempt .. "\n\nElapsed Time: " .. getElapsedTime(startTime);
+
+
+		if repair then
+		  repairRake();
+		  --checkCurrentStep();
+		end
+
 		if loop_count > num_loops or OK then
 			num_loops = nil;
-		elseif not stats_black and not stats_black2 and not stats_black3 and not stats_blackB and not stats_blackC then
-			sleepWithStatus(100, "Waiting on Endurance Timer ...\n\nNext Step: " .. step .. "/4 - " .. task_text .. "\n\n----------------------------------------------\n1) Straw Removed: " .. straw .."/" .. num_loops*per_rake .. "\n2) Tow Seperated: " .. tow .. "/" .. num_loops*per_rake .. "\n3) Lint Refined: " .. lint .. "/" .. num_loops*per_rake .. "\n4) Cleanings: " .. clean .. "/" .. num_loops .. "\n----------------------------------------------\n\nFlax Processed: " .. (loop_count-1)*per_rake .. "\nFlax Remaining: " .. (num_loops*per_rake) - straw .. "\n\nElapsed Time: " .. getElapsedTime(startTime) .. "\n" .. warning, nil, 0.7, 0.7);
+		elseif not stats_black and not stats_blackB and not stats_blackC then
+			--sleepWithStatus(1000, stats_black_message .. "\n" .. stats_blackB_message .. "\n" .. stats_blackC_message);
+			sleepWithStatus(100, "Waiting on Endurance Timer ..." .. GUI, nil, 0.7, 0.7);
 		else
-		
 			srReadScreen();
 			clickAllText("This is");
 			lsSleep(100);
@@ -183,15 +171,13 @@ function doit()
 				  end
 			end
 			step = step + 1;
-			sleepWithStatus(100, "Endurance Timer OK - Clicking window(s)\n\nNext Step: " .. step .. "/4 - " .. task_text .. "\n\n----------------------------------------------\n1) Straw Removed: " .. straw .."/" .. num_loops*per_rake .. "\n2) Tow Seperated: " .. tow .. "/" .. num_loops*per_rake .. "\n3) Lint Refined: " .. lint .. "/" .. num_loops*per_rake .. "\n4) Cleanings: " .. clean .. "/" .. num_loops .. "\n----------------------------------------------\n\nFlax Processed: " .. (loop_count-1)*per_rake .. "\nFlax Remaining: " .. (num_loops*per_rake) - straw .. "\n\nElapsed Time: " .. getElapsedTime(startTime) .. "\n" .. warning, nil, 0.7, 0.7);
-			
+			sleepWithStatus(100, "Endurance Timer OK - Clicking window(s)" .. GUI, nil, 0.7, 0.7);
 			srReadScreen();
 			clickAllText("This is")
 			lsSleep(100);
 		end
 
-end
-
+	end --while
 		lsPlaySound("Complete.wav");
 		lsMessageBox("Elapsed Time:", getElapsedTime(startTime));
 end
@@ -205,6 +191,7 @@ function checkCurrentStep()
   taskStep2 = findText("Separate Tow");
   taskStep3 = findText("Refine the Lint");
   taskStep4 = findText("Clean the");
+  taskRepair = findText("Repair");
   if taskStep1 then
     step = 1;
   elseif taskStep2 then
@@ -213,7 +200,69 @@ function checkCurrentStep()
     step = 3;
   elseif taskStep4 then
     step = 4;
+  elseif taskRepair then
+  -- Do nothing yet, at least we will have verified the window is pinned    
   else
     error("Could not find Flax Comb or Hackling Rake menus pinned");
   end
+end
+
+
+function repairRake()
+  step = 1;
+  lsPlaySound("fail.wav");
+  repairAttempt = repairAttempt + 1;
+  sleepWithStatus(1000, "Attempting to Repair Rake !")
+  local repair = findText("Repair")
+  local material;
+  local plusButtons;
+  local maxButton;
+
+  if repair then
+    clickText(waitForText("Repair", 1000));
+    clickText(waitForText("Load Materials", 1000));
+    lsSleep(500);
+    srReadScreen();
+    plusButtons = findAllImages("plus.png");
+
+	for i=1,#plusButtons do
+		local x = plusButtons[i][0];
+		local y = plusButtons[i][1];
+             srClickMouseNoMove(x, y);
+		lsSleep(100);
+
+		if i == 1 then
+		  material = "Boards";
+		elseif i == 2 then
+		  material = "Bricks";
+		elseif i == 3 then
+		  material = "Thorns";
+		else
+		  material = "What the heck?";
+		end
+
+		srReadScreen();
+		OK = srFindImage("ok.png")
+
+		if OK then
+
+		  sleepWithStatus(5000, "You don\'t have any \'" .. material .. "\', Aborting !\n\nClosing Build Menu and Popups ...", nil, 0.7, 0.7)
+		  srClickMouseNoMove(OK[0], OK[1]);
+		  srReadScreen();
+		  blackX = srFindImage("blackX.png");
+		  srClickMouseNoMove(blackX[0], blackX[1]);
+		  num_loops = nil;
+		  break;
+
+		else -- No OK button, Load Material
+
+		  srReadScreen();
+		  maxButton = srFindImage("max.png");
+		  srClickMouseNoMove(maxButton[0], maxButton[1]);
+		  sleepWithStatus(1000,"Loaded " .. material, nil, 0.7, 0.7);
+		  lsSleep(100);
+
+		end -- if OK
+	end -- for loop
+  end -- if repair
 end
