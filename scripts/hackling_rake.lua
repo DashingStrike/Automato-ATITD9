@@ -114,9 +114,9 @@ function doit()
 		srReadScreen();
 		repair = findText("Repair");
 		OK = srFindImage("ok.png"); -- If we got an OK popup, this suggests we got a "You don't have any Rotten Flax" message. 
-		stats_black = srFindImage("endurance.png");
-		stats_blackB = srFindImage("endurance2.png"); -- We can proceed when it's semi-dark red (same as white)
-		stats_blackC = srFindImage("endurance3.png"); -- We can proceed when it's dark red (same as white)
+		stats_black = srFindImage("endurance.png", 7000);
+		stats_blackB = srFindImage("endurance2.png", 7000); -- We can proceed when it's semi-dark red (same as white)
+		stats_blackC = srFindImage("endurance3.png", 7000); -- We can proceed when it's dark red (same as white)
 
 		if step == 1 then
 			task = "Separate Rotten Flax";
@@ -243,7 +243,6 @@ function repairRake()
 
 		srReadScreen();
 		OK = srFindImage("ok.png")
-
 		if OK then
 
 		  sleepWithStatus(5000, "You don\'t have any \'" .. material .. "\', Aborting !\n\nClosing Build Menu and Popups ...", nil, 0.7, 0.7)
@@ -258,10 +257,11 @@ function repairRake()
 
 		  srReadScreen();
 		  maxButton = srFindImage("max.png");
-		  srClickMouseNoMove(maxButton[0], maxButton[1]);
+		  if maxButton then		
+		    srClickMouseNoMove(maxButton[0], maxButton[1]);
+		  end
 		  sleepWithStatus(1000,"Loaded " .. material, nil, 0.7, 0.7);
 		  lsSleep(100);
-
 		end -- if OK
 	end -- for loop
   end -- if repair
