@@ -97,7 +97,7 @@ function repairBoards()
 	if not carpShop then 
     clickrepair = findAllText("Repair this Wood Plane");
 	else
-	clickrepair = findAllText("Install a Slate Blade");
+	clickrepair = findAllText("Install");
 	end
 	
     for i=1,#clickrepair do
