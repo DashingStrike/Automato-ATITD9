@@ -254,7 +254,6 @@ function repairRake()
 		local x = plusButtons[i][0];
 		local y = plusButtons[i][1];
              srClickMouseNoMove(x, y);
-		lsSleep(100);
 
 		if i == 1 then
 		  material = "Boards";
@@ -266,10 +265,12 @@ function repairRake()
 		  material = "What the heck?";
 		end
 
+             sleepWithStatus(1000,"Loading " .. material, nil, 0.7, 0.7);
+
 		srReadScreen();
 		OK = srFindImage("ok.png")
-		if OK then
 
+		if OK then
 		  sleepWithStatus(5000, "You don\'t have any \'" .. material .. "\', Aborting !\n\nClosing Build Menu and Popups ...", nil, 0.7, 0.7)
 		  srClickMouseNoMove(OK[0], OK[1]);
 		  srReadScreen();
@@ -285,8 +286,8 @@ function repairRake()
 		  if maxButton then		
 		    srClickMouseNoMove(maxButton[0], maxButton[1]);
 		  end
+
 		  sleepWithStatus(1000,"Loaded " .. material, nil, 0.7, 0.7);
-		  lsSleep(100);
 		end -- if OK
 	end -- for loop
   end -- if repair
