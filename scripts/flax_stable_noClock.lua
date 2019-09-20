@@ -33,15 +33,8 @@ seeds_per_iter = 0;
 finish_up = 0;
 finish_up_message = "";
 safeClicking = true;
-
-
--- If getting popup errors about "don't stack flax, it's an exploit" then the extraGridSpacing option should increase gaps in the grid
--- Default of extraGridSpacingDelay is 100. But if you're still getting errors, try increasing 50-100 at a time.
-
--- Well it seems this extraGridSpacing wasn't really needed. I thought this was the reason for the Exploit popup.  It turns out that sometimes when you don't move or minimize your icon tray, it might click on it and hence, you don't walk south correctly.
-
 extraGridSpacing = false;
-extraGridSpacingDelay = 100;
+
 
 seedType = "Old";
 harvest = "Harvest this";
@@ -86,7 +79,6 @@ max_width_offset = 425; -- We don't want to close out the Aquaduct window. This 
 
 
 FLAX = 0;
-ONIONS = 1;
 plantType = FLAX;
 CLICK_MIN_WEED = 15*1000;
 CLICK_MIN_SEED = 27*1000;
@@ -434,6 +426,11 @@ function plantAndPin(loop_count)
                   xyCenter[1] + walk_px_y*dy[dxi], 0);
 	end
 
+--[[
+	--This entire section is now commented out. We have refurbished extraGridSpacing to be the pinned window grid spacing now (in function dragWindows() )
+      -- Before, it was trying to add extra spacing to the planted grid on ground. Doesn't seem to be needed.
+
+
 	--If you keep getting popups about don't stack flax, it's an exploit, then do a short extra walk before planting
 	if extraGridSpacing == true then
 	  lsSleep(100);
@@ -445,6 +442,7 @@ function plantAndPin(loop_count)
                   xyCenter[1] + walk_px_y*dy[dxi], 0);
 	end
 	end
+--]]
 	
         spot = getWaitSpot(xyFlaxMenu[0], xyFlaxMenu[1]);
 	if not waitForChange(spot, 1500) then
@@ -502,18 +500,6 @@ function plantHere(xyPlantFlax, y_pos)
     return false;
   end
 
---  if plantType == ONIONS then
---    lsPrintln("Onions");
---    lsSleep(200);
---    srReadScreen();
---    local waters = findAllImages("WaterThese.png");
---    for i = 1,#waters do
---      lsPrintln("Water");
---      safeClick(waters[i][0]+5, waters[i][1]+5);
---    end
---    sleepWithStatus(1000, "First Water");
---  end
-
   -- Check for window size
   checkWindowSize(bed[0], bed[1]);
 
@@ -548,11 +534,11 @@ function dragWindows(loop_count)
   statusScreen("(" .. loop_count .. "/" .. num_loops .. ")  " ..
                "Dragging Windows into Grid" .. "\n\nElapsed Time: " .. getElapsedTime(startTime));
 
-  if plantType == ONIONS then
-    arrangeStashed(nil, waterGap, onion_window_w, onion_window_h, space_to_leave);
-  else
-    arrangeStashed(nil, waterGap, window_w, window_h, space_to_leave);
+  if not extraGridSpacing then
+    window_w = nil;
+    offsetWidth = 15;
   end
+    arrangeStashed(nil, waterGap, window_w, window_h, space_to_leave, offsetWidth, offsetHeight);
 end
 
 -------------------------------------------------------------------------------
