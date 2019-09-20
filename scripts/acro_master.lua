@@ -112,7 +112,7 @@ moveShortNames = {
 
 startTime = 0;
 perMoves = 6;
-moveDelay = 6500; -- How many ms to wait to perform between each move to your partner.
+moveDelay = 7500; -- How many ms to wait to perform between each move to your partner.
 debugClickMoves = nil; -- Change to true to make mouse point to where it's clicking. Change to nil to disable.
 
 function doit()
