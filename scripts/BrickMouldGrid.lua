@@ -35,7 +35,7 @@ function doit()
         contributeGuild();
 	end
 
-
+lsPlaySound("complete.wav");
 end
 
 
@@ -264,7 +264,8 @@ end
 
 function contributeGuild()
 local scale = 0.7;
-local message = "Tap Ctrl over each Brick Rack to\n\nContribute to Guild:\n\n" .. guild_name;
+local message = "Tap Ctrl over each Brick Rack to\n\nContribute to Guild:\n\n" .. guild_name .. "\n\n";
+local status = "";
 
   local shift = false;
   local done = false;
@@ -278,6 +279,7 @@ local message = "Tap Ctrl over each Brick Rack to\n\nContribute to Guild:\n\n" .
       shift = true;
     end
     if shift then
+	status = "";
       shift = false;
       local x = 0;
       local y = 0;
@@ -287,12 +289,20 @@ local message = "Tap Ctrl over each Brick Rack to\n\nContribute to Guild:\n\n" .
       srSetMousePos(x, y);
       lsSleep(50);
       srClickMouse(x, y);
-      clickText(waitForText("Ownership", 1000));
-      clickText(waitForText("Contribute this to my guild", 1000));
-      clickText(waitForText(guild_name, 1000));
-      waitForText("Once you contribute", 1000);
+      clickText(waitForText("Ownership", 500));
+      clickText(waitForText("Contribute this to my guild", 500));
+      clickText(waitForText(guild_name, 500));
+      waitForText("Once you contribute", 500);
       yesButton = findText("Once you contribute");
-      srClickMouseNoMove(yesButton[0]+110,yesButton[1]+90);
+
+	if yesButton then
+        srClickMouseNoMove(yesButton[0]+110,yesButton[1]+90);
+        status = "Success";
+	else
+        srClickMouseNoMove(0,0, 1);
+        status = "This appears to already be guilded?";
+	end
+
     end
 
     if lsButtonText(10, lsScreenY - 30, 0, 100, 0xFFFFFFff, "Done") then
@@ -300,7 +310,7 @@ local message = "Tap Ctrl over each Brick Rack to\n\nContribute to Guild:\n\n" .
     end
 
       checkBreak();
-      statusScreen(message, nil, scale, scale);
+      statusScreen(message .. status, nil, scale, scale);
       lsSleep(tick_delay);
   end
 end
