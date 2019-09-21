@@ -534,7 +534,7 @@ function dragWindows(loop_count)
   statusScreen("(" .. loop_count .. "/" .. num_loops .. ")  " ..
                "Dragging Windows into Grid" .. "\n\nElapsed Time: " .. getElapsedTime(startTime));
 
-  if not extraGridSpacing then
+  if not extraGridSpacing and is_plant then
     window_w = nil;
     offsetWidth = 15;
   end
