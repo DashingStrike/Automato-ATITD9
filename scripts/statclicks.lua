@@ -190,7 +190,7 @@ end
 
 function digHole()
     digText = findText("Dig Deeper");
-    grilledOnion = waitForText("Grilled Onions");
+    grilledOnion = findText("Grilled Onions");
         
     if digText ~= nil then            
         if grilledOnion then
@@ -218,7 +218,7 @@ function combFlax()
     if (fix) then
         repairRake();
     end
-    grilledOnion = waitForText("Grilled Onions");
+    grilledOnion = findText("Grilled Onions");
     if grilledOnion then
         eatOnion();
     end
@@ -262,7 +262,7 @@ function hacklingRake()
     if (fix) then
         repairRake();
     end
-    grilledOnion = waitForText("Grilled Onions");
+    grilledOnion = findText("Grilled Onions");
     if grilledOnion then
         eatOnion();
     end
