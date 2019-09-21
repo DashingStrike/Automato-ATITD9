@@ -190,11 +190,11 @@ end
 
 function digHole()
     digText = findText("Dig Deeper");
-    foodBuff = srFindImage("foodBuff.png");
-    
+    grilledOnion = waitForText("Grilled Onions");
+        
     if digText ~= nil then            
-        if not foodBuff then
-             eatOnion();
+        if grilledOnion then
+            eatOnion();
         end
         clickText(digText);
         lsSleep(per_tick);
@@ -218,8 +218,8 @@ function combFlax()
     if (fix) then
         repairRake();
     end
-    local foodBuff = srFindImage("foodBuff.png");
-    if not foodBuff then
+    grilledOnion = waitForText("Grilled Onions");
+    if grilledOnion then
         eatOnion();
     end
     s1 = findText("Separate Rotten", flaxReg);
@@ -262,8 +262,8 @@ function hacklingRake()
     if (fix) then
         repairRake();
     end
-    local foodBuff = srFindImage("foodBuff.png");
-    if not foodBuff then
+    grilledOnion = waitForText("Grilled Onions");
+    if grilledOnion then
         eatOnion();
     end
     s1 = findText("Separate Rotten", flaxReg);
@@ -349,6 +349,15 @@ function repairRake()
     end -- if repair
 end
 
+
+function eatOnion()
+    srReadScreen();
+    local buffed = srFindImage("foodBuff.png");
+        if not buffed then
+            clickAllText("Grilled Onions");
+        end
+end
+
 function stirCement()
     t = waitForText("Stir the cement", 1000);
     if t then
@@ -401,15 +410,6 @@ local function tapRods()
             clickText(t);
         end
     end
-end
-
-function eatOnion()
-    eatOnion = waitForText("Grilled Onions");
-        if eatOnion == nil then
-             return;
-         end
-    clickText(eatOnion);
-    lsSleep(200);
 end
 
 local function excavateBlocks()
