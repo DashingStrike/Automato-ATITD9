@@ -212,7 +212,7 @@ function arrangeStashed(cascade, waterGap, varWidth, varHeight, sizeRight, offse
  else
         screen[0] = screen[0] - lsGetWindowSize()[0];
  end
- 
+
   local currentX = 0;
   local currentY = 0;
   if waterGap then
@@ -246,7 +246,7 @@ function arrangeStashed(cascade, waterGap, varWidth, varHeight, sizeRight, offse
     if offsetHeight then
      height = height + offsetHeight;
     end
-    
+
     if cascade then
       if currentY + height >= screen[1] then
         currentX = currentX + xMax;
@@ -577,10 +577,10 @@ function closeEmptyAndErrorWindows()
   local closed = 0;
   if windows then
     for i = 1, #windows do
-      temp = makeBox(windows[i].x + 7, windows[i].y + 4, 
+      temp = makeBox(windows[i].x + 7, windows[i].y + 4,
           windows[i].width -35, windows[i].height - 7);
       p = parseWindow(temp);
-      
+
       if #p == 0 then
         unpinWindow(windows[i]);
         closed = closed + 1;

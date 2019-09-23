@@ -134,38 +134,38 @@ function findMoves()
   local message = "";
 
 
-	  --See if the acro bar (middle border on Acro window) is found.  If not, then just set Y to screenHeight
-	  --Moves above the acro bar are moves that your partner does not know yet. Moves below are moves your partner already knows.  Attempt to exclude those.
-      srReadScreen();
-      local bar = srFindImage("acro/acro_bar.png");
+  --See if the acro bar (middle border on Acro window) is found.  If not, then just set Y to screenHeight
+  --Moves above the acro bar are moves that your partner does not know yet. Moves below are moves your partner already knows.  Attempt to exclude those.
+  srReadScreen();
+  local bar = srFindImage("acro/acro_bar.png");
 
-	if bar then
-	  acroY = bar[1];   -- set Y position of the middle border
-	  message = message .. "\n\nAcro middle border found!\nIgnoring moves below the border...";
-	else
-	  atitdY = srGetWindowSize();
-	  acroY = atitdY[1];   -- No middle border found, so just use ATITD screen height
-	end
+  if bar then
+    acroY = bar[1];   -- set Y position of the middle border
+    message = message .. "\n\nAcro middle border found!\nIgnoring moves below the border...";
+  else
+    atitdY = srGetWindowSize();
+    acroY = atitdY[1];   -- No middle border found, so just use ATITD screen height
+  end
 
-    for i=1,#moveNames do
-	checkBreak();
-      srReadScreen();
-      local found = srFindImage("acro/" .. moveImages[i]);
-	  if found then
-	    moveY = found[1];
-	  end
-	  if found and (moveY > acroY) then  --Button found, but below middle border, skip it (this means your partner already knows the move, too.
-          statusScreen("Scanning acro buttons...\n\nSkipping: " .. moveNames[i] .. message, nil, 0.7, 0.7);
-	  end
-
-	  if found and (moveY < acroY) then
-	    foundMovesName[#foundMovesName + 1] = moveNames[i];
-	    foundMovesImage[#foundMovesImage + 1] = moveImages[i];
-	    foundMovesShortName[#foundMovesShortName + 1] = moveShortNames[i];
-	    statusScreen("Scanning acro buttons...\n\nFound: " .. moveNames[i] .. message, nil, 0.7, 0.7);
-      lsSleep(10);
-	  end
+  for i=1,#moveNames do
+    checkBreak();
+    srReadScreen();
+    local found = srFindImage("acro/" .. moveImages[i]);
+    if found then
+      moveY = found[1];
     end
+    if found and (moveY > acroY) then  --Button found, but below middle border, skip it (this means your partner already knows the move, too.
+      statusScreen("Scanning acro buttons...\n\nSkipping: " .. moveNames[i] .. message, nil, 0.7, 0.7);
+    end
+
+    if found and (moveY < acroY) then
+      foundMovesName[#foundMovesName + 1] = moveNames[i];
+      foundMovesImage[#foundMovesImage + 1] = moveImages[i];
+      foundMovesShortName[#foundMovesShortName + 1] = moveShortNames[i];
+      statusScreen("Scanning acro buttons...\n\nFound: " .. moveNames[i] .. message, nil, 0.7, 0.7);
+      lsSleep(10);
+    end
+  end
 
   if #foundMovesName == 0 then
     error 'No acro moves found, aborted.';
@@ -181,93 +181,89 @@ function doMoves()
   local skipNotification = nil;
   startTime = lsGetTimer();
 
-	for i=1,checkedBoxes do
-   	    checkBreak();
+  for i=1,checkedBoxes do
+    checkBreak();
 
-		for j=1,perMoves do
-		  checkBreak();
-		  skipNotification = nil;
-
-
-		  if skip then
-		      if j ~= 1 then
-		        break;
-		      else
-		        skip = false;
-		      end
-		  end
+    for j=1,perMoves do
+      checkBreak();
+      skipNotification = nil;
 
 
-		  local acroTimer = true;
-			while acroTimer do
-			  checkBreak();
-			    now = lsGetTimer();
-
-			    if lsButtonText(10, lsScreenY - 30, z, 75, 0xffff80ff, "Menu") then
-				sleepWithStatus(1500, "Returning to Menu")
-				displayMoves();
-			    end
-
-			    if lsButtonText(100, lsScreenY - 30, z, 75, 0xff8080ff, "Skip") then
-
-				if j == 1 then
-				  skipNotification = true;
-				else
-				  skip = true;
-				end
-
-				if j == 1 then
-				  nextMove = checkedMovesName[i];
-				elseif i < tonumber(checkedBoxes) then
-				  nextMove = checkedMovesName[i+1];
-				else
-				  nextMove = "Last Move (N/A)";
-				end
-
-			    end -- if Skip button
+      if skip then
+        if j ~= 1 then
+          break;
+        else
+          skip = false;
+        end
+      end
 
 
-			    if ( (now - lastClick) < tonumber(moveDelay) ) then
+      local acroTimer = true;
+      while acroTimer do
+        checkBreak();
+        now = lsGetTimer();
 
-					if skip or skipNotification then
-				         statusScreen("Move Delay: " .. math.floor(moveDelay - (now - lastClick)) .. "\n\nSkip Queued: " ..  string.upper(nextMove) .. GUI, nil, 0.7, 0.7);
-					else
-				         statusScreen("Move Delay: " .. math.floor(moveDelay - (now - lastClick)) .. "\n\nWaiting on Timer" .. GUI, nil, 0.7, 0.7);
-					end
+        if lsButtonText(10, lsScreenY - 30, z, 75, 0xffff80ff, "Menu") then
+          sleepWithStatus(1500, "Returning to Menu")
+          displayMoves();
+        end
 
-			    else
+        if lsButtonText(100, lsScreenY - 30, z, 75, 0xff8080ff, "Skip") then
 
+          if j == 1 then
+            skipNotification = true;
+          else
+            skip = true;
+          end
 
-				  if skip then
-				    break;
-				  end
+          if j == 1 then
+            nextMove = checkedMovesName[i];
+          elseif i < tonumber(checkedBoxes) then
+            nextMove = checkedMovesName[i+1];
+          else
+            nextMove = "Last Move (N/A)";
+          end
 
-
-				  acroTimer = false;
-		     		  srReadScreen();
-		     		  clickMove = srFindImage("acro/" .. checkedMovesImage[i]);
-
-		    			if clickMove then
-					  status = string.upper(checkedMovesName[i]);
-					  lastClick = lsGetTimer();
-					      if debugClickMoves then srSetMousePos(clickMove[0]+3, clickMove[1]+2); end
-					  srClickMouseNoMove(clickMove[0]+3, clickMove[1]+2);
-					else
-					  status = "BUTTON NOT FOUND!\nSkipping: " .. checkedMovesName[i];
-					  sleepWithStatus(2000, status, nil, 0.7, 0.7);
-					  skip = true;
-		    			end -- if clickMove
+        end -- if Skip button
 
 
+        if ( (now - lastClick) < tonumber(moveDelay) ) then
 
-  GUI = "\n\n" .. status .. "\n \n[" .. i .. "/" .. checkedBoxes .. "] Moves\n[" .. j .. "/" .. perMoves .. "] Clicked\n \nNote: Avatar animation might not keep up with macro. This is OK, each move clicked will still be recognized by your partner.\n\nClick Skip to advance to next move on list (ie partner follows the move).";
+          if skip or skipNotification then
+            statusScreen("Move Delay: " .. math.floor(moveDelay - (now - lastClick)) .. "\n\nSkip Queued: " ..  string.upper(nextMove) .. GUI, nil, 0.7, 0.7);
+          else
+            statusScreen("Move Delay: " .. math.floor(moveDelay - (now - lastClick)) .. "\n\nWaiting on Timer" .. GUI, nil, 0.7, 0.7);
+          end
 
+        else
 
+          if skip then
+            break;
+          end
 
-			    end --if ( (now - lastClick) < tonumber(moveDelay) )
-		       end --while acroTimer
-		  end --for j
-        end --for i
+          acroTimer = false;
+          srReadScreen();
+          clickMove = srFindImage("acro/" .. checkedMovesImage[i]);
+
+          if clickMove then
+            status = string.upper(checkedMovesName[i]);
+            lastClick = lsGetTimer();
+            if debugClickMoves then
+              srSetMousePos(clickMove[0]+3, clickMove[1]+2);
+            end
+            srClickMouseNoMove(clickMove[0]+3, clickMove[1]+2);
+          else
+            status = "BUTTON NOT FOUND!\nSkipping: " .. checkedMovesName[i];
+            sleepWithStatus(2000, status, nil, 0.7, 0.7);
+            skip = true;
+          end -- if clickMove
+
+          GUI = "\n\n" .. status .. "\n \n[" .. i .. "/" .. checkedBoxes .. "] Moves\n[" .. j .. "/" .. perMoves .. "] Clicked\n \nNote: Avatar animation might not keep up with macro. This is OK, each move clicked will still be recognized by your partner.\n\nClick Skip to advance to next move on list (ie partner follows the move).";
+
+        end --if ( (now - lastClick) < tonumber(moveDelay) )
+      end --while acroTimer
+    end --for j
+  end --for i
 
   if skip or skipNotification then
     -- We skipped on final move; Simply announce we're returning to menu, with short delay
@@ -287,22 +283,20 @@ function processCheckedBoxes()
   checkedMovesShortName = {};
   checkedBoxes = 0;
   lsDoFrame(); --Make screen blank to prevent a text fade from doMoves function
-    for i=1,#foundMovesName do
-	if foundMovesShortName[i] then
-	  checkedMovesName[#checkedMovesName + 1] = foundMovesName[i];
-	  checkedMovesImage[#checkedMovesImage + 1] = foundMovesImage[i];
-	  checkedMovesShortName[#checkedMovesShortName + 1] = foundMovesShortName[i];
-	  checkedBoxes = checkedBoxes + 1;
-	end
+  for i=1,#foundMovesName do
+    if foundMovesShortName[i] then
+      checkedMovesName[#checkedMovesName + 1] = foundMovesName[i];
+      checkedMovesImage[#checkedMovesImage + 1] = foundMovesImage[i];
+      checkedMovesShortName[#checkedMovesShortName + 1] = foundMovesShortName[i];
+      checkedBoxes = checkedBoxes + 1;
     end
+  end
 
-    if checkedBoxes == 0 then
-	sleepWithStatus(2500, "No moves selected!\n\nAborting...");
-
-
-    else
-	doMoves();
-    end
+  if checkedBoxes == 0 then
+    sleepWithStatus(2500, "No moves selected!\n\nAborting...");
+  else
+    doMoves();
+  end
 end
 
 
@@ -331,15 +325,15 @@ function displayMoves()
   if startTime ~= 0 then
     sessionTime = math.floor((finishTime - startTime)/1000);
     sessionTime = sessionTime - 1; -- subtract 1 second for the 1000ms sleepWithStatus delay that occurs before returning to menu.
-	if sessionTime >= 60 then
-	  minutes = math.floor(sessionTime/60);
-	  seconds = math.floor(sessionTime - (minutes*60));
-	else
-	  minutes = 0;
-	  seconds = sessionTime;
-	end
+  if sessionTime >= 60 then
+    minutes = math.floor(sessionTime/60);
+    seconds = math.floor(sessionTime - (minutes*60));
+  else
+    minutes = 0;
+    seconds = sessionTime;
   end
-    
+  end
+
   if minutes == 0 and seconds == 0 then
     lastSession = "N/A"
   elseif minutes == 0 and seconds ~= 0 then
@@ -356,27 +350,27 @@ function displayMoves()
 
 
     foo, moveDelay = lsEditBox("ms Delay per Move", 15, y, z, 60, 30, 0.7, 0.7,
-                                   0x000000ff, moveDelay);
+                               0x000000ff, moveDelay);
 
-     if not tonumber(moveDelay) then
-        is_done = nil;
-	  lsPrint(90, y, 0, 0.9, 0.9, 0xFF2020ff, "MUST BE A NUMBER!");
-	else
-	  is_done = true;
-        lsPrint(88, y+2, z, 0.9, 0.9, 0xf0f0f0ff, "ms (" .. round(moveDelay/1000,2) .. "s) between each Move Click");
-	end
+    if not tonumber(moveDelay) then
+      is_done = nil;
+      lsPrint(90, y, 0, 0.9, 0.9, 0xFF2020ff, "MUST BE A NUMBER!");
+    else
+      is_done = true;
+      lsPrint(88, y+2, z, 0.9, 0.9, 0xf0f0f0ff, "ms (" .. round(moveDelay/1000,2) .. "s) between each Move Click");
+    end
 
-	y=y+30;
+    y=y+30;
 
     foo, perMoves = lsEditBox("Time per Move", 15, y, z, 30, 30, 0.7, 0.7,
-                                   0x000000ff, perMoves);
-      if not tonumber(perMoves) then
-        is_done = nil;
-	  lsPrint(60, y, 0, 0.9, 0.9, 0xFF2020ff, "MUST BE A NUMBER!");
-	else
-	  is_done = true;
-        lsPrint(88, y+2, z, 0.9, 0.9, 0xf0f0f0ff, "# Times to Repeat each Move");
-	end
+                              0x000000ff, perMoves);
+    if not tonumber(perMoves) then
+      is_done = nil;
+      lsPrint(60, y, 0, 0.9, 0.9, 0xFF2020ff, "MUST BE A NUMBER!");
+    else
+      is_done = true;
+      lsPrint(88, y+2, z, 0.9, 0.9, 0xf0f0f0ff, "# Times to Repeat each Move");
+    end
 
     lsPrint(15, y+50, z, 0.8, 0.8, 0xf0f0f0ff, "Last Acro Session: " .. lastSession);
     y = y + 90;
@@ -384,43 +378,42 @@ function displayMoves()
 
     y = y + 30;
 
-      for i=1,#foundMovesName do
-        local color = 0xB0B0B0ff;
-          if foundMovesShortName[i] then
-	      color = 0xffffffff;
-	    end
-          foundMovesShortName[i] = lsCheckBox(20, y, z, color, " " .. foundMovesName[i], foundMovesShortName[i]);
-          y = y + 20;
-	end
+    for i=1,#foundMovesName do
+      local color = 0xB0B0B0ff;
+      if foundMovesShortName[i] then
+        color = 0xffffffff;
+      end
+      foundMovesShortName[i] = lsCheckBox(20, y, z, color, " " .. foundMovesName[i], foundMovesShortName[i]);
+      y = y + 20;
+    end
 
     lsSetCamera(0,0,lsScreenX*1.2,lsScreenY*1.2);
 
-      if lsButtonText(lsScreenX - 50, lsScreenY - 80, z, 100, 0xFFFFFFff,
+    if lsButtonText(lsScreenX - 50, lsScreenY - 80, z, 100, 0xFFFFFFff,
                     "Start") and is_done then
-	    processCheckedBoxes();
-      end
+      processCheckedBoxes();
+    end
 
-
-      if lsButtonText(lsScreenX - 50, lsScreenY - 50, z, 100, 0xFFFFFFff,
+    if lsButtonText(lsScreenX - 50, lsScreenY - 50, z, 100, 0xFFFFFFff,
                     "Refresh") and is_done then
-	    findMoves();
-	    checkAllBoxes();
-      end
+      findMoves();
+      checkAllBoxes();
+    end
 
-      if lsButtonText(lsScreenX - 50, lsScreenY - 20, z, 100, 0xFFFFFFff,
+    if lsButtonText(lsScreenX - 50, lsScreenY - 20, z, 100, 0xFFFFFFff,
                     "Check") and is_done then
       checkAllBoxes();
-      end
+    end
 
-      if lsButtonText(lsScreenX - 50, lsScreenY + 10, z, 100, 0xFFFFFFff,
+    if lsButtonText(lsScreenX - 50, lsScreenY + 10, z, 100, 0xFFFFFFff,
                     "Uncheck") and is_done then
       uncheckAllBoxes();
-      end
+    end
 
-      if lsButtonText(lsScreenX - 50, lsScreenY + 40, z, 100, 0xFFFFFFff,
+    if lsButtonText(lsScreenX - 50, lsScreenY + 40, z, 100, 0xFFFFFFff,
                     "End Script") then
-        error "Clicked End script button";
-      end
+      error "Clicked End script button";
+    end
 
     lsDoFrame();
     lsSleep(10);
@@ -429,6 +422,6 @@ end
 
 
 function round(num, numDecimalPlaces)
-    local mult = 10^(numDecimalPlaces or 0)
-    return math.floor(num * mult + 0.5) / mult
+  local mult = 10^(numDecimalPlaces or 0)
+  return math.floor(num * mult + 0.5) / mult
 end

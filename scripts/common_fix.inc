@@ -45,7 +45,7 @@ function boundsToBox(bounds)
     return nil;
   else
     return makeBox(bounds[0], bounds[1],
-		   bounds[2] - bounds[0], bounds[3] - bounds[1]);
+                   bounds[2] - bounds[0], bounds[3] - bounds[1]);
   end
 end
 

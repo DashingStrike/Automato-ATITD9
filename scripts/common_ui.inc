@@ -18,7 +18,7 @@ cleanupCallback = nil;
 -------------------------------------------------------------------------------
 
 function setCleanupCallback(callback)
-	cleanupCallback = callback;
+  cleanupCallback = callback;
 end
 
 
@@ -48,7 +48,7 @@ function checkBreak()
     local done = false;
     while not done do
       local unpaused = lsButtonText(lsScreenX - 110, lsScreenY - 60,
-				    z, 100, 0xFFFFFFff, "Unpause");
+                                    z, 100, 0xFFFFFFff, "Unpause");
       statusScreen("Hold Alt+Shift to resume", 0xFFFFFFff, false);
       done = (unpaused or (lsAltHeld() and lsShiftHeld()));
     end
@@ -161,17 +161,17 @@ function statusScreen(message, color, allow_break, scale)
   end
   lsPrintWrapped(10, 80, 0, lsScreenX - 20, scale, scale, color, message);
   lsPrintWrapped(10, lsScreenY-100, 0, lsScreenX - 20, scale, scale, 0xffd0d0ff,
-		 error_status);
+                 error_status);
   if lsButtonText(lsScreenX - 110, lsScreenY - 30, z, 100,
-		  0xFFFFFFff, "End script") then
+                  0xFFFFFFff, "End script") then
     error(quit_message);
   end
   if allow_break then
     lsPrint(10, 10, 0, 0.7, 0.7, 0xB0B0B0ff,
-	    "Hold Ctrl+Shift to end this script.");
+            "Hold Ctrl+Shift to end this script.");
     if allow_pause then
       lsPrint(10, 24, 0, 0.7, 0.7, 0xB0B0B0ff,
-	      "Hold Alt+Shift to pause this script.");
+              "Hold Alt+Shift to pause this script.");
     end
     checkBreak();
   end
@@ -217,7 +217,7 @@ function sleepWithStatus(delay_time, message, color, scale)
       waitMessage = waitMessage .. time_left .. " ms ";
     end
     lsPrintWrapped(10, 50, 0, lsScreenX - 20, scale, scale, 0xd0d0d0ff,
-		   waitMessage .. waitChars[frame]);
+                   waitMessage .. waitChars[frame]);
     statusScreen(message, color, nil, scale);
     lsSleep(tick_delay);
     waitFrame = waitFrame + 1;
@@ -239,7 +239,7 @@ function sleepWithBreak(delay_time)
   end
   local start_time = lsGetTimer();
   while delay_time > (lsGetTimer() - start_time) do
-	checkBreak();
+        checkBreak();
     lsSleep(tick_delay);
   end
 end
@@ -270,38 +270,38 @@ function promptNumber(prompt_string, default_value, scale)
   -- Edit box and text display
   while not is_done do
     checkBreak();
-    
+
     lsPrint(10, 10, z, scale, scale, 0xFFFFFFff, prompt_string);
-    
+
     -- lsEditBox needs a key to uniquely name this edit box
     --   let's just use the prompt!
     -- lsEditBox returns two different things (a state and a value)
     is_done, value = lsEditBox(prompt_string,
-			       10, 40, z, 100, 30, scale, scale,
-			       0x000000ff, default_value);
-    
+                               10, 40, z, 100, 30, scale, scale,
+                               0x000000ff, default_value);
+
     if lsButtonText(120, 40, z, 100, 0xFFFFFFff, "OK") then
       is_done = 1;
     end
-    
+
     if is_done and not value then
       error(quit_message);
     end
-    
+
     if lsButtonText(lsScreenX - 110, lsScreenY - 30, z, 100,
-		    0xFFFFFFff, "End script") then
+                    0xFFFFFFff, "End script") then
       error(quit_message);
     end
-    
+
     if not tonumber(value) then
       is_done = nil;
       lsPrint(10, 80, z, 0.7, 0.7, 0xFF2020ff, "MUST BE A NUMBER");
     end
-    
+
     lsDoFrame();
     lsSleep(tick_delay);
   end
-  
+
   return tonumber(value);
 end
 
@@ -323,7 +323,7 @@ function promptOkay(prompt_string, color, scale, yes_no, no_cancel, offsetY)
     error("Incorrect number of arguments for promptOkay()");
   end
   if not color then
-	color = 0xFFFFFFff;
+        color = 0xFFFFFFff;
   end
   if not scale then
     scale = 0.8;
@@ -343,19 +343,19 @@ function promptOkay(prompt_string, color, scale, yes_no, no_cancel, offsetY)
   -- Edit box and text display
   while not is_done do
     checkBreak();
-  
+
     lsPrint(10, 10, 0, 0.7, 0.7, 0xB0B0B0ff,
-	    "Hold Ctrl+Shift to end this script.");
+            "Hold Ctrl+Shift to end this script.");
     lsPrint(10, 24, 0, 0.7, 0.7, 0xB0B0B0ff,
-	    "Hold Alt+Shift to pause this script.");
+            "Hold Alt+Shift to pause this script.");
     lsPrintWrapped(10, 60, 0, lsScreenX - 20, scale, scale, color, prompt_string);
-   
+
     if lsButtonText(100, 200+offsetY, z, 100, 0xFFFFFFff, ok) or
       (lsAltHeld() and lsShiftHeld()) then
       is_done = 1;
       ret = 1;
     end
-    
+
     if not no_cancel then
       if lsButtonText(100, 230+offsetY, z, 100, 0xFFFFFFff, cancel) then
         is_done = 1;
@@ -366,11 +366,11 @@ function promptOkay(prompt_string, color, scale, yes_no, no_cancel, offsetY)
     lsDoFrame();
     lsSleep(tick_delay);
   end
-	
+
   while lsAltHeld() or lsShiftHeld() do
     statusScreen("Please release Alt+Shift", 0x808080ff);
   end
-	
+
   return ret;
 end
 
@@ -383,11 +383,11 @@ end
 -------------------------------------------------------------------------------
 
 function getElapsedTime(startTime)
-	local duration = math.floor((lsGetTimer() - startTime) / 1000);
-	local hours = math.floor(duration / 60 / 60);
-	local minutes = math.floor((duration - hours * 60 * 60) / 60);
-	local seconds = duration - hours * 60 * 60 - minutes * 60;
-	return string.format("%02d:%02d:%02d",hours,minutes,seconds);
+        local duration = math.floor((lsGetTimer() - startTime) / 1000);
+        local hours = math.floor(duration / 60 / 60);
+        local minutes = math.floor((duration - hours * 60 * 60) / 60);
+        local seconds = duration - hours * 60 * 60 - minutes * 60;
+        return string.format("%02d:%02d:%02d",hours,minutes,seconds);
 end
 
 GENERALCAM = 5; -- f5 view
@@ -448,7 +448,7 @@ function ButtonText(x, y, z, w, color, text, xsc, ysc)
     error("Incorrect number of arguments for ButtonText()");
   end
   if not color then
-	color = 0xFFFFFFff;
+    color = 0xFFFFFFff;
   end
   if not z then
     z = 0;
@@ -460,12 +460,12 @@ function ButtonText(x, y, z, w, color, text, xsc, ysc)
     ysc = 0.8;
   end
   lsSetCamera(0,0, lsScreenX/xsc, lsScreenY/ysc);
-	if lsButtonText(x/xsc, y/ysc, z, w, color, text) then
-	  lsSetCamera(0,0, lsScreenX, lsScreenY);
-	  return true;
-	else
-	  lsSetCamera(0,0, lsScreenX, lsScreenY);
-	end
+  if lsButtonText(x/xsc, y/ysc, z, w, color, text) then
+    lsSetCamera(0,0, lsScreenX, lsScreenY);
+    return true;
+  else
+    lsSetCamera(0,0, lsScreenX, lsScreenY);
+  end
 end
 
 -------------------------------------------------------------------------------
@@ -488,7 +488,7 @@ function CheckBox(x, y, z, color, text, value, xsc, ysc)
     error("Incorrect number of arguments for CheckBox()");
   end
   if not color then
-	color = 0xFFFFFFff;
+    color = 0xFFFFFFff;
   end
   if not z then
     z = 0;
@@ -500,10 +500,10 @@ function CheckBox(x, y, z, color, text, value, xsc, ysc)
     ysc = 0.8;
   end
   lsSetCamera(0,0, lsScreenX/xsc, lsScreenY/ysc);
-  	if lsCheckBox(x/xsc, y/ysc, z, color, text, value) then
-	  lsSetCamera(0,0, lsScreenX, lsScreenY);
-	  return true;
-	else
-	  lsSetCamera(0,0, lsScreenX, lsScreenY);
-	end
+  if lsCheckBox(x/xsc, y/ysc, z, color, text, value) then
+    lsSetCamera(0,0, lsScreenX, lsScreenY);
+    return true;
+  else
+    lsSetCamera(0,0, lsScreenX, lsScreenY);
+  end
 end

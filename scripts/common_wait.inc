@@ -195,7 +195,7 @@ end
 -- waitForFunction(f, args, timeout, message, invert)
 --
 -- Given a function handler, waits for that function to complete
--- 
+--
 -- f - function handler to wait for completion of
 -- args - array of arguments to the function f
 -- timeout - timeout for the function to complete

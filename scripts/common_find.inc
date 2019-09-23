@@ -171,7 +171,7 @@ function findAllText(text, window, flag, sizemod)
   local exact = flag and (flag % 2 == 1);
   local region = flag and (math.floor(flag/4) % 2 == 1);
   local regex = flag and (math.floor(flag/8) % 2 == 1);
-  
+
   if regex and exact then
     error("Cannot use both REGEX and EXACT flags");
   end
@@ -185,7 +185,7 @@ function findAllText(text, window, flag, sizemod)
   for i=1,#windowList do
     local current = makeBox(windowList[i].x + 7, windowList[i].y + 4,
           windowList[i].width - 12, windowList[i].height - 7); -- Basic magic # window resizing
-	  current = makeBox(current.x + sizemod[1], current.y + sizemod[2], current.width + sizemod[3], 
+    current = makeBox(current.x + sizemod[1], current.y + sizemod[2], current.width + sizemod[3],
                       current.height + sizemod[4]); -- Add in custom window resizing
     local parses = parseWindow(current);
     for j=1,#parses do
@@ -449,15 +449,15 @@ function findChatRegionSub()
   local pos;
   local mainChatRed;
   local mainChatWhite;
-	  srReadScreen();
-	  mainChatRed = srFindImage("mainChatRed.png");
-	  mainChatWhite = srFindImage("mainChatWhite.png");
-	    if mainChatRed then
-	      pos = mainChatRed;
-	    elseif mainChatWhite then
-	      pos = mainChatWhite;
-	    else
-	      pos = nil;
-	    end
-	return pos;
+  srReadScreen();
+  mainChatRed = srFindImage("mainChatRed.png");
+  mainChatWhite = srFindImage("mainChatWhite.png");
+  if mainChatRed then
+    pos = mainChatRed;
+  elseif mainChatWhite then
+    pos = mainChatWhite;
+  else
+    pos = nil;
+  end
+  return pos;
 end
