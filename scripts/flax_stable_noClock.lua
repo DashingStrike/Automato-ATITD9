@@ -11,8 +11,8 @@ dofile("common.inc");
 dofile("settings.inc");
 
 askText = singleLine([[
-  flax_stable v1.1 (by Jimbly, tweaked by Cegaiel, KasumiGhia,
-  Tallow, Skyfeather) --
+  flax_stable v1.1 (by Jimbly, tweaked by Cegaiel and KasumiGhia,
+  revised by Tallow. Updated for T7 by Skyfeather) --
   Plant flax and harvest either flax or seeds. --
   Make sure the plant flax window is pinned and on the RIGHT side of
   the screen. Your Automato window should also be on the RIGHT side
@@ -21,6 +21,8 @@ askText = singleLine([[
   planting and fails to move downward, it probably clicked on your
   chat window). 
   Will plant a spiral grid heading North-East of current  location.  
+  'Plant all crops where you stand' must be ON.  
+  'Right click pins/unpins a menu' must be ON.
 ]]);
 
 -- Global parameters set by prompt box.
@@ -32,9 +34,12 @@ seeds_per_pass = 4;
 seeds_per_iter = 0;
 finish_up = 0;
 finish_up_message = "";
-safeClicking = true;
-extraGridSpacing = false;
 
+
+-- If getting popup errors about "don't stack flax, it's an exploit" then the extraGridSpacing option should increase gaps in the grid
+-- Default of extraGridSpacingDelay is 100. But if you're still getting errors, try increasing 50-100 at a time.
+extraGridSpacing = true;
+extraGridSpacingDelay = 100;
 
 seedType = "Old";
 harvest = "Harvest this";
@@ -79,6 +84,7 @@ max_width_offset = 425; -- We don't want to close out the Aquaduct window. This 
 
 
 FLAX = 0;
+ONIONS = 1;
 plantType = FLAX;
 CLICK_MIN_WEED = 15*1000;
 CLICK_MIN_SEED = 27*1000;
@@ -137,9 +143,6 @@ function checkWindowSize(x, y)
     srReadScreen();
     window_check_done_once = true;
      local pos = srFindImageInRange(imgUseable, x-5, y-50, 150, 100)
-	 if pos then
-		window_h = window_h + 15;
-	 end
   end
 end
 
@@ -226,16 +229,12 @@ function promptFlaxNumbers()
       y = y + 32;
     end
 
-    safeClicking = readSetting("safeClicking",safeClicking);
-    safeClicking = CheckBox(120, y-6, z+10, 0xFFFFFFff, " Use safeClick", safeClicking, 0.7, 0.7);
-    writeSetting("safeClicking",safeClicking);
-
     extraGridSpacing = readSetting("extraGridSpacing",extraGridSpacing);
-    extraGridSpacing = CheckBox(120, y+10, z+10, 0xFFFFFFff, " Extra Spacing on Grid", extraGridSpacing, 0.7, 0.7);
+    extraGridSpacing = CheckBox(120, y+5, z+10, 0xFFFFFFff, " Extra Spacing on Grid", extraGridSpacing, 0.7, 0.7);
     writeSetting("extraGridSpacing",extraGridSpacing);
 
     is_plant = readSetting("is_plant",is_plant);
-    is_plant = CheckBox(120, y+26, z+10, 0xFFFFFFff, " Grow Flax", is_plant, 0.7, 0.7);
+    is_plant = CheckBox(120, y+25, z+10, 0xFFFFFFff, " Grow Flax", is_plant, 0.7, 0.7);
     writeSetting("is_plant",is_plant);
 
     y = y + 36;
@@ -250,14 +249,14 @@ function promptFlaxNumbers()
       space_to_leave = false; 
       lsPrintWrapped(10, y, z+10, lsScreenX - 20, 0.7, 0.7, 0xffff40ff, "Uncheck \"Grow Flax\" for SEEDS!");
       y = y + 24;
-      lsPrintWrapped(10, y, z+10, lsScreenX - 20, 0.65, 0.65, 0xD0D0D0ff,
+      lsPrintWrapped(10, y, z+10, lsScreenX - 20, 0.7, 0.7, 0xD0D0D0ff,
                      "This will plant and harvest a " .. grid_w .. "x" ..
                      grid_w .. " grid of " .. seedType .. " Flax " .. num_loops ..
                      " times, requiring " .. math.floor(grid_w * grid_w * num_loops) ..
                      " seeds, doing " .. math.floor(grid_w*grid_w*num_loops) ..
                      " flax harvests.\n\n" ..
-                     "Put automato as far right as possible, you may need to" ..
-                     " reduce it\'s width, move partially offscreen or minimize it. Automato should not partially cover any planted windows. Unchecking safeClick (you must NOT move mouse when unchecked) may help on multi-monitors where dragging incorrectly sometimes.");
+                     "Put automato as far right as possible, you may need to " ..
+                     " reduce my width (or minimize me!)");
     else
     lsPrintWrapped(10, y, z+10, lsScreenX - 20, 0.7, 0.7, 0x00ff00ff, "Check \"Grow Flax\" for FLAX!");
     y = y + 24;
@@ -310,11 +309,7 @@ function getPlantWindowPos()
   else
     plantPos = lastPlantPos;
     if plantPos then
-	if safeClicking then
-        safeClick(plantPos[0], plantPos[1]);
-	else
-        srClickMouse(plantPos[0], plantPos[1]);
-	end
+      safeClick(plantPos[0], plantPos[1]);
       lsSleep(refresh_time);
     end
   end
@@ -417,32 +412,17 @@ function plantAndPin(loop_count)
         x_pos = x_pos + dx[dxi];
         y_pos = y_pos + dy[dxi];
 	local spot = getWaitSpot(xyFlaxMenu[0], xyFlaxMenu[1]);
-
-	if safeClicking then
         safeClick(xyCenter[0] + walk_px_x*dx[dxi],
                   xyCenter[1] + walk_px_y*dy[dxi], 0);
-	else
-        srClickMouse(xyCenter[0] + walk_px_x*dx[dxi],
-                  xyCenter[1] + walk_px_y*dy[dxi], 0);
-	end
-
---[[
-	--This entire section is now commented out. We have refurbished extraGridSpacing to be the pinned window grid spacing now (in function dragWindows() )
-      -- Before, it was trying to add extra spacing to the planted grid on ground. Doesn't seem to be needed.
 
 
 	--If you keep getting popups about don't stack flax, it's an exploit, then do a short extra walk before planting
 	if extraGridSpacing == true then
 	  lsSleep(100);
-	if safeClicking then
         safeClick(xyCenter[0] + walk_px_x*dx[dxi],
                   xyCenter[1] + walk_px_y*dy[dxi], 0);
-	else
-        srClickMouse(xyCenter[0] + walk_px_x*dx[dxi],
-                  xyCenter[1] + walk_px_y*dy[dxi], 0);
 	end
-	end
---]]
+
 	
         spot = getWaitSpot(xyFlaxMenu[0], xyFlaxMenu[1]);
 	if not waitForChange(spot, 1500) then
@@ -500,6 +480,18 @@ function plantHere(xyPlantFlax, y_pos)
     return false;
   end
 
+--  if plantType == ONIONS then
+--    lsPrintln("Onions");
+--    lsSleep(200);
+--    srReadScreen();
+--    local waters = findAllImages("WaterThese.png");
+--    for i = 1,#waters do
+--      lsPrintln("Water");
+--      safeClick(waters[i][0]+5, waters[i][1]+5);
+--    end
+--    sleepWithStatus(1000, "First Water");
+--  end
+
   -- Check for window size
   checkWindowSize(bed[0], bed[1]);
 
@@ -511,11 +503,8 @@ end
 function clickPlant(xyPlantFlax)
   local result = xyFlaxMenu;
   local spot = getWaitSpot(xyFlaxMenu[0], xyFlaxMenu[1]);
-  if safeClicking then
-    safeClick(xyPlantFlax[0], xyPlantFlax[1], 0);
-  else
-    srClickMouse(xyPlantFlax[0], xyPlantFlax[1], 0);
-  end
+  safeClick(xyPlantFlax[0], xyPlantFlax[1], 0);
+
   local plantSuccess = waitForChange(spot, 1500);
   if not plantSuccess then
     error_status = "No flax bed was placed when planting.";
@@ -534,11 +523,11 @@ function dragWindows(loop_count)
   statusScreen("(" .. loop_count .. "/" .. num_loops .. ")  " ..
                "Dragging Windows into Grid" .. "\n\nElapsed Time: " .. getElapsedTime(startTime));
 
-  if not extraGridSpacing and is_plant then
-    window_w = nil;
-    offsetWidth = 15;
+  if plantType == ONIONS then
+    arrangeStashed(nil, waterGap, onion_window_w, onion_window_h, space_to_leave);
+  else
+    arrangeStashed(nil, waterGap, window_w, window_h, space_to_leave);
   end
-    arrangeStashed(nil, waterGap, window_w, window_h, space_to_leave, offsetWidth, offsetHeight);
 end
 
 -------------------------------------------------------------------------------
@@ -561,11 +550,7 @@ function harvestAll(loop_count)
     srReadScreen();
     local tops = findAllText(thisIs);
     for i=1,#tops do
-      if safeClicking then
-        safeClick(tops[i][0], tops[i][1]);
-      else
-        srClickMouse(tops[i][0], tops[i][1]);
-      end
+      safeClick(tops[i][0], tops[i][1]);
     end
 
     if is_plant then
