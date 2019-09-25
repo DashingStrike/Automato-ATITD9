@@ -15,6 +15,14 @@ dofile("veg_janitor/list.inc")
 dofile("veg_janitor/vector.inc")
 dofile("veg_janitor/screen.inc")
 --]]
+dofile("plant.inc")
+dofile("plant_controller.inc")
+dofile("util.inc")
+dofile("ui.inc")
+dofile("list.inc")
+dofile("vector.inc")
+dofile("screen.inc")
+
 
 WARNING = [[
 THIS IS A BETA MACRO YOU ARE USING AT YOUR OWN RISK
