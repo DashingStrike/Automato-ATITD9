@@ -14,7 +14,7 @@ centerY = y/2;
 clockUpperLeftX = centerX-110;
 clockUpperLeftY = 15;
 clockWidth = (centerX + 110) - clockUpperLeftX;
-clockHeight = 40;
+clockHeight = 50;
 
 zoomLevel = 1.0; -- Default Zoom Level
 zoomeLevelStep = 0.25; -- If you want smaller/larger zoom levels, then change to 0.25, 0.50, 0.75, 1.0, or whatever
@@ -42,12 +42,8 @@ while 1 do
 
   else
     faction = "Unknown";
-    srSetWindowInvertColorRange(0x68640c, 0xb09f32); -- Not valid, just added here to avoid errors. We more elseif statements above for Mesh, Kush and the Orange Neutral (get screenshot from Welcome Island, maybe?)
+    srSetWindowInvertColorRange(0x68640c, 0xb09f32); -- Not valid, just added here to avoid errors. We need more elseif statements above for Mesh, Kush and the Orange Neutral (get screenshot from Welcome Island, maybe?)
   end
-
-  --Yellow background for Hyksos
-  srSetWindowInvertColorRange(colorRange);
-  srSetWindowInvertColorRange(0x68640c, 0xb09f32);
 
 
 		--  srStripRegion(853,14, 214,48); -- Works at least on 1920x1080
@@ -81,7 +77,6 @@ while 1 do
 
 
   lsPrint(10, lsScreenY - 28, 0, 0.7, 0.7, 0xFFFFFFff, "Zoom:");
-
 
   lsPrintWrapped(10, 10, 0, lsScreenX-15, 0.7, 0.7, 0xFFFFFFff,
              "Screen Size: " .. x .. " x " .. y .. "\nCenterX/Y: " .. math.floor(centerX) .. ", " .. math.floor(centerY) .. 
