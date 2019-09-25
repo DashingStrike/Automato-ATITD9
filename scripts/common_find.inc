@@ -18,7 +18,7 @@ srSetWindowBorderColorRange(0x6a4529, 0x6d472a);
 -- treat as background when stripping)
 srSetWindowInvertColorRange(0x1e2e31, 0x263539);
 -- The color range that is treated as window background and stripped in srStripRegion()
-srSetWindowBackgroundColorRange(0xE7D2AB, 0xFFFFF2);
+srSetWindowBackgroundColorRange(0xDBC998,0xFFFFFA);
 
 -------------------------------------------------------------------------------
 -- findAllImages(image_name, range, tol)
