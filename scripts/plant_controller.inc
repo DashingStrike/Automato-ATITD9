@@ -180,7 +180,7 @@ function PlantController:grow_plant()
 end
 
 function PlantController:findPlantAndSave(no_plants_pixels, box, previous_plants)
-    local vec_and_pix = ScreenSearcher:new(self.index, self.seed_name, previous_plants, self.config):findChangedRow(no_plants_pixels, box)
+    local vec_and_pix = ScreenSearcher:new(self.index, self.seed_type, previous_plants, self.config):findChangedRow(no_plants_pixels, box)
     if vec_and_pix then
         --        self.saved_plant_location = vec_and_pix.vector
         --        self.saved_plant_pixel = vec_and_pix.pixel
@@ -390,7 +390,7 @@ function ScreenSearcher:findChangedRow(pixels, box)
                 end
             end
 
-            if self.previous_plants and self:pixelDiff(pixels, x, y, box, false) then
+            if self.previous_plants and self:pixelDiff(pixels, x, y, box, self:should_classify()) then
                 if not self.previous_plants[y] then
                     self.previous_plants[y] = {}
                 end
@@ -444,7 +444,7 @@ function ScreenSearcher:findChangedRow(pixels, box)
             return { vector = Vector:new { x, y }, pixel = srReadPixelFromBuffer(x, y) }
         end
     else
-    return false
+        return false
     end
 end
 
@@ -538,33 +538,13 @@ function classifyColour(colourRGBA, seed_type)
     local b = colour[3]
     if seed_type == "Onions" then
         --        lsPrintln("R " .. r .. " G " .. g .. " B " .. b)
-        if b < 80 then
+        if b < 40 then
             return "G"
-        elseif g > r and b > 130 then
+        elseif g >= r and b > 120 then
             return "W"
         else
             return "Y"
         end
-    elseif seed_type == "Garlic" then
-        if b < 10 or b > 150 then
-            return "W"
-        else
-            return "Y"
-        end
-    elseif seed_type == "Leeks" then
-        if b < 80 or b > 150 then
-            return "W"
-        else
-            return "Y"
-        end
-    elseif seed_type == "Carrots" then
-        if b < 55 and r > 195 then
-            return "W"
-        else
-            return "Y"
-        end
-    elseif seed_type == "Cabbages" then
-        return colourRGBA
     else
         return colourRGBA
     end

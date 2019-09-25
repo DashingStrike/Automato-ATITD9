@@ -120,7 +120,7 @@ function edit_config_screen(config)
                         for k, timing in pairs(v or {}) do
                             if timing then
 
-                                display = display .. k .. "=" .. (timing/1000).. "s,"
+                                display = display .. k .. "=" .. (timing / 1000) .. "s,"
                             end
                         end
                         table.insert(types_with_values, type .. (v and (" (" .. display .. ")") or ""))
@@ -356,7 +356,6 @@ function dropdown(key, starting_index, values, text, return_values)
             end
         end
     end
-lsSetCamera(0,0,lsScreenX*1.2,lsScreenY*1.2);
     local before = dropdown_indexs[key]
     dropdown_indexs[key] = lsDropdown(key, X_PADDING, current_y, 10, lsScreenX - 10, dropdown_indexs[key] or starting_index, values)
     current_y = current_y + 30
@@ -383,7 +382,7 @@ function getUserParams()
                 config.selected_seed_type = dropdown("seed_type_selector", config.selected_seed_type or 1, TYPES, "Seed type filter")
                 local yields = { "All", 1, 2, 3, 4 }
                 config.yield_filter_index = dropdown("yield_filter", config.yield_filter_index or 1,
-                        yields, "Yield filter", {1,2,3,4,5})
+                        yields, "Yield filter", { 1, 2, 3, 4, 5 })
                 config.yield_filter = yields[config.yield_filter_index]
                 local plants = {}
                 for n, plant in pairs(config.plants) do
@@ -432,7 +431,6 @@ function getUserParams()
                 for k, v in pairs(config) do
                     got_user_params = got_user_params and v
                 end
-lsSetCamera(0,0,lsScreenX*1.0,lsScreenY*1.0);
                 got_user_params = got_user_params and drawBottomButton(lsScreenX - 5, "Next step")
             else
                 drawWrappedText(WARNING, RED, X_PADDING, current_y)
@@ -612,8 +610,8 @@ function default_deep_config()
             ["Leeks"] = 75,
             ["Cabbages"] = 25,
             ["Garlic"] = 25,
-            ["Onions"] = 175,
-            ["Default"] = 125
+            ["Onions"] = 100,
+            ["Default"] = 100
         },
         ["plant_yield_bonus"] = 0,
         ["end_of_run_wait"] = 3000,
