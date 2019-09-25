@@ -1,7 +1,14 @@
+--[[
 dofile("veg_janitor/util.inc")
 dofile("veg_janitor/plant.inc")
 dofile("veg_janitor/vector.inc")
 dofile("veg_janitor/screen.inc")
+--]]
+dofile("util.inc")
+dofile("plant.inc")
+dofile("vector.inc")
+dofile("screen.inc")
+
 
 BLACK = 0x000000ff
 WHITE = 0xFFFFFFff

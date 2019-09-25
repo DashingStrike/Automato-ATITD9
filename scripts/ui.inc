@@ -1,4 +1,6 @@
-dofile("veg_janitor/io.inc")
+--dofile("veg_janitor/io.inc")
+dofile("io.inc")
+
 -- Used to place gui elements sucessively.
 current_y = 0
 -- How far off the left hand side to place gui elements.

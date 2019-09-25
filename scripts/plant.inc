@@ -1,4 +1,5 @@
-dofile("veg_janitor/util.inc")
+--dofile("veg_janitor/util.inc")
+dofile("util.inc")
 
 Plant = {}
 function Plant:new(index, plant_time, controller, config)
