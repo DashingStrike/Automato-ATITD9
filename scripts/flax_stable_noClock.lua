@@ -34,13 +34,7 @@ seeds_per_pass = 4;
 seeds_per_iter = 0;
 finish_up = 0;
 finish_up_message = "";
-
-
--- If getting popup errors about "don't stack flax, it's an exploit" then the extraGridSpacing option should increase gaps in the grid
--- Default of extraGridSpacingDelay is 100. But if you're still getting errors, try increasing 50-100 at a time.
 extraGridSpacing = true;
-extraGridSpacingDelay = 100;
-
 seedType = "Old";
 harvest = "Harvest this";
 weedAndWater = "Weed and Water";
@@ -75,6 +69,9 @@ window_h = 145;
 -- To allow 5x5 seeds on a 1920 width screen, we need to tweak the arrangeStashed function to only allow 50px for automato window
 space_to_leave = 50; 
 
+--This is only used when Extra Grid Spacing checkbox is UN checked. The additional spacing between pinned up windows.
+min_width_offset = 80;
+
 
 -- How much of the ATITD screen to ignore (protect the right side of screen from closing windows when finished (ie don't close plant flax window).
 --max_width_offset will prevent it from reading all the way to the right edge of game client
@@ -84,7 +81,6 @@ max_width_offset = 425; -- We don't want to close out the Aquaduct window. This 
 
 
 FLAX = 0;
-ONIONS = 1;
 plantType = FLAX;
 CLICK_MIN_WEED = 15*1000;
 CLICK_MIN_SEED = 27*1000;
@@ -134,7 +130,7 @@ end
 -------------------------------------------------------------------------------
 -- checkWindowSize()
 --
--- Set width and height of flax window based on whether they are guilded.
+-- Set width and height of flax window based on whether they are guilded or Game Master is playing.
 -------------------------------------------------------------------------------
 
 window_check_done_once = false;
@@ -142,7 +138,15 @@ function checkWindowSize(x, y)
   if not window_check_done_once then
     srReadScreen();
     window_check_done_once = true;
-     local pos = srFindImageInRange(imgUseable, x-5, y-50, 150, 100)
+--     local pos = srFindImageInRange(imgUseable, x-5, y-50, 150, 100)
+     local pos = findText("Useable by");
+     if pos then
+        window_h = window_h + 15;
+     end
+     pos = findText("Game Master");
+     if pos then
+        window_h = window_h + 30;
+     end
   end
 end
 
@@ -414,16 +418,6 @@ function plantAndPin(loop_count)
 	local spot = getWaitSpot(xyFlaxMenu[0], xyFlaxMenu[1]);
         safeClick(xyCenter[0] + walk_px_x*dx[dxi],
                   xyCenter[1] + walk_px_y*dy[dxi], 0);
-
-
-	--If you keep getting popups about don't stack flax, it's an exploit, then do a short extra walk before planting
-	if extraGridSpacing == true then
-	  lsSleep(100);
-        safeClick(xyCenter[0] + walk_px_x*dx[dxi],
-                  xyCenter[1] + walk_px_y*dy[dxi], 0);
-	end
-
-	
         spot = getWaitSpot(xyFlaxMenu[0], xyFlaxMenu[1]);
 	if not waitForChange(spot, 1500) then
 	  error_status = "Did not move on click.";
@@ -480,18 +474,6 @@ function plantHere(xyPlantFlax, y_pos)
     return false;
   end
 
---  if plantType == ONIONS then
---    lsPrintln("Onions");
---    lsSleep(200);
---    srReadScreen();
---    local waters = findAllImages("WaterThese.png");
---    for i = 1,#waters do
---      lsPrintln("Water");
---      safeClick(waters[i][0]+5, waters[i][1]+5);
---    end
---    sleepWithStatus(1000, "First Water");
---  end
-
   -- Check for window size
   checkWindowSize(bed[0], bed[1]);
 
@@ -523,11 +505,11 @@ function dragWindows(loop_count)
   statusScreen("(" .. loop_count .. "/" .. num_loops .. ")  " ..
                "Dragging Windows into Grid" .. "\n\nElapsed Time: " .. getElapsedTime(startTime));
 
-  if plantType == ONIONS then
-    arrangeStashed(nil, waterGap, onion_window_w, onion_window_h, space_to_leave);
-  else
-    arrangeStashed(nil, waterGap, window_w, window_h, space_to_leave);
+  if not extraGridSpacing and is_plant then
+    window_w = nil;
+    offsetWidth = min_width_offset;
   end
+    arrangeStashed(nil, waterGap, window_w, window_h, space_to_leave, offsetWidth, offsetHeight);
 end
 
 -------------------------------------------------------------------------------
