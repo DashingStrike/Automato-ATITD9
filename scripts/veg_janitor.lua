@@ -6,7 +6,6 @@
 
 dofile("common.inc")
 dofile("settings.inc")
---[[
 dofile("veg_janitor/plant.inc")
 dofile("veg_janitor/plant_controller.inc")
 dofile("veg_janitor/util.inc")
@@ -14,15 +13,6 @@ dofile("veg_janitor/ui.inc")
 dofile("veg_janitor/list.inc")
 dofile("veg_janitor/vector.inc")
 dofile("veg_janitor/screen.inc")
---]]
-dofile("plant.inc")
-dofile("plant_controller.inc")
-dofile("util.inc")
-dofile("ui.inc")
-dofile("list.inc")
-dofile("vector.inc")
-dofile("screen.inc")
-
 
 WARNING = [[
 THIS IS A BETA MACRO YOU ARE USING AT YOUR OWN RISK
