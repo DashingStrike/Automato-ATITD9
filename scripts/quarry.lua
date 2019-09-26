@@ -15,7 +15,7 @@ lag_wait_after_click = 1500;
 
 directions1 = {"Eastern", "Northern", "Southern", "Western"};
 directions2 = {"Down", "Left", "Right", "Up"};
-tolerance = 8000;
+tolerance = 9000;
 span_w = 12; -- Number of pixels to scan looking for span changing
 span_h = 9;
 log_lines = {};
