@@ -10,12 +10,12 @@ prompt_before_working = nil;
 dofile("common.inc");
 
 xyWindowSize = srGetWindowSize();
-delay_time = 250;
+delay_time = 100;
 lag_wait_after_click = 1500;
 
 directions1 = {"Eastern", "Northern", "Southern", "Western"};
 directions2 = {"Down", "Left", "Right", "Up"};
-tolerance = 6000;
+tolerance = 8000;
 span_w = 12; -- Number of pixels to scan looking for span changing
 span_h = 9;
 log_lines = {};
@@ -72,34 +72,41 @@ function doit()
 	
 	-- Refresh quarry window
 	srReadScreen();
-	--local quarry = srFindImage("Quarry-ThisIsAStoneQuarry.png", 6000);
-	local quarry = findText("Stone Quarry")
+	local quarry = findText("This is");
 	if not quarry then
 		error "Could not find quarry window";
 	end
 	if do_click_refresh then
-		--srClickMouseNoMove(quarry[0], quarry[1], 0);
+		srClickMouseNoMove(quarry[0], quarry[1], 0);
 	end
 	local different = nil;
 	
 	while 1 do
 		lsSleep(delay_time);
 		srReadScreen();
-		-- Find Quarry window
-		--local quarry = srFindImage("Quarry-ThisIsAStoneQuarry.png", 6000);
-		local quarry = findText("Stone Quarry")
+		local quarry = findText("This is");
+		if not quarry then
+			error "Could not find quarry window";
+		end
 		
 		-- Check END
-		--end_red = srFindImage("Endurance-Red.png");
-		end_white = srFindImage("Endurance.png");
+		--end_red = srFindImage("Endurance-Red.png"); -- T8
+		end_red1 = srFindImage("Endurance.PNG");
+		end_red2 = srFindImage("endurance2.png");
+		end_red3 = srFindImage("endurance3.png");
+		if end_red1 or end_red2 or end_red3 then
+		  end_red = nil;
+		else
+		  end_red = true;
+		end
+
 		-- Look for num_workers rows of Work This text
 		local x0 = quarry[0] - 5;
 		local y0 = quarry[1];
 		local positions = {};
 		local directions = {{}, {}, {}, {}};
 		for index=1, num_workers do
-			--pos = srFindImageInRange("Quarry-WorkTheQuarry.png", x0, y0, 250, 200, tolerance);
-			pos = findText("Work the Quarry");
+			pos = srFindImageInRange("quarry/Quarry-WorkTheQuarry.png", x0, y0, 250, 200, tolerance);
 			if not pos then
 				error ("Could not find 'Work The Quarry' #" .. index);
 			end
@@ -108,8 +115,7 @@ function doit()
 			-- Find the directional text
 			local my_direction1 = nil;
 			for direction=1,4 do
-				--if srFindImageInRange("Quarry-" .. directions1[direction] .. ".png", pos[0], pos[1], 250, 10, tolerance) then
-				if findText(directions1[direction]) then
+				if srFindImageInRange("quarry/Quarry-" .. directions1[direction] .. ".png", pos[0], pos[1], 250, 10, tolerance) then
 					my_direction1 = direction;
 				end
 			end
@@ -118,14 +124,11 @@ function doit()
 			end
 			local my_direction2 = nil;
 			for direction=1,4 do
-				--if srFindImageInRange("Quarry-" .. directions2[direction] .. ".png", pos[0], pos[1], 250, 10, tolerance) then
-				if findText(directions2[direction]) then
+				if srFindImageInRange("quarry/Quarry-" .. directions2[direction] .. ".png", pos[0], pos[1], 250, 10, tolerance) then
 					my_direction2 = direction;
 				end
 			end
 			if not my_direction2 then
-
-
 				error ("Could not find direction2 for index #" .. index);
 			end
 			directions[index][1] = my_direction1;
@@ -155,8 +158,7 @@ function doit()
 		end
 		
 		-- Check to see if span indicator has changed!
-		--has_been_raised = srFindImageInRange("Quarry-HasBeenRaisedBy.png", quarry[0], quarry[1], 500, 100, tolerance);
-		has_been_raised = findText("has been raised");
+		has_been_raised = srFindImageInRange("quarry/Quarry-HasBeenRaisedBy.png", quarry[0], quarry[1], 500, 100, tolerance);
 		if not has_been_raised then
 			error "Could not find text 'has been raised by'";
 		end
@@ -175,7 +177,7 @@ function doit()
 		-- Display status and debug info		
 		lsPrint(10, 10, 0, 0.7, 0.7, 0xB0B0B0ff, "Hold Ctrl+Shift to end this script.");
 		lsPrint(10, 20, 0, 0.7, 0.7, 0xB0B0B0ff, "Hold Alt+Shift to pause this script.");
-		if not end_white then
+		if end_red then
 			lsPrint(10, 60, 0, 1, 1, 0xFF8080ff, "Waiting (END red)...");
 		elseif different then
 			lsPrint(10, 60, 0, 1, 1, 0x20FF20ff, "Quarrying...");
@@ -187,7 +189,7 @@ function doit()
 			if index == my_index then
 				color = 0xDFFFDFff;
 			end
-			lsPrint(10, 80 + 15*index, 0, 0.7, 0.7, color, "#" .. index .. " - #" .. sorted[index] .. " " .. positions[sorted[index]][0] .. "," .. positions[sorted[index]][1] .. " = " .. directions1[directions[sorted[index]][1]] .. directions2[directions[sorted[index]][2]]);
+			lsPrint(10, 80 + 15*index, 0, 0.7, 0.7, color, "#" .. index .. " - #" .. sorted[index] .. " " .. positions[sorted[index]][0] .. "," .. positions[sorted[index]][1] .. " = " .. directions1[directions[sorted[index]][1]] .. "-" .. directions2[directions[sorted[index]][2]]);
 		end
 		if lsButtonText(lsScreenX - 110, lsScreenY - 30, z, 100, 0xFFFFFFff, "End script") then
 			error "Clicked End Script button";
@@ -208,30 +210,33 @@ function doit()
 		checkBreak("button_pause");
 		lsDoFrame();
 		
-		if not end_white then
+		if end_red then
 			-- Do nothing
 			-- Refresh quarry window
 			if do_click_refresh and do_click_refresh_when_end_red then
-				--srClickMouseNoMove(quarry[0], quarry[1], 0);
+				srClickMouseNoMove(quarry[0], quarry[1], 0);
 			end
 		elseif different then
 			index = sorted[my_index];
-			log("Quarrying - " .. directions1[directions[index][1]] .. directions2[directions[index][2]]);
+			log("Quarrying - " .. directions1[directions[index][1]] .. "-" .. directions2[directions[index][2]]);
 			-- Click my button!
 			if prompt_before_working then
-				if promptOkay("Click OK to click on " .. positions[index][0] .. "," .. positions[index][1] .. " = " .. directions1[directions[index][1]] .. directions2[directions[index][2]], nil, 0.7, nil, 1) then
+				if promptOkay("Click OK to click on " .. positions[index][0] .. "," .. positions[index][1] .. " = " .. directions1[directions[index][1]] .. "-" .. directions2[directions[index][2]], nil, 0.7, nil, 1) then
 					srClickMouseNoMove(positions[index][0]+5, positions[index][1]+1, 0);
+					--lsSleep(lag_wait_after_click);
+					sleepWithStatus(lag_wait_after_click,"Clicked: " .. directions1[directions[index][1]] .. "-" .. directions2[directions[index][2]] .. "\n\nSlight pause for potential lag to catch up!", nil, 0.7, 0.7);
 				end
 			else
 				-- just click
 				srClickMouseNoMove(positions[index][0]+5, positions[index][1]+1, 0);
-				lsSleep(lag_wait_after_click);
+				--lsSleep(lag_wait_after_click);
+				sleepWithStatus(lag_wait_after_click,"Clicked: " .. directions1[directions[index][1]] .. "-" .. directions2[directions[index][2]] .. "\n\nSlight pause for potential lag to catch up!", nil, 0.7, 0.7);
 
 			end
 			different = nil;
 			-- Refresh the window
 			if do_click_refresh then
-				lsSleep(delay_time);
+				--lsSleep(delay_time);
 				srClickMouseNoMove(quarry[0], quarry[1], 0);
 			end
 		else
