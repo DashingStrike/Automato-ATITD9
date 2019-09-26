@@ -30,8 +30,8 @@ end
 function start()
 	for i=1, passCount do
 		-- refresh windows
-        message = "Refreshing"
-		clickAllText("This Rock Saw");
+		message = "Refreshing"
+		clickAllText("This");
 		lsSleep(500);
 
 		message = "Clicking " .. product;
@@ -71,6 +71,15 @@ function closePopUp()
       break;
     end
   end
+end
+
+function refreshWindows()
+    srReadScreen();
+    this = findAllText("This is");
+    for i = 1, #this do
+        clickText(this[i]);
+    end
+    lsSleep(100);
 end
 
 function config()
