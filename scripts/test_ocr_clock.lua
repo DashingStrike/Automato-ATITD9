@@ -13,11 +13,11 @@ centerY = y/2;
 
 clockUpperLeftX = centerX-110;
 clockUpperLeftY = 15;
-clockWidth = (centerX + 110) - clockUpperLeftX;
+clockWidth = (centerX + 125) - clockUpperLeftX;
 clockHeight = 50;
 
 zoomLevel = 1.0; -- Default Zoom Level
-zoomeLevelStep = 0.25; -- If you want smaller/larger zoom levels, then change to 0.25, 0.50, 0.75, 1.0, or whatever
+zoomeLevelStep = 0.5; -- If you want smaller/larger zoom levels, then change to 0.25, 0.50, 0.75, 1.0, or whatever
 
 while 1 do
   checkBreak();	
@@ -32,7 +32,7 @@ while 1 do
 
   if hyksos then
     faction = "Hyksos";
-    srSetWindowInvertColorRange(0x68640c, 0xb09f32);
+    srSetWindowInvertColorRange(0x68640c, 0xe0dec2);
   elseif kush then
     faction = "Kush";
     srSetWindowInvertColorRange(0x68640c, 0xb09f32);
