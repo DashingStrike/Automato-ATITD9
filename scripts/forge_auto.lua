@@ -264,8 +264,8 @@ local function makeItem(currentItem, window)
    elseif lastParent == "Bars x1" or lastParent == "Bars x5" then
       srReadScreen();
       pin = srFindImage("unpinnedPin.png");
-      thisRange = makeBox(pin[0]-180, pin[1], 180, 450);
-      t = waitForText(text, 1000, nil, thisRange);
+      --thisRange = makeBox(pin[0]-180, pin[1], 180, 450);
+      t = waitForText(text, 1000);
    else
       t = waitForText(text, 1000);
    end
