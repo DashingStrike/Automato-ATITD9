@@ -3,7 +3,7 @@ return
 	["Extrusion Plate"] = 
 	{
 		["masterOnly"] = true,
-		["metal"] = "Iron",
+		["metal"] = "Copper",
 		["prod"] = 1,
 		["q"] = 40,
 		["time"] = 30,
