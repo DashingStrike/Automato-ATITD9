@@ -114,12 +114,10 @@ function closePopUp()
 end
 
 function clickSequence()
-
-	drawWater();
-
 	sleepWithStatus(500, "Starting... Don\'t move mouse!");
 	startTime = lsGetTimer();
-	for l=1, passCount do  
+	for l=1, passCount do
+	drawWater();	
     	for i=1,#clickList do
 		checkBreak();
 		srSetMousePos(clickList[i][1], clickList[i][2]);
@@ -146,7 +144,7 @@ function EvaporateSaltWater()
   checkBreak();
   closePopUp(); -- Screen clean up
   local OK = true;
-  srKeyEvent('x'); -- Make Jug [J]
+  srKeyEvent('x'); -- Evaporate Salt Water [J]
   closePopUp(); -- Screen clean up
 end
 
