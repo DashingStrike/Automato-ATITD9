@@ -36,7 +36,7 @@ function ccMenu()
     lsSleep(100);
     Do_Take_All_Click(); -- Make sure ovens are empty. If a previous run didn't complete and has wood leftover, will cause a popup 'Your oven already has wood' and throw macro off
     runCommand(buttons[1]);
-    lsSleep(1000);
+    lsSleep(1500);
     ccRun(i, passCount);
   end
   Do_Take_All_Click(); -- All done, empty ovens
