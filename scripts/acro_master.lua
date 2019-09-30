@@ -1,4 +1,4 @@
--- Acrobat Master v2.0 by Cegaiel
+-- Acrobat Master v2.1 by Cegaiel
 --
 -- Immediately upon Starting:
 -- Searches your acro menu for all of your acro buttons. It will not include acro move names on the list, that is not inside of a button.
@@ -10,10 +10,13 @@
 -- Click Menu button to stop acroing and go back to your list.
 -- Go back to Menu, click Refresh when you have a new partner, to refresh the buttons
 --
+-- While in Menu:
+-- Point mouse over your partner and Tap Shift to quickly Ask to Acro (Tests, The Human Body, Test of the Acrobat, Ask to Acro menus)
+
 
 dofile("common.inc");
 
-askText = "Acrobat Master v2.0 by Cegaiel\n \nWait until you have Acrobat window open, from a partner, (won\'t work with Self Click, Acrobat, Show Moves) before you start macro! It will memorize your moves for future partners (even if you close acro window). You can move acro window while its running. You do not need to quit/restart macro between each partner. Click \"Menu\" button, when you are done acroing the current player. Optionally, click \"Refresh\" button when your next partner\'s acro window is open. Make sure you resize the acro window so all the buttons you know are showing (above the bar). Press Shift over ATITD window to continue.";
+askText = "Acrobat Master v2.1 by Cegaiel\n \nWait until you have Acrobat window open, from a partner, (won\'t work with Self Click, Acrobat, Show Moves) before you start macro! It will memorize your moves for future partners (even if you close acro window). You can move acro window while its running. You do not need to quit/restart macro between each partner. Click \"Menu\" button, when you are done acroing the current player. Optionally, click \"Refresh\" button when your next partner\'s acro window is open. Make sure you resize the acro window so all the buttons you know are showing (above divider bar). Press Shift over ATITD window to continue.";
 
 
 moveImages = {
@@ -111,12 +114,15 @@ moveShortNames = {
 };
 
 startTime = 0;
-perMoves = 6;
+perMoves = 6; 
+perMovesAuto = 5; --Default Minutes to alot to each partner
 moveDelay = 7500; -- How many ms to wait to perform between each move to your partner.
 debugClickMoves = nil; -- Change to true to make mouse point to where it's clicking. Change to nil to disable.
 
+
 function doit()
   askForWindow(askText);
+  totalSession = lsGetTimer();
   findMoves();
   checkAllBoxes();
   displayMoves();
@@ -125,23 +131,21 @@ end
 
 function findMoves()
   lsDoFrame();
-  statusScreen("Scanning acro buttons...", nil, 0.7, 0.7);
+  statusScreen("Scanning Acro Buttons ...", nil, 0.7, 0.7);
   foundMovesName = {};
   foundMovesImage = {};
   foundMovesShortName = {};
-  local acroY;
-  local atitdY;
   local message = "";
 
 
   --See if the acro bar (middle border on Acro window) is found.  If not, then just set Y to screenHeight
   --Moves above the acro bar are moves that your partner does not know yet. Moves below are moves your partner already knows.  Attempt to exclude those.
   srReadScreen();
-  local bar = srFindImage("acro/acro_bar.png");
+  barFound = srFindImage("acro/acro_bar.png");
 
-  if bar then
-    acroY = bar[1];   -- set Y position of the middle border
-    message = message .. "\n\nAcro middle border found!\nIgnoring moves below the border...";
+  if barFound then
+    acroY = barFound[1];   -- set Y position of the middle border
+    message = message .. "\n\nDIVIDER BAR FOUND!\n\nIgnoring moves below the border...";
   else
     atitdY = srGetWindowSize();
     acroY = atitdY[1];   -- No middle border found, so just use ATITD screen height
@@ -167,9 +171,9 @@ function findMoves()
     end
   end
 
-  if #foundMovesName == 0 then
-    error 'No acro moves found, aborted.';
-  end
+  --if #foundMovesName == 0 then
+    --error 'No acro moves found, aborted.';
+  --end
 end
 
 
@@ -188,7 +192,6 @@ function doMoves()
       checkBreak();
       skipNotification = nil;
 
-
       if skip then
         if j ~= 1 then
           break;
@@ -197,14 +200,13 @@ function doMoves()
         end
       end
 
-
       local acroTimer = true;
       while acroTimer do
         checkBreak();
         now = lsGetTimer();
 
         if lsButtonText(10, lsScreenY - 30, z, 75, 0xffff80ff, "Menu") then
-          sleepWithStatus(1500, "Returning to Menu")
+          sleepWithStatus(1500, "Returning to Menu !", nil, 0.7, 0.7)
           displayMoves();
         end
 
@@ -245,7 +247,15 @@ function doMoves()
           srReadScreen();
           clickMove = srFindImage("acro/" .. checkedMovesImage[i]);
 
-          if clickMove then
+
+          if clickMove and barFound and (clickMove[1] > acroY) then 
+              -- Check if the button is below a found divider Bar.
+              -- This suggests your partner has learned a new move while acroing and the button has moved below the bar. Skip and uncheck the box.
+            status = "SKIPPING: " .. checkedMovesName[i] .. "\n\nBUTTON HAS MOVED BELOW BAR!\n\nUnchecking from Move List.\n\nPartner likely learned this move.";
+            foundMovesShortName[i] = false
+            sleepWithStatus(2000, status, nil, 0.7, 0.7);
+            skip = true;
+          elseif clickMove then
             status = string.upper(checkedMovesName[i]);
             lastClick = lsGetTimer();
             if debugClickMoves then
@@ -253,10 +263,13 @@ function doMoves()
             end
             srClickMouseNoMove(clickMove[0]+3, clickMove[1]+2);
           else
-            status = "BUTTON NOT FOUND!\nSkipping: " .. checkedMovesName[i];
+              -- This suggests your partner has learned a new move while acroing and the button has moved below the bar (but out of sight, furthur down in menu).
+            status = "SKIPPING: " .. checkedMovesName[i] .. "\n\nBUTTON NOT FOUND!\n\nUnchecking from Move List.\n\nPartner likely learned this move";
+            foundMovesShortName[i] = false
             sleepWithStatus(2000, status, nil, 0.7, 0.7);
             skip = true;
           end -- if clickMove
+
 
           GUI = "\n\n" .. status .. "\n \n[" .. i .. "/" .. checkedBoxes .. "] Moves\n[" .. j .. "/" .. perMoves .. "] Clicked\n \nNote: Avatar animation might not keep up with macro. This is OK, each move clicked will still be recognized by your partner.\n\nClick Skip to advance to next move on list (ie partner follows the move).";
 
@@ -267,10 +280,10 @@ function doMoves()
 
   if skip or skipNotification then
     -- We skipped on final move; Simply announce we're returning to menu, with short delay
-    sleepWithStatus(1500, "\nALL DONE, RETURNING TO MAIN ...\n" .. GUI , nil, 0.7, 0.7)
+    sleepWithStatus(1500, "\nALL DONE, RETURNING TO MENU ...\n" .. GUI , nil, 0.7, 0.7)
   else
     -- Allow the full animation timer to finish before returning to menu.
-    sleepWithStatus(tonumber(moveDelay), "ALL DONE, RETURNING TO MAIN ...\n\nWaiting on Timer/Move Delay" .. GUI , nil, 0.7, 0.7)
+    sleepWithStatus(tonumber(moveDelay), "ALL DONE, RETURNING TO MENU ...\n\nWaiting on Timer/Move Delay to finish" .. GUI , nil, 0.7, 0.7)
   end
 
   displayMoves();
@@ -293,7 +306,7 @@ function processCheckedBoxes()
   end
 
   if checkedBoxes == 0 then
-    sleepWithStatus(2500, "No moves selected!\n\nAborting...");
+    sleepWithStatus(2500, "No moves selected!\n\nAborting ...", nil, 0.7, 0.7);
   else
     doMoves();
   end
@@ -321,6 +334,8 @@ function displayMoves()
   local finishTime = lsGetTimer();
   local seconds = 0;
   local minutes = 0;
+  local totalCheckedMoves = 0
+
 
   if startTime ~= 0 then
     sessionTime = math.floor((finishTime - startTime)/1000);
@@ -346,58 +361,131 @@ function displayMoves()
   while 1 do
     checkBreak()
     local y = 10;
+    local tpmColor = 0xffffffff;
+    local tpmColor2 = 0x99c2ffff;
+    local perMovesColor = 0x99c2ffff;
+
+    if timesPerMove then
+      tpmColor = 0xff9933ff;
+      tpmColor2 = 0xffbf80ff;
+      perMovesColor = 0xffffffff;
+      perMoves = math.floor(pms2)
+    else
+      perMoves = math.floor(perMoves)
+    end
+
     lsSetCamera(0,0,lsScreenX*1.5,lsScreenY*1.5);
 
-
-    foo, moveDelay = lsEditBox("ms Delay per Move", 15, y, z, 60, 30, 0.7, 0.7,
+    foo, moveDelay = lsEditBox("ms Delay per Move", 15, y, z, 70, 30, 0.7, 0.7,
                                0x000000ff, moveDelay);
 
     if not tonumber(moveDelay) then
+      moveDelay = 0;
       is_done = nil;
-      lsPrint(90, y, 0, 0.9, 0.9, 0xFF2020ff, "MUST BE A NUMBER!");
+      lsPrint(100, y, 0, 0.9, 0.9, 0xFF2020ff, "MUST BE A NUMBER!");
     else
       is_done = true;
-      lsPrint(88, y+2, z, 0.9, 0.9, 0xf0f0f0ff, "ms (" .. round(moveDelay/1000,2) .. "s) between each Move Click");
+      lsPrint(100, y+2, z, 0.9, 0.9, 0xf0f0f0ff, "ms (" .. round(moveDelay/1000,2) .. "s) between each Move Click");
     end
 
     y=y+30;
 
-    foo, perMoves = lsEditBox("Time per Move", 15, y, z, 30, 30, 0.7, 0.7,
+    foo, perMoves = lsEditBox("Time per Move", 15, y, z, 70, 30, 0.7, 0.7,
                               0x000000ff, perMoves);
     if not tonumber(perMoves) then
+      perMoves = 0;
       is_done = nil;
-      lsPrint(60, y, 0, 0.9, 0.9, 0xFF2020ff, "MUST BE A NUMBER!");
+      lsPrint(100, y, 0, 0.9, 0.9, 0xFF2020ff, "MUST BE A NUMBER!");
     else
       is_done = true;
-      lsPrint(88, y+2, z, 0.9, 0.9, 0xf0f0f0ff, "# Times to Repeat each Move");
+      lsPrint(100, y+2, z, 0.9, 0.9, perMovesColor, "# Times to Repeat each Move");
     end
 
-    lsPrint(15, y+50, z, 0.8, 0.8, 0xf0f0f0ff, "Last Acro Session: " .. lastSession);
-    y = y + 90;
-    lsPrint(15, y, 0, 0.9, 0.9, 0x40ff40ff, "Check moves you want to perform:");
+    y=y+30;
+
+    foo, perMovesAuto = lsEditBox("perMovesAuto", 15, y, z, 70, 30, 0.7, 0.7,
+                              0x000000ff, perMovesAuto);
+    if not tonumber(perMovesAuto) then
+      perMovesAuto = 0;
+      is_done = nil;
+      lsPrint(100, y, 0, 0.9, 0.9, 0xFF2020ff, "MUST BE A NUMBER!");
+    else
+      is_done = true;
+      lsPrint(100, y+2, z, 0.9, 0.9, tpmColor, "OR Minutes alloted to Partner");
+    end
 
     y = y + 30;
 
+    pms2 = perMoves;
+    if tonumber(perMovesAuto) and tonumber(moveDelay) and tonumber(perMoves) then
+      pms =  60000 * perMovesAuto
+      pms2 = pms/(totalCheckedMoves * moveDelay)
+      autoMoveMessage = totalCheckedMoves .. " Moves (" .. round(moveDelay/1000,2) .. "s each) = "  .. round(pms2,2) .. " (" .. math.floor(pms2) .. ") x each, in " .. perMovesAuto .. "m";
+      lsPrintWrapped(15, y, z, lsScreenX*1.5 - 20, 0.9, 0.9, 0xf2f2f2ff, autoMoveMessage);
+    end
+
+    y = y + 40;
+
+local timesPerMoveColor = 0xB0B0B0ff;
+if timesPerMove then
+timesPerMoveColor = 0xf0f0f0ff;
+--0xf0f0f0ff
+--0xB0B0B0ff
+end
+    timesPerMove = lsCheckBox(15, y, z, timesPerMoveColor, "   Set '# Times to Repeat' based on Minutes", timesPerMove);
+
+    if timesPerMove then
+      perMoves = math.floor(pms2)
+    else
+      perMoves = math.floor(perMoves)
+    end
+
+    y = y + 25;
+
+    lsPrint(37, y, z, 0.9, 0.9, tpmColor2, "   # Times to Repeat each Move = " .. perMoves );
+    lsPrint(120, y+35, z, 0.8, 0.8, 0xf0f0f0ff, "Total Acro Session: " .. getElapsedTime(totalSession));
+    y = y + 20;
+    lsPrint(120, y+35, z, 0.8, 0.8, 0xf0f0f0ff, " Last Acro Session: " .. lastSession);
+    y = y + 80;
+    lsPrint(15, y, 0, 0.9, 0.9, 0xffff00ff, "Hover Mouse over Partner and Tap Ctrl to Ask Acro!");
+
+    y = y + 35;
+
+    if #foundMovesName > 0 then
+      lsPrint(15, y, 0, 0.9, 0.9, 0x40ff40ff, "Check moves you want to perform:");
+    else
+      lsPrint(15, y, 0, 0.9, 0.9, 0xff8080ff, "No moves found! Refresh when Acro window is open");
+    end
+
+    y = y + 30;
+
+    totalCheckedMoves = 0;
     for i=1,#foundMovesName do
       local color = 0xB0B0B0ff;
       if foundMovesShortName[i] then
         color = 0xffffffff;
+        totalCheckedMoves = totalCheckedMoves + 1;
       end
       foundMovesShortName[i] = lsCheckBox(20, y, z, color, " " .. foundMovesName[i], foundMovesShortName[i]);
       y = y + 20;
     end
 
-    lsSetCamera(0,0,lsScreenX*1.2,lsScreenY*1.2);
-
-    if lsButtonText(lsScreenX - 50, lsScreenY - 80, z, 100, 0xFFFFFFff,
-                    "Start") and is_done then
-      processCheckedBoxes();
+    if lsControlHeld() then
+      askAcro();
     end
+
+    lsSetCamera(0,0,lsScreenX*1.2,lsScreenY*1.2);
 
     if lsButtonText(lsScreenX - 50, lsScreenY - 50, z, 100, 0xFFFFFFff,
                     "Refresh") and is_done then
       findMoves();
       checkAllBoxes();
+    end
+
+  if #foundMovesName > 0 then
+    if lsButtonText(lsScreenX - 50, lsScreenY - 80, z, 100, 0xFFFFFFff,
+                    "Start") and is_done then
+      processCheckedBoxes();
     end
 
     if lsButtonText(lsScreenX - 50, lsScreenY - 20, z, 100, 0xFFFFFFff,
@@ -409,12 +497,14 @@ function displayMoves()
                     "Uncheck") and is_done then
       uncheckAllBoxes();
     end
+  end
 
     if lsButtonText(lsScreenX - 50, lsScreenY + 40, z, 100, 0xFFFFFFff,
                     "End Script") then
       error "Clicked End script button";
     end
 
+    lsSetCamera(0,0,lsScreenX*1.0,lsScreenY*1.0);
     lsDoFrame();
     lsSleep(10);
   end
@@ -424,4 +514,19 @@ end
 function round(num, numDecimalPlaces)
   local mult = 10^(numDecimalPlaces or 0)
   return math.floor(num * mult + 0.5) / mult
+end
+
+
+function askAcro()
+  lsDoFrame();
+  statusScreen("Asking to Acro...", nil, 0.7, 0.7);
+  local pos = getMousePos();
+  srClickMouseNoMove(pos[0], pos[1], 1); -- Right click where mouse is hovering (partner). Use right click in case we misclick and don't start running.
+  clickText(waitForText("Tests", 500));
+  lsSleep(100); -- Needed so that next menu doesn't fall behind Tests menu.
+  clickText(waitForText("The Human Body", 500));
+  clickText(waitForText("Test of the Acrobat", 500));
+  clickText(waitForText("Ask to Acro", 500));
+  lsSleep(100);
+  srClickMouseNoMove(pos[0]+20, pos[1], 1); -- Right click to close out possible pinned menu.
 end
