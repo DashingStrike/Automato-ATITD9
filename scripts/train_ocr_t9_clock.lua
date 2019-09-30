@@ -11,23 +11,7 @@ function doit()
   askForWindow("Train Clock OCR\n\nUse offsetX/Y to get the white box to surround a letter/number on Clock. Then click Train button to show the code (in Console).\n\nOnce you find the values in Console, copy that to automato/games/ATITD9//data/charTemplate.txt file.");
 
 
-size = srGetWindowSize()
-x = size[0];
-y = size[1];
-centerX = x/2;
-centerY = y/2;
-
-clockUpperLeftX = centerX-110;
-clockUpperLeftY = 15;
-clockWidth = (centerX + 125) - clockUpperLeftX;
-clockHeight = 50;
-
-
--- Beware, we only have Hykso Color Range defined... Stay Tuned for Kush and Meshwesh  -- use test_ocr_background to find minColor, maxColor to define
---Without the proper color range, it won't strip the background and impossible to train. There should be no semi-blue splotches anywhere, when you zoom in.
---Use test_ocr_clock.lua to view, using same srSetWindowInvertColorRange(minColor, maxColor)
-
-srSetWindowInvertColorRange(0x68640c, 0xe0dec2); --Hyksos
+dofile("ocr_clock.inc");
 
 
   while true do
