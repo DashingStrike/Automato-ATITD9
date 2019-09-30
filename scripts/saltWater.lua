@@ -206,7 +206,7 @@ function promptDelays()
     end
 
 	msTimer = (timer * 60) * 1000
-    msTimerTeppyDuckOffset = (duckTeppyOffset * timer) * 1300 -- Add extra time to compensate for duck/teppy time
+    msTimerTeppyDuckOffset = (duckTeppyOffset * timer) * 1000 -- Add extra time to compensate for duck/teppy time
 	adjustedTimer = msTimer + msTimerTeppyDuckOffset;
 
 
