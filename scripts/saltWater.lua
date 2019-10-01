@@ -6,7 +6,7 @@ dofile("settings.inc");
 
 askText = "Salt Water v1.0 by Rhaom - Make Salt Water and Potash in tubs \n\nAllows you to quickly set all of your tub locations by tapping the selected key over each one.\n\nThen run and it will wait for the salt water to evaporate in all marked tubs.\n\nMake sure CHAT IS MINIMIZED!\n\nPress Shift over ATITD window to continue.";
 
-saltwaterTimer = 21;
+saltwaterTimer = 18;
 duckTeppyOffset = 10; -- How many extra seconds to add (to each real-life minute) to compensate for game time
 timer = 0;   -- Just a default to prevent error
 dropdown_values = {"Shift Key", "Ctrl Key", "Alt Key", "Mouse Wheel Click"};
@@ -116,8 +116,10 @@ end
 function clickSequence()
 	sleepWithStatus(500, "Starting... Don\'t move mouse!");
 	startTime = lsGetTimer();
-	for l=1, passCount do
-	drawWater();	
+  for l=1, passCount do
+    if gatherSaltwater then
+      drawWater();	
+    end
     	for i=1,#clickList do
 		checkBreak();
 		srSetMousePos(clickList[i][1], clickList[i][2]);
@@ -163,42 +165,58 @@ function promptDelays()
   while not is_done do
 	checkBreak();
 	local y = 10;
-	lsPrint(5, y, 0, 0.8, 0.8, 0xffffffff,
+	lsPrint(10, y, 0, 0.8, 0.8, 0xffffffff,
             "Key or Mouse to Select Nodes:");
 	y = y + 35;
 	lsSetCamera(0,0,lsScreenX*1.3,lsScreenY*1.3);
-	dropdown_cur_value = lsDropdown("ArrangerDropDown", 5, y, 0, 200, dropdown_cur_value, dropdown_values);
+	dropdown_cur_value = lsDropdown("ArrangerDropDown", 10, y, 0, 200, dropdown_cur_value, dropdown_values);
 	lsSetCamera(0,0,lsScreenX*1.0,lsScreenY*1.0);
 	y = y + 30;
 	
 	passCount = readSetting("passCount",passCount);
-    lsPrint(15, y, z, scale, scale, 0xffffffff, "Passes:");
-    is_done, passCount = lsEditBox("passes", 110, y, z, 50, 30, scale, scale,
+    lsPrint(10, y-5, z, scale, scale, 0xffffffff, "Passes:");
+    is_done, passCount = lsEditBox("passes", 100, y-5, z, 50, 30, scale, scale,
                                    0x000000ff, passCount);
     if not tonumber(passCount) then
       is_done = false;
-      lsPrint(10, y+30, z+10, 0.7, 0.7, 0xFF2020ff, "MUST BE A NUMBER");
+      lsPrint(10, y+20, z+10, 0.7, 0.7, 0xFF2020ff, "MUST BE A NUMBER");
       passCount = 1;
     end
 	y = y + 50;
     writeSetting("passCount",passCount);
-	 
-    if saltwater then
-      saltwaterColor = 0x80ff80ff;
-    else
-      saltwaterColor = 0xffffffff;
-    end
-    saltwater = readSetting("saltwater",saltwater);
+  
+  if gatherSaltwater then
+    gatherSaltwaterColor = 0x80ff80ff;
+  else
+    gatherSaltwaterColor = 0xffffffff;
+  end
+  gatherSaltwater = readSetting("gatherSaltwater",gatherSaltwater);
 
-	if saltwater then
-		saltwater = CheckBox(15, y, z+10, saltwaterColor, " Make Potash & Salt from Salt Water",
-							saltwater, 0.65, 0.65);
-	elseif not saltwater then
-		saltwater = CheckBox(15, y, z+10, saltwaterColor, " Make Potash & Salt from Salt Water",
-							 saltwater, 0.65, 0.65);
-	end
+  if gatherSaltwater then
+    gatherSaltwater = CheckBox(15, y, z+10, gatherSaltwaterColor, " Auto Gather Saltwater",
+              gatherSaltwater, 0.65, 0.65);
+  elseif not gatherSaltwater then
+    gatherSaltwater = CheckBox(15, y, z+10, gatherSaltwaterColor, " Auto Gather Saltwater",
+                gatherSaltwater, 0.65, 0.65);
+  end
 
-	writeSetting("saltwater",saltwater);
+  writeSetting("gatherSaltwater",gatherSaltwater);
+
+  if saltwater then
+    saltwaterColor = 0x80ff80ff;
+  else
+    saltwaterColor = 0xffffffff;
+  end
+  saltwater = readSetting("saltwater",saltwater);
+
+  if saltwater then
+    saltwater = CheckBox(15, y+20, z+10, saltwaterColor, " Make Potash & Salt from Salt Water",
+              saltwater, 0.65, 0.65);
+  elseif not saltwater then
+    saltwater = CheckBox(15, y+20, z+10, saltwaterColor, " Make Potash & Salt from Salt Water",
+                saltwater, 0.65, 0.65);
+  end
+  writeSetting("saltwater",saltwater);
 
     if saltwater then
       product = "Potash & Salt";
@@ -206,12 +224,12 @@ function promptDelays()
     end
 
 	msTimer = (timer * 60) * 1000
-    msTimerTeppyDuckOffset = (duckTeppyOffset * timer) * 1000 -- Add extra time to compensate for duck/teppy time
+  msTimerTeppyDuckOffset = (duckTeppyOffset * timer) * 160 -- Add extra time to compensate for duck/teppy time
 	adjustedTimer = msTimer + msTimerTeppyDuckOffset;
 
 
     if saltwater or medstone or pulley then
-    lsPrintWrapped(15, y+25, z+10, lsScreenX - 20, 0.7, 0.7, 0xd0d0d0ff,
+    lsPrintWrapped(15, y+45, z+10, lsScreenX - 20, 0.7, 0.7, 0xd0d0d0ff,
                    "Uncheck box to see more options!\n\n" .. product .. " requires " .. timer .. "m per pass\n\n" .. timer .. "m = " .. msTimer .. " ms\n" .. "+ Game Time Offset: " ..  msTimerTeppyDuckOffset .. " ms\n= " .. msTimer + msTimerTeppyDuckOffset .. " ms per pass");
 
       if lsButtonText(10, lsScreenY - 30, z, 100, 0xFFFFFFff, "Next") then
