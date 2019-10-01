@@ -11,7 +11,7 @@ flystoneTimer = 5;
 pulleyTimer = 10;
 nailmouldTimer = 7;
 crucibleTimer = 10;
-stoneblockTimer = 12;
+stoneblockTimer = 5;
 duckTeppyOffset = 10; -- How many extra seconds to add (to each real-life minute) to compensate for game time
 timer = 0;   -- Just a default to prevent error
 arrangeWindows = true;
@@ -47,7 +47,7 @@ function start()
         elseif crucible then
 			clickAllText("Cut a Medium Stone into a Crucible");
 		elseif stoneblock then
-			clickAllText("Make a Small Stone Block");
+			clickAllText("Cut a Medium Stone into a Small Stone Block");
         end
 
 		lsSleep(500);
@@ -206,7 +206,7 @@ function config()
 		end
 
 		if not nailmould and not crucible then
-		  stoneblock = CheckBox(15, y, z+10, stoneblockColor, " Make a Small Stone Block",
+		  stoneblock = CheckBox(15, y, z+10, stoneblockColor, " Cut a Medium Stone into a Small Stone Block",
 								  stoneblock, 0.65, 0.65);
 		  y = y + 32;
 		else
@@ -254,7 +254,7 @@ function config()
 	elseif (crucible) then
 		msTimerTeppyDuckOffset = (duckTeppyOffset * timer) * 1000 -- Add extra time to compensate for duck/teppy time
 	else
-		msTimerTeppyDuckOffset = (duckTeppyOffset * timer) * 1000 -- Add extra time to compensate for duck/teppy time
+		msTimerTeppyDuckOffset = (duckTeppyOffset * timer) * 650 -- Add extra time to compensate for duck/teppy time
 	end
 
 	adjustedTimer = msTimer + msTimerTeppyDuckOffset;
