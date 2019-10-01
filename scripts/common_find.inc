@@ -461,3 +461,45 @@ function findChatRegionSub()
   end
   return pos;
 end
+
+function findClockRegion()
+  srReadScreen();
+  local size = srGetWindowSize()
+  local x = size[0];
+  local y = size[1];
+  local centerX = x/2;
+  local centerY = y/2;
+  local clockUpperLeftX = centerX-110;
+  local clockUpperLeftY = 15;
+  local clockWidth = (centerX + 125) - clockUpperLeftX;
+  local clockHeight = 50;
+  local factionTolerance = 2500;
+  local clockRegion = makeBox(clockUpperLeftX, clockUpperLeftY, clockWidth, clockHeight);
+  local neutral = srFindImageInRange("faction/faction_neutral.png", clockRegion.x, clockRegion.y, clockRegion.width, clockRegion.height, factionTolerance);
+  local hyksos = srFindImageInRange("faction/faction_hyksos.png", clockRegion.x, clockRegion.y, clockRegion.width, clockRegion.height, factionTolerance);
+  local kush = srFindImageInRange("faction/faction_kush.png", clockRegion.x, clockRegion.y, clockRegion.width, clockRegion.height, factionTolerance);
+  local meshwesh = srFindImageInRange("faction/faction_hyksos.png", clockRegion.x, clockRegion.y, clockRegion.width, clockRegion.height, factionTolerance);
+ 
+  if neutral then
+    faction = "Neutral";
+    srSetWindowInvertColorRange(0x68640c, 0xC0B129); -- Not Valid, placeholder
+
+  elseif hyksos then
+    faction = "Hyksos";
+    --srSetWindowInvertColorRange(0x68640c, 0xe0dec2);
+    --srSetWindowInvertColorRange(0x000000, 0xFeFeFe);
+    srSetWindowInvertColorRange(0x68640c, 0xC0B129);
+
+  elseif kush then
+    faction = "Kush";
+    srSetWindowInvertColorRange(0x68640c, 0xC0B129); -- Not Valid, placeholder
+
+  elseif meshwesh then
+    faction = "Meshwesh";
+    srSetWindowInvertColorRange(0x68640c, 0xC0B129); -- Not Valid, placeholder
+
+  else
+    error("Could not detect faction");
+  end
+  return clockRegion;
+end

@@ -7,18 +7,13 @@ pointingSpeed = 2000; --ms
 
 
 function doit()
-	askForWindow("Find Text on Clock.\n\nHover ATITD window and Press Shift to continue.");
+  askForWindow("Find Text on Clock.\n\nHover ATITD window and Press Shift to continue.");
 
-
-dofile("ocr_clock.inc");
-
+  local clockRegion = findClockRegion();
 
   while 1 do
     checkBreak();
     srReadScreen();
-
-    clockRegion = makeBox(clockUpperLeftX, clockUpperLeftY, clockWidth, clockHeight);
-
     lsPrintWrapped(10, 100, 0, lsScreenX - 20, 0.7, 0.7, 0xFFFFFFff, "Search Text:");
     foo, searchChar = lsEditBox("searchChar", 10, 120, z, 100, 25, 1.0, 1.0, 0x000000ff);
     message = "Searching Text: " .. searchChar .. "\n\nResults: ";
@@ -38,7 +33,7 @@ dofile("ocr_clock.inc");
       message = "Enter Text to being searching";
     end
 
-    srMakeImage("clock-region", clockUpperLeftX, clockUpperLeftY, clockWidth, clockHeight);
+    srMakeImage("clock-region", clockRegion.x, clockRegion.y, clockRegion.width, clockRegion.height);
     srShowImageDebug("clock-region", 5, 5, 1, zoomLevel);
 
     lsPrintWrapped(10, lsScreenY - 160, 0, lsScreenX - 20, 0.7, 0.7, 0xFFFFFFff, message);

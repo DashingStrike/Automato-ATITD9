@@ -10,9 +10,7 @@ offsetY = 0;
 function doit()
   askForWindow("Train Clock OCR\n\nUse offsetX/Y to get the white box to surround a letter/number on Clock. Then click Train button to show the code (in Console).\n\nOnce you find the values in Console, copy that to automato/games/ATITD9//data/charTemplate.txt file.");
 
-
-dofile("ocr_clock.inc");
-
+  clockRegion = findClockRegion();
 
   while true do
     findStuff();
@@ -57,7 +55,6 @@ function findStuff()
       zoomLevel = 1.0;
     end
 
-
     lsPrint(10, lsScreenY - 80, 10, 0.7, 0.7, 0xFFFFFFff, "Train Results displays in Console!");
     lsPrint(10, lsScreenY - 60, 10, 0.7, 0.7, 0xFFFFFFff, "Replace ? with the character you are training");
 
@@ -65,21 +62,18 @@ function findStuff()
   if lsButtonText(0, lsScreenY - 30, z, 100,
                   0xFFFFFFff, "Train") then
 
-    srStripRegion(clockUpperLeftX, clockUpperLeftY, clockWidth, clockHeight)
+    srStripRegion(clockRegion.x, clockRegion.y, clockRegion.width, clockRegion.height)
     --Console will output ??? as last character in each line (when training). Replace ??? with the correct number of letter (case sensitive)
-    srTrainTextReader(clockUpperLeftX+offsetX,clockUpperLeftY+offsetY, '?')
+    srTrainTextReader(clockRegion.x+offsetX,clockRegion.y+offsetY, '?')
   else
-    srStripRegion(clockUpperLeftX+offsetX,clockUpperLeftY+offsetY,   8, 12)
+    srStripRegion(clockRegion.x+offsetX,clockRegion.y+offsetY,   8, 12)
   end
 
-  srMakeImage("clock-region", clockUpperLeftX, clockUpperLeftY, clockWidth, clockHeight);
+  srMakeImage("clock-region", clockRegion.x, clockRegion.y, clockRegion.width, clockRegion.height);
   srShowImageDebug("clock-region", 5, 5, 1, zoomLevel);
 
-
-  srMakeImage("clock-region2", clockUpperLeftX+offsetX, clockUpperLeftY+offsetY, 8, 12);
+  srMakeImage("clock-region2", clockRegion.x+offsetX, clockRegion.y+offsetY, 8, 12);
   srShowImageDebug("clock-region2", 20, 140, 1, zoomLevel);
-
-
 
   if lsButtonText(lsScreenX - 110, lsScreenY - 30, z, 100,
                   0xFFFFFFff, "End Script") then
