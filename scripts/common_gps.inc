@@ -38,6 +38,7 @@ function findCoords()
       --lsPrintln("Coordinates: " .. result[0] .. ", " .. result[1]);
     end
   end
+  srSetWindowInvertColorRange(minSetWindowInvertColorRange, maxSetWindowInvertColorRange); -- Reset color range back to default (defined at top of common_find.inc)
   return result;
 end
 
