@@ -245,16 +245,18 @@ function sleepWithBreak(delay_time)
 end
 
 -------------------------------------------------------------------------------
--- promptNumber(prompt_string, default_value, scale)
+-- promptNumber(prompt_string, default_value, scale, post_prompt_string)
 --
 -- Ask the user for a number and return the result.
 --
 -- prompt_string -- string telling the user what kind of number to enter
 -- default_value (optional) -- initial value to put in field (default 0)
 -- scale (optional) -- Scaling factor for display
+-- post_prompt_string -- string to display below the text box and OK button
+-- post_prompt_string_y -- y position for text to appear (default 80)
 -------------------------------------------------------------------------------
 
-function promptNumber(prompt_string, default_value, scale)
+function promptNumber(prompt_string, default_value, scale, post_prompt_string, post_prompt_string_y)
   if not prompt_string then
     error("Incorrect number of arguments for promptNumber()");
   end
@@ -263,6 +265,9 @@ function promptNumber(prompt_string, default_value, scale)
   end
   if not scale then
     scale = 0.8;
+  end
+  if not post_prompt_string_y then
+    post_prompt_string_y = 80;
   end
   local z = 0;
   local is_done = nil;
@@ -282,6 +287,10 @@ function promptNumber(prompt_string, default_value, scale)
 
     if lsButtonText(120, 40, z, 100, 0xFFFFFFff, "OK") then
       is_done = 1;
+    end
+
+    if post_prompt_string then
+      lsPrintWrapped(10, post_prompt_string_y, z, lsScreenX - 20, scale, scale, 0xFFFFFFff, post_prompt_string);
     end
 
     if is_done and not value then
