@@ -80,8 +80,12 @@ function findStuff()
 
   -- Test findChatRegion()
   local creg = findChatRegionReplacement(); -- srFindChatRegion();
+  if creg then
   lsPrint(10, y, 10, scale, scale, 0xFFFFFFff, "ChatRegion = " .. creg[0] .. "," .. creg[1] ..
     " - " .. creg[2] .. "," .. creg[3]);
+  else
+  lsPrint(10, y, 10, scale, scale, 0xFFFFFFff, "ChatRegion = NOT FOUND");
+  end
   y = y + 20;
 
   -- Test srFindInvRegion()

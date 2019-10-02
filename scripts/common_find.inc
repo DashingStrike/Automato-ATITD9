@@ -436,21 +436,22 @@ end
 function findChatRegionReplacement()
   local pos = findChatRegionSub()
 
-  while not pos do
-    pos = findChatRegionSub();
-    sleepWithStatus(100,"Cound not find \'Main\' Chat Tab...", nil, 0.7, 0.7);
+--  while not pos do
+--    pos = findChatRegionSub();
+--    sleepWithStatus(100,"Cound not find \'Main\' Chat Tab...", nil, 0.7, 0.7);
+--  end
+
+  if pos then
+    local borders = srGetWindowBorders(pos[0], pos[1]+20);
+    -- Offset past blue background into text area
+    borders[0] = borders[0] + 5;
+    borders[1] = borders[1] + 5;
+    borders[2] = borders[2] - 22; -- in past scroll bar
+    borders[3] = borders[3] - 29; -- above text entry
+    borders[2] = borders[2] - borders[0]; -- return "width", not "right"
+    borders[3] = borders[3] - borders[1]; -- return "height", not "bottom"
+    return borders;
   end
-
-  local borders = srGetWindowBorders(pos[0], pos[1]+20);
-
-  -- Offset past blue background into text area
-  borders[0] = borders[0] + 5;
-  borders[1] = borders[1] + 5;
-  borders[2] = borders[2] - 22; -- in past scroll bar
-  borders[3] = borders[3] - 29; -- above text entry
-  borders[2] = borders[2] - borders[0]; -- return "width", not "right"
-  borders[3] = borders[3] - borders[1]; -- return "height", not "bottom"
-  return borders;
 end
 
 function findChatRegionSub()
@@ -507,7 +508,7 @@ function findClockRegion()
     srSetWindowInvertColorRange(0x68640c, 0xC0B129); -- Not Valid, placeholder
 
   else
-    error("Could not detect faction");
+    error("Clock could not be detected in findClockRegion()");
   end
   return clockRegion;
 end
