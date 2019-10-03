@@ -30,6 +30,7 @@ noMouseMove = false;
 minPopSleepDelay = 150;  -- The minimum delay time used during findClosePopUp() function
 muteSoundEffects = true;
 autoWorkMine = false;
+colorBlind = false;
 dropdown_values = {"Shift Key", "Ctrl Key", "Alt Key", "Mouse Wheel Click"};
 dropdown_cur_value = 1;
 dropdown_pattern_values = {"6 color (1 Pair) (*)", "5 color (2 Pair) (*)", "4 color (3 Pair) (*)", "5 color (Triple) (1)", "4 color (Triple+Pair) (3)", "4 color (Quadruple) (1)", "3 Color (Quad+Pair) (6)", "3 color (Quintuple) (2)", "7 Color (All Different) (*)"};
@@ -327,6 +328,10 @@ function getPoints()
     autoWorkMine = lsCheckBox(15, y, z, 0xffffffff, " Auto 'Work Mine'", autoWorkMine);
     writeSetting("autoWorkMine",autoWorkMine);
     y = y + 25;
+    colorBlind = readSetting("colorBlind",autoWorkMine);
+    colorBlind = lsCheckBox(15, y, z, 0xffffffff, " 'Color Blind' Mode", colorBlind);
+    writeSetting("colorBlind",colorBlind);
+    y = y + 25;
     noMouseMove = lsCheckBox(15, y, z, 0xffffffff, " Dual Monitor (NoMouseMove) Mode", noMouseMove);
     lsSetCamera(0,0,lsScreenX*1.0,lsScreenY*1.0);
     y = y - 20
@@ -409,8 +414,13 @@ function workMine()
     else
       srSetMousePos(mineX, mineY);
       lsSleep(clickDelay);
-      --Send 'W' key over Mine to Work it (Get new nodes)
-      srKeyEvent('W'); 
+      if colorBlind then
+        --Send 'C' key over Mine to Work it in Color Blind mode (Get new nodes)
+        srKeyEvent('C');
+      else
+        --Send 'W' key over Mine to Work it (Get new nodes)
+        srKeyEvent('W'); 
+      end
     end
 	sleepWithStatus(1000, "Working mine (Fetching new nodes)");
 	findClosePopUp(1);
