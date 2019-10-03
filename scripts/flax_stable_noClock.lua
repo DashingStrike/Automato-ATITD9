@@ -30,6 +30,7 @@ num_loops = 5;
 grid_w = 4;
 grid_h = 4;
 is_plant = true;
+safeclick = true;
 seeds_per_pass = 4;
 seeds_per_iter = 0;
 finish_up = 0;
@@ -230,22 +231,26 @@ function promptFlaxNumbers()
       end
       seeds_per_pass = tonumber(seeds_per_pass);
       writeSetting("seeds_per_pass",seeds_per_pass);
-      y = y + 32;
+      y = y + 25;
     end
 
     extraGridSpacing = readSetting("extraGridSpacing",extraGridSpacing);
-    extraGridSpacing = CheckBox(120, y+5, z+10, 0xFFFFFFff, " Extra Spacing on Grid", extraGridSpacing, 0.7, 0.7);
+    extraGridSpacing = CheckBox(120, y, z+10, 0xFFFFFFff, " Extra Spacing on Grid", extraGridSpacing, 0.7, 0.7);
     writeSetting("extraGridSpacing",extraGridSpacing);
 
+    safeclick = readSetting("safeclick",safeclick);
+    safeclick = CheckBox(120, y+17, z+10, 0xFFFFFFff, " SafeClick", safeclick, 0.7, 0.7);
+    writeSetting("safeclick",safeclick);
+
     is_plant = readSetting("is_plant",is_plant);
-    is_plant = CheckBox(120, y+25, z+10, 0xFFFFFFff, " Grow Flax", is_plant, 0.7, 0.7);
+    is_plant = CheckBox(120, y+34, z+10, 0xFFFFFFff, " Grow Flax", is_plant, 0.7, 0.7);
     writeSetting("is_plant",is_plant);
 
     y = y + 36;
     if ButtonText(10, y-25, z, 100, 0xFFFFFFff, "Start !", 0.9, 0.9) then
       is_done = 1;
     end
-    y = y + 10
+    y = y + 20
 
     if is_plant then
       -- Will plant and harvest flax
@@ -312,8 +317,10 @@ function getPlantWindowPos()
     plantPos[1] = plantPos[1] + 10;
   else
     plantPos = lastPlantPos;
-    if plantPos then
+    if plantPos and safeclick then
       safeClick(plantPos[0], plantPos[1]);
+    elseif plantPos and not safeclick then
+      srClickMouseNoMove(plantPos[0], plantPos[1]);
       lsSleep(refresh_time);
     end
   end
@@ -416,8 +423,13 @@ function plantAndPin(loop_count)
         x_pos = x_pos + dx[dxi];
         y_pos = y_pos + dy[dxi];
 	local spot = getWaitSpot(xyFlaxMenu[0], xyFlaxMenu[1]);
+	if safeclick then
         safeClick(xyCenter[0] + walk_px_x*dx[dxi],
                   xyCenter[1] + walk_px_y*dy[dxi], 0);
+	else
+        srClickMouseNoMove(xyCenter[0] + walk_px_x*dx[dxi],
+                  xyCenter[1] + walk_px_y*dy[dxi], 0);
+	end
         spot = getWaitSpot(xyFlaxMenu[0], xyFlaxMenu[1]);
 	if not waitForChange(spot, 1500) then
 	  error_status = "Did not move on click.";
@@ -485,8 +497,11 @@ end
 function clickPlant(xyPlantFlax)
   local result = xyFlaxMenu;
   local spot = getWaitSpot(xyFlaxMenu[0], xyFlaxMenu[1]);
-  safeClick(xyPlantFlax[0], xyPlantFlax[1], 0);
-
+  if safeclick then
+    safeClick(xyPlantFlax[0], xyPlantFlax[1], 0);
+  else
+    srClickMouseNoMove(xyPlantFlax[0], xyPlantFlax[1], 0);
+  end
   local plantSuccess = waitForChange(spot, 1500);
   if not plantSuccess then
     error_status = "No flax bed was placed when planting.";
@@ -532,7 +547,11 @@ function harvestAll(loop_count)
     srReadScreen();
     local tops = findAllText(thisIs);
     for i=1,#tops do
-      safeClick(tops[i][0], tops[i][1]);
+	if safeclick then
+        safeClick(tops[i][0], tops[i][1]);
+      else
+        srClickMouseNoMove(tops[i][0], tops[i][1]);
+      end
     end
 
     if is_plant then
@@ -653,13 +672,22 @@ function walkHome(loop_count, finalPos)
   -- Walk back
 --  for x=1, finalPos[0] do
 --    local spot = getWaitSpot(xyCenter[0] - walk_px_x, xyCenter[1]);
---    safeClick(xyCenter[0] - walk_px_x, xyCenter[1], 0);
+--	if safeclick then
+--      safeClick(xyCenter[0] - walk_px_x, xyCenter[1], 0);
+--	else
+--      safeClick(xyCenter[0] - walk_px_x, xyCenter[1], 0);
+--	end
 --    lsSleep(walk_time);
 --    waitForStasis(spot, 1000);
 --  end
 --  for x=1, -(finalPos[1]) do
 --    local spot = getWaitSpot(xyCenter[0], xyCenter[1] + walk_px_y);
+
+--	if safeclick then
 --    safeClick(xyCenter[0], xyCenter[1] + walk_px_y, 0);
+--	else
+--    srClickMouseNoMove(xyCenter[0], xyCenter[1] + walk_px_y, 0);
+--	end
 --    lsSleep(walk_time);
 --    waitForStasis(spot, 1000);
 --  end
