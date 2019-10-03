@@ -19,7 +19,7 @@ function pairsByKeys (t, f)
 	return iter
 end
 
-local scale;
+scale = 0.7;
 forgeInfo = {};
 
 initialText = "Forge Macro 0.9 by Skyfeather. Pin all Forges & Casting Boxes. Macro will start forges if needed. Forge & casting box windows should not overlap while cooling items.\n----------------------------\nMaterials Required:\n";
@@ -40,7 +40,7 @@ function chooseItems(itemList, multiple)
    local x, y, z;
    local numRows = 9;
    local pickedOne = false;
-   scale = 1.5;
+   --scale = 1.5;
    local retList = {};
    while true do
       local currentItem = {};
@@ -54,11 +54,11 @@ function chooseItems(itemList, multiple)
             parentString = parentString .. currentItem.parents[i] .. suff;
             suff = "/";
          end
-         lsSetCamera(0,0,lsScreenX*scale,lsScreenY*scale);
+         --lsSetCamera(0,0,lsScreenX*scale,lsScreenY*scale);
          if parentString == "" then
-            lsPrint(0, 0, z, 1, 1, 0xffffffff, "What would you like to make?");
+            lsPrint(5, 2, z, scale, scale, 0xffffffff, "What would you like to make?");
          else
-            lsPrint(0, 0, z, 1, 1, 0xffffffff, string.format("What kind of %s would you like to make?", parentString));
+            lsPrint(5, 2, z, scale, scale, 0xffffffff, string.format("What kind of %s would you like to make?", parentString));
          end
          x = 10;
          y = 30;
@@ -66,7 +66,7 @@ function chooseItems(itemList, multiple)
          local c = 0;
          for k, v in pairsByKeys(curList) do
             if c % numRows == 0 and c ~= 0 then
-               x = x + 160;
+               x = x + 110;
                y = 30;
             end
             local suff = "";
@@ -77,7 +77,7 @@ function chooseItems(itemList, multiple)
             if v.masterOnly then
                buttonColor = 0xffff00ff
             end
-            if lsButtonText(x, y, z, 140, buttonColor, k .. suff) then
+            if ButtonText(x, y, z, 140, buttonColor, k .. suff, scale, scale) then
                currentItem.name = k;
                curList = curList[k];
                -- check if q exists, which means we're at the leaf.
@@ -93,13 +93,13 @@ function chooseItems(itemList, multiple)
                end
             end
             c = c + 1;
-            y = y + 30;
+            y = y + 22;
          end
          x = 10;
-         y = 30 + numRows *30;
+         y = 30 + numRows *22;
          if pickedOne then
-            lsPrint(x, y, z, 1, 1, 0xffffffff, "Item List:");
-            y = y + 30;
+            lsPrint(x, y, z, scale, scale, 0xffffffff, #retList .. " Items Queued:");
+            y = y + 22;
             for i=1, #retList do
                local leafParentsString = "";
                for j=1, #retList[i].parents do
@@ -111,15 +111,15 @@ function chooseItems(itemList, multiple)
                else
                   num = "" .. num;
                end
-               lsPrint(x, y, z, 1, 1, 0xffffffff, string.format("%s %s%s", num, leafParentsString,
-                                                                 retList[i].name));
-               y = y + 30;
+               lsPrint(x, y, z, scale, scale, 0xffffffff, string.format("%s %s%s", num, leafParentsString, retList[i].name));
+               y = y + 22;
             end
+            lsPrintWrapped(x, y, z, lsScreenX + 80, 0.67, 0.67, 0xFFFFFFff, shenanigans);
          end
          -- Add in exit and optionally done and Back buttons.
-         lsSetCamera(0,0,lsScreenX,lsScreenY);
+         --lsSetCamera(0,0,lsScreenX,lsScreenY);
          if #currentItem.parents ~= 0 then
-            if lsButtonText(lsScreenX - 100, lsScreenY - 60, z, 90, 0xFFFFFFff, "Back") then
+            if ButtonText(lsScreenX - 80, lsScreenY - 50, z, 90, 0xFFFFFFff, "Back") then
                local p = currentItem.parents;
                currentItem = {};
                currentItem.parents = {};
@@ -133,15 +133,15 @@ function chooseItems(itemList, multiple)
                end
             end
          end
-         if lsButtonText(lsScreenX - 100, lsScreenY - 30, z, 90, 0xFFFFFFff, "Exit") then
+         if ButtonText(lsScreenX - 80, lsScreenY - 25, z, 90, 0xFFFFFFff, "Exit") then
             return nil;
          end
          if pickedOne then
-            if lsButtonText(10, lsScreenY - 30, z, 90, 0xFFFFFFff, "Done") then
+            if ButtonText(10, lsScreenY - 25, z, 90, 0xFFFFFFff, "Done") then
                return retList;
             end
          end
-         lsSetCamera(0,0,lsScreenX*scale,lsScreenY*scale);
+         --lsSetCamera(0,0,lsScreenX*scale,lsScreenY*scale);
          lsDoFrame();
          lsSleep(10);
       end
@@ -150,6 +150,7 @@ function chooseItems(itemList, multiple)
       for i=1, #currentItem.parents do
          leafParentsString = leafParentsString .. currentItem.parents[i] .. "/";
       end
+      batchItemName = leafParentsString .. currentItem.name;
       currentItem.num = promptNumber(string.format("How many %s%s would you like to make?", leafParentsString, currentItem.name),nil,0.66);
       if multiple then
          if currentItem.num ~= 0 then
@@ -159,6 +160,39 @@ function chooseItems(itemList, multiple)
          return currentItem
       end
       pickedOne = true;
+
+   --Extra Shenanigans
+   -- Pre-Calculate the total amount of materials needed:
+if currentItem.num ~= 0 then
+   for i, v in ipairs(retList) do
+      lsPrintln(string.format("num = %d, prod = %d, q = %d", v.num, v.item.prod, v.item.q));
+      local num = math.ceil(v.num/v.item.prod)*v.item.q;
+      local metalType;
+      batchNum = v.num;
+      batchProd = v.item.prod;
+      batchQty = v.item.q;
+      batchReq = math.ceil(batchNum/batchProd);
+      if batchReq == 1 then
+        batchWord = "Batch";
+      else
+        batchWord = "Batches";
+      end
+
+
+
+      if v.item.time ~= nil then
+        batchTime = v.item.time;
+        batchTimeWord = "\nTime Req. Per Batch: " .. batchTime .. "m  ( Total: " .. batchTime * batchReq .. "m )\n";
+      else
+        batchTime = 0;
+        batchTimeWord = "\n";
+      end
+  end
+  shenanigans = "----------------------------\nRequires: " .. math.ceil(batchNum/batchProd) .. " " .. batchWord .. "\nEach Batch Produces: " .. batchProd .. "\nMetal Req. Per Batch: " .. batchQty .. "   ( Total: " .. batchQty * batchReq ..  " )" .. batchTimeWord .. batchReq*batchProd .. " " .. batchItemName .. " will be created.";
+else --if currentItem.num ~= 0
+shenanigans = "You chose 0 quantity.\nItem ignored/excluded from list.";
+end --if currentItem.num ~= 0
+
    end
 end
 
@@ -179,7 +213,6 @@ local function makeItem(currentItem, window)
      else
         t = findText(parents[2] .. "...", window);
      end
-
       lsSleep(100);
       if t == nil then
          lsPrintln("Initial window error");
@@ -316,8 +349,6 @@ local function makeItem(currentItem, window)
       end -- if t
     end -- if win
   end -- if name
-
-
    lsSleep(per_tick);
    return true;
 end
@@ -363,8 +394,6 @@ function doit()
             beeswax = beeswax + math.ceil(v.num/v.item.prod)*v.item.beeswax;
          end
       end
-
-
       if v.item.metal == nil then
          metalType = v.name
       else
@@ -557,7 +586,6 @@ function doit()
       clickAllImages("ThisIs.png");
    end
 end
-
 
 
 function downArrow()
