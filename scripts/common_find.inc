@@ -14,15 +14,13 @@ lsRequireVersion(2,41)
 
 -- The colors used by srFindFirst/NextTextRegion and srGetWindowBorders to determine
 -- the innermost border pixels
-srSetWindowBorderColorRange(0x6a4529, 0x6d472a);
+srSetWindowBorderColorRange(0x644026, 0x6d472a)
 
 -- The colors that srStripRegion/Screen() looks for to decide it should invert (and
 -- treat as background when stripping)
+    minSetWindowInvertColorRange = 0x1e2e31;
+    maxSetWindowInvertColorRange = 0x263539;
 
-minSetWindowInvertColorRange = 0x1e2e31;
-maxSetWindowInvertColorRange = 0x263539;
-
---srSetWindowInvertColorRange(0x1e2e31, 0x263539);
 srSetWindowInvertColorRange(minSetWindowInvertColorRange, maxSetWindowInvertColorRange);
 
 -- The color range that is treated as window background and stripped in srStripRegion()
