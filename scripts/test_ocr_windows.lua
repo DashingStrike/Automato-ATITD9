@@ -49,7 +49,7 @@ function findStuff()
   srReadScreen();
   
   -- Test srFindFirstTextRegion/srFindNextTextRegion
-  srSetWindowBorderColorRange(0x6a4529, 0x6d472a);
+  --srSetWindowBorderColorRange(0x6a4529, 0x6d472a); ---- Now defined globally at top of common_find.inc
   local regions = findAllTextRegions();
   if not (regions and #regions > 0) then
     srSetWindowBorderColorRange(0, 0); -- ATITD T8 colors
