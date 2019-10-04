@@ -69,6 +69,7 @@ saveFileCreated = false;
 firstLoop = 1;
 totalHarvests = 0;
 click_delay = 75;
+muteSound = false;
 
 function doit()
   askForWindow("This macro will assist you by planting seeds, watering/harvesting your pinned windows when you tap the hotkey. After seeds are planted, you will tap hotkey over each plant, it will then pin the windows for you and do first watering automatically. After first watering, you will then tap hotkey to water (after you see it grow).\n\nMust have 'Plant all crops where you stand': OFF! Right-Click pins/unpins a Menu: ON! Right-Click opens a Menu as Pinned: ON! One-Click: Auto-take Piles: ON!\n\nMake sure plant seed menu window AND Automato is in the TOP-RIGHT corner of the screen.");
@@ -116,7 +117,6 @@ function firstMenu()
 	  fm_is_done = 1;
 	  setCameraView(CARTOGRAPHER2CAM);
 	  lsSleep(500);
-	  repositionAvatar();
 	  main();
 	end
 
@@ -135,6 +135,7 @@ end
 
 
 function main()
+	  repositionAvatar();
   while 1 do
 	drawWater(1);
 	firstWater = 1;
@@ -181,10 +182,13 @@ function main()
 
 
 	if (pauseAfterHarvest and not fullAutoMode) or abort then
-        pickUpSeeds();
 	  waitForShift();
 	else
 	  sleepWithStatus(delayAfterHarvestPerPlant*#harvest, "Harvesting vegetables ...",nil, 0.7, 0.7);
+	end
+
+	if not plantCloser then
+		repositionAvatar();
 	end
 
       --We just harvested and closed any windows... Is there anything we want to do before we continue to next round?
@@ -283,7 +287,7 @@ function waterThese()
 			  break;  -- Break the loop after Harvest found and clicked
 
 	  else
-			lsPlaySound("scribble.wav")
+			if not muteSound then lsPlaySound("scribble.wav"); end
 			statusScreen("Watering [".. #waters .. "] plants ...");
 
 			if (fullAutoMode and tended-1 < #vegclickTimer) or not fullAutoMode then
@@ -458,6 +462,10 @@ function chooseMethod()
 	clearUI = readSetting("clearUI",clearUI);
       clearUI = lsCheckBox(15, y, z, 0xffffffff, " Start pinning the plant grid below the UI", clearUI);
 	writeSetting("clearUI",clearUI);
+	y = y + 25;
+	muteSound = readSetting("muteSound",muteSound);
+      muteSound = lsCheckBox(15, y, z, 0xffffffff, " Mute Sounds", muteSound);
+	writeSetting("muteSound",muteSound);
 	y = y + 25;
       lsPrint(10, y, 0, 0.9, 0.9, 0xffffffff, "Click Delay: Pause between clicking each plant");
 	y = y + 20;
@@ -861,7 +869,7 @@ function saveWaterTimer()
     file:write("};")
 
   io.close(file);
-  lsPlaySound("saved.wav")
+  if not muteSound then lsPlaySound("saved.wav"); end
 end
 
 

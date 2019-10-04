@@ -18,10 +18,11 @@ improved_rake = 0;
 num_flax = 0;
 num_loops = 0;
 per_rake = 10;
+repairAttempt = 0;
+
 
 function promptRakeNumbers()
 	scale = 0.8;
-	
 	local z = 0;
 	local is_done = nil;
 	local value = nil;
@@ -107,6 +108,8 @@ function doit()
 		checkBreak();
 		srReadScreen();
 		OK = srFindImage("ok.png"); -- If we got an OK popup, this suggests "Your Flax Comb/Hackling Rake has wore out", quit
+		foundRepair = findText("Repair");
+
 		stats_black2 = nil;
 		stats_black3 = nil;
 		stats_blackB = nil;
@@ -125,9 +128,6 @@ function doit()
 				end
 			else
 				warn_small_font = true;
-
-
-
 
 			end
 		end
@@ -153,10 +153,22 @@ function doit()
 			task_text = "Clean the Rake";
 		end
 		
+
+
+GUI = "\n\nNext Step: " .. step .. "/4 - " .. task_text .. "\n\n----------------------------------------------\n1) Straw Removed: " .. straw .."/" .. num_loops*per_rake .. "\n2) Tow Seperated: " .. tow .. "/" .. num_loops*per_rake .. "\n3) Lint Refined: " .. lint .. "/" .. num_loops*per_rake .. "\n4) Cleanings: " .. clean .. "/" .. num_loops .. "\n----------------------------------------------\n\nFlax Processed: " .. (loop_count-1)*per_rake .. "\nFlax Remaining: " .. (num_loops*per_rake) - straw .. "\nRepair Attempts: " .. repairAttempt .. "\n\nElapsed Time: " .. getElapsedTime(startTime);
+
+
+
 		if loop_count > num_loops or OK then
 			num_loops = nil;
+
+		elseif foundRepair then
+		  repairRake();
+		  clickAllText("This is"); -- Refresh window 
+
 		elseif not stats_black and not stats_black2 and not stats_black3 and not stats_blackB and not stats_blackC then
-			sleepWithStatus(100, "Waiting on Endurance Timer ...\n\nNext Step: " .. step .. "/4 - " .. task_text .. "\n\n----------------------------------------------\n1) Straw Removed: " .. straw .."/" .. num_loops*per_rake .. "\n2) Tow Seperated: " .. tow .. "/" .. num_loops*per_rake .. "\n3) Lint Refined: " .. lint .. "/" .. num_loops*per_rake .. "\n4) Cleanings: " .. clean .. "/" .. num_loops .. "\n----------------------------------------------\n\nFlax Processed: " .. (loop_count-1)*per_rake .. "\nFlax Remaining: " .. (num_loops*per_rake) - straw .. "\n\nElapsed Time: " .. getElapsedTime(startTime) .. "\n" .. warning, nil, 0.7, 0.7);
+			sleepWithStatus(100, "Waiting on Endurance Timer ..." .. GUI, nil, 0.7, 0.7);
+
 		else
 		
 			srReadScreen();
@@ -183,8 +195,7 @@ function doit()
 				  end
 			end
 			step = step + 1;
-			sleepWithStatus(100, "Endurance Timer OK - Clicking window(s)\n\nNext Step: " .. step .. "/4 - " .. task_text .. "\n\n----------------------------------------------\n1) Straw Removed: " .. straw .."/" .. num_loops*per_rake .. "\n2) Tow Seperated: " .. tow .. "/" .. num_loops*per_rake .. "\n3) Lint Refined: " .. lint .. "/" .. num_loops*per_rake .. "\n4) Cleanings: " .. clean .. "/" .. num_loops .. "\n----------------------------------------------\n\nFlax Processed: " .. (loop_count-1)*per_rake .. "\nFlax Remaining: " .. (num_loops*per_rake) - straw .. "\n\nElapsed Time: " .. getElapsedTime(startTime) .. "\n" .. warning, nil, 0.7, 0.7);
-			
+			sleepWithStatus(100, "Endurance Timer OK - Clicking window(s)" .. GUI, nil, 0.7, 0.7);
 			srReadScreen();
 			clickAllText("This is")
 			lsSleep(100);
@@ -205,6 +216,7 @@ function checkCurrentStep()
   taskStep2 = findText("Separate Tow");
   taskStep3 = findText("Refine the Lint");
   taskStep4 = findText("Clean the");
+  taskStep5 = findText("Repair");
   if taskStep1 then
     step = 1;
   elseif taskStep2 then
@@ -213,7 +225,70 @@ function checkCurrentStep()
     step = 3;
   elseif taskStep4 then
     step = 4;
+  elseif taskStep5 then
+    step = 1;
   else
     error("Could not find Flax Comb or Hackling Rake menus pinned");
   end
+end
+
+
+function repairRake()
+  step = 1;
+  lsPlaySound("error.wav");
+  repairAttempt = repairAttempt + 1;
+  sleepWithStatus(1000, "Attempting to Repair Rake !")
+  local repair = findText("Repair")
+  local material;
+  local plusButtons;
+  local maxButton;
+
+  if repair then
+    clickText(waitForText("Repair", 1000));
+    clickText(waitForText("Load Materials", 1000));
+    lsSleep(500);
+    srReadScreen();
+    plusButtons = findAllImages("plus.png");
+
+	for i=1,#plusButtons do
+		local x = plusButtons[i][0];
+		local y = plusButtons[i][1];
+             srClickMouseNoMove(x, y);
+
+		if i == 1 then
+		  material = "Boards";
+		elseif i == 2 then
+		  material = "Bricks";
+		elseif i == 3 then
+		  material = "Thorns";
+		else
+		  material = "What the heck?";
+		end
+
+             sleepWithStatus(1000,"Loading " .. material, nil, 0.7, 0.7);
+
+		srReadScreen();
+		OK = srFindImage("ok.png")
+
+		if OK then
+		  sleepWithStatus(5000, "You don\'t have any \'" .. material .. "\', Aborting !\n\nClosing Build Menu and Popups ...", nil, 0.7, 0.7)
+		  srClickMouseNoMove(OK[0], OK[1]);
+		  srReadScreen();
+		  blackX = srFindImage("blackX.png");
+		  srClickMouseNoMove(blackX[0], blackX[1]);
+		  num_loops = nil;
+		  break;
+
+		else -- No OK button, Load Material
+
+		  srReadScreen();
+		  maxButton = srFindImage("max.png");
+		  if maxButton then		
+		    srClickMouseNoMove(maxButton[0], maxButton[1]);
+		  end
+
+		  sleepWithStatus(1000,"Loaded " .. material, nil, 0.7, 0.7);
+		end -- if OK
+	end -- for loop
+  end -- if repair
 end

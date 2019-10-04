@@ -582,7 +582,7 @@ function chatRead()
         srReadScreen();
         chatText = getChatText();
         onMain = checkIfMain(chatText);
-        sleepWithStatus(100, "Looking for Main chat screen ...\n\nIf main chat is showing, then try clicking Work Mine to clear this screen", nil, 0.7, 0.7);
+        sleepWithStatus(100, "Looking for Main chat screen ...\n\nIf main chat is showing, then try typing /afk twice in chat.", nil, 0.7, 0.7);
     end
 
    -- Verify chat window is showing minimum 2 lines

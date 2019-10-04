@@ -11,14 +11,22 @@
 
 -- The following 3 functions were just added with version 2.41
 lsRequireVersion(2,41)
+
 -- The colors used by srFindFirst/NextTextRegion and srGetWindowBorders to determine
 -- the innermost border pixels
 srSetWindowBorderColorRange(0x6a4529, 0x6d472a);
+
 -- The colors that srStripRegion/Screen() looks for to decide it should invert (and
 -- treat as background when stripping)
-srSetWindowInvertColorRange(0x1e2e31, 0x263539);
+
+minSetWindowInvertColorRange = 0x1e2e31;
+maxSetWindowInvertColorRange = 0x263539;
+
+--srSetWindowInvertColorRange(0x1e2e31, 0x263539);
+srSetWindowInvertColorRange(minSetWindowInvertColorRange, maxSetWindowInvertColorRange);
+
 -- The color range that is treated as window background and stripped in srStripRegion()
-srSetWindowBackgroundColorRange(0xE7D2AB, 0xFFFFF2);
+srSetWindowBackgroundColorRange(0xDBC998,0xFFFFFA);
 
 -------------------------------------------------------------------------------
 -- findAllImages(image_name, range, tol)
@@ -171,7 +179,7 @@ function findAllText(text, window, flag, sizemod)
   local exact = flag and (flag % 2 == 1);
   local region = flag and (math.floor(flag/4) % 2 == 1);
   local regex = flag and (math.floor(flag/8) % 2 == 1);
-  
+
   if regex and exact then
     error("Cannot use both REGEX and EXACT flags");
   end
@@ -185,7 +193,7 @@ function findAllText(text, window, flag, sizemod)
   for i=1,#windowList do
     local current = makeBox(windowList[i].x + 7, windowList[i].y + 4,
           windowList[i].width - 12, windowList[i].height - 7); -- Basic magic # window resizing
-	  current = makeBox(current.x + sizemod[1], current.y + sizemod[2], current.width + sizemod[3], 
+    current = makeBox(current.x + sizemod[1], current.y + sizemod[2], current.width + sizemod[3],
                       current.height + sizemod[4]); -- Add in custom window resizing
     local parses = parseWindow(current);
     for j=1,#parses do
@@ -428,36 +436,79 @@ end
 function findChatRegionReplacement()
   local pos = findChatRegionSub()
 
-  while not pos do
-    pos = findChatRegionSub();
-    sleepWithStatus(100,"Cound not find \'Main\' Chat Tab...", nil, 0.7, 0.7);
+--  while not pos do
+--    pos = findChatRegionSub();
+--    sleepWithStatus(100,"Cound not find \'Main\' Chat Tab...", nil, 0.7, 0.7);
+--  end
+
+  if pos then
+    local borders = srGetWindowBorders(pos[0], pos[1]+20);
+    -- Offset past blue background into text area
+    borders[0] = borders[0] + 5;
+    borders[1] = borders[1] + 5;
+    borders[2] = borders[2] - 22; -- in past scroll bar
+    borders[3] = borders[3] - 29; -- above text entry
+    borders[2] = borders[2] - borders[0]; -- return "width", not "right"
+    borders[3] = borders[3] - borders[1]; -- return "height", not "bottom"
+    return borders;
   end
-
-  local borders = srGetWindowBorders(pos[0], pos[1]+20);
-
-  -- Offset past blue background into text area
-  borders[0] = borders[0] + 5;
-  borders[1] = borders[1] + 5;
-  borders[2] = borders[2] - 22; -- in past scroll bar
-  borders[3] = borders[3] - 29; -- above text entry
-  borders[2] = borders[2] - borders[0]; -- return "width", not "right"
-  borders[3] = borders[3] - borders[1]; -- return "height", not "bottom"
-  return borders;
 end
 
 function findChatRegionSub()
   local pos;
   local mainChatRed;
   local mainChatWhite;
-	  srReadScreen();
-	  mainChatRed = srFindImage("mainChatRed.png");
-	  mainChatWhite = srFindImage("mainChatWhite.png");
-	    if mainChatRed then
-	      pos = mainChatRed;
-	    elseif mainChatWhite then
-	      pos = mainChatWhite;
-	    else
-	      pos = nil;
-	    end
-	return pos;
+  srReadScreen();
+  mainChatRed = srFindImage("mainChatRed.png");
+  mainChatWhite = srFindImage("mainChatWhite.png");
+  if mainChatRed then
+    pos = mainChatRed;
+  elseif mainChatWhite then
+    pos = mainChatWhite;
+  else
+    pos = nil;
+  end
+  return pos;
+end
+
+function findClockRegion()
+  srReadScreen();
+  local size = srGetWindowSize()
+  local x = size[0];
+  local y = size[1];
+  local centerX = x/2;
+  local centerY = y/2;
+  local clockUpperLeftX = centerX-110;
+  local clockUpperLeftY = 15;
+  local clockWidth = (centerX + 125) - clockUpperLeftX;
+  local clockHeight = 50;
+  local factionTolerance = 2500;
+  local clockRegion = makeBox(clockUpperLeftX, clockUpperLeftY, clockWidth, clockHeight);
+  local neutral = srFindImageInRange("faction/faction_neutral.png", clockRegion.x, clockRegion.y, clockRegion.width, clockRegion.height, factionTolerance);
+  local hyksos = srFindImageInRange("faction/faction_hyksos.png", clockRegion.x, clockRegion.y, clockRegion.width, clockRegion.height, factionTolerance);
+  local kush = srFindImageInRange("faction/faction_kush.png", clockRegion.x, clockRegion.y, clockRegion.width, clockRegion.height, factionTolerance);
+  local meshwesh = srFindImageInRange("faction/faction_hyksos.png", clockRegion.x, clockRegion.y, clockRegion.width, clockRegion.height, factionTolerance);
+ 
+  if neutral then
+    faction = "Neutral";
+    srSetWindowInvertColorRange(0x68640c, 0xC0B129); -- Not Valid, placeholder
+
+  elseif hyksos then
+    faction = "Hyksos";
+    --srSetWindowInvertColorRange(0x68640c, 0xe0dec2);
+    --srSetWindowInvertColorRange(0x000000, 0xFeFeFe);
+    srSetWindowInvertColorRange(0x68640c, 0xC0B129);
+
+  elseif kush then
+    faction = "Kush";
+    srSetWindowInvertColorRange(0x68640c, 0xC0B129); -- Not Valid, placeholder
+
+  elseif meshwesh then
+    faction = "Meshwesh";
+    srSetWindowInvertColorRange(0x68640c, 0xC0B129); -- Not Valid, placeholder
+
+  else
+    error("Clock could not be detected in findClockRegion()");
+  end
+  return clockRegion;
 end
