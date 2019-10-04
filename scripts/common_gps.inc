@@ -50,25 +50,25 @@ function walkTo(dest)
     end
   while coords[0] ~= dest[0] or coords[1] ~= dest[1] do
     while coords[0] < dest[0] do
-      stepTo(makePoint(1, 0));
+      stepTo(makePoint(1, 0), dest);
       srReadScreen();
       coords = findCoords();
       checkBreak();
     end
     while coords[0] > dest[0] do
-      stepTo(makePoint(-1, 0));
+      stepTo(makePoint(-1, 0), dest);
       srReadScreen();
       coords = findCoords();
       checkBreak();
     end
     while coords[1] < dest[1] do
-      stepTo(makePoint(0, -1));
+      stepTo(makePoint(0, -1), dest);
       srReadScreen();
       coords = findCoords();
       checkBreak();
     end
     while coords[1] > dest[1] do
-      stepTo(makePoint(0, 1));
+      stepTo(makePoint(0, 1), dest);
       srReadScreen();
       coords = findCoords();
       checkBreak();
@@ -171,11 +171,17 @@ function initStep()
   end
 end
 
-function stepTo(dir)
+function stepTo(dir, dest)
+  local iconTrayOffsetY = 50; -- offset clicking Y position to avoid clicking default icon tray (where grass, water, etc icons exist).
+  local message = ""
   initStep();
+  findGrass = srFindImage("grass.png"); -- Check if icon tray is open, screenRead performed by initStep();
+  if not findGrass then
+    iconTrayOffsetY = 0;
+  end
   safeClick(gpsCenter[0] + dir[0] * gpsStep[0],
-	    gpsCenter[1] + dir[1] * gpsStep[1]);
-  sleepWithStatus(500, "Walking...");
+	    (gpsCenter[1] + dir[1] * gpsStep[1]) - iconTrayOffsetY) ;
+  sleepWithStatus(500, "Walking to: " .. dest[0] .. ", " .. dest[1], nil, 0.7, 0.7);
 end
 
 
