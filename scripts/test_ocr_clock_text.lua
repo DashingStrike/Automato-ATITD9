@@ -9,7 +9,7 @@ pointingSpeed = 2000; --ms
 function doit()
   askForWindow("Find Text on Clock.\n\nHover ATITD window and Press Shift to continue.");
 
-  local clockRegion = findClockRegion();
+  clockRegion = findClockRegion();
 
   while 1 do
     checkBreak();
