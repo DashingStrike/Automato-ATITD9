@@ -5,60 +5,24 @@ xOffset = 0;
 yOffset = 0;
 pointingSpeed = 2000; --ms
 
-
 function doit()
-  askForWindow("Find Text on Clock.\n\nHover ATITD window and Press Shift to continue.");
+  lsRequireVersion(2,40);
+  askForWindow("Test to find text in clock region.\n\nEnter text value and optional offset. Mouse will point to location. Useful to finding where a macro is clicking.\n\nPress Shift (while hovering ATITD) to continue.");
 
   clockRegion = findClockRegion();
 
-  while 1 do
+  while true do
     checkBreak();
-    srReadScreen();
-    lsPrintWrapped(10, 100, 0, lsScreenX - 20, 0.7, 0.7, 0xFFFFFFff, "Search Text:");
-    foo, searchChar = lsEditBox("searchChar", 10, 120, z, 240, 25, 1.0, 1.0, 0x000000ff);
-    message = "Searching Text: " .. searchChar .. "\n\nResults: ";
-
-    if searchChar ~= "" then
-    	find = findText(searchChar, clockRegion);
-    	findQty = findAllText(searchChar, clockRegion);
-
-    	if find then
-        --srSetMousePos(find[0],find[1]);
-        message = message .. "FOUND on " .. #findQty .. " Line (s)"
-    	else
-        message = message .. "not found";
-    	end
-
-    else
-      message = "Enter Text to being searching";
-    end
-
     srMakeImage("clock-region", clockRegion.x, clockRegion.y, clockRegion.width, clockRegion.height);
     srShowImageDebug("clock-region", 5, 5, 1, zoomLevel);
-
-    lsPrintWrapped(10, lsScreenY - 160, 0, lsScreenX - 20, 0.7, 0.7, 0xFFFFFFff, message);
-
-    if find then
-      if lsButtonText(10, lsScreenY - 30, 20, 100, 0xFFFFFFff, "Point") then
-        pointToLocation();
-      end
-    end
-
-    if lsButtonText(lsScreenX - 110, lsScreenY - 30, 1000, 100, 0xFFFFFFff, "End script") then
-      error "Clicked End Script button";
-    end
-
+    findStuff();
     lsDoFrame();
     lsSleep(10);
   end
 end
 
-
 function pointToLocation()
   window = 1;
-  xOffset = 0;
-  yOffset = 0;
-
   while 1 do
     if lsMouseIsDown(1) then
       lsSleep(50);
@@ -72,8 +36,6 @@ function pointToLocation()
         yOffset = 0;
       end
 
-  findBlah = findAllText(searchChar, clockRegion);
-
       for i=#findBlah, 1, -1 do
         srSetMousePos(findBlah[i][0]+xOffset,findBlah[i][1]+yOffset);
         sleepWithStatus(pointingSpeed, "Pointing to Location " .. window .. "/" .. #findBlah .. "\n\nX Offset: " 
@@ -85,4 +47,93 @@ function pointToLocation()
       break;
     end
   end
+end
+
+function showDebugInRange(name, screenx, screeny, imgw, imgh, x, y, z, w, h)
+  srMakeImage(name, screenx, screeny, imgw, imgh);
+  local scale = 1;
+  local border = 1;
+  for stest=2,10 do
+    if imgw * stest <= w and imgh * stest <= h then
+      scale = stest;
+      border = scale;
+    end
+  end
+  srShowImageDebug(name, x, y, z, scale);
+  lsDrawRect(x - border, y - border, x + imgw * scale + border, y + imgh * scale + border, 1, 0xFF0000ff);
+end
+
+function findStuff()
+  local scale = 0.7;
+  local y = 70;
+  local foo;
+  local text = "";
+  local result = "";
+  srReadScreen();
+  local pos = getMousePos();
+
+
+
+  lsPrint(5, y, z, scale, scale, 0xFFFFFFff, "Search Text (case sensitive):");
+  y = y + 18;
+  foo, text = lsEditBox("text", 10, y, z, 200, 25, scale, scale, 0x000000ff);
+
+  y = y + 25;
+  lsPrint(5, y, z, scale, scale, 0xFFFFFFff, "X offset:    +/-");
+  is_done, xOffset = lsEditBox("xoffset", 94 , y, z, 50, 0, scale, scale, 0x000000ff, xOffset);
+  y = y + 20;
+  lsPrint(5, y, z, scale, scale, 0xFFFFFFff, "Y offset:    +/-");
+  is_done, yOffset = lsEditBox("yoffset", 94, y, z, 50, 0, scale, scale, 0x000000ff, yOffset);
+  y = y + 20;
+
+  -- needs clock finding image/code
+  -- local startPos = findCoords();
+  -- if startPos then
+  --   lsPrint(10, y, z, scale, scale, 0xFFFFFFff, "ATITD Clock Coordinates: " .. startPos[0] .. ", " .. startPos[1]);
+  -- else
+  --   lsPrint(10, y, z, scale, scale, 0xFFFFFFff, "ATITD Clock Coordinates: Not Found");
+  -- end
+  -- y = y + 20;
+  lsPrint(10, y, z, scale, scale, 0xFFFFFFff, "Current Mouse Position: " .. pos[0] .. ", " .. pos[1]);
+  y = y + 25;
+
+
+  findBlah = findAllText(text, clockRegion);
+  findCount = #findBlah;
+
+  lsPrint(10, y, z, scale, scale, 0xFFFFFFff, "Searching for \"" .. text .. "\"");
+  y = y + 18;
+  if findCount == 0 then
+    result = " Not Found";
+  else
+    result = " FOUND (" .. findCount .. ") strings";
+  end
+  lsPrint(10, y, z, scale, scale, 0xFFFFFFff, "Results: " .. result);
+  y = y + 18;
+
+  for i=#findBlah,1,-1 do
+    local parse = findBlah[i];
+    lsPrint(10, y, 10, scale, scale, 0xFFFFFFff, parse[0] .. "," .. parse[1] .. ": " .. parse[2]);
+    if lsMouseClick(10, y, 200, 16) then
+      srSetMousePos(parse[0]+xOffset,parse[1]+yOffset);
+    end
+    if lsMouseOver(10, y, 200, 16) then
+      showDebugInRange("capture",
+        parse[0], parse[1], 50, 14,
+        120, y, 2, lsScreenX - 120, lsScreenY - y - 30);
+    end
+    y = y + 16;
+  end
+
+  if findCount ~= 0 then
+    lsPrint(10, lsScreenY - 30 - 18*2, 20, scale, scale, 0xFFFFFFff, "Click a string above to move mouse to that location.");
+    lsPrint(10, lsScreenY - 30 - 18, 20, scale, scale, 0xFFFFFFff, "Click Point to move mouse to location(s).");
+    if lsButtonText(10, lsScreenY - 30, 20, 100, 0xFFFFFFff, "Point") then
+      pointToLocation();
+    end
+  end
+  if lsButtonText(lsScreenX - 110, lsScreenY - 30, 1000, 100, 0xFFFFFFff, "End script") then
+    error "Clicked End Script button";
+  end
+
 end
