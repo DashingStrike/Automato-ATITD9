@@ -175,8 +175,8 @@ function stepTo(dir, dest)
   local iconTrayOffsetY = 50; -- offset clicking Y position to avoid clicking default icon tray (where grass, water, etc icons exist).
   local message = ""
   initStep();
-  findGrass = srFindImage("grass.png"); -- Check if icon tray is open, screenRead performed by initStep();
-  if not findGrass then
+  local iconTray = srFindImage("icon_tray_opened.png"); -- Check if icon tray is open, screenRead performed by initStep();
+  if not iconTray then
     iconTrayOffsetY = 0;
   end
   safeClick(gpsCenter[0] + dir[0] * gpsStep[0],
