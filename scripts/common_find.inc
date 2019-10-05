@@ -214,8 +214,16 @@ function findAllWindows()
   local windows = {};
   local current = srFindFirstTextRegion();
   while current do
-    breakupRegion(regionToBox(current), windows);
-    current = srFindNextTextRegion(current[0] + 1, current[1]);
+  srReadScreen();
+  local mainChatRed = srFindImageInRange("ocr/mainChatRed.png", current[0], current[1]-20, current[2], current[3]);
+  local mainChatWhite = srFindImageInRange("ocr/mainChatWhite.png", current[0], current[1]-20, current[2], current[3]);
+  local friends = srFindImageInRange("ocr/friends.png", current[0], current[1], current[2], current[3]);
+  local inventory = srFindImageInRange("ocr/inventory.png", current[0], current[1], current[2], current[3]);
+
+    if not mainChatRed and not mainChatWhite and not friends and not inventory then
+      breakupRegion(regionToBox(current), windows);
+    end
+      current = srFindNextTextRegion(current[0] + 1, current[1]);
   end
   return windows;
 end
@@ -457,8 +465,8 @@ function findChatRegionSub()
   local mainChatRed;
   local mainChatWhite;
   srReadScreen();
-  mainChatRed = srFindImage("mainChatRed.png");
-  mainChatWhite = srFindImage("mainChatWhite.png");
+  mainChatRed = srFindImage("ocr/mainChatRed.png");
+  mainChatWhite = srFindImage("ocr/mainChatWhite.png");
   if mainChatRed then
     pos = mainChatRed;
   elseif mainChatWhite then
