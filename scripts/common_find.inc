@@ -10,11 +10,11 @@
 
 
 -- The following 3 functions were just added with version 2.41
-lsRequireVersion(2,41)
+lsRequireVersion(2,41);
 
 -- The colors used by srFindFirst/NextTextRegion and srGetWindowBorders to determine
 -- the innermost border pixels
-srSetWindowBorderColorRange(0x644026, 0x6d472a)
+srSetWindowBorderColorRange(0x644026, 0x6d472a);
 
 -- The colors that srStripRegion/Screen() looks for to decide it should invert (and
 -- treat as background when stripping)

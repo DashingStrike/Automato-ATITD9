@@ -8,7 +8,7 @@
 function findCoords()
   local result = nil;
   local clockRegion = findClockRegion();
-  local anchor = findText("YeA", clockRegion);
+  local anchor = findText("Yea", clockRegion);
   if anchor then
     local lines = findAllText(nil, clockRegion);
 --    for i=1,#lines do
