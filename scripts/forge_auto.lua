@@ -297,7 +297,7 @@ local function makeItem(currentItem, window)
    elseif lastParent == "Bars x1" or lastParent == "Bars x5" then
       srReadScreen();
       pin = srFindImage("unpinnedPin.png");
-      thisRange = makeBox(pin[0]-155, pin[1]-5, 180, 450);
+      thisRange = makeBox(pin[0], pin[1], 180, 450);
       t = waitForText(text, 1000);
    else
       t = waitForText(text, 1000);
@@ -578,9 +578,6 @@ function doit()
       end
       lsSleep(100);
       srReadScreen();
-	if not debug then
-      closeEmptyAndErrorWindows();
-	end
       clickAllText("in the chamber");
       lsSleep(500);
       clickAllImages("ThisIs.png");
