@@ -15,7 +15,7 @@ function doit()
     checkBreak();
     srReadScreen();
     lsPrintWrapped(10, 100, 0, lsScreenX - 20, 0.7, 0.7, 0xFFFFFFff, "Search Text:");
-    foo, searchChar = lsEditBox("searchChar", 10, 120, z, 100, 25, 1.0, 1.0, 0x000000ff);
+    foo, searchChar = lsEditBox("searchChar", 10, 120, z, 240, 25, 1.0, 1.0, 0x000000ff);
     message = "Searching Text: " .. searchChar .. "\n\nResults: ";
 
     if searchChar ~= "" then

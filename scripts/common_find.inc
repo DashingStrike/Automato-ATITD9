@@ -471,42 +471,49 @@ end
 
 function findClockRegion()
   srReadScreen();
-  local size = srGetWindowSize()
-  local x = size[0];
-  local y = size[1];
-  local centerX = x/2;
-  local centerY = y/2;
-  local clockUpperLeftX = centerX-110;
-  local clockUpperLeftY = 15;
-  local clockWidth = (centerX + 125) - clockUpperLeftX;
-  local clockHeight = 50;
   local factionTolerance = 2500;
-  local clockRegion = makeBox(clockUpperLeftX, clockUpperLeftY, clockWidth, clockHeight);
-  local neutral = srFindImageInRange("faction/faction_neutral.png", clockRegion.x, clockRegion.y, clockRegion.width, clockRegion.height, factionTolerance);
-  local hyksos = srFindImageInRange("faction/faction_hyksos.png", clockRegion.x, clockRegion.y, clockRegion.width, clockRegion.height, factionTolerance);
-  local kush = srFindImageInRange("faction/faction_kush.png", clockRegion.x, clockRegion.y, clockRegion.width, clockRegion.height, factionTolerance);
-  local meshwesh = srFindImageInRange("faction/faction_hyksos.png", clockRegion.x, clockRegion.y, clockRegion.width, clockRegion.height, factionTolerance);
+  local clockUpperLeftX;
+  local clockUpperLeftY;
+  local clockWidth;
+  local clockHeight;
+  local neutral = srFindImage("faction/faction_neutral.png", factionTolerance);
+  local hyksos = srFindImage("faction/faction_hyksos.png", factionTolerance);
+  local kush = srFindImage("faction/faction_kush.png", factionTolerance);
+  local meshwesh = srFindImage("faction/faction_meshwesh.png", factionTolerance);
+  local clockRegion;
  
   if neutral then
     faction = "Neutral";
-    srSetWindowInvertColorRange(0x68640c, 0xC0B129); -- Not Valid, placeholder
+    srSetWindowInvertColorRange(0x8E5C34, 0xE4D7CC);
+    clockUpperLeftX = neutral[0];
+    clockUpperLeftY = neutral[1];
 
   elseif hyksos then
     faction = "Hyksos";
-    --srSetWindowInvertColorRange(0x68640c, 0xe0dec2);
-    --srSetWindowInvertColorRange(0x000000, 0xFeFeFe);
-    srSetWindowInvertColorRange(0x68640c, 0xC0B129);
+    srSetWindowInvertColorRange(0x6B660C, 0xDCDBC2);
+    clockUpperLeftX = hyksos[0];
+    clockUpperLeftY = hyksos[1];
 
   elseif kush then
     faction = "Kush";
-    srSetWindowInvertColorRange(0x68640c, 0xC0B129); -- Not Valid, placeholder
+    srSetWindowInvertColorRange(0x0F2E11, 0xC4CEC4);
+    clockUpperLeftX = kush[0];
+    clockUpperLeftY = kush[1];
 
   elseif meshwesh then
     faction = "Meshwesh";
-    srSetWindowInvertColorRange(0x68640c, 0xC0B129); -- Not Valid, placeholder
+    srSetWindowInvertColorRange(0x004141, 0xBFD4D4);
+    clockUpperLeftX = meshwesh[0];
+    clockUpperLeftY = meshwesh[1];
 
   else
     error("Clock could not be detected in findClockRegion()");
   end
+
+  clockUpperLeftX = clockUpperLeftX - 30;
+  clockUpperLeftY = clockUpperLeftY - 10;
+  clockWidth = 240;
+  clockHeight = 55;
+  clockRegion = makeBox(clockUpperLeftX, clockUpperLeftY, clockWidth, clockHeight);
   return clockRegion;
 end
