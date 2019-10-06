@@ -36,7 +36,7 @@ autoWorkMine = true; -- written to Settings.mining_ore.lua.txt
 timesworked = 0;
 miningTimeTotal = 0;
 dropdown_key_values = {"Shift Key", "Ctrl Key", "Alt Key", "Mouse Wheel Click"};
-dropdown_ore_values = {"Aluminum (9)", "Antimony (14)", "Copper (8)", "Gold (12)", "Iron (7)", "Lead (9)", "Lithium (10)", "Magnesium (9)", "Nickel (13)", "Platinum (12)", "Silver (10)", "Strontium (10)", "Tin (9)", "Titanium (12)","Tungsten (12)", "Zinc (10)"};
+dropdown_ore_values = {"Aluminum (9)", "Antimony (14)", "Copper (8)", "Gold (12)", "Iron (7)", "Lead (9)", "Cobalt (10)", "Magnesium (9)", "Nickel (13)", "Platinum (12)", "Silver (10)", "Tin (9)", "Zinc (10)"};
 cancelButton = 0;
 lastLineFound = "";
 lastLineFound2 = "";
@@ -213,7 +213,7 @@ function getPoints()
         ore = "Lead";
         stonecount = 9;
     elseif (dropdown_ore_cur_value == 7) then
-        ore = "Lithium";
+        ore = "Cobalt";
         stonecount = 10;
     elseif (dropdown_ore_cur_value == 8) then
         ore = "Magnesium";
@@ -228,18 +228,9 @@ function getPoints()
         ore = "Silver";
         stonecount = 10;
     elseif (dropdown_ore_cur_value == 12) then
-        ore = "Strontium";
-        stonecount = 10;
-    elseif (dropdown_ore_cur_value == 13) then
         ore = "Tin";
         stonecount = 9;
-    elseif (dropdown_ore_cur_value == 14) then
-        ore = "Titanium";
-        stonecount = 12;
-    elseif (dropdown_ore_cur_value == 15) then
-        ore = "Tungsten";
-        stonecount = 12;
-    elseif (dropdown_ore_cur_value == 16) then
+    elseif (dropdown_ore_cur_value == 13) then
         ore = "Zinc";
         stonecount = 10;
     end
