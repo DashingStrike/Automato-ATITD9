@@ -17,7 +17,7 @@ function doit()
   promptParameters();
   askForWindow("Make sure your chats are minimized and brick rack menus are pinned then hover ATITD window and press Shift to continue.");
   if(arrangeWindows) then
-    arrangeInGrid();
+    arrangeInGrid(nil, nil, nil, nil,nil, 10, 20);
   end
   while(true) do
     checkBreak();
