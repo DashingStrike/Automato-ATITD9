@@ -7,24 +7,34 @@
 ----------------------------------------------------------
 function findCoords()
   local result = nil;
+  local str = nil;
   local clockRegion = findClockRegion();
   local anchor = findText("Yea", clockRegion);
   if anchor then
     local lines = findAllText(nil, clockRegion);
---    for i=1,#lines do
---      lsPrintln("LINE " .. i .. " : " .. table.concat(lines[i], ","));
---    end
-    local x, y;
-    for _, line in ipairs(lines) do
-      local str = line[2];
-      local start;
-      start, _, x, y = string.find(str, ":  ([0-9- ]+), ([0-9- ]+)");
-      if start then
-        x = string.gsub(x, " ", "")
-        y = string.gsub(y, " ", "")
-        break;
-      end
+    for i=1,#lines do
+      --lsPrintln("LINE " .. i .. " : " .. table.concat(lines[i], ","));
+	if i == 2 then
+	  str = lines[i];
+	end
     end
+
+	if str then
+	  -- Numeral 1 always has a space before and/or after it.  This attempts to repair that OCR flaw. All other numbers have no space.
+	  str = string.gsub(str[2], " 1 ", "1");
+	  str = string.gsub(str, " 1", "1");
+	  str = string.sub(str, string.find(str, ": ([0-9-]+)"  )+2, string.len(str));
+	  str = string.gsub(str, "  ", ","); -- Catch double space between numbers
+	  str = string.gsub(str, " ", ",");  -- Catch single space between numbers
+	  local coords = explode(",", str);
+
+	    for i=1,#coords do
+            x = tonumber(coords[1])
+            y = tonumber(coords[2])
+          end
+	end
+
+
 --  One more check to ensure x and y have values. If they're nil, exit with a friendlier message than.
 --  "wrong number of parameters sent to makePoint". -Tizuby
     if x == nil or y == nil then
@@ -37,10 +47,11 @@ function findCoords()
     else
       --lsPrintln("Coordinates: " .. result[0] .. ", " .. result[1]);
     end
-  end
+  end -- if anchor
   srSetWindowInvertColorRange(minSetWindowInvertColorRange, maxSetWindowInvertColorRange); -- Reset color range back to default (defined at top of common_find.inc)
   return result;
 end
+
 
 function walkTo(dest)
   srReadScreen();
@@ -363,3 +374,5 @@ function ffc_compareDigits(left,right)
 	end
 	return false;
 end
+
+
