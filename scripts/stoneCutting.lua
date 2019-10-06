@@ -22,7 +22,7 @@ function doit()
 	askForWindow(askText);
 	config();
 		if(arrangeWindows) then
-			arrangeInGrid();
+			arrangeInGrid(nil, nil, nil, nil,nil, 20, 60);
 		end
 	unpinOnExit(start);
 end
