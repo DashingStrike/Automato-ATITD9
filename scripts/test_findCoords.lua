@@ -15,7 +15,12 @@ askForWindow("Find Coordinates on the Clock");
     message = message .. "Coordinates NOT Found";
   end
     message = message .. "\n\n\nNote: You can run around and see coordinates update ...";
-    statusScreen(message, nil, 0.7, 0.7);
+    sleepWithStatus(250, message, nil, 0.7, 0.7);
     lsSleep(10);
+
+
+   --setCameraView(CARTOGRAPHER2CAM);
+   --toPos = makePoint(1925, 1985)
+   --walkTo(toPos)
   end
 end
