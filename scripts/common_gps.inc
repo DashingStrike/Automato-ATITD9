@@ -19,11 +19,17 @@ function findCoords()
 	end
     end
 
-	if str then
 	  -- Numeral 1 always has a space before and/or after it.  This attempts to repair that OCR flaw. All other numbers have no space.
 	  str = string.gsub(str[2], " 1 ", "1");
 	  str = string.gsub(str, " 1", "1");
-	  str = string.sub(str, string.find(str, ": ([0-9-]+)"  )+2, string.len(str));
+	  --sleepWithStatus(5000, str)
+
+	  if string.find(str, ": ([0-9-]+)") then
+	    str = string.sub(str, string.find(str, ": ([0-9-]+)")+2, string.len(str));
+	  elseif string.find(str, ":([0-9-]+)") then
+	    str = string.sub(str, string.find(str, ":([0-9-]+)")+1, string.len(str));
+	  end
+
 	  str = string.gsub(str, "  ", ","); -- Catch double space between numbers
 	  str = string.gsub(str, " ", ",");  -- Catch single space between numbers
 	  local coords = explode(",", str);
@@ -32,7 +38,6 @@ function findCoords()
             x = tonumber(coords[1])
             y = tonumber(coords[2])
           end
-	end
 
 
 --  One more check to ensure x and y have values. If they're nil, exit with a friendlier message than.
