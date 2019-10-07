@@ -354,6 +354,7 @@ function dropdown(key, starting_index, values, text, return_values)
             end
         end
     end
+lsSetCamera(0,0,lsScreenX*1.2,lsScreenY*1.2);
     local before = dropdown_indexs[key]
     dropdown_indexs[key] = lsDropdown(key, X_PADDING, current_y, 10, lsScreenX - 10, dropdown_indexs[key] or starting_index, values)
     current_y = current_y + 30
@@ -420,15 +421,16 @@ function getUserParams()
                 config.num_plants = drawNumberEditBox("num_plants", "How many to plant per run? ", 6)
                 config.num_runs = drawNumberEditBox("num_runs", "How many runs? ", 20)
                 config.click_delay = drawNumberEditBox("click_delay", "What should the click delay be? ", 100)
-                config.alternate_drag = CheckBox(X_PADDING, current_y, 10, WHITE, "Alternate (slow) dragging?", config.alternate_drag or true)
-                config.pre_look = CheckBox(X_PADDING, current_y + 20, 10, WHITE, "Pre-find plant locations?", config.pre_look or true)
-                config.reposition_avatar = CheckBox(X_PADDING, current_y + 40, 10, WHITE, "Reposition avatar?", config.reposition_avatar or true)
-                config.debug = CheckBox(X_PADDING, current_y + 60, 10, WHITE, "Show pretty debug pictures?", config.debug)
-                config.sorting_mode = CheckBox(X_PADDING, current_y + 80, 10, WHITE, "Prioritize plants mode?", config.sorting_mode or true)
+                config.alternate_drag = CheckBox(X_PADDING, current_y-60, 10, WHITE, " Alternate (slow) dragging?", config.alternate_drag or true)
+                config.pre_look = CheckBox(X_PADDING, current_y-60 + 20, 10, WHITE, " Pre-find plant locations?", config.pre_look or true)
+                config.reposition_avatar = CheckBox(X_PADDING, current_y-60 + 40, 10, WHITE, " Reposition avatar?", config.reposition_avatar or true)
+                config.debug = CheckBox(X_PADDING, current_y-60 + 60, 10, WHITE, " Show pretty debug pictures?", config.debug)
+                config.sorting_mode = CheckBox(X_PADDING, current_y-60 + 80, 10, WHITE, " Prioritize plants mode?", config.sorting_mode or true)
                 got_user_params = true
                 for k, v in pairs(config) do
                     got_user_params = got_user_params and v
                 end
+--lsSetCamera(0,0,lsScreenX*1.0,lsScreenY*1.0);
                 got_user_params = got_user_params and drawBottomButton(lsScreenX - 5, "Next step")
             else
                 drawWrappedText(WARNING, RED, X_PADDING, current_y)
