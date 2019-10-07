@@ -383,4 +383,125 @@ function ffc_compareDigits(left,right)
 	return false;
 end
 
+-----------------------------------------------------------------------------
+-- coord2region(x, y)
+--
+-- Returns a region name - Valid for T9
+-----------------------------------------------------------------------------
+function coord2region(x,y)
+  if not x  or not y then
+    x = 9999;
+    y = 9999;
+  end
 
+  if x >=-3072 and x <= -745 and y >=7445 and y <= 8192 then
+    regionName = "Cyrene"
+  elseif x>=2795 and x<=3220 and y>=3385 and y<=3785 then
+    regionName = "Hinterlands"
+  elseif x>=-3072 and x<=-1910 and y>=6375 and y<=7445 then
+    regionName = "Hamim"
+  elseif x>=-3072 and x<=-1625 and y>=5150 and y<=6375 then
+    regionName = "Bahariya Oasis"
+  elseif x>=-3072 and x<=-1910 and y>=3955 and y<=5150 then
+    regionName = "Ammonium"
+  elseif x>=-3072 and x<=-1910 and y>=2985 and y<=3955 then
+    regionName = "Dunqul Oasis"
+  elseif x>=-3072 and x<=-1345 and y>=965 and y<=2985 then
+    regionName = "Dakhla Oasis"
+  elseif x>=-3072 and x<=-350 and y>=-725 and y<=965 then
+    regionName = "Buhen"
+  elseif x>=-3072 and x<=-1285 and y>=-8192 and y<=-6500 then
+    regionName = "Meroe Desert"
+  elseif x>=-3072 and x<=-900 and y>=-5690 and y<=-2320 then
+    regionName = "Western Desert"
+  elseif x>=-3072 and x<=130 and y>=-6500 and y<=-5020 then
+    regionName = "Napata"
+  elseif x>=945 and x<=3152 and y>=-8192 and y<=-7088 then
+    regionName = "Nubia"
+  elseif x>=-1285 and x<=1065 and y>=-8192 and y<=-5020 then
+    regionName = "Blue Nile"
+  elseif x>=-1910 and x<=-745 and y>=6375 and y<=7445 then
+    regionName = "Wadi Natrun"
+  elseif x>=-1625 and x<=450 and y>=5860 and y<=6625 then
+    regionName = "Faiyum"
+  elseif x>=-745 and x<=155 and y>=6625 and y<=8192 then
+    regionName = "Zau"
+  elseif x>=155 and x<=1660 and y>=6625 and y<=8192 then
+    regionName = "Meshwesh Delta"
+  elseif x>=1660 and x<=2328 and y>=6336 and y<=8192 then
+    regionName = "Bitter Lakes"
+  elseif x>=2328 and x<=3700 and y>=6336 and y<=8192 then
+    regionName = "West Sinai"
+  elseif x>=3700 and x<=5120 and y>=6176 and y<=8192 then
+    regionName = "East Sinai"
+  elseif x>=4255 and x<=5120 and y>=3785 and y<=6176 then
+    regionName = "Timna"
+  elseif x>=2795 and x<=4255 and y>=3785 and y<=6336 then
+    regionName = "South Sinai"
+  elseif x>=1860 and x<=2795 and y>=4350 and y<=6336 then
+    regionName = "Arsinoe"
+  elseif x>=1165 and x<=1860 and y>=5240 and y<=6625 then
+    regionName = "Suez"
+  elseif x>=155 and x<=1860 and y>=4350 and y<=5570 then
+    regionName = "Herakleopolis"
+  elseif x>=-1345 and x<=190 and y>=2500 and y<=4530 then
+    regionName = "Kharga Oasis"
+  elseif x>=450 and x<=1165 and y>=5570 and y<=6625 then
+    regionName = "Giza"
+  elseif x>=-1910 and x<=-1345 and y>=2985 and y<=5150 then
+    regionName = "Nabta Playa"
+  elseif x>=2795 and x<=4255 and y>=3785 and y<=6336 then
+    regionName = "South Sinai"
+  elseif x>=190 and x<=2795 and y>=3385 and y<=4350 then
+    regionName = "Hermopolis"
+  elseif x>=190 and x<=1985 and y>=2750 and y<=3385 then
+    regionName = "Abydos"
+  elseif x>=1985 and x<=3220 and y>=2100 and y<=3385 then
+    regionName = "Naqada"
+  elseif x>=3220 and x<=4515 and y>=1856 and y<=3785 then
+    regionName = "Gebel"
+  elseif x>=3975 and x<=5120 and y>=-1030 and y<=860 then
+    regionName = "Pwenet"
+  elseif x>=4515 and x<=5120 and y>=860 and y<=3785 then
+    regionName = "Arabia"
+  elseif x>=1630 and x<=4515 and y>=465 and y<=2100 then
+    regionName = "Red Sea"
+  elseif x>=-1625 and x<=450 and y>=4530 and y<=5860 then
+    regionName = "Lahun"
+  elseif x>=190 and x<=1985 and y>=1360 and y<=2750 then
+    regionName = "Asyut"
+  elseif x>=-350 and x<=1985 and y>=-1415 and y<=-87 then
+    regionName = "Swenett"
+  elseif x>=500 and x<=2795 and y>=-3135 and y<=-1310 then
+    regionName = "Upper Egypt"
+  elseif x>=1630 and x<=3975 and y>=-1415 and y<=465 then
+    regionName = "Bernike"
+  elseif x>=-350 and x<=1630 and y>=-87 and y<=1360 then
+    regionName = "Thebes"
+  elseif x>=-1345 and x<=190 and y>=965 and y<=2500 then
+    regionName = "Akhetaton"
+  elseif x>=-3072 and x<=-350 and y>=-2320 and y<=-725 then
+    regionName = "Kerma"
+  elseif x>=-900 and x<=500 and y>=-3135 and y<=-1310 then
+    regionName = "Philae"
+  elseif x>=2795 and x<=5120 and y>=-2675 and y<=-1030 then
+    regionName = "Damot"
+  elseif x>=-900 and x<=2795 and y>=-3615 and y<=-3135 then
+    regionName = "Elephantine"
+  elseif x>=1065 and x<=3280 and y>=-7088 and y<=-5620 then
+    regionName = "White Nile"
+  elseif x>=3152 and x<=5120 and y>=-8192 and y<=-5500 then
+    regionName = "Axum"
+  elseif x>=2795 and x<=5120 and y>=-5620 and y<=-2675 then
+    regionName = "Blemmyes"
+  elseif x>=-900 and x<=1500 and y>=-5020 and y<=-3615 then
+    regionName = "West Kush"
+  elseif x>=1065 and x<=2795 and y>=-5620 and y<=-3615 then
+    regionName = "East Kush"
+  elseif x == 9999 and y = 9999 then
+    regionName = "Invalid Coordinates"
+  else
+    regionName = "Hinterlands"
+  end
+  return regionName;
+end
