@@ -32,7 +32,7 @@ unpinWindows = true;
 function doit()
   promptParameters();
   askForWindow("Make sure your chats are minimized and brick rack menus are pinned then hover ATITD window and press Shift to continue.");
-  if gridMode then
+  if pinnedMode then
 
     if(arrangeWindows) then
       arrangeInGrid(nil, nil, nil, nil,nil, 10, 20);
@@ -76,7 +76,7 @@ function promptParameters()
     lsPrintWrapped(10, y+5, z+10, lsScreenX - 20, 0.7, 0.7, 0xD0D0D0ff,
       "Global Settings\n-------------------------------------------");
 
-    if gridMode then
+    if pinnedMode then
       arrangeWindows = readSetting("arrangeWindows",arrangeWindows);
       arrangeWindows = CheckBox(10, y+30, z, 0xFFFFFFff, "Arrange windows (Grid format)", arrangeWindows, 0.65, 0.65);
       writeSetting("arrangeWindows",arrangeWindows);
@@ -95,10 +95,10 @@ function promptParameters()
     lsPrintWrapped(10, y+15, z+10, lsScreenX - 20, 0.7, 0.7, 0xD0D0D0ff,
     "Mode Settings\n---------------------------------------");
 
-    if gridMode then
-      gridModeColor = 0x80ff80ff;
+    if pinnedMode then
+      pinnedModeColor = 0x80ff80ff;
     else
-      gridModeColor = 0xffffffff;
+      pinnedModeColor = 0xffffffff;
     end
     if hotkeyMode then
       hotkeyModeColor = 0x80ff80ff;
@@ -106,18 +106,18 @@ function promptParameters()
       hotkeyModeColor = 0xffffffff;
     end
         
-    gridMode = readSetting("gridMode",gridMode);
+    pinnedMode = readSetting("pinnedMode",pinnedMode);
     hotkeyMode = readSetting("hotkeyMode",hotkeyMode);
 
     if not hotkeyMode then
-      gridMode = CheckBox(10, y+50, z, gridModeColor, "Grid Mode", gridMode, 0.65, 0.65);
-      writeSetting("gridMode",gridMode);
+      pinnedMode = CheckBox(10, y+50, z, pinnedModeColor, "Pinned Window Mode", pinnedMode, 0.65, 0.65);
+      writeSetting("pinnedMode",pinnedMode);
 		  y = y + 22;
 		else
-		  gridMode = false
+		  pinnedMode = false
 		end
 
-    if not gridMode then
+    if not pinnedMode then
       hotkeyMode = CheckBox(10, y+50, z, hotkeyModeColor, "Hotkey Mode", hotkeyMode, 0.65, 0.65);
       writeSetting("hotkeyMode",hotkeyMode);
 		  y = y + 22;
@@ -156,7 +156,7 @@ function promptParameters()
     lsPrintWrapped(10, y+60, z+10, lsScreenX - 20, 0.7, 0.7, 0xD0D0D0ff,
 	  "Stand where you can reach all brick racks with all ingredients on you.");
 	  
-	if gridMode or hotkeyMode then
+	if pinnedMode or hotkeyMode then
 		if lsButtonText(10, lsScreenY - 30, z, 100, 0xFFFFFFff, "Begin") then
 				is_done = 1;
 			end
