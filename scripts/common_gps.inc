@@ -61,38 +61,58 @@ function findCoords()
 end
 
 
+-----------------------------------------------------------
+-- walkTo(dest)
+--
+-- dest needs to be x,y
+-- global: bool globalWalkingStop is checked while walking
+-- ie if your script sets a global of globalWalkingStop = 1 then walking is cancelled
+-- global: bool globalWalking = true is set while walking. Set back to nil when walking is finished.
+----------------------------------------------------------
+
 function walkTo(dest)
   srReadScreen();
   local coords = findCoords();
     if not coords then
       error("Could not find coordinates from the clock.\nIs the /clockloc visible or partially covered?");
     end
+  globalWalking = 1;
+  globalWalkingStop = nil;
   while coords[0] ~= dest[0] or coords[1] ~= dest[1] do
     while coords[0] < dest[0] do
       stepTo(makePoint(1, 0), dest); -- Walking East
       srReadScreen();
       coords = findCoords();
       checkBreak();
+      if globalWalkingStop then break; end
     end
     while coords[0] > dest[0] do
       stepTo(makePoint(-1, 0), dest); -- Walking West
       srReadScreen();
       coords = findCoords();
       checkBreak();
+      if globalWalkingStop then break; end
     end
     while coords[1] < dest[1] do
       stepTo(makePoint(0, -1), dest, "North"); -- Walking North
       srReadScreen();
       coords = findCoords();
       checkBreak();
+      if globalWalkingStop then break; end
     end
     while coords[1] > dest[1] do  -- Walking South
-      stepTo(makePoint(0, 1), dest, "South"); -- Add 1 (true for iconTrayCheck)
+      stepTo(makePoint(0, 1), dest, "South");
       srReadScreen();
       coords = findCoords();
       checkBreak();
+      if globalWalkingStop then break; end
     end
+  if globalWalkingStop then break; end
   end
+  local center = srGetWindowSize();
+  srClickMouseNoMove((center[0]/2)+10,(center[1]/2)+10, 1); -- right click to force avatar to stop running. Rarely happens, mainly when zoomed out quite a bit.
+  globalWalking = nil;
+  globalWalkingStop = nil;
   return coords;
 end
 
@@ -202,7 +222,7 @@ function stepTo(dir, dest, compass)
   end
   safeClick(gpsCenter[0] + dir[0] * gpsStep[0],
 	    (gpsCenter[1] + dir[1] * gpsStep[1]) + offsetY);
-  sleepWithStatus(500, "Walking to: " .. dest[0] .. ", " .. dest[1] .. "\n\n" .. coord2region(dest[0], dest[1]), nil, 0.7, 0.7);
+  sleepWithStatus(500, "Walking to: " .. dest[0] .. ", " .. dest[1] .. "\n\n" .. coord2region(dest[0], dest[1]), nil, 0.7);
 end
 
 local ffc_coordsPos = nil;
