@@ -515,13 +515,16 @@ function findClockRegion()
     clockUpperLeftY = meshwesh[1];
 
   else
-    error("Clock could not be detected in findClockRegion()");
+    --error("Clock could not be detected in findClockRegion()");
+    faction = "Clock not detected";
   end
 
-  clockUpperLeftX = clockUpperLeftX - 30;
-  clockUpperLeftY = clockUpperLeftY - 10;
-  clockWidth = 240;
-  clockHeight = 55;
-  clockRegion = makeBox(clockUpperLeftX, clockUpperLeftY, clockWidth, clockHeight);
+  if faction ~= "Clock not detected" then
+    clockUpperLeftX = clockUpperLeftX - 30;
+    clockUpperLeftY = clockUpperLeftY - 10;
+    clockWidth = 240;
+    clockHeight = 55;
+    clockRegion = makeBox(clockUpperLeftX, clockUpperLeftY, clockWidth, clockHeight);
+  end
   return clockRegion;
 end
