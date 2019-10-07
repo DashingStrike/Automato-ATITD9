@@ -1,4 +1,5 @@
 dofile("common.inc");
+dofile("settings.inc");
 
 walkX = 0;
 walkY = 0;
@@ -21,7 +22,7 @@ askForWindow("Test OCR on ATITD Clock.\n\nReturn Coordinates and Lookup Regions"
   else
     message = message .. "Coordinates NOT Found";
   end
-    sleepWithStatus(250, message, nil, 0.7, "Searching ATID Clock");
+    sleepWithStatus(1000, message, nil, 0.7, "Reading ATID Clock");
     lsSleep(10);
   end
 end
@@ -51,8 +52,9 @@ function sleepWithStatus(delay_time, message, color, scale, waitMessage)
   while delay_time > (lsGetTimer() - start_time) do
     local frame = math.floor(waitFrame/5) % #waitChars + 1;
     time_left = delay_time - (lsGetTimer() - start_time);
+    newWaitMessage = waitMessage;
     if delay_time >= 1000 then
-      waitMessage = waitMessage .. time_left .. " ms ";
+      newWaitMessage = waitMessage .. time_left .. " ms ";
     end
 
   local y = 220;
@@ -61,31 +63,34 @@ function sleepWithStatus(delay_time, message, color, scale, waitMessage)
   lsPrint(10, y, z, scale, scale, 0xFFFFFFff, "Walk to Coordinates:");
   y = y + 25;
   lsPrint(10, y, z, scale, scale, 0xFFFFFFff, "X:");
+  walkX = readSetting("walkX",walkX);
   foo, walkX = lsEditBox("walkX", 30, y, z, 70, 0, scale, scale, 0x000000ff, walkX);
 		if not tonumber(walkX) then
 			lsPrint(110, y+2, z+10, 0.7, 0.7, 0xFF2020ff, "MUST BE A NUMBER");
 			walkX = 0;
 		end
+  writeSetting("walkX",walkX);
   y = y + 20;
   lsPrint(10, y, z, scale, scale, 0xFFFFFFff, "Y:");
+  walkY = readSetting("walkY",walkY);
   foo, walkY = lsEditBox("walkY", 30, y, z, 70, 0, scale, scale, 0x000000ff, walkY);
 		if not tonumber(walkY) then
 			lsPrint(110, y+2, z+10, 0.7, 0.7, 0xFF2020ff, "MUST BE A NUMBER");
 			walkY = 0;
 		end
-
+  writeSetting("walkY",walkY);
     if not globalWalking then
 
 	  if lsButtonText(10, lsScreenY - 30, z, 100, 0xFFFFFFff, "Walk") then
 	        while lsMouseIsDown() do
-	          sleepWithStatus(16, "Preparing to Walk!  (Release Mouse)", nil, 0.7);
+	          sleepWithStatus(16, "Release Mouse !", nil, 0.7, "Preparing to Walk");
 	        end
 	    if not firstWalk then
 	      setCameraView(CARTOGRAPHERCAM); -- Set to F8 camera
 	      srClickMouse(5,5, 1); -- Right click to put ATITD back in focus
 	      lsSleep(100);
 	      srSetMousePos(0,0); -- Move Mouse to top left corner of screen
-	      sleepWithStatus(2000, "Zooming in slightly ...", nil, nil, 0.7);
+	      sleepWithStatus(2000, "Zooming in slightly ...", nil, 0.7);
 	      center = srGetWindowSize();
 	      srSetMousePos((center[0]/2)-50, (center[1]/2)+50); -- Move mouse away to stop zooming
 	      toPos = makePoint(tonumber(walkX), tonumber(walkY));
@@ -100,7 +105,7 @@ function sleepWithStatus(delay_time, message, color, scale, waitMessage)
 	    if lsButtonText(10, lsScreenY - 30, z, 100, 0xFFFFFFff, "Stop") then
 	      globalWalkingStop = 1;
 	        while lsMouseIsDown() do
-	          sleepWithStatus(16, "Preparing Brakes!  (Release Mouse)", nil, 0.7);
+	          sleepWithStatus(16, "Release Mouse !", nil, 0.7, "Preparing Brakes");
 	        end
 	    end
 	  end
