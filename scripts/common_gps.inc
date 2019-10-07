@@ -81,13 +81,13 @@ function walkTo(dest)
       checkBreak();
     end
     while coords[1] < dest[1] do
-      stepTo(makePoint(0, -1), dest); -- Walking North
+      stepTo(makePoint(0, -1), dest, "North"); -- Walking North
       srReadScreen();
       coords = findCoords();
       checkBreak();
     end
     while coords[1] > dest[1] do  -- Walking South
-      stepTo(makePoint(0, 1), dest, 1); -- Add 1 (true for iconTrayCheck)
+      stepTo(makePoint(0, 1), dest, "South"); -- Add 1 (true for iconTrayCheck)
       srReadScreen();
       coords = findCoords();
       checkBreak();
@@ -190,25 +190,19 @@ function initStep()
   end
 end
 
-function stepTo(dir, dest, checkIconTray)
-  local iconTrayOffsetY = 50;
+function stepTo(dir, dest, compass)
+  local offsetY = 0;
   local message = ""
   initStep();
   local centerScreenBottom = makePoint(xyWindowSize[0]/2, xyWindowSize[1]); -- xyWindowSize already defined in global from previous initStep();
-
-  if checkIconTray then
-    local iconTrayOpen = srFindImageInRange("icon_tray_opened.png", centerScreenBottom[0]-450, centerScreenBottom[1]-120, 200, 120); -- Check if icon tray is open, screenRead performed by initStep();
-    local iconTrayClose = srFindImageInRange("icon_tray_closed.png", centerScreenBottom[0]-80, centerScreenBottom[1]-80, 200, 80); -- Check if icon tray is closed, screenRead performed by initStep();
-      if iconTrayOpen then
-        iconTrayOffsetY = 50; -- offset clicking Y position to avoid clicking icon tray (where grass, water, etc icons exist).
-      elseif iconTrayClose then
-        iconTrayOffsetY = 30; -- offset clicking Y position to avoid the up arrow, on icon tray and re-opening it.
-      end
+  if compass == "North" then
+    offsetY = 50;  -- Postive offset need to prevent clicking on ATITD Clock
+  elseif compass == "South" then
+    offsetY = -50; -- Negative offset needed to prevent clicking on Icon Tray
   end
-
   safeClick(gpsCenter[0] + dir[0] * gpsStep[0],
-	    (gpsCenter[1] + dir[1] * gpsStep[1]) - iconTrayOffsetY);
-  sleepWithStatus(500, "Walking to: " .. dest[0] .. ", " .. dest[1], nil, 0.7, 0.7);
+	    (gpsCenter[1] + dir[1] * gpsStep[1]) + offsetY);
+  sleepWithStatus(500, "Walking to: " .. dest[0] .. ", " .. dest[1] .. "\n\n" .. coord2region(dest[0], dest[1]), nil, 0.7, 0.7);
 end
 
 local ffc_coordsPos = nil;
