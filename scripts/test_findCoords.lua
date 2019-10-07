@@ -21,7 +21,7 @@ askForWindow("Test OCR on ATITD Clock.\n\nReturn Coordinates and Lookup Regions"
   else
     message = message .. "Coordinates NOT Found";
   end
-    sleepWithStatus(250, message, nil, 0.7);
+    sleepWithStatus(250, message, nil, 0.7, "Searching ATID Clock");
     lsSleep(10);
   end
 end
@@ -32,7 +32,12 @@ end
 local waitChars = {"-", "\\", "|", "/"};
 local waitFrame = 1;
 
-function sleepWithStatus(delay_time, message, color, scale)
+function sleepWithStatus(delay_time, message, color, scale, waitMessage)
+  if not waitMessage then
+    waitMessage = "Waiting ";
+  else
+    waitMessage = waitMessage .. " ";
+  end
   if not color then
     color = 0xffffffff;
   end
@@ -46,7 +51,6 @@ function sleepWithStatus(delay_time, message, color, scale)
   while delay_time > (lsGetTimer() - start_time) do
     local frame = math.floor(waitFrame/5) % #waitChars + 1;
     time_left = delay_time - (lsGetTimer() - start_time);
-    local waitMessage = "Waiting ";
     if delay_time >= 1000 then
       waitMessage = waitMessage .. time_left .. " ms ";
     end

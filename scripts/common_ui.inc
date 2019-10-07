@@ -189,6 +189,7 @@ end
 -- message (optional) -- status to show user
 -- color (optional) -- color of status message
 -- scale (optional) -- set text scaling
+-- waitMessage (optional) -- set a wait Message. By default it shows "Waiting".
 -------------------------------------------------------------------------------
 
 function sleepWithStatusPause(delay_time, message, color, scale)
@@ -198,7 +199,12 @@ end
 local waitChars = {"-", "\\", "|", "/"};
 local waitFrame = 1;
 
-function sleepWithStatus(delay_time, message, color, scale)
+function sleepWithStatus(delay_time, message, color, scale, waitMessage)
+  if not waitMessage then
+    waitMessage = "Waiting ";
+  else
+    waitMessage = waitMessage .. " ";
+  end
   if not color then
     color = 0xffffffff;
   end
@@ -212,7 +218,6 @@ function sleepWithStatus(delay_time, message, color, scale)
   while delay_time > (lsGetTimer() - start_time) do
     local frame = math.floor(waitFrame/5) % #waitChars + 1;
     time_left = delay_time - (lsGetTimer() - start_time);
-    local waitMessage = "Waiting ";
     if delay_time >= 1000 then
       waitMessage = waitMessage .. time_left .. " ms ";
     end
