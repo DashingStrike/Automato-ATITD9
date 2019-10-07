@@ -73,7 +73,7 @@ function promptParameters()
     writeSetting("typeOfBrick",typeOfBrick);
     y = y + 32;
 
-    lsPrintWrapped(10, y+5, z+10, lsScreenX - 20, 0.7, 0.7, 0xD0D0D0ff,
+    lsPrintWrapped(10, y+5, z+10, lsScreenX - 20, 0.7, 0.7, 0xffff40ff,
       "Global Settings\n-------------------------------------------");
 
     if pinnedMode then
@@ -92,7 +92,7 @@ function promptParameters()
       y = y + 42;
     end
 
-    lsPrintWrapped(10, y+15, z+10, lsScreenX - 20, 0.7, 0.7, 0xD0D0D0ff,
+    lsPrintWrapped(10, y+15, z+10, lsScreenX - 20, 0.7, 0.7, 0xffff40ff,
     "Mode Settings\n---------------------------------------");
 
     if pinnedMode then
@@ -157,12 +157,12 @@ function promptParameters()
 	  "Stand where you can reach all brick racks with all ingredients on you.");
 	  
 	if pinnedMode or hotkeyMode then
-		if lsButtonText(10, lsScreenY - 30, z, 100, 0xFFFFFFff, "Begin") then
+		if lsButtonText(10, lsScreenY - 30, z, 100, 0x00ff00ff, "Begin") then
 				is_done = 1;
 			end
 	end
 
-    if lsButtonText(lsScreenX - 110, lsScreenY - 30, z, 100, 0xFFFFFFff,
+    if lsButtonText(lsScreenX - 110, lsScreenY - 30, z, 100, 0xFF0000ff,
       "End script") then
       error "Clicked End Script button";
     end
