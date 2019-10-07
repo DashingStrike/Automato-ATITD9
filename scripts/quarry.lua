@@ -224,13 +224,13 @@ function doit()
 				if promptOkay("Click OK to click on " .. positions[index][0] .. "," .. positions[index][1] .. " = " .. directions1[directions[index][1]] .. "-" .. directions2[directions[index][2]], nil, 0.7, nil, 1) then
 					srClickMouseNoMove(positions[index][0]+5, positions[index][1]+1, 0);
 					--lsSleep(lag_wait_after_click);
-					sleepWithStatus(lag_wait_after_click,"Clicked: " .. directions1[directions[index][1]] .. "-" .. directions2[directions[index][2]] .. "\n\nSlight pause for potential lag to catch up!", nil, 0.7, 0.7);
+					sleepWithStatus(lag_wait_after_click,"Clicked: " .. directions1[directions[index][1]] .. "-" .. directions2[directions[index][2]] .. "\n\nSlight pause for potential lag to catch up!", nil, 0.7);
 				end
 			else
 				-- just click
 				srClickMouseNoMove(positions[index][0]+5, positions[index][1]+1, 0);
 				--lsSleep(lag_wait_after_click);
-				sleepWithStatus(lag_wait_after_click,"Clicked: " .. directions1[directions[index][1]] .. "-" .. directions2[directions[index][2]] .. "\n\nSlight pause for potential lag to catch up!", nil, 0.7, 0.7);
+				sleepWithStatus(lag_wait_after_click,"Clicked: " .. directions1[directions[index][1]] .. "-" .. directions2[directions[index][2]] .. "\n\nSlight pause for potential lag to catch up!", nil, 0.7);
 
 			end
 			different = nil;

@@ -93,7 +93,7 @@ function ccRun(pass, passCount)
   while not done do
     sleepWithStatus(2000, "Waiting on next tick ...\n\n[" .. pass .. "/" .. passCount .. "] Passes\n\nTotals: [This Pass/All Passes]\n\n[".. woodAdded*3 .. "/" ..
         woodAddedTotal*3 .. "] Wood Used - Actual\n[" .. woodAdded.. "/" .. woodAddedTotal .. "] 'Add Wood' Button Clicked (x1)\n\n[" .. waterAdded .. "/" .. waterAddedTotal ..
-        "] Water Used\n             (Excluding cooldown water)\n\n\nElapsed Time: " .. getElapsedTime(startTime),nil, 0.7, 0.7);
+        "] Water Used\n             (Excluding cooldown water)\n\n\nElapsed Time: " .. getElapsedTime(startTime),nil, 0.7);
     done = true;
     srReadScreen();
     for i=1,#ovens do
@@ -195,7 +195,7 @@ function processOven(oven, vent)
 end
 
 function Do_Take_All_Click()
-  statusScreen("Checking / Emptying Ovens ...",nil, 0.7, 0.7);
+  statusScreen("Checking / Emptying Ovens ...",nil, 0.7);
   -- refresh windows
   clickAll("charcoal/This.png", 1);
   lsSleep(100);

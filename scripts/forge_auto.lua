@@ -492,10 +492,10 @@ function doit()
    while 1 do
       local t, u;
       if slept == false then
-         sleepWithStatus(6000, "Sleeping before checking forges again", nil, 0.7, 0.7);
+         sleepWithStatus(6000, "Sleeping before checking forges again", nil, 0.7);
          slept = true;
       else
-         sleepWithStatus(150, "Short sleep before forges", nil, 0.7, 0.7);
+         sleepWithStatus(150, "Short sleep before forges", nil, 0.7);
          slept = false;
       end
       srReadScreen();

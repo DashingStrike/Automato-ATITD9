@@ -444,7 +444,7 @@ function findChatRegionReplacement()
 
 --  while not pos do
 --    pos = findChatRegionSub();
---    sleepWithStatus(100,"Cound not find \'Main\' Chat Tab...", nil, 0.7, 0.7);
+--    sleepWithStatus(100,"Cound not find \'Main\' Chat Tab...", nil, 0.7);
 --  end
 
   if pos then

@@ -79,7 +79,7 @@ function getChatText()
   local creg = findChatRegionReplacement();
   while not creg do
     creg = findChatRegionReplacement();
-    sleepWithStatus(100,"Cound not find \'Main\' Chat Tab.\n\nTry moving the chat window so that all four borders are visible. ", nil, 0.7, 0.7);
+    sleepWithStatus(100,"Cound not find \'Main\' Chat Tab.\n\nTry moving the chat window so that all four borders are visible. ", nil, 0.7);
   end
   -- The below line is a hack introduced for T7 to handle the fact that
   -- there isn't as much of a buffer below chat as there was in T6 and prior.

@@ -167,7 +167,7 @@ GUI = "\n\nNext Step: " .. step .. "/4 - " .. task_text .. "\n\n----------------
 		  clickAllText("This is"); -- Refresh window 
 
 		elseif not stats_black and not stats_black2 and not stats_black3 and not stats_blackB and not stats_blackC then
-			sleepWithStatus(100, "Waiting on Endurance Timer ..." .. GUI, nil, 0.7, 0.7);
+			sleepWithStatus(100, "Waiting on Endurance Timer ..." .. GUI, nil, 0.7);
 
 		else
 		
@@ -195,7 +195,7 @@ GUI = "\n\nNext Step: " .. step .. "/4 - " .. task_text .. "\n\n----------------
 				  end
 			end
 			step = step + 1;
-			sleepWithStatus(100, "Endurance Timer OK - Clicking window(s)" .. GUI, nil, 0.7, 0.7);
+			sleepWithStatus(100, "Endurance Timer OK - Clicking window(s)" .. GUI, nil, 0.7);
 			srReadScreen();
 			clickAllText("This is")
 			lsSleep(100);
@@ -265,13 +265,13 @@ function repairRake()
 		  material = "What the heck?";
 		end
 
-             sleepWithStatus(1000,"Loading " .. material, nil, 0.7, 0.7);
+             sleepWithStatus(1000,"Loading " .. material, nil, 0.7);
 
 		srReadScreen();
 		OK = srFindImage("ok.png")
 
 		if OK then
-		  sleepWithStatus(5000, "You don\'t have any \'" .. material .. "\', Aborting !\n\nClosing Build Menu and Popups ...", nil, 0.7, 0.7)
+		  sleepWithStatus(5000, "You don\'t have any \'" .. material .. "\', Aborting !\n\nClosing Build Menu and Popups ...", nil, 0.7)
 		  srClickMouseNoMove(OK[0], OK[1]);
 		  srReadScreen();
 		  blackX = srFindImage("blackX.png");
@@ -287,7 +287,7 @@ function repairRake()
 		    srClickMouseNoMove(maxButton[0], maxButton[1]);
 		  end
 
-		  sleepWithStatus(1000,"Loaded " .. material, nil, 0.7, 0.7);
+		  sleepWithStatus(1000,"Loaded " .. material, nil, 0.7);
 		end -- if OK
 	end -- for loop
   end -- if repair

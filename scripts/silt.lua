@@ -58,7 +58,7 @@ function doit()
 
 	while true do
 		local frame_start = lsGetTimer();
-		statusScreen("Watching for Silt (Red Dots)", nil, 0.7, 0.7);
+		statusScreen("Watching for Silt (Red Dots)", nil, 0.7);
 		-- Looks for pixels whose red is between 0xA0 and 0xFF (160-255), and green/blue are less than 0x60
 		clusters = lsAnalyzeCustom(7, 40, 1, xyWindowSize[0] * distance_scale, 0xcac2b7FF, 0xe7e2d9FF, true);
 		local clicked = nil;

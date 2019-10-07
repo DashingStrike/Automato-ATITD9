@@ -124,10 +124,10 @@ function doit()
 
 	 if autoWater and not manualPin and saveCoords and not firstLoop then
 		if not drawWater() then -- Attempt to gather water. If water not found or player is already full of water, then add 3 seconds below, otherwise gather animation takes 3 seconds
-		  sleepWithStatus(3000,"Slight pause for 'Water These' to appear on plants, before we pin",nil, 0.7, 0.7);
+		  sleepWithStatus(3000,"Slight pause for 'Water These' to appear on plants, before we pin",nil, 0.7);
 		end
 	 elseif not autoWater and not manualPin and saveCoords and not firstLoop then -- If we pin windows too quickly, then the 'Water These' option doesn't appear, right away. Wait a moment...
-  	  sleepWithStatus(3000,"Slight pause for 'Water These' to appear on plants, before we pin",nil, 0.7, 0.7);
+  	  sleepWithStatus(3000,"Slight pause for 'Water These' to appear on plants, before we pin",nil, 0.7);
 	 end
 
 
@@ -148,7 +148,7 @@ function doit()
 	if (pauseAfterHarvest and not fullAutoMode) or abort then
 	  waitForShift();
 	else
-	  sleepWithStatus(delayAfterHarvestPerPlant*#harvest, "Harvesting vegetables ...",nil, 0.7, 0.7);
+	  sleepWithStatus(delayAfterHarvestPerPlant*#harvest, "Harvesting vegetables ...",nil, 0.7);
 	end
 
   end
@@ -194,13 +194,13 @@ function waterThese()
 
 
   if fullAutoMode then
-    statusScreen("Waiting on Harvest ...\n\n[" .. tended .. "] Tendings -- All Plants Watered\n\n\nClick Abort button if something went wrong. This will close all veggie windows and start over.", nil, 0.7, 0.7);
+    statusScreen("Waiting on Harvest ...\n\n[" .. tended .. "] Tendings -- All Plants Watered\n\n\nClick Abort button if something went wrong. This will close all veggie windows and start over.", nil, 0.7);
   refreshWindows();
   elseif not firstWater then
-    statusScreen("When ALL plants GROW:\n" .. key .. " to Water plants\n\n[" .. tended-1 .. "] Tendings -- All Plants Watered\n\nYou can " .. key .. " even if you are still watering (animations) last growth. Watering/Harvests will be queued!\n\n\nClick Abort button if something went wrong. This will close all veggie windows and start over.", nil, 0.7, 0.7);
+    statusScreen("When ALL plants GROW:\n" .. key .. " to Water plants\n\n[" .. tended-1 .. "] Tendings -- All Plants Watered\n\nYou can " .. key .. " even if you are still watering (animations) last growth. Watering/Harvests will be queued!\n\n\nClick Abort button if something went wrong. This will close all veggie windows and start over.", nil, 0.7);
   refreshWindows();
   elseif firstWater == 1 and manualPin then
-    statusScreen("After you pin your windows:\n\n" .. key .. " to water pinned plants", nil, 0.7, 0.7);
+    statusScreen("After you pin your windows:\n\n" .. key .. " to water pinned plants", nil, 0.7);
   end
 
     if (is_shifted and not was_shifted) or (firstWater and not manualPin) or harvestReady or (fullAutoMode and not finalTending) then
@@ -230,7 +230,7 @@ function waterThese()
 			if #harvest < count and (not pauseAfterHarvest or fullAutoMode) then	-- If the # of harvests is < than number of plantings, then something went wrong. Don't break, force user to click abort or manually handle any issues.
 			  abort = 1;
 			  fullAutoMode = nil;
-			  sleepWithStatus(3000, "Something went wrong, you harvested less plants than expected!\n\nAborting and disengaging Full Auto Mode\n\nVerify you don't have any seeds on ground.", nil, 0.7, 0.7);
+			  sleepWithStatus(3000, "Something went wrong, you harvested less plants than expected!\n\nAborting and disengaging Full Auto Mode\n\nVerify you don't have any seeds on ground.", nil, 0.7);
 			end
 			  break;  -- Break the loop after Harvest found and clicked
 
@@ -271,12 +271,12 @@ function waterThese()
 
 
 		if fullAutoMode and tended == 1 then
-		  sleepWithStatus(vegclickTimer[tended][1]-3000, "Tended: " .. tended-1 .. "\nTimer: " .. vegclickTimer[tended][1] .. "\n              (-3000 water gather =" .. vegclickTimer[tended][1]-3000 .. ")",nil, 0.7, 0.7);
+		  sleepWithStatus(vegclickTimer[tended][1]-3000, "Tended: " .. tended-1 .. "\nTimer: " .. vegclickTimer[tended][1] .. "\n              (-3000 water gather =" .. vegclickTimer[tended][1]-3000 .. ")",nil, 0.7);
 		elseif fullAutoMode and (tended == #vegclickTimer+1) then
 		  finalTending = 1;
 		  --lsSleep(100);
 		elseif fullAutoMode then
-		  sleepWithStatus(vegclickTimer[tended][1], "Tended: " .. tended .. "\nTimer: " .. vegclickTimer[tended][1],nil, 0.7, 0.7);
+		  sleepWithStatus(vegclickTimer[tended][1], "Tended: " .. tended .. "\nTimer: " .. vegclickTimer[tended][1],nil, 0.7);
 		--else
 		    --lsSleep(100);
 		end
@@ -461,7 +461,7 @@ function closeAllWindows(x, y, width, height)
       while #images >= 1 do
 	done = true;
 	safeClick(images[#images][0], images[#images][1], right);
-	sleepWithStatus(click_delay, "Closing Windows",nil, 0.7, 0.7);
+	sleepWithStatus(click_delay, "Closing Windows",nil, 0.7);
 	srReadScreen();
 	images = findAllImagesInRange(image, x, y, width, height);
       end
@@ -471,7 +471,7 @@ function closeAllWindows(x, y, width, height)
 	if fullAutoModeQueuedOff then
 	  fullAutoMode = nil; -- We clicked disengage button, turn off, reset flag
 	  fullAutoModeQueuedOff = nil;
-        sleepWithStatus(1500, "Disengaging Auto Mode...\n\nReturning to Menu, after Harvest!",nil, 0.7, 0.7)
+        sleepWithStatus(1500, "Disengaging Auto Mode...\n\nReturning to Menu, after Harvest!",nil, 0.7)
 	end
 end
 
@@ -669,7 +669,7 @@ function waitForShift()
 	  end
 	end
 
-    statusScreen(key .. " to continue planting!\n\nWait until ALL animations STOP and ALL plants disappear, FIRST.\n\nNote: 'Pick Seeds Up' button isn\'t foolproof.\n\nIt simply right-clicks where you previously set plant locations.\n\nIf you moved too far from starting position, it will likely misclick and fail!", nill, 0.7, 0.7);
+    statusScreen(key .. " to continue planting!\n\nWait until ALL animations STOP and ALL plants disappear, FIRST.\n\nNote: 'Pick Seeds Up' button isn\'t foolproof.\n\nIt simply right-clicks where you previously set plant locations.\n\nIf you moved too far from starting position, it will likely misclick and fail!", nill, 0.7);
     local is_shifted = lsShiftHeld();
 
     if (dropdown_cur_value == 1) then
@@ -724,7 +724,7 @@ function displayError(message)
 
   while not is_done do
     checkBreak();
-    statusScreen(message, nil, 0.7, 0.7);
+    statusScreen(message, nil, 0.7);
 
     local is_shifted = lsShiftHeld();
     if (dropdown_cur_value == 1) then
@@ -767,7 +767,7 @@ function pickUpSeeds()
 	  srClickMouseNoMove(utility[0]+12,utility[1]+5);
 	  lsSleep(75);
   	else
-	  sleepWithStatus(1250, "Error: Could not find menu option 'Utility'\n\nWas part of the menu obscured behind Automato, perhaps?",nil, 0.7, 0.7);
+	  sleepWithStatus(1250, "Error: Could not find menu option 'Utility'\n\nWas part of the menu obscured behind Automato, perhaps?",nil, 0.7);
   	end
   srReadScreen();
 
@@ -778,7 +778,7 @@ function pickUpSeeds()
 	  srClickMouseNoMove(bags[0]+12,bags[1]+5);
 	  lsSleep(200);
 	else
-	  sleepWithStatus(1250, "Error: Could not find menu option 'Make nearby portables look like bags'\n\nWas part of the menu obscured behind Automato, perhaps?",nil, 0.7, 0.7);
+	  sleepWithStatus(1250, "Error: Could not find menu option 'Make nearby portables look like bags'\n\nWas part of the menu obscured behind Automato, perhaps?",nil, 0.7);
   end
 
 
@@ -800,7 +800,7 @@ function Stats()
 	end
 	  if ButtonText(10, lsScreenY - 30, z, 175, 0x80ff80ff, "Engage Auto Mode!") then
 	    saveWaterTimer();
-	    sleepWithStatus(1500, "Engaging Auto Water Mode!\n\nAlso wrote times to veggie_semiAuto.txt", nil, 0.7, 0.7);
+	    sleepWithStatus(1500, "Engaging Auto Water Mode!\n\nAlso wrote times to veggie_semiAuto.txt", nil, 0.7);
 	    break;
 	  end
 --	if lsButtonText(10, lsScreenY - 60, z, 100, 0xFFFFFFff, "Load File") then
@@ -809,7 +809,7 @@ function Stats()
 
 
     checkBreak();
-    statusScreen("Macro has been running: " .. getElapsedTime(thisSessionTimer) .. "\n\nTotal Harvests: " .. totalHarvests .. "\n\nLast Tending/Harvest Timer Report:\n\n" .. stats, nil, 0.7, 0.7);
+    statusScreen("Macro has been running: " .. getElapsedTime(thisSessionTimer) .. "\n\nTotal Harvests: " .. totalHarvests .. "\n\nLast Tending/Harvest Timer Report:\n\n" .. stats, nil, 0.7);
     lsSleep(10);
   end
 end
@@ -870,7 +870,7 @@ local waitFrame = 1;
 	if fullAutoMode and not fullAutoModeQueuedOff then
 	  if ButtonText(10, lsScreenY - 30, z, 175, 0xff6666ff, "Disengage Auto Mode/Finish Up") then
 	    fullAutoModeQueuedOff = 1;
-          sleepWithStatus(1500, "Disengaging Auto Mode...\n\nReturning to Menu, after Harvest!",nil, 0.7, 0.7)
+          sleepWithStatus(1500, "Disengaging Auto Mode...\n\nReturning to Menu, after Harvest!",nil, 0.7)
 	  end
 	end
 end
@@ -911,7 +911,7 @@ function statusScreen(message, color, allow_break, scale)
 	if fullAutoMode and not fullAutoModeQueuedOff then
 	  if ButtonText(10, lsScreenY - 30, z, 175, 0xff6666ff, "Disengage Auto Mode/Finish Up") then
 	    fullAutoModeQueuedOff = 1;
-          statusScreen("Disengaging Auto Mode...\n\nReturning to Menu, after Harvest!",nil, 0.7, 0.7)
+          statusScreen("Disengaging Auto Mode...\n\nReturning to Menu, after Harvest!",nil, 0.7)
 	  end
 	end
 

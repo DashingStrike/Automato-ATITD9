@@ -327,7 +327,7 @@ function repairRake()
             OK = srFindImage("ok.png")
             if OK then
                 
-                sleepWithStatus(5000, "You don\'t have any \'" .. material .. "\', Aborting !\n\nClosing Build Menu and Popups ...", nil, 0.7, 0.7)
+                sleepWithStatus(5000, "You don\'t have any \'" .. material .. "\', Aborting !\n\nClosing Build Menu and Popups ...", nil, 0.7)
                 srClickMouseNoMove(OK[0], OK[1]);
                 srReadScreen();
                 blackX = srFindImage("blackX.png");
@@ -342,7 +342,7 @@ function repairRake()
                 if maxButton then
                     srClickMouseNoMove(maxButton[0], maxButton[1]);
                 end
-                sleepWithStatus(1000, "Loaded " .. material, nil, 0.7, 0.7);
+                sleepWithStatus(1000, "Loaded " .. material, nil, 0.7);
                 lsSleep(100);
             end -- if OK
         end -- for loop

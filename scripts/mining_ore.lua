@@ -395,7 +395,7 @@ function clickSequence()
   end
     chatRead();	
     if noMouseMove then
-      sleepWithStatus(3000, "Starting... Now is your chance to move your mouse to second monitor!", nil, 0.7, 0.7);
+      sleepWithStatus(3000, "Starting... Now is your chance to move your mouse to second monitor!", nil, 0.7);
     else
       sleepWithStatus(150, "Starting... Don\'t move mouse!");
     end
@@ -573,7 +573,7 @@ function chatRead()
         srReadScreen();
         chatText = getChatText();
         onMain = checkIfMain(chatText);
-        sleepWithStatus(100, "Looking for Main chat screen ...\n\nIf main chat is showing, then try typing /afk twice in chat.", nil, 0.7, 0.7);
+        sleepWithStatus(100, "Looking for Main chat screen ...\n\nIf main chat is showing, then try typing /afk twice in chat.", nil, 0.7);
     end
 
    -- Verify chat window is showing minimum 2 lines
@@ -582,7 +582,7 @@ function chatRead()
    	checkBreak();
       srReadScreen();
       chatText = getChatText();
-      sleepWithStatus(500, "Error: We must be able to read at least the last 2 lines of main chat!\n\nCurrently we only see " .. #chatText .. " lines ...\n\nYou can overcome this error by typing ANYTHING in main chat.", nil, 0.7, 0.7);
+      sleepWithStatus(500, "Error: We must be able to read at least the last 2 lines of main chat!\n\nCurrently we only see " .. #chatText .. " lines ...\n\nYou can overcome this error by typing ANYTHING in main chat.", nil, 0.7);
    end
 
 
@@ -816,7 +816,7 @@ function threeStoneCombo()
                   brokenStoneDetected = 1;
 			if writeLogFile then
 			  lsPlaySound("start.wav");  -- Don't annoy player with sounds, unless their debugging and have logs enabled
-			  --sleepWithStatus(100, "Skipping Broken Nodes: " .. i .. j .. k, nil, 0.7, 0.7);
+			  --sleepWithStatus(100, "Skipping Broken Nodes: " .. i .. j .. k, nil, 0.7);
 			  WriteLog("[" .. worked+1 .. "/" .. TotalCombos .. "] Skipping Broken Node Combo (Broken Node#): " .. i .. ", " .. j .. ", " .. k .. " ( " .. status .. ")");
 			end
                 end  -- if status ~= ""
@@ -938,7 +938,7 @@ function fourStoneCombo()
                   brokenStoneDetected = 1;
 			if writeLogFile then
 			  lsPlaySound("start.wav");  -- Don't annoy player with sounds, unless their debugging and have logs enabled
-			  --sleepWithStatus(100, "Skipping Broken Nodes: " .. i .. j .. k .. l, nil, 0.7, 0.7);
+			  --sleepWithStatus(100, "Skipping Broken Nodes: " .. i .. j .. k .. l, nil, 0.7);
 			  WriteLog("[" .. worked+1 .. "/" .. TotalCombos .. "] Skipping Broken Node Combo (Broken Node#): " .. i .. ", " .. j .. ", " .. k .. ", " .. l .. " ( " .. status .. ")");
 			end
                 end  -- if status ~= ""

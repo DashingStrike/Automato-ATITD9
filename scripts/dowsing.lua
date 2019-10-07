@@ -53,7 +53,7 @@ function getDowseResult()
 		srReadScreen();
 		chatText = getChatText();
 		onMain = checkIfMain(chatText);
-		sleepWithStatus(500, "Looking for Main chat screen...\n\nMake sure main chat tab is showing and that the window is sized, wide enough, so that no lines wrap to next line.\n\nAlso if you main chat tab is minimized, you need to check Options, Interface Option, Minimized chat-channels are still visible.", nil, 0.7, 0.7);
+		sleepWithStatus(500, "Looking for Main chat screen...\n\nMake sure main chat tab is showing and that the window is sized, wide enough, so that no lines wrap to next line.\n\nAlso if you main chat tab is minimized, you need to check Options, Interface Option, Minimized chat-channels are still visible.", nil, 0.7);
 	end
 
 	lastLine = chatText[#chatText][2];

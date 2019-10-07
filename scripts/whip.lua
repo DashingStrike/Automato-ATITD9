@@ -40,7 +40,7 @@ function doit()
     if lsShiftHeld() and whip then
       whipIt();
     end
-    statusScreen(message, color, 0.7, 0.7);
+    statusScreen(message, color, 0.7);
     lsSleep(200);
   end
 
@@ -57,7 +57,7 @@ function whipIt()
     whip = findText("Whip")
     whipCount = whipCount + 1;
     clickText(whip);
-    statusScreen("Cracking the Whip " .. maxWhip .. " times quickly ...", nil, 0.7, 0.7);
+    statusScreen("Cracking the Whip " .. maxWhip .. " times quickly ...", nil, 0.7);
     lsSleep(150);
   end
 

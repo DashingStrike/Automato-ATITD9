@@ -443,7 +443,7 @@ function TakeGemWindowRefresh()
  findHugeGems = findText("Huge");
  if findHugeGems then
   lsPlaySound("applause.wav");
- sleepWithStatus(15000, "Congrats! You found a Huge Gem!\n\nYou should take it now!", 0x80ff80ff, 0.7, 0.7);
+ sleepWithStatus(15000, "Congrats! You found a Huge Gem!\n\nYou should take it now!", 0x80ff80ff, 0.7);
  end
 end
 
@@ -483,7 +483,7 @@ function chatRead()
    	checkBreak();
       srReadScreen();
       chatText = getChatText();
-      sleepWithStatus(500, "Error: We must be able to read at least the last 2 lines of main chat!\n\nCurrently we only see " .. #chatText .. " lines ...\n\nYou can overcome this error by typing ANYTHING in main chat.", nil, 0.7, 0.7);
+      sleepWithStatus(500, "Error: We must be able to read at least the last 2 lines of main chat!\n\nCurrently we only see " .. #chatText .. " lines ...\n\nYou can overcome this error by typing ANYTHING in main chat.", nil, 0.7);
    end
    
    --Read last line of chat and strip the timer ie [01m]+space from it.
@@ -544,7 +544,7 @@ end
 function clickSequence()
 --  chatRead();
     if noMouseMove then
-      sleepWithStatus(3000, "Starting... Now is your chance to move your mouse to second monitor!", nil, 0.7, 0.7);
+      sleepWithStatus(3000, "Starting... Now is your chance to move your mouse to second monitor!", nil, 0.7);
     else
       sleepWithStatus(150, "Starting... Don\'t move mouse!");
     end

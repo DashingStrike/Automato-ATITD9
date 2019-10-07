@@ -40,7 +40,7 @@ end
 
 
 function checkBuild()
-  statusScreen("Clicking/Waiting on Build button", nil, 0.7, 0.7);
+  statusScreen("Clicking/Waiting on Build button", nil, 0.7);
   srReadScreen();
   BuildFlimsy = findText("Build a Flimsy Brick");
 
@@ -216,7 +216,7 @@ function moveMould(direction, times, multipleMoves)
     extraText = "";
   end
 
-  statusScreen("[" .. counter .. "/25] Moving Mould:\n\n" .. direction .. " x" .. times .. extraText, nil, 0.7, 0.7);
+  statusScreen("[" .. counter .. "/25] Moving Mould:\n\n" .. direction .. " x" .. times .. extraText, nil, 0.7);
 
   if direction ~= "C" then
     for i=1,times do

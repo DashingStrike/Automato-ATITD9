@@ -52,7 +52,7 @@ function start()
 
 		lsSleep(500);
 		closePopUp();  --If you don't have enough cuttable stones in inventory, then a popup will occur. We don't want these, so check.
-		sleepWithStatus(adjustedTimer, "Waiting for " .. product .. " to finish", nil, 0.7, 0.7);
+		sleepWithStatus(adjustedTimer, "Waiting for " .. product .. " to finish", nil, 0.7);
 
 	end
 	lsPlaySound("Complete.wav");
@@ -64,7 +64,7 @@ function closePopUp()
     srReadScreen()
     local ok = srFindImage("OK.png")
     if ok then
-      statusScreen("Found and Closing Popups ...", nil, 0.7, 0.7);
+      statusScreen("Found and Closing Popups ...", nil, 0.7);
       srClickMouseNoMove(ok[0]+5,ok[1],1);
       lsSleep(100);
     else
@@ -304,13 +304,13 @@ function clickAllPoints(points, offsetX, offsetY, rightClick)
 
   for i=1, #points  do
     if click_delay > 0 and #points > 1 then
-      statusScreen(message .. " " .. #points .. " window(s) ...", nil, 0.7, 0.7);
+      statusScreen(message .. " " .. #points .. " window(s) ...", nil, 0.7);
     end
     safeClick(points[i][0]+offsetX, points[i][1]+offsetY, rightClick);
     lsSleep(click_delay);
   end
   if click_delay > 0 and #points > 1 then
-    statusScreen("Done " .. message .. " (" .. #points .. " windows)", nil, 0.7, 0.7);
+    statusScreen("Done " .. message .. " (" .. #points .. " windows)", nil, 0.7);
   end
   lsSleep(click_delay);
 end

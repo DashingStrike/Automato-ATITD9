@@ -154,7 +154,7 @@ function SetupLureGroup()
     LastLure = "";
 
     lsDoFrame();
-    statusScreen("Indexing Lures ...",nil, 0.7, 0.7);
+    statusScreen("Indexing Lures ...",nil, 0.7);
     checkBreak()
     srReadScreen();
 
@@ -210,7 +210,7 @@ function SetupLureGroup()
             if test then
                 --Add Lure
                 lureCounter = lureCounter + 1;
-                statusScreen("Indexing Lures [" .. lureCounter .. "]\n" .. Lures[i],nil, 0.7, 0.7);
+                statusScreen("Indexing Lures [" .. lureCounter .. "]\n" .. Lures[i],nil, 0.7);
                 lsSleep(50);
                 table.insert(TLures,Lures[i]);
                 if Lures[i] == LastLure then
@@ -244,7 +244,7 @@ function SetupLureGroup()
             test = findText(Lures[i]);
             if test then
                 lureCounter = lureCounter + 1;
-                statusScreen("Indexing Lures [" .. lureCounter .. "]\n" .. Lures[i],nil, 0.7, 0.7);
+                statusScreen("Indexing Lures [" .. lureCounter .. "]\n" .. Lures[i],nil, 0.7);
                 lsSleep(50);
                 table.insert(TLures,Lures[i]);
             end
@@ -297,15 +297,15 @@ function UseLure()
     lsDoFrame(); -- Blank the screen so next statusScreen messages isn't mixed/obscured with previous gui_refresh info on screen
     lsSleep(10);
     if LostLure == 1 and not lastCast then
-        statusScreen("Lost Lure! | " .. lastLostLure .. "\nUsing same lure again!", nil, 0.7, 0.7);
+        statusScreen("Lost Lure! | " .. lastLostLure .. "\nUsing same lure again!", nil, 0.7);
         table.insert(lostlure_log, lastLostLure .. " (" .. lastLostLureType .. ")");
         lsSleep(1000);
     elseif LostLure == 1 then
-        statusScreen("Lost Lure! | " .. lastLostLure .. "\nSwitching Lures | " .. QCurrentLure, nil, 0.7, 0.7);
+        statusScreen("Lost Lure! | " .. lastLostLure .. "\nSwitching Lures | " .. QCurrentLure, nil, 0.7);
         table.insert(lostlure_log, lastLostLure .. " (" .. lastLostLureType .. ")");
         lsSleep(1000);
     else
-        statusScreen("Switching Lures | " .. QCurrentLure, nil, 0.7, 0.7);
+        statusScreen("Switching Lures | " .. QCurrentLure, nil, 0.7);
         lsSleep(750);
     end
 
@@ -402,14 +402,14 @@ function findchat()
         srReadScreen();
         chatText = getChatText();
         onMain = checkIfMain(chatText);
-        sleepWithStatus(500, "Looking for Main chat screen...\n\nMake sure main chat tab is showing and that the window is sized, wide enough, so that no lines wrap to next line.\n\nAlso if you main chat tab is minimized, you need to check Options, Interface Option, Minimized chat-channels are still visible.", nil, 0.7, 0.7);
+        sleepWithStatus(500, "Looking for Main chat screen...\n\nMake sure main chat tab is showing and that the window is sized, wide enough, so that no lines wrap to next line.\n\nAlso if you main chat tab is minimized, you need to check Options, Interface Option, Minimized chat-channels are still visible.", nil, 0.7);
     end
 
     while #chatText < 2 do
         checkBreak();
         srReadScreen();
         chatText = getChatText();
-        sleepWithStatus(500, "Error: We must be able to read at least the last 2 lines of chat!\n\nCurrently we only see " .. #chatText .. " lines ...\n\nYou can also type something in main chat or manually fish, once or twice, to bypass this error!", nil, 0.7, 0.7);
+        sleepWithStatus(500, "Error: We must be able to read at least the last 2 lines of chat!\n\nCurrently we only see " .. #chatText .. " lines ...\n\nYou can also type something in main chat or manually fish, once or twice, to bypass this error!", nil, 0.7);
     end
 
 
@@ -721,7 +721,7 @@ function doit()
 
             if OK then
                 srClickMouseNoMove(OK[0]+5,OK[1]+3);  -- Close the popup OK button
-                sleepWithStatus(1500,"No " .. QCurrentLure .. " lure found!\nRefreshing lure list ...", nil, 0.7, 0.7)
+                sleepWithStatus(1500,"No " .. QCurrentLure .. " lure found!\nRefreshing lure list ...", nil, 0.7)
                 PlayersLures = SetupLureGroup();
                 if QCurrentLureIndex  > #PlayersLures or QCurrentLureIndex == 1 then
                     QCurrentLureIndex = 2;

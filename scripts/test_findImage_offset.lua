@@ -79,7 +79,7 @@ function findPNG()
       end
   end
 
-  statusScreen(result, nil, 0.7, 0.7);
+  statusScreen(result, nil, 0.7);
   lsSleep(10);
   end
 end
@@ -102,7 +102,7 @@ function pointToLocation()
 		srSetMousePos(findBlah[0]+xOffset,findBlah[1]+yOffset);
 		sleepWithStatus(6000, "Pointing to image: " .. image .. "\n\nX Offset: " 
 		.. xOffset .. "\nY Offset: " .. yOffset .. "\n\nMouse Location (no offset):\n" .. math.floor(findBlah[0]) .. ", " .. math.floor(findBlah[1]) .. "\n\nMouse Location (after offsets):\n" .. math.floor(findBlah[0]+xOffset) .. ", " .. 
-		math.floor(findBlah[1]+yOffset), nil, 0.7, 0.7);
+		math.floor(findBlah[1]+yOffset), nil, 0.7);
       end
     end
 end

@@ -127,7 +127,7 @@ function clickSequence()
 		EvaporateSaltWater(i);
 		count = i;
     	end
-    sleepWithStatus(adjustedTimer, "Waiting for " .. product .. " to finish", nil, 0.7, 0.7);
+    sleepWithStatus(adjustedTimer, "Waiting for " .. product .. " to finish", nil, 0.7);
 	end
 	    
     for i=1,#clickList do

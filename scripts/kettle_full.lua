@@ -116,10 +116,10 @@ function runKettles(num_loops, action)
     waitForKettles(message, action.stoked, i, num_loops);
     clickAllImages("kettle/kettle_take.png");
     if i < num_loops then
-      sleepWithStatus(5000,"Take all Kettles Completed!\n\nPausing before next Pass, in case you want to End Script", nil, 0.7, 0.7);
+      sleepWithStatus(5000,"Take all Kettles Completed!\n\nPausing before next Pass, in case you want to End Script", nil, 0.7);
     end
     if finish_up then
-      sleepWithStatus(5000,"Finish up initiated ...\n\nYou have completed " .. i .. "/" .. num_loops .. " passes.", nil, 0.7, 0.7);
+      sleepWithStatus(5000,"Finish up initiated ...\n\nYou have completed " .. i .. "/" .. num_loops .. " passes.", nil, 0.7);
       break;
     end
   end
@@ -149,9 +149,9 @@ function waitForKettles(message, stoked, passes, num_loops)
       finish_up_message = 1;
     end
     if passes > 1 then
-      sleepWithStatus(5000, message .. "\n\nPass Elapsed Time: " .. getElapsedTime(startTime) .. "\n\nTotal Elapsed Time: " .. getElapsedTime(startTimePass), nil, 0.7, 0.7);
+      sleepWithStatus(5000, message .. "\n\nPass Elapsed Time: " .. getElapsedTime(startTime) .. "\n\nTotal Elapsed Time: " .. getElapsedTime(startTimePass), nil, 0.7);
     else
-      sleepWithStatus(5000, message .. "\n\nPass Elapsed Time: " .. getElapsedTime(startTimePass), nil, 0.7, 0.7);
+      sleepWithStatus(5000, message .. "\n\nPass Elapsed Time: " .. getElapsedTime(startTimePass), nil, 0.7);
     end
   end
 end

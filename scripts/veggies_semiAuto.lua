@@ -74,7 +74,7 @@ muteSound = false;
 function doit()
   askForWindow("This macro will assist you by planting seeds, watering/harvesting your pinned windows when you tap the hotkey. After seeds are planted, you will tap hotkey over each plant, it will then pin the windows for you and do first watering automatically. After first watering, you will then tap hotkey to water (after you see it grow).\n\nMust have 'Plant all crops where you stand': OFF! Right-Click pins/unpins a Menu: ON! Right-Click opens a Menu as Pinned: ON! One-Click: Auto-take Piles: ON!\n\nMake sure plant seed menu window AND Automato is in the TOP-RIGHT corner of the screen.");
 
-  statusScreen("Closing Windows ...", nil, 0.7, 0.7);
+  statusScreen("Closing Windows ...", nil, 0.7);
   center = getCenterPos();
   size = srGetWindowSize();
   thisSessionTimer = lsGetTimer();
@@ -160,10 +160,10 @@ function main()
 
 	 if autoWater and not manualPin and saveCoords and not firstLoop then
 		if not drawWater() then -- Attempt to gather water. If water not found or player is already full of water, then add 3 seconds below, otherwise gather animation takes 3 seconds
-		  sleepWithStatus(3000,"Slight pause for 'Water These' to appear on plants, before we pin",nil, 0.7, 0.7);
+		  sleepWithStatus(3000,"Slight pause for 'Water These' to appear on plants, before we pin",nil, 0.7);
 		end
 	 elseif not autoWater and not manualPin and saveCoords and not firstLoop then -- If we pin windows too quickly, then the 'Water These' option doesn't appear, right away. Wait a moment...
-  	  sleepWithStatus(3000,"Slight pause for 'Water These' to appear on plants, before we pin",nil, 0.7, 0.7);
+  	  sleepWithStatus(3000,"Slight pause for 'Water These' to appear on plants, before we pin",nil, 0.7);
 	 end
 
 
@@ -184,7 +184,7 @@ function main()
 	if (pauseAfterHarvest and not fullAutoMode) or abort then
 	  waitForShift();
 	else
-	  sleepWithStatus(delayAfterHarvestPerPlant*#harvest, "Harvesting vegetables ...",nil, 0.7, 0.7);
+	  sleepWithStatus(delayAfterHarvestPerPlant*#harvest, "Harvesting vegetables ...",nil, 0.7);
 	end
 
 	if not plantCloser then
@@ -195,7 +195,7 @@ function main()
 	if fullAutoModeQueuedOff then
 	  fullAutoMode = nil; -- We clicked disengage button, turn off, reset flag
 	  fullAutoModeQueuedOff = nil;
-        sleepWithStatus(1500, "Disengaging Auto Mode...\n\nReturning to Menu, after Harvest!",nil, 0.7, 0.7)
+        sleepWithStatus(1500, "Disengaging Auto Mode...\n\nReturning to Menu, after Harvest!",nil, 0.7)
         --break;
 	end
 
@@ -248,13 +248,13 @@ function waterThese()
 	  fullModeStatusMessage = "Waiting to Auto-Water";
 	end
 
-    statusScreen(fullModeStatusMessage .. "\n\n[" .. tended .. "] Tendings -- All Plants Watered\n\n\nClick Abort button if something went wrong. This will close all veggie windows and start over; BUT you can still continue watering plants OR Let Automode finish watering remaining plants.", nil, 0.7, 0.7);
+    statusScreen(fullModeStatusMessage .. "\n\n[" .. tended .. "] Tendings -- All Plants Watered\n\n\nClick Abort button if something went wrong. This will close all veggie windows and start over; BUT you can still continue watering plants OR Let Automode finish watering remaining plants.", nil, 0.7);
     refreshWindows();
   elseif not firstWater then
-    statusScreen("When ALL plants GROW:\n" .. key .. " to Water plants\n\n[" .. tended-1 .. "] Tendings -- All Plants Watered\n\nYou can " .. key .. " even if you are still watering (animations) last growth. Watering/Harvests will be queued!\n\n\nClick Abort button if something went wrong. This will close all veggie windows and start over.", nil, 0.7, 0.7);
+    statusScreen("When ALL plants GROW:\n" .. key .. " to Water plants\n\n[" .. tended-1 .. "] Tendings -- All Plants Watered\n\nYou can " .. key .. " even if you are still watering (animations) last growth. Watering/Harvests will be queued!\n\n\nClick Abort button if something went wrong. This will close all veggie windows and start over.", nil, 0.7);
     refreshWindows();
   elseif firstWater == 1 and manualPin then
-    statusScreen("After you pin your windows:\n\n" .. key .. " to water pinned plants", nil, 0.7, 0.7);
+    statusScreen("After you pin your windows:\n\n" .. key .. " to water pinned plants", nil, 0.7);
   end
 
     if (is_shifted and not was_shifted) or (firstWater and not manualPin) or harvestReady or (fullAutoMode and not finalTending) then
@@ -282,7 +282,7 @@ function waterThese()
 			if #harvest < count and (not pauseAfterHarvest or fullAutoMode) then	-- If the # of harvests is < than number of plantings, then something went wrong. Don't break, force user to click abort or manually handle any issues.
 			  abort = 1;
 			  fullAutoMode = nil;
-			  sleepWithStatus(3000, "Something went wrong, you harvested less plants than expected!\n\nAborting and disengaging Full Auto Mode\n\nVerify you don't have any seeds on ground.", nil, 0.7, 0.7);
+			  sleepWithStatus(3000, "Something went wrong, you harvested less plants than expected!\n\nAborting and disengaging Full Auto Mode\n\nVerify you don't have any seeds on ground.", nil, 0.7);
 			end
 			  break;  -- Break the loop after Harvest found and clicked
 
@@ -323,12 +323,12 @@ function waterThese()
 
 
 		if fullAutoMode and tended == 1 then
-		  sleepWithStatus(vegclickTimer[tended][1]-3000, "Tended: " .. tended-1 .. "\nTimer: " .. vegclickTimer[tended][1] .. "\n              (-3000 water gather =" .. vegclickTimer[tended][1]-3000 .. ")",nil, 0.7, 0.7);
+		  sleepWithStatus(vegclickTimer[tended][1]-3000, "Tended: " .. tended-1 .. "\nTimer: " .. vegclickTimer[tended][1] .. "\n              (-3000 water gather =" .. vegclickTimer[tended][1]-3000 .. ")",nil, 0.7);
 		elseif fullAutoMode and (tended == #vegclickTimer+1) then
 		  finalTending = 1;
 		  --lsSleep(100);
 		elseif fullAutoMode then
-		  sleepWithStatus(vegclickTimer[tended][1], "Tended: " .. tended .. "\nTimer: " .. vegclickTimer[tended][1],nil, 0.7, 0.7);
+		  sleepWithStatus(vegclickTimer[tended][1], "Tended: " .. tended .. "\nTimer: " .. vegclickTimer[tended][1],nil, 0.7);
 		--else
 		    --lsSleep(100);
 		end
@@ -519,7 +519,7 @@ function closeAllWindows(x, y, width, height)
       while #images >= 1 do
 	done = true;
 	safeClick(images[#images][0], images[#images][1], right);
-	sleepWithStatus(click_delay, "Closing Windows",nil, 0.7, 0.7);
+	sleepWithStatus(click_delay, "Closing Windows",nil, 0.7);
 	srReadScreen();
 	images = findAllImagesInRange(image, x, y, width, height);
       end
@@ -718,12 +718,12 @@ function waitForShift()
 	if #harvest > 0 and not manualPin then
 	  if ButtonText(5, lsScreenY - 60, z, 160, 0xFFFFFFff, "Test Auto Mode", 0.8, 0.8) then
 	    saveWaterTimer();
-	    sleepWithStatus(3500, "Testing Auto Mode!\n\nWriting your last coordinates/water timings to ATITD9/veggie_semiAuto.txt\n\n\nIf this works out, you can reload file later.", nil, 0.7, 0.7);
+	    sleepWithStatus(3500, "Testing Auto Mode!\n\nWriting your last coordinates/water timings to ATITD9/veggie_semiAuto.txt\n\n\nIf this works out, you can reload file later.", nil, 0.7);
 	    break;
 	  end
 	end
 
-    statusScreen(key .. " to continue planting (at previous coordinates); Or Start Over ...\n\nWait until ALL animations STOP and ALL plants disappear, FIRST.\n\nNote: 'Pick Seeds Up' button isn\'t foolproof.\n\nIt simply Makes Bags and right-clicks where you previously set plant locations.\n\nIf you moved it will likely misclick and fail!", nill, 0.7, 0.7);
+    statusScreen(key .. " to continue planting (at previous coordinates); Or Start Over ...\n\nWait until ALL animations STOP and ALL plants disappear, FIRST.\n\nNote: 'Pick Seeds Up' button isn\'t foolproof.\n\nIt simply Makes Bags and right-clicks where you previously set plant locations.\n\nIf you moved it will likely misclick and fail!", nill, 0.7);
     local is_shifted = lsShiftHeld();
 
     if (dropdown_cur_value == 1) then
@@ -823,7 +823,7 @@ function pickUpSeeds(noClick)
 	  srClickMouseNoMove(utility[0]+12,utility[1]+5);
 	  lsSleep(75);
   	else
-	  sleepWithStatus(1250, "Error: Could not find menu option 'Utility'\n\nWas part of the menu obscured behind Automato, perhaps?",nil, 0.7, 0.7);
+	  sleepWithStatus(1250, "Error: Could not find menu option 'Utility'\n\nWas part of the menu obscured behind Automato, perhaps?",nil, 0.7);
   	end
   srReadScreen();
   bags = findText("nearby");
@@ -833,7 +833,7 @@ function pickUpSeeds(noClick)
 	  srClickMouseNoMove(bags[0]+12,bags[1]+5);
 	  lsSleep(200);
 	else
-	  sleepWithStatus(1250, "Error: Could not find menu option 'Make nearby portables look like bags'\n\nWas part of the menu obscured behind Automato, perhaps?",nil, 0.7, 0.7);
+	  sleepWithStatus(1250, "Error: Could not find menu option 'Make nearby portables look like bags'\n\nWas part of the menu obscured behind Automato, perhaps?",nil, 0.7);
   end
 
 
@@ -940,7 +940,7 @@ function statusScreen(message, color, allow_break, scale)
 	if fullAutoMode and not fullAutoModeQueuedOff then
 	  if ButtonText(10, lsScreenY - 30, z, 175, 0xff6666ff, "Finish Up") then
 	    fullAutoModeQueuedOff = 1;
-          statusScreen("Disengaging Auto Mode...\n\nReturning to Menu, after Harvest!",nil, 0.7, 0.7)
+          statusScreen("Disengaging Auto Mode...\n\nReturning to Menu, after Harvest!",nil, 0.7)
 	  end
 	end
   lsSleep(tick_delay);
@@ -980,7 +980,7 @@ function loadMenu()
 	      lsSleep(500);
 	      fullAutoMode = 1;
 	      count = #vegclickList; -- Make sure we override "How many Plants" in case it's different than saved file count
-	      sleepWithStatus(1500, "Engaging Auto Water Mode!", nil, 0.7, 0.7);
+	      sleepWithStatus(1500, "Engaging Auto Water Mode!", nil, 0.7);
 	      fm_is_done = 1;
 	    --break;
             main();

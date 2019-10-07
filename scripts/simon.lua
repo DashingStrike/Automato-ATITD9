@@ -221,7 +221,7 @@ function closePopUp()
 end
 
 function refreshWindows()
-  statusScreen("Refreshing Windows ...", nil, 0.7, 0.7);
+  statusScreen("Refreshing Windows ...", nil, 0.7);
   srReadScreen();
   pinWindows = findAllImages("ThisIs.png");
 	for i=1, #pinWindows do

@@ -21,7 +21,7 @@ askForWindow("Test OCR on ATITD Clock.\n\nReturn Coordinates and Lookup Regions"
   else
     message = message .. "Coordinates NOT Found";
   end
-    sleepWithStatus(250, message, nil, 0.7, 0.7);
+    sleepWithStatus(250, message, nil, 0.7);
     lsSleep(10);
   end
 end
@@ -74,7 +74,7 @@ function sleepWithStatus(delay_time, message, color, scale)
 
 	  if lsButtonText(10, lsScreenY - 30, z, 100, 0xFFFFFFff, "Walk") then
 	        while lsMouseIsDown() do
-	          sleepWithStatus(16, "Preparing to Walk!", nil, 0.7);
+	          sleepWithStatus(16, "Preparing to Walk!  (Release Mouse)", nil, 0.7);
 	        end
 	    if not firstWalk then
 	      setCameraView(CARTOGRAPHERCAM); -- Set to F8 camera
@@ -96,7 +96,7 @@ function sleepWithStatus(delay_time, message, color, scale)
 	    if lsButtonText(10, lsScreenY - 30, z, 100, 0xFFFFFFff, "Stop") then
 	      globalWalkingStop = 1;
 	        while lsMouseIsDown() do
-	          sleepWithStatus(16, "Preparing to hit the brakes!", nil, 0.7);
+	          sleepWithStatus(16, "Preparing Brakes!  (Release Mouse)", nil, 0.7);
 	        end
 	    end
 	  end

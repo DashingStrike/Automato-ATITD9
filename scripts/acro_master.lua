@@ -131,7 +131,7 @@ end
 
 function findMoves()
   lsDoFrame();
-  statusScreen("Scanning Acro Buttons ...", nil, 0.7, 0.7);
+  statusScreen("Scanning Acro Buttons ...", nil, 0.7);
   foundMovesName = {};
   foundMovesImage = {};
   foundMovesShortName = {};
@@ -159,14 +159,14 @@ function findMoves()
       moveY = found[1];
     end
     if found and (moveY > acroY) then  --Button found, but below middle border, skip it (this means your partner already knows the move, too.
-      statusScreen("Scanning acro buttons...\n\nSkipping: " .. moveNames[i] .. message, nil, 0.7, 0.7);
+      statusScreen("Scanning acro buttons...\n\nSkipping: " .. moveNames[i] .. message, nil, 0.7);
     end
 
     if found and (moveY < acroY) then
       foundMovesName[#foundMovesName + 1] = moveNames[i];
       foundMovesImage[#foundMovesImage + 1] = moveImages[i];
       foundMovesShortName[#foundMovesShortName + 1] = moveShortNames[i];
-      statusScreen("Scanning acro buttons...\n\nFound: " .. moveNames[i] .. message, nil, 0.7, 0.7);
+      statusScreen("Scanning acro buttons...\n\nFound: " .. moveNames[i] .. message, nil, 0.7);
       lsSleep(10);
     end
   end
@@ -206,7 +206,7 @@ function doMoves()
         now = lsGetTimer();
 
         if lsButtonText(10, lsScreenY - 30, z, 75, 0xffff80ff, "Menu") then
-          sleepWithStatus(1500, "Returning to Menu !", nil, 0.7, 0.7)
+          sleepWithStatus(1500, "Returning to Menu !", nil, 0.7)
           displayMoves();
         end
 
@@ -232,9 +232,9 @@ function doMoves()
         if ( (now - lastClick) < tonumber(moveDelay) ) then
 
           if skip or skipNotification then
-            statusScreen("Move Delay: " .. math.floor(moveDelay - (now - lastClick)) .. "\n\nSkip Queued: " ..  string.upper(nextMove) .. GUI, nil, 0.7, 0.7);
+            statusScreen("Move Delay: " .. math.floor(moveDelay - (now - lastClick)) .. "\n\nSkip Queued: " ..  string.upper(nextMove) .. GUI, nil, 0.7);
           else
-            statusScreen("Move Delay: " .. math.floor(moveDelay - (now - lastClick)) .. "\n\nWaiting on Timer" .. GUI, nil, 0.7, 0.7);
+            statusScreen("Move Delay: " .. math.floor(moveDelay - (now - lastClick)) .. "\n\nWaiting on Timer" .. GUI, nil, 0.7);
           end
 
         else
@@ -253,7 +253,7 @@ function doMoves()
               -- This suggests your partner has learned a new move while acroing and the button has moved below the bar. Skip and uncheck the box.
             status = "SKIPPING: " .. checkedMovesName[i] .. "\n\nBUTTON HAS MOVED BELOW BAR!\n\nUnchecking from Move List.\n\nPartner likely learned this move.";
             foundMovesShortName[i] = false
-            sleepWithStatus(2000, status, nil, 0.7, 0.7);
+            sleepWithStatus(2000, status, nil, 0.7);
             skip = true;
           elseif clickMove then
             status = string.upper(checkedMovesName[i]);
@@ -266,7 +266,7 @@ function doMoves()
               -- This suggests your partner has learned a new move while acroing and the button has moved below the bar (but out of sight, furthur down in menu).
             status = "SKIPPING: " .. checkedMovesName[i] .. "\n\nBUTTON NOT FOUND!\n\nUnchecking from Move List.\n\nPartner likely learned this move";
             foundMovesShortName[i] = false
-            sleepWithStatus(2000, status, nil, 0.7, 0.7);
+            sleepWithStatus(2000, status, nil, 0.7);
             skip = true;
           end -- if clickMove
 
@@ -280,10 +280,10 @@ function doMoves()
 
   if skip or skipNotification then
     -- We skipped on final move; Simply announce we're returning to menu, with short delay
-    sleepWithStatus(1500, "\nALL DONE, RETURNING TO MENU ...\n" .. GUI , nil, 0.7, 0.7)
+    sleepWithStatus(1500, "\nALL DONE, RETURNING TO MENU ...\n" .. GUI , nil, 0.7)
   else
     -- Allow the full animation timer to finish before returning to menu.
-    sleepWithStatus(tonumber(moveDelay), "ALL DONE, RETURNING TO MENU ...\n\nWaiting on Timer/Move Delay to finish" .. GUI , nil, 0.7, 0.7)
+    sleepWithStatus(tonumber(moveDelay), "ALL DONE, RETURNING TO MENU ...\n\nWaiting on Timer/Move Delay to finish" .. GUI , nil, 0.7)
   end
 
   displayMoves();
@@ -306,7 +306,7 @@ function processCheckedBoxes()
   end
 
   if checkedBoxes == 0 then
-    sleepWithStatus(2500, "No moves selected!\n\nAborting ...", nil, 0.7, 0.7);
+    sleepWithStatus(2500, "No moves selected!\n\nAborting ...", nil, 0.7);
   else
     doMoves();
   end
@@ -376,7 +376,7 @@ function displayMoves()
 
     lsSetCamera(0,0,lsScreenX*1.5,lsScreenY*1.5);
 
-    foo, moveDelay = lsEditBox("ms Delay per Move", 15, y, z, 70, 30, 0.7, 0.7,
+    foo, moveDelay = lsEditBox("ms Delay per Move", 15, y, z, 70, 30, 0.7,
                                0x000000ff, moveDelay);
 
     if not tonumber(moveDelay) then
@@ -518,7 +518,7 @@ end
 
 function askAcro()
   lsDoFrame();
-  statusScreen("Asking to Acro...", nil, 0.7, 0.7);
+  statusScreen("Asking to Acro...", nil, 0.7);
   local pos = getMousePos();
   srClickMouseNoMove(pos[0], pos[1], 1); -- Right click where mouse is hovering (partner). Use right click in case we misclick and don't start running.
   clickText(waitForText("Tests", 500));
