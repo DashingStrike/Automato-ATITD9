@@ -13,12 +13,12 @@ askForWindow("Test OCR on ATITD Clock.\n\nReturn Coordinates and Lookup Regions"
     srReadScreen();
     local startPos = findCoords();
     --faction is a global returned from findCoords() -- common_find.inc
-    local message = "Note: You can run around and see coordinates update ...\n\nFaction : " .. string.upper(faction) .. "\n\n";
+    local message = "Note: You can run around and see coordinates update ...\n\nFaction Region: " .. faction .. "\n\n";
   if startPos then
     local x = startPos[0];
     local y = startPos[1];
     coord2region(x,y);
-    message = message .. "Coordinates: " .. startPos[0] .. ", " .. startPos[1] .. "\n\nRegion: " .. regionName;
+    message = message .. "Region: " .. regionName .. "\n\nCoordinates: " .. startPos[0] .. ", " .. startPos[1];
   else
     message = message .. "Coordinates NOT Found";
   end
