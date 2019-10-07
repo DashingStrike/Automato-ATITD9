@@ -1,4 +1,5 @@
 dofile("common.inc");
+dofile("settings.inc");
 
 walkX = 0;
 walkY = 0;
@@ -57,19 +58,24 @@ function sleepWithStatus(delay_time, message, color, scale)
   lsPrint(10, y, z, scale, scale, 0xFFFFFFff, "Walk to Coordinates:");
   y = y + 25;
   lsPrint(10, y, z, scale, scale, 0xFFFFFFff, "X:");
+  walkX = readSetting("walkX",walkX);
   foo, walkX = lsEditBox("walkX", 30, y, z, 70, 0, scale, scale, 0x000000ff, walkX);
 		if not tonumber(walkX) then
 			lsPrint(110, y+2, z+10, 0.7, 0.7, 0xFF2020ff, "MUST BE A NUMBER");
 			walkX = 0;
+		else
+			writeSetting("walkX",tonumber(walkX));
 		end
   y = y + 20;
   lsPrint(10, y, z, scale, scale, 0xFFFFFFff, "Y:");
+  walkY = readSetting("walkY",walkY);
   foo, walkY = lsEditBox("walkY", 30, y, z, 70, 0, scale, scale, 0x000000ff, walkY);
 		if not tonumber(walkY) then
 			lsPrint(110, y+2, z+10, 0.7, 0.7, 0xFF2020ff, "MUST BE A NUMBER");
 			walkY = 0;
+		else
+			writeSetting("walkY",tonumber(walkY));
 		end
-
     if not globalWalking then
 
 	  if lsButtonText(10, lsScreenY - 30, z, 100, 0xFFFFFFff, "Walk") then
