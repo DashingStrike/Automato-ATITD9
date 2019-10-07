@@ -128,7 +128,7 @@ function firstMenu()
 
 	message = "'Make Bags' will click \"Make nearby portables look like bags\" (in case you have seeds on ground).\n\n'Load Saved File' will load your last \"Test Auto Mode\" session (in case you want to try to reposition yourself a tad and try again).\n\nOtherwise, Click 'Plant Seeds' to continue ...";
 
-	statusScreen(message, nill, 0.65, 0.65);
+	statusScreen(message, nill, 0.65);
 	lsSleep(10);
   end
 end
@@ -779,7 +779,7 @@ function displayError(message)
 
   while not is_done do
     checkBreak();
-    statusScreen(message, nil, 0.67, 0.67);
+    statusScreen(message, nil, 0.67);
 
     local is_shifted = lsShiftHeld();
     if (dropdown_cur_value == 1) then
@@ -987,7 +987,7 @@ function loadMenu()
 	    end
 	  end
 
-  statusScreen("Make sure you\'re facing N/S. Avatar Auto-Repositioning is now disabled, in case you need to make some minor walk adjustments.\n\n" .. message, nill, 0.65, 0.65);
+  statusScreen("Make sure you\'re facing N/S. Avatar Auto-Repositioning is now disabled, in case you need to make some minor walk adjustments.\n\n" .. message, nill, 0.65);
   lsSleep(50);
   end
 end

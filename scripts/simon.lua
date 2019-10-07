@@ -159,16 +159,16 @@ function clickSequence(count)
       message = "Pass " .. i .. "/" .. count .. " -- ";
       message = message .. "Clicked " .. j .. "/" .. #clickList .. "\n\n"  .. clickedPoints;
       if is_stats then
-	sleepWithStatus(150, message .. "\nWaiting between clicks", nil, 0.67, 0.67);
+	sleepWithStatus(150, message .. "\nWaiting between clicks", nil, 0.67);
 	  closePopUp(); -- Check for lag/premature click that might've caused a popup box (You're too tired, wait xx more seconds)
         waitForStats(message .. "Waiting For Stats");
       else
-        sleepWithStatus(clickDelay, message .. "\nWaiting Click Delay", nil, 0.67, 0.67);
+        sleepWithStatus(clickDelay, message .. "\nWaiting Click Delay", nil, 0.67);
       end
     end
 		--if passDelay > 0 and not is_stats and (i < count) then  --Uncomment so you don't have to wait the full passDelay countdown on last pass; script exits on last pass immediately .
 		if passDelay > 0 and not is_stats then -- No need for passDelay timer if it's 0 or we're using Wait for Stats option
-	        sleepWithStatus(math.floor(passDelay*1000), message .. "\nWaiting on Pass Delay: " .. passDelay .. "s  (" .. math.floor(passDelay*1000) .. " ms)" , nil, 0.67, 0.67);
+	        sleepWithStatus(math.floor(passDelay*1000), message .. "\nWaiting on Pass Delay: " .. passDelay .. "s  (" .. math.floor(passDelay*1000) .. " ms)" , nil, 0.67);
 		end
   end
   lsPlaySound("Complete.wav");
