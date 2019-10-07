@@ -1,26 +1,112 @@
 dofile("common.inc");
 
+walkX = 0;
+walkY = 0;
+
 function doit()
 
-askForWindow("Find Coordinates on the Clock");
+askForWindow("Test OCR on ATITD Clock.\n\nReturn Coordinates and Lookup Regions");
 
   while 1 do
     checkBreak();
     srReadScreen();
     local startPos = findCoords();
-    local message = "Faction Detected: " .. faction .. "\n\n";
+    --faction is a global returned from findCoords() -- common_find.inc
+    local message = "Note: You can run around and see coordinates update ...\n\nFaction : " .. string.upper(faction) .. "\n\n";
   if startPos then
-    message = message .. "Coordinates Found:\n\n" .. startPos[0] .. ", " .. startPos[1];
+    local x = startPos[0];
+    local y = startPos[1];
+    coord2region(x,y);
+    message = message .. "Coordinates: " .. startPos[0] .. ", " .. startPos[1] .. "\n\nRegion: " .. regionName;
   else
     message = message .. "Coordinates NOT Found";
   end
-    message = message .. "\n\n\nNote: You can run around and see coordinates update ...";
     sleepWithStatus(250, message, nil, 0.7, 0.7);
     lsSleep(10);
+  end
+end
 
 
-   --setCameraView(CARTOGRAPHER2CAM);
-   --toPos = makePoint(1925, 1985)
-   --walkTo(toPos)
+
+--Custom sleepWithStatus to add extra boxes, buttons, etc
+local waitChars = {"-", "\\", "|", "/"};
+local waitFrame = 1;
+
+function sleepWithStatus(delay_time, message, color, scale)
+  if not color then
+    color = 0xffffffff;
+  end
+  if not delay_time then
+    error("Incorrect number of arguments for sleepWithStatus()");
+  end
+  if not scale then
+    scale = 0.8;
+  end
+  local start_time = lsGetTimer();
+  while delay_time > (lsGetTimer() - start_time) do
+    local frame = math.floor(waitFrame/5) % #waitChars + 1;
+    time_left = delay_time - (lsGetTimer() - start_time);
+    local waitMessage = "Waiting ";
+    if delay_time >= 1000 then
+      waitMessage = waitMessage .. time_left .. " ms ";
+    end
+
+  local y = 220;
+  local z = 0;
+  local scale = 0.7;
+  lsPrint(10, y, z, scale, scale, 0xFFFFFFff, "Walk to Coordinates:");
+  y = y + 25;
+  lsPrint(10, y, z, scale, scale, 0xFFFFFFff, "X:");
+  foo, walkX = lsEditBox("walkX", 30, y, z, 70, 0, scale, scale, 0x000000ff, walkX);
+		if not tonumber(walkX) then
+			lsPrint(110, y+2, z+10, 0.7, 0.7, 0xFF2020ff, "MUST BE A NUMBER");
+			walkX = 0;
+		end
+  y = y + 20;
+  lsPrint(10, y, z, scale, scale, 0xFFFFFFff, "Y:");
+  foo, walkY = lsEditBox("walkY", 30, y, z, 70, 0, scale, scale, 0x000000ff, walkY);
+		if not tonumber(walkY) then
+			lsPrint(110, y+2, z+10, 0.7, 0.7, 0xFF2020ff, "MUST BE A NUMBER");
+			walkY = 0;
+		end
+
+    if not globalWalking then
+
+	  if lsButtonText(10, lsScreenY - 30, z, 100, 0xFFFFFFff, "Walk") then
+	        while lsMouseIsDown() do
+	          sleepWithStatus(16, "Preparing to Walk!", nil, 0.7);
+	        end
+	    if not firstWalk then
+	      setCameraView(CARTOGRAPHERCAM); -- Set to F8 camera
+	      srClickMouse(5,5, 1); -- Right click to put ATITD back in focus
+	      lsSleep(100);
+	      srSetMousePos(0,0); -- Move Mouse to top left corner of screen
+	      sleepWithStatus(2000, "Zooming in slightly ...", nil, nil, 0.7);
+	      center = srGetWindowSize();
+	      srSetMousePos((center[0]/2)-50, (center[1]/2)+50); -- Move mouse away to stop zooming
+	      toPos = makePoint(tonumber(walkX), tonumber(walkY));
+	    end
+	    walkTo(toPos);
+	    firstWalk = 1;
+	  end
+
+    else
+
+	  if not globalWalkingStop then
+	    if lsButtonText(10, lsScreenY - 30, z, 100, 0xFFFFFFff, "Stop") then
+	      globalWalkingStop = 1;
+	        while lsMouseIsDown() do
+	          sleepWithStatus(16, "Preparing to hit the brakes!", nil, 0.7);
+	        end
+	    end
+	  end
+
+    end
+
+    lsPrintWrapped(10, 50, 0, lsScreenX - 20, scale, scale, 0xd0d0d0ff,
+                   waitMessage .. waitChars[frame]);
+    statusScreen(message, color, nil, scale);
+    lsSleep(tick_delay);
+    waitFrame = waitFrame + 1;
   end
 end
