@@ -22,7 +22,7 @@ askForWindow("Test OCR on ATITD Clock.\n\nReturn Coordinates and Lookup Regions"
   else
     message = message .. "Coordinates NOT Found";
   end
-    sleepWithStatus(1000, message, nil, 0.7, "Reading ATID Clock");
+    sleepWithStatus(250, message, nil, 0.7, "Reading ATID Clock");
     lsSleep(10);
   end
 end
