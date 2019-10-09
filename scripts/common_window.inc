@@ -321,7 +321,7 @@ function closeAllWindows(x, y, width, height)
       while #images >= 1 do
         done = true;
         safeClick(images[#images][0], images[#images][1], right);
-        sleepWithStatus(10, "Closing Windows");
+        sleepWithStatus(10, "Please wait ...", nil, nil, "Closing Windows");
         srReadScreen();
         images = findAllImagesInRange(image, x, y, width, height);
       end

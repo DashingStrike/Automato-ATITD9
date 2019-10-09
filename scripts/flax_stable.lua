@@ -30,12 +30,14 @@ num_loops = 5;
 grid_w = 4;
 grid_h = 4;
 is_plant = true;
+safeclick = true;
 seeds_per_pass = 4;
 seeds_per_iter = 0;
 finish_up = 0;
 finish_up_message = "";
-extraGridSpacing = true;
+extraGridSpacing = false;
 seedType = "Old";
+readClock = true;
 harvest = "Harvest this";
 weedAndWater = "Weed and Water";
 weedThis = "Weed this";
@@ -43,12 +45,7 @@ harvestSeeds = "Harvest seeds";
 thisIs = "This is";
 utility = "Utility";
 txtRipOut = "Rip out";
-useable = "Useable";
 
-imgUseable = "UseableBy.png";
-imgThisIs = "ThisIs.png";
-imgUtility = "Utility.png";
-imgSeeds = "HarvestSeeds.png";
 
 -- Tweakable delay values
 refresh_time = 60; -- Time to wait for windows to update
@@ -58,26 +55,23 @@ walk_time = 600; -- Reduce to 300 if you're fast.
 walk_px_x = 380;
 walk_px_y = 340;
 
-
+-- Declare an array
 xyCenter = {};
 xyFlaxMenu = {};
 
--- The flax bed window
-local window_w = 0;  -- Just a declaration, changes based on method in promptFlaxNumbers()
+    -- The flax bed window
 window_h = 145;  
 
--- To allow 5x5 seeds on a 1920 width screen, we need to tweak the arrangeStashed function to only allow 50px for automato window
+    -- To allow 5x5 seeds on a 1920 width screen, we need to tweak the arrangeStashed function to only allow 50px for automato window
 space_to_leave = 50; 
 
---This is only used when Extra Grid Spacing checkbox is UN checked. The additional spacing between pinned up windows.
-min_width_offset = 80;
+    --This is only used when Extra Grid Spacing checkbox is UN checked. The additional spacing between pinned up windows.
+min_width_offset = 75;
 
 
--- How much of the ATITD screen to ignore (protect the right side of screen from closing windows when finished (ie don't close plant flax window).
---max_width_offset will prevent it from reading all the way to the right edge of game client
-
-
-max_width_offset = 425; -- We don't want to close out the Aquaduct window. This should be about 425. We can use 350 if no aquaduct window is present (to refill jugs).
+    -- How much of the ATITD screen to ignore (protect the right side of screen from closing windows when finished (ie don't close plant flax seed window).
+    --max_width_offset will prevent it from reading all the way to the right edge of game client
+max_width_offset = 350; -- This should be about 425 if we can use aquaduct. We can use 350 if no aquaduct window is present (to refill jugs).
 
 
 FLAX = 0;
@@ -138,7 +132,6 @@ function checkWindowSize(x, y)
   if not window_check_done_once then
     srReadScreen();
     window_check_done_once = true;
---     local pos = srFindImageInRange(imgUseable, x-5, y-50, 150, 100)
      local pos = findText("Useable by");
      if pos then
         window_h = window_h + 15;
@@ -233,15 +226,19 @@ function promptFlaxNumbers()
       y = y + 32;
     end
 
+    readClock = readSetting("readClock",readClock);
+    readClock = CheckBox(120, y, z+10, 0xFFFFFFff, " Read Clock Coords", readClock, 0.7, 0.7);
+    writeSetting("readClock",readClock);
+
     extraGridSpacing = readSetting("extraGridSpacing",extraGridSpacing);
-    extraGridSpacing = CheckBox(120, y+5, z+10, 0xFFFFFFff, " Extra Spacing on Grid", extraGridSpacing, 0.7, 0.7);
+    extraGridSpacing = CheckBox(120, y+17, z+10, 0xFFFFFFff, " Extra Spacing on Grid", extraGridSpacing, 0.7, 0.7);
     writeSetting("extraGridSpacing",extraGridSpacing);
 
     is_plant = readSetting("is_plant",is_plant);
-    is_plant = CheckBox(120, y+25, z+10, 0xFFFFFFff, " Grow Flax", is_plant, 0.7, 0.7);
+    is_plant = CheckBox(120, y+34, z+10, 0xFFFFFFff, " Grow Flax", is_plant, 0.7, 0.7);
     writeSetting("is_plant",is_plant);
 
-    y = y + 36;
+    y = y + 50;
     if ButtonText(10, y-25, z, 100, 0xFFFFFFff, "Start !", 0.9, 0.9) then
       is_done = 1;
     end
@@ -352,19 +349,22 @@ function doit()
   initGlobals();
   srReadScreen();
   local startPos = findCoords();
-  if not startPos then
-    error("ATITD clock not found. Verify entire clock and borders are visible. Try moving clock slightly.");
+
+  if readClock then
+    local startPos = findCoords();
+    if not startPos then
+      error("ATITD clock not found. Try unchecking Read Clock option if problem persists");
+    end
+    lsPrintln("Start pos:" .. startPos[0] .. ", " .. startPos[1]);
   end
-  lsPrintln("Start pos:" .. startPos[0] .. ", " .. startPos[1]);
 
   setCameraView(CARTOGRAPHER2CAM);
   drawWater();
   startTime = lsGetTimer();
 
 
---sleepWithStatus(10000, "Pause and walk");
-
   for loop_count=1, num_loops do
+    checkBreak();
     firstSeedHarvest = false;
     quit = false;
     error_status = "";
@@ -378,6 +378,7 @@ function doit()
 	if finish_up == 1 or quit then
 	  break;
 	end
+  lsSleep(10);
   end
   lsPlaySound("Complete.wav");
   lsMessageBox("Elapsed Time:", getElapsedTime(startTime), 1);
@@ -406,7 +407,7 @@ function plantAndPin(loop_count)
   for y=1, grid_h do
     for x=1, grid_w do
       statusScreen("(" .. loop_count .. "/" .. num_loops .. ") Planting " ..
-                   x .. ", " .. y .. "\n\nElapsed Time: " .. getElapsedTime(startTime));
+                   x .. ", " .. y .. "\n\nElapsed Time: " .. getElapsedTime(startTime), nil, 0.7);
       success = plantHere(xyPlantFlax, y);
       if not success then
         break;
@@ -506,7 +507,7 @@ end
 
 function dragWindows(loop_count)
   statusScreen("(" .. loop_count .. "/" .. num_loops .. ")  " ..
-               "Dragging Windows into Grid" .. "\n\nElapsed Time: " .. getElapsedTime(startTime));
+               "Dragging Windows into Grid" .. "\n\nElapsed Time: " .. getElapsedTime(startTime), nil, 0.7);
 
   if not extraGridSpacing and is_plant then
     window_w = nil;
@@ -529,12 +530,14 @@ function harvestAll(loop_count)
   local lastTops = {};
 
   while not did_harvest do
+  lsSleep(10);
 
     -- Monitor for Weed This/etc
     lsSleep(refresh_time);
     srReadScreen();
     local tops = findAllText(thisIs);
     for i=1,#tops do
+      checkBreak();
       safeClick(tops[i][0], tops[i][1]);
     end
 
@@ -560,7 +563,7 @@ function harvestAll(loop_count)
   end
 
     statusScreen("(" .. loop_count .. "/" .. num_loops ..
-                 ") Harvests Left: " .. harvestLeft .. "\n\nElapsed Time: " .. getElapsedTime(startTime) .. finish_up_message);
+                 ") Harvests Left: " .. harvestLeft .. "\n\nElapsed Time: " .. getElapsedTime(startTime) .. finish_up_message, nil, 0.7);
 
     lsSleep(refresh_time);
     srReadScreen();
@@ -633,7 +636,8 @@ function harvestAll(loop_count)
   ripOutAllSeeds();
   -- Wait for last flax bed to disappear
   sleepWithStatus(1500, "(" .. loop_count .. "/" .. num_loops ..
-		  ") ... Waiting for flax beds to disappear");
+		  ") ... Waiting for flax beds to disappear", nil, 0.7);
+lsSleep(10);
 end
 
 -------------------------------------------------------------------------------
@@ -649,9 +653,12 @@ function walkHome(loop_count, finalPos)
 
   lsSleep(1000);
   -- remove any screens with the too far away text
-  statusScreen("(" .. loop_count .. "/" .. num_loops .. ") Walking to " .. finalPos[0] .. ", " .. finalPos[1] .. " ..." .. "\n\nElapsed Time: " .. getElapsedTime(startTime));
+  statusScreen("(" .. loop_count .. "/" .. num_loops .. ") Walking to " .. finalPos[0] .. ", " .. finalPos[1] .. " ..." .. "\n\nElapsed Time: " .. getElapsedTime(startTime), nil, 0.7);
 
-  walkTo(finalPos);
+  if readClock then
+    walkTo(finalPos);
+  end
+
 
   -- Walk back
 --  for x=1, finalPos[0] do
@@ -677,7 +684,7 @@ end
 
 function ripOutAllSeeds()
   checkBreak();
-  statusScreen("Ripping Out" .. "\n\nElapsed Time: " .. getElapsedTime(startTime));
+  statusScreen("Ripping Out" .. "\n\nElapsed Time: " .. getElapsedTime(startTime), nil, 0.7);
   srReadScreen();
   flaxRegions = findAllText("This is ", nil, REGION)
   for i = 1, #flaxRegions do
