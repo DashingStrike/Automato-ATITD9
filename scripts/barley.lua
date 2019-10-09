@@ -44,6 +44,7 @@ xyFlaxMenu = {};
 window_w = 258;
 window_h = 218;
 
+max_width_offset = 350; -- This should be about 425 if we can use aquaduct. We can use 350 if no aquaduct window is present (to refill jugs).
 
 -------------------------------------------------------------------------------
 -- initGlobals()
