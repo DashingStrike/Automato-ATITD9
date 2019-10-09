@@ -31,9 +31,15 @@ function findCoords()
 	    str = string.sub(str, string.find(str, ": ([0-9-]+)")+2, string.len(str));
 	  elseif string.find(str, ":([0-9-]+)") then
 	    str = string.sub(str, string.find(str, ":([0-9-]+)")+1, string.len(str));
+
 	  elseif string.find(str, ":#([0-9-]+)") then
 	    str = string.sub(str, string.find(str, ":#([0-9-]+)")+1, string.len(str));
 	    str = string.gsub(str, "#", ""); -- Remove # sign, sometimes misread by OCR in Meshwesh Delta
+
+	  elseif string.find(str, "<# ([0-9-]+)") then
+	    str = string.sub(str, string.find(str, "<# ([0-9-]+)")+1, string.len(str));
+	    str = string.gsub(str, "# ", ""); -- East Sinai weird scenario
+
 	  end
 
 	  str = string.gsub(str, "  ", ","); -- Catch double space between numbers
