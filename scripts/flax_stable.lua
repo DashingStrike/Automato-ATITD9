@@ -373,7 +373,9 @@ function doit()
     local finalPos = plantAndPin(loop_count);
     dragWindows(loop_count);
     harvestAll(loop_count);
-    walkHome(loop_count, startPos);
+    if readClock then
+      walkHome(loop_count, startPos);
+    end
     drawWater();
 	if finish_up == 1 or quit then
 	  break;
