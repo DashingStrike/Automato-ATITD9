@@ -48,7 +48,7 @@ txtRipOut = "Rip out";
 
 
 -- Tweakable delay values
-refresh_time = 60; -- Time to wait for windows to update
+refresh_time = 100; -- Time to wait for windows to update
 walk_time = 600; -- Reduce to 300 if you're fast.
 
 -- Don't touch. These are set according to Jimbly's black magic.
@@ -347,11 +347,10 @@ function doit()
   promptFlaxNumbers();
   askForWindow(askText);
   initGlobals();
-  srReadScreen();
-  local startPos = findCoords();
 
   if readClock then
-    local startPos = findCoords();
+  srReadScreen();
+  local startPos = findCoords();
     if not startPos then
       error("ATITD clock not found. Try unchecking Read Clock option if problem persists");
     end
@@ -373,11 +372,7 @@ function doit()
     local finalPos = plantAndPin(loop_count);
     dragWindows(loop_count);
     harvestAll(loop_count);
-    if readClock then
-      walkHome(loop_count, startPos);
-    else
-      closeAllWindows(0,0, xyWindowSize[0]-max_width_offset, xyWindowSize[1]);
-    end
+    walkHome(loop_count, startPos);
     drawWater();
 	if finish_up == 1 or quit then
 	  break;
@@ -534,11 +529,10 @@ function harvestAll(loop_count)
   local lastTops = {};
 
   while not did_harvest do
-  lsSleep(10);
+
+    srReadScreen();
 
     -- Monitor for Weed This/etc
-    lsSleep(refresh_time);
-    srReadScreen();
     local tops = findAllText(thisIs);
     for i=1,#tops do
       checkBreak();
@@ -557,23 +551,23 @@ function harvestAll(loop_count)
 	  ripOutAllSeeds();
 	  quit = true; 
 	end
-  end
+    end
 
-  if finish_up == 0 and tonumber(loop_count) ~= tonumber(num_loops) then
+    if finish_up == 0 and tonumber(loop_count) ~= tonumber(num_loops) then
 	if lsButtonText(lsScreenX - 110, lsScreenY - 60, z, 100, 0xFFFFFFff, "Finish up") then
 	  finish_up = 1;
 	  finish_up_message = "\n\nFinishing up..."
 	end
-  end
+    end
 
-    statusScreen("(" .. loop_count .. "/" .. num_loops ..
-                 ") Harvests Left: " .. harvestLeft .. "\n\nElapsed Time: " .. getElapsedTime(startTime) .. finish_up_message, nil, 0.7);
+    sleepWithStatus(refresh_time, "(" .. loop_count .. "/" .. num_loops ..
+                 ") Harvests Left: " .. harvestLeft .. "\n\nElapsed Time: " .. getElapsedTime(startTime) .. finish_up_message, nil, 0.7, "Monitoring Plant Windows");
 
-    lsSleep(refresh_time);
-    srReadScreen();
+
     if is_plant then
       lsPrintln("Checking Weeds");
       lsPrintln("numTops: " .. #tops);
+
       local weeds = findAllText(weedThis);
       for i=#weeds, 1, -1 do
         lastClick = lastClickTime(weeds[i][0], weeds[i][1]);
@@ -587,8 +581,6 @@ function harvestAll(loop_count)
       for i=#waters, 1, -1 do
         lastClick = lastClickTime(waters[i][0], waters[i][1]);
         if lastClick == nil or lsGetTimer() - lastClick >= CLICK_MIN_WEED then
-
-
           clickText(waters[i]);
           trackClick(waters[i][0], waters[i][1]);
         end
@@ -612,7 +604,10 @@ function harvestAll(loop_count)
           clickText(ripLoc);
         end
       end
-    else
+
+
+    else -- if is_plant
+
       seedsList = findAllText(harvestSeeds);
       for i=#seedsList, 1, -1 do
         lastClick = lastClickTime(seedsList[i][0], seedsList[i][1]);
@@ -623,10 +618,11 @@ function harvestAll(loop_count)
         end
       firstSeedHarvest = true;
       end
-    end
+
+    end -- if is_plant
     
     --if numSeedsHarvested >= seeds_per_iter and not is_plant  then
-    if harvestLeft <= 0 and not is_plant  then  -- New method in case one or more plants failed and we have less flax beds than expected
+    if harvestLeft <= 0 and not is_plant then  -- New method in case one or more plants failed and we have less flax beds than expected
       did_harvest = true;
     end
 
@@ -635,13 +631,13 @@ function harvestAll(loop_count)
       did_harvest = true;
     end
     checkBreak();
-  end
+
+  end -- while not harvest
   lsPrintln("ripping out all seeds");
   ripOutAllSeeds();
   -- Wait for last flax bed to disappear
   sleepWithStatus(1500, "(" .. loop_count .. "/" .. num_loops ..
-		  ") ... Waiting for flax beds to disappear", nil, 0.7);
-lsSleep(10);
+		  ") ... Waiting for flax beds to disappear", nil, 0.7, "Stand by");
 end
 
 -------------------------------------------------------------------------------
@@ -654,10 +650,6 @@ function walkHome(loop_count, finalPos)
   -- Close all empty windows
   --closeEmptyAndErrorWindows();
   closeAllWindows(0,0, xyWindowSize[0]-max_width_offset, xyWindowSize[1]);
-
-  lsSleep(1000);
-  -- remove any screens with the too far away text
-  statusScreen("(" .. loop_count .. "/" .. num_loops .. ") Walking to " .. finalPos[0] .. ", " .. finalPos[1] .. " ..." .. "\n\nElapsed Time: " .. getElapsedTime(startTime), nil, 0.7);
 
   if readClock then
     walkTo(finalPos);
