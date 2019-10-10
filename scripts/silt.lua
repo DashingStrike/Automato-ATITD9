@@ -2,8 +2,6 @@ dofile("common.inc");
 
 local distance_scale = 0.50; -- only scans pixels within a distance of this percentage from the center of the screen
 
-
-
 function getCenterPos()
 	xyWindowSize = srGetWindowSize();
 	local ret = {};
@@ -21,7 +19,6 @@ function isWithinRange(x, y)
 	if (dx*dx + dy*dy <= radius*radius) then
 		return 1;
 	end
-	
 	return nil;
 end
 
@@ -34,11 +31,11 @@ function clickMouseSplatter(x, y, right)
     srReadScreen();
     silt = findText("Silt")
     unpin = srFindImage("UnPin.png")
-    if silt then
-      srClickMouseNoMove(silt[0], silt[1], 1);
-    end
     if unpin then
-      clickAllImages("Unpin.png", 5, 3, 1);
+		clickAllImages("Unpin.png", 5, 3, 1);
+		sleepWithStatus(2500, "Please Wait", nil, 0.7, "Waiting on Animation");
+	elseif silt then
+      srClickMouseNoMove(silt[0], silt[1], 1);
     end
 
     if not silt and not unpin then
@@ -65,27 +62,25 @@ end
 
 function doit()
 	askForWindow("Click Silt while you run around.\nRequires Automato v2.32 or above.\n\nUse F5 camera zoomed out about half way.\n\nRun around with arrows keys after macro begins, stop moving if it fails to pick something.\n\nInterface Options | Right-Click opens a Menu as Pinned must be ON.\n\nVideo | Time-of-Day Lighting must be at LOWEST (off).");
-
-
 	getCenterPos();
 	srReadScreen();
 
 	while true do
-		local frame_start = lsGetTimer();
+		checkBreak();
+		--local frame_start = lsGetTimer();
 		statusScreen("Watching for Silt (Red Dots)", nil, 0.7);
 		-- Looks for pixels whose red is between 0xA0 and 0xFF (160-255), and green/blue are less than 0x60
-		--clusters = lsAnalyzeCustom(7, 40, 1, xyWindowSize[0] * distance_scale, 0xcac2b7FF, 0xe7e2d9FF, true);
-		clusters = lsAnalyzeCustom(7, 40, 1, xyWindowSize[0] * distance_scale, 0xB9B1A4FF, 0xBFB9ACFF, true);
-
-		local clicked = nil;
+		clusters = lsAnalyzeCustom(7, 40, 1, xyWindowSize[0] * distance_scale, 0x8B8378FF, 0x9C948BFF, true);
+		--local clicked = nil;
 		if clusters then
 			for i = 1, #clusters do
+				checkBreak();
 				-- bias because it seems to drag to the upper left, take this off
 				--  if I fix the downsampling
 				clusters[i][0] = clusters[i][0] + 5;
 				--clusters[i][1] = clusters[i][1] + 5;
 				if isWithinRange(clusters[i][0], clusters[i][1]) then
-				
+
 					-- srClickMouse(clusters[i][0], clusters[i][1], 1);
 					-- srSetMousePos(clusters[i][0], clusters[i][1]);
 
@@ -111,21 +106,19 @@ function doit()
 						b = 0;
 						good = 1;
 					end
-					
+
 					if good then
 						lsPrint(10, 80 + i*20, 0, 0.7, 0.7, 0xFFFFFFff, clusters[i][0] .. ", " .. clusters[i][1] .. " : " .. r .. "," .. g .. "," .. b);
 						clickMouseSplatter(clusters[i][0], clusters[i][1]);
-						clicked = 1;
+						--clicked = 1;
 					else
 						lsPrint(10, 80 + i*20, 0, 0.7, 0.7, 0xFF7F7Fff, clusters[i][0] .. ", " .. clusters[i][1] .. " : " .. r .. "," .. g .. "," .. b);
 					end
-				else 
+				else
 					lsPrint(10, 80 + i*20, 0, 0.7, 0.7, 0x7F7F7Fff, clusters[i][0] .. ", " .. clusters[i][1] );
 				end
 			end
 		end
-		
 		lsSleep(10);
 	end
-	lsSleep(10);
 end
