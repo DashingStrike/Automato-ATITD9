@@ -214,7 +214,6 @@ function findAllWindows()
   local windows = {};
   local current = srFindFirstTextRegion();
   while current do
-  srReadScreen();
   local mainChatRed = srFindImageInRange("ocr/mainChatRed.png", current[0], current[1]-20, current[2], current[3]);
   local mainChatWhite = srFindImageInRange("ocr/mainChatWhite.png", current[0], current[1]-20, current[2], current[3]);
   local friends = srFindImageInRange("ocr/friends.png", current[0], current[1], current[2], current[3]);
@@ -464,7 +463,6 @@ function findChatRegionSub()
   local pos;
   local mainChatRed;
   local mainChatWhite;
-  srReadScreen();
   mainChatRed = srFindImage("ocr/mainChatRed.png");
   mainChatWhite = srFindImage("ocr/mainChatWhite.png");
   if mainChatRed then
@@ -478,7 +476,6 @@ function findChatRegionSub()
 end
 
 function findClockRegion()
-  srReadScreen();
   local factionTolerance = 2500;
   local clockUpperLeftX;
   local clockUpperLeftY;
