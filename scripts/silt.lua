@@ -27,13 +27,27 @@ end
 
 
 function clickMouseSplatter(x, y, right)
-	--srSetMousePos(x, y);
-	srClickMouse(x + math.random(-2, 2), y + math.random(-2, 2), right);
-	srReadScreen();
-	unpin = srFindImage("UnPin.png")
-	if unpin then
-	  clickAllImages("Unpin.png", 5, 3, 1);
-	end
+  srClickMouse(x + math.random(-2, 2), y + math.random(-2, 2), right);
+
+  while 1 do
+    checkBreak();
+    srReadScreen();
+    silt = findText("Silt")
+    unpin = srFindImage("UnPin.png")
+    if silt then
+      srClickMouseNoMove(silt[0], silt[1], 1);
+    end
+    if unpin then
+      clickAllImages("Unpin.png", 5, 3, 1);
+    end
+
+    if not silt and not unpin then
+      break;
+    end
+  lsSleep(100)
+  end
+
+lsSleep(100);
 end
 
 
@@ -60,7 +74,9 @@ function doit()
 		local frame_start = lsGetTimer();
 		statusScreen("Watching for Silt (Red Dots)", nil, 0.7);
 		-- Looks for pixels whose red is between 0xA0 and 0xFF (160-255), and green/blue are less than 0x60
-		clusters = lsAnalyzeCustom(7, 40, 1, xyWindowSize[0] * distance_scale, 0xcac2b7FF, 0xe7e2d9FF, true);
+		--clusters = lsAnalyzeCustom(7, 40, 1, xyWindowSize[0] * distance_scale, 0xcac2b7FF, 0xe7e2d9FF, true);
+		clusters = lsAnalyzeCustom(7, 40, 1, xyWindowSize[0] * distance_scale, 0xB9B1A4FF, 0xBFB9ACFF, true);
+
 		local clicked = nil;
 		if clusters then
 			for i = 1, #clusters do
@@ -109,6 +125,7 @@ function doit()
 			end
 		end
 		
-		lsSleep(50);
+		lsSleep(10);
 	end
+	lsSleep(10);
 end
