@@ -347,10 +347,11 @@ function doit()
   promptFlaxNumbers();
   askForWindow(askText);
   initGlobals();
+  local startPos;
 
   if readClock then
   srReadScreen();
-  local startPos = findCoords();
+  startPos = findCoords();
     if not startPos then
       error("ATITD clock not found. Try unchecking Read Clock option if problem persists");
     end
