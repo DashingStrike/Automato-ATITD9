@@ -2,9 +2,11 @@ max_line_length = 120
 max_code_line_length = 120
 max_string_line_length = 120
 max_comment_line_length = 120
-ignore = { '131/doit' }
+ignore = { "131/doit" }
 std = "lua53c+automato+common"
 allow_defined = true
+
+files["*.inc"] = { ignore = {"131"}}
 
 stds.common = {
   read_globals = {
