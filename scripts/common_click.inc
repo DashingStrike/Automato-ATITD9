@@ -499,7 +499,7 @@ end
 function clickMax()
   local count;
   for count=0, 10 do
-    local pos = srFindImage("crem-max.png", 5000);
+    local pos = srFindImage("max.png", 5000);
     if pos then
       safeClick(pos[0]+5, pos[1]+5);
       return true;
