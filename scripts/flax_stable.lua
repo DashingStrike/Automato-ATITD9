@@ -375,6 +375,8 @@ function doit()
     harvestAll(loop_count);
     if readClock then
       walkHome(loop_count, startPos);
+    else
+      closeAllWindows(0,0, xyWindowSize[0]-max_width_offset, xyWindowSize[1]);
     end
     drawWater();
 	if finish_up == 1 or quit then
