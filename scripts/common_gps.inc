@@ -118,8 +118,7 @@ function walkTo(dest)
     end
   if globalWalkingStop then break; end
   end
-  local center = srGetWindowSize();
-  srClickMouseNoMove((center[0]/2)+10,(center[1]/2)+10, 1); -- right click to force avatar to stop running. Rarely happens, mainly when zoomed out quite a bit.
+  srClickMouseNoMove(5, 5, 1); -- right click to force avatar to stop running. Rarely happens, mainly when zoomed out quite a bit.
   globalWalking = nil;
   globalWalkingStop = nil;
   return coords;
