@@ -11,7 +11,7 @@
 dofile("common.inc");
 dofile("settings.inc");
 
-askText = "Barley v2.1.3 by Cegaiel (many credits included in script comments)\n\nTwo methods available: Use Fertilizer or Water Only. See comments for more info.\n\n'Right click pins/unpins a menu' must be ON.\n\n'Plant all crops where you stand' must be ON.\n\n'Right click pins/unpins a menu' must be ON.\n\nPin Barley Plant window in TOP-RIGHT. Automato: Slighty in TOP-RIGHT.";
+askText = "Barley v2.1.3 by Cegaiel (many credits included in script comments)\n\nTwo methods available: Use Fertilizer or Water Only. See comments for more info.\n\n'Right click pins/unpins a menu' must be ON.\n\n'Plant all crops where you stand' must be ON.\n\nPin Barley Plant window in TOP-RIGHT.\n\nAutomato: Slighty in TOP-RIGHT.";
 
 
 -- Global parameters set by prompt box.
@@ -277,10 +277,11 @@ function doit()
   promptFlaxNumbers();
   askForWindow(askText);
   initGlobals();
-  srReadScreen();
+  local startPos;
 
 if readClock then
-  local startPos = findCoords();
+  srReadScreen();
+  startPos = findCoords();
   if not startPos then
     error("ATITD clock not found. Try unchecking Read Clock option if problem persists");
   end
@@ -297,9 +298,6 @@ end
   end
 
 
-
-
-
   for loop_count=1, num_loops do
     ticks = -1;
     fertilizerUsed = 0;
@@ -309,7 +307,7 @@ end
     clicks = {};
     local finalPos = plantAndPin(loop_count);
     dragWindows(loop_count);
-    statusScreen("Adding 2 Water/Fertilizer ...",nil, 0.7, 0.7);
+    statusScreen("Adding 2 Water/Fertilizer ...",nil, 0.7);
     waterBarley(); -- Do initial 2 water
     fertilizeBarley(); -- Do initial 2 fertilizer
     lsSleep(100);
@@ -331,7 +329,7 @@ end
 	  	  fertilizeBarley();
 		end
 			if (ticks < totalWater - 1) and ticks ~= 0 then
-		  	  sleepWithStatus(15000, "Tended Barley...",nil, 0.7, 0.7);
+		  	  sleepWithStatus(15000, "Tended Barley ...",nil, 0.7, "Waiting to Water");
 			end
 
       end
@@ -353,16 +351,16 @@ end
 		end
 	end
 
-  statusScreen("Watching top-left window for tick ...\n\nTicks since planting: " .. ticks .. "/" .. totalWater - 1 .. "\n\n[" .. waterUsed .. "/" .. totalWater*goodPlantings .. "]  Jugs of Water Used "  .. "\n[" .. fertilizerUsed .. "/" .. totalFertilizer*goodPlantings .. "]  Fertilizer Used\n\n[" .. loop_count .. "/" .. num_loops .. "]  Current Pass\n\nElapsed Time: " .. getElapsedTime(startTime) .. finish_up_message,nil, 0.7, 0.7);
+  statusScreen("Watching top-left window for tick ...\n\nTicks since planting: " .. ticks .. "/" .. totalWater - 1 .. "\n\n[" .. waterUsed .. "/" .. totalWater*goodPlantings .. "]  Jugs of Water Used "  .. "\n[" .. fertilizerUsed .. "/" .. totalFertilizer*goodPlantings .. "]  Fertilizer Used\n\n[" .. loop_count .. "/" .. num_loops .. "]  Current Pass\n\nElapsed Time: " .. getElapsedTime(startTime) .. finish_up_message,nil, 0.7);
 
   lsSleep(100);
   end -- while
 
-  sleepWithStatus(1000, "PLANT READY FOR HARVEST!\n\nTicks since planting: " .. ticks .. "/" .. totalWater - 1 .. "\n\n[" .. waterUsed .. "/" .. totalWater*goodPlantings .. "]  Jugs of Water Used "  .. "\n[" .. fertilizerUsed .. "/" .. totalFertilizer*goodPlantings .. "] Fertilizer Used\n\n[" .. loop_count .. "/" .. num_loops .. "]  Current Pass\n\nElapsed Time: " .. getElapsedTime(startTime) .. finish_up_message,nil, 0.7, 0.7);
+  sleepWithStatus(1000, "Ticks since planting: " .. ticks .. "/" .. totalWater - 1 .. "\n\n[" .. waterUsed .. "/" .. totalWater*goodPlantings .. "]  Jugs of Water Used "  .. "\n[" .. fertilizerUsed .. "/" .. totalFertilizer*goodPlantings .. "] Fertilizer Used\n\n[" .. loop_count .. "/" .. num_loops .. "]  Current Pass\n\nElapsed Time: " .. getElapsedTime(startTime) .. finish_up_message,nil, 0.7, "PLANT READY FOR HARVEST");
 
   harvestAll();
 
-  sleepWithStatus(7000, "Harvested " .. #harvest .. " plants!\n\nWaiting for windows to catch up!\n\nPreparing to close windows ...\n\nElapsed Time: " .. getElapsedTime(startTime) .. finish_up_message,nil, 0.7, 0.7);
+  sleepWithStatus(7000, "Harvested " .. #harvest .. " plants!\n\nWaiting for windows to catch up!\n\nPreparing to close windows ...\n\nElapsed Time: " .. getElapsedTime(startTime) .. finish_up_message,nil, 0.7);
   srReadScreen();
   clickAllText("This is"); -- Right click to close all windows in range
   lsSleep(1000);
@@ -522,6 +520,16 @@ function walkHome(loop_count, finalPos)
   if readClock then
     walkTo(finalPos);
   end
+
+
+  -- Refresh any empty windows (in case we used out last seed, re-vive the previously plant window
+  srReadScreen();
+  closedPlantWindow = srFindImage("WindowEmpty.png")
+  if closedPlantWindow then
+    srClickMouseNoMove(closedPlantWindow[0]+2, closedPlantWindow[1]+2);
+  end
+
+
 end
 
 
