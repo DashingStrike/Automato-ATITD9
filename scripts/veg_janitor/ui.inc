@@ -423,7 +423,7 @@ function getUserParams()
                 config.click_delay = drawNumberEditBox("click_delay", "What should the click delay be? ", 100)
                 config.alternate_drag = CheckBox(X_PADDING, current_y-60, 10, WHITE, " Alternate (slow) dragging?", config.alternate_drag or true)
                 config.pre_look = CheckBox(X_PADDING, current_y-60 + 20, 10, WHITE, " Pre-find plant locations?", config.pre_look or true)
-                config.reposition_avatar = CheckBox(X_PADDING, current_y-60 + 40, 10, WHITE, " Reposition avatar?", config.reposition_avatar or true)
+                config.reposition_avatar = CheckBox(X_PADDING, current_y-60 + 40, 10, WHITE, " Reposition avatar?", config.reposition_avatar)
                 config.debug = CheckBox(X_PADDING, current_y-60 + 60, 10, WHITE, " Show pretty debug pictures?", config.debug)
                 config.sorting_mode = CheckBox(X_PADDING, current_y-60 + 80, 10, WHITE, " Prioritize plants mode?", config.sorting_mode or true)
                 got_user_params = true
