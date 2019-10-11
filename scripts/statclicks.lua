@@ -8,12 +8,10 @@ dofile("common.inc");
 stirMaster = false; -- TODO: Make this an optional selection when choosing the Stir Cement option
 
 items = {
-        
         --strength
         {"",
             "Coconuts",
         },
-        
         --end
         {"",
             "Churn Butter",
@@ -27,13 +25,12 @@ items = {
             "Weave Linen",
             "Weave Silk",
             "Weave Wool Cloth",
+            "Water Insects",
         },
-        
         --con
         {"",
             "Gun Powder",
         },
-        
         --foc
         {"",
             "Barrel Tap",
@@ -66,7 +63,8 @@ statNames = {"strength", "endurance", "constitution", "focus"};
 statTimer = {};
 askText = singleLine([[
    Statclicks v 1.0 by Skyfeather.
-   Repeatedly performs stat-dependent tasks. Can perform several tasks at once as long as they use different attributes. Will also eat food from a kitchen grilled veggies once food is up if a kitchen is pinned.
+   Repeatedly performs stat-dependent tasks. Can perform several tasks at once as long as they use different attributes.
+   Will also eat food from a kitchen grilled veggies once food is up if a kitchen is pinned.
    Ensure that windows of tasks you are performing are pinned and press shift.
 ]]
 
@@ -80,7 +78,7 @@ function getClickActions()
     for i = 1, 4 do
         tasks[i] = 1;
     end
-    
+
     while not done do
         checkBreak();
         y = 10;
@@ -115,7 +113,7 @@ function weave(clothType)
         srcType = "Raw Silk";
         srcQty = "50";
     end
-    
+
     --   lsPrintln("Weaving " .. srcType);
     -- find our loom type
     loomReg = findText(" Loom", nil, REGION);
@@ -124,7 +122,7 @@ function weave(clothType)
         return;
     end
     studReg = findText("This is [a-z]+ Student's Loom", nil, REGION + REGEX);
-    
+
     if clothType == "Linen" then
         weaveText = findText("Weave Thread into Linen Cloth", loomReg);
     else
@@ -152,7 +150,7 @@ function weave(clothType)
             closePopUp();
         end
     end
-    
+
     -- Restring student looms
     srReadScreen();
     if studReg then
@@ -178,7 +176,7 @@ function carve(item)
     else
         carveText = findText("Carve a " .. item);
     end
-    
+
     if carveText ~= nil then
         clickText(carveText);
         lsSleep(per_tick);
@@ -191,8 +189,7 @@ end
 function digHole()
     digText = findText("Dig Deeper");
     grilledOnion = findText("Grilled Onions");
-        
-    if digText ~= nil then            
+    if digText ~= nil then
         if grilledOnion then
             eatOnion();
         end
@@ -202,7 +199,38 @@ function digHole()
         closePopUp();
         lsSleep(per_tick);
     end
-    
+end
+
+function waterInsects()
+  centerMouse()
+  drawWater()
+  local escape = "\27"
+  local pos = nil
+    while (not pos) do
+      lsSleep(100)
+      srKeyEvent(escape)
+      lsSleep(100)
+      srReadScreen()
+      pos = findText("Skills...")
+    end
+    clickText(pos)
+    lsSleep(100)
+    srReadScreen()
+    pos = findText("Empty Containers")
+      if pos then
+        clickText(pos)
+        lsSleep(100)
+        srReadScreen()
+        pos = findText("Jugs of Water")
+          if pos then
+            clickText(pos)
+            lsSleep(100)
+            srReadScreen()
+            if not clickMax() then
+              fatalError("Unable to find the Max button.")
+            end
+          end
+      end
 end
 
 function combFlax()
@@ -299,20 +327,20 @@ function repairRake()
     local material;
     local plusButtons;
     local maxButton;
-    
+
     if repair then
         clickText(waitForText("Repair", 1000));
         clickText(waitForText("Load Materials", 1000));
         lsSleep(500);
         srReadScreen();
         plusButtons = findAllImages("plus.png");
-        
+
         for i = 1, #plusButtons do
             local x = plusButtons[i][0];
             local y = plusButtons[i][1];
             srClickMouseNoMove(x, y);
             lsSleep(100);
-            
+
             if i == 1 then
                 material = "Boards";
             elseif i == 2 then
@@ -322,11 +350,11 @@ function repairRake()
             else
                 material = "What the heck?";
             end
-            
+
             srReadScreen();
             OK = srFindImage("ok.png")
             if OK then
-                
+
                 sleepWithStatus(5000, "You don\'t have any \'" .. material .. "\', Aborting !\n\nClosing Build Menu and Popups ...", nil, 0.7)
                 srClickMouseNoMove(OK[0], OK[1]);
                 srReadScreen();
@@ -334,9 +362,9 @@ function repairRake()
                 srClickMouseNoMove(blackX[0], blackX[1]);
                 num_loops = nil;
                 break;
-            
+
             else -- No OK button, Load Material
-                
+
                 srReadScreen();
                 maxButton = srFindImage("max.png");
                 if maxButton then
@@ -515,6 +543,8 @@ function doTasks()
                     carve(curTask);
                 elseif curTask == "Dig Hole" then
                     digHole();
+                elseif curTask == "Water Insects" then
+                    waterInsects();
                 end
                 statTimer[i] = lsGetTimer();
                 didTask = true;
@@ -523,12 +553,12 @@ function doTasks()
     end
     if didTask == false then
         lsPrint(10, 10, 0, 0.7, 0.7, 0xB0B0B0ff, "Waiting for task to be ready.");
-        
+
         if lsButtonText(lsScreenX - 110, lsScreenY - 30, z, 100, 0xFFFFFFff,
             "End script") then
             error "Clicked End Script button";
         end
-        
+
         lsDoFrame();
     else
         srReadScreen();
@@ -555,7 +585,7 @@ function checkAndEat()
     if foodTimer == nil or lsGetTimer() - foodTimer > 3000 then
         srReadScreen();
         invLoc = srFindInvRegion();
-        
+
         invLoc[0] = invLoc[0] + 1;
         invLoc[2] = invLoc[2] - 2;
         stripRegion(invLoc);
@@ -581,7 +611,7 @@ function checkAndEat()
                 allStatsVisible = false;
             end
         end
-        
+
         if onFood == false and allStatsVisible == true then
             lsPrint(10, 10, 0, 0.7, 0.7, 0xB0B0B0ff, "Eating food");
             lsDoFrame();
