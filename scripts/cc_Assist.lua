@@ -65,7 +65,7 @@ buttons = {
 function doit()
   askForWindow(askText);
 	--function windowManager(title, message, allowCascade, allowWaterGap, varWidth, varHeight, sizeRight, offsetWidth, offsetHeight)
-  windowManager("Charcoal Setup", wmText, nil, nil, nil, nil, nil, nil, 16);  --add 16 extra pixels to window height because window expands with 'Take...' menu after first batch is created
+  windowManager("Charcoal Setup", wmText, nil, nil, nil, nil, nil, 15, 22);  --add 16 extra pixels to window height because window expands with 'Take...' menu after first batch is created
   unpinOnExit(ccMenu);
 end
 
