@@ -153,6 +153,8 @@ stds.common = {
 }
 stds.automato = {
   read_globals = {
+	"MB_YES",
+	"MB_NO",
     "lsAltHeld",
     "lsAnalyzeCustom",
     "lsAnalyzePapyrus",

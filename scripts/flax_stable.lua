@@ -30,20 +30,14 @@ askText =
 
 -- Global parameters set by prompt box.
 is_plant = true
-safeclick = true
 extraGridSpacing = false
 readClock = true
 num_loops = 5
 grid_w = 4
 grid_h = 4
 seeds_per_pass = 4
-seeds_per_iter = 0
-grid_deltas = {
-  {{1, 0, -1, 0}, {0, -1, 0, 1}},
-  {{-1, 0, 1, 0}, {0, -1, 0, 1}},
-  {{1, 0, -1, 0}, {0, 1, 0, -1}},
-  {{-1, 0, 1, 0}, {0, 1, 0, -1}}
-}
+finish_up = 0
+finish_up_message = ""
 seedType = "Old"
 harvest = "Harvest this"
 weedAndWater = "Weed and Water"
@@ -75,15 +69,21 @@ xyFlaxMenu = {}
 -- The flax bed window
 window_h = 145
 
--- To allow 5x5 seeds on a 1920 width screen, we need to tweak the arrangeStashed function to only allow 50px for automato window
+--[[
+To allow 5x5 seeds on a 1920 width screen.
+We need to tweak the arrangeStashed function to only allow 50px for automato window
+--]]
 space_to_leave = 50
 
 --This is only used when Extra Grid Spacing checkbox is UN checked. The additional spacing between pinned up windows.
 min_width_offset = 75
 
--- How much of the ATITD screen to ignore (protect the right side of screen from closing windows when finished (ie don't close plant flax seed window).
---max_width_offset will prevent it from reading all the way to the right edge of game client
-max_width_offset = 350 -- This should be about 425 if we can use aquaduct. We can use 350 if no aquaduct window is present (to refill jugs).
+--[[
+How much of the ATITD screen to ignore (protect the right side of screen from closing windows when finished
+max_width_offset will prevent it from reading all the way to the right edge of game client
+This should be about 425 if we can use aquaduct. We can use 350 if no aquaduct window is present (to refill jugs).
+--]]
+max_width_offset = 350
 
 FLAX = 0
 plantType = FLAX
@@ -158,7 +158,7 @@ function checkForEnd()
     end
     local done = false
     while not done do
-      local unpaused = lsButtonText(lsScreenX - 110, lsScreenY - 60, z, 100, 0xFFFFFFff, "Unpause")
+      local unpaused = lsButtonText(lsScreenX - 110, lsScreenY - 60, nil, 100, 0xFFFFFFff, "Unpause")
       statusScreen("Hold Alt+Shift to resume", 0xFFFFFFff, false)
       done = (unpaused or (lsAltHeld() and lsShiftHeld()))
     end
@@ -175,7 +175,7 @@ end
 -------------------------------------------------------------------------------
 
 window_check_done_once = false
-function checkWindowSize(x, y)
+function checkWindowSize()
   if not window_check_done_once then
     srReadScreen()
     window_check_done_once = true
@@ -201,7 +201,6 @@ function promptFlaxNumbers()
 
   local z = 0
   local is_done = nil
-  local value = nil
   -- Edit box and text display
   while not is_done do
     -- Make sure we don't lock up with no easy way to escape!
@@ -251,9 +250,6 @@ function promptFlaxNumbers()
       seeds_per_pass = readSetting("seeds_per_pass", seeds_per_pass)
       is_done, seeds_per_pass = lsEditBox("seedsper", 120, y, z, 50, 0, scale, scale, 0x000000ff, seeds_per_pass)
       seeds_per_pass = tonumber(seeds_per_pass)
-      if seeds_per_pass then
-        seeds_per_iter = seeds_per_pass * grid_w * grid_h
-      end
       if not seeds_per_pass then
         is_done = nil
         lsPrint(10, y + 18, z + 10, 0.7, 0.7, 0xFF2020ff, "MUST BE A NUMBER")
@@ -379,7 +375,6 @@ function promptFlaxNumbers()
       window_w = 333
       space_to_leave = 50
 
-      local seedTotal = grid_w * grid_h * num_loops * seeds_per_pass
       lsPrintWrapped(
         10,
         y,
@@ -417,8 +412,6 @@ end
 -------------------------------------------------------------------------------
 -- getPlantWindowPos()
 -------------------------------------------------------------------------------
-
-lastPlantPos = null
 
 function getPlantWindowPos()
   srReadScreen()
@@ -468,7 +461,16 @@ function doit()
   initGlobals()
   local startPos
 
-  if readClock then
+  if readClock and rot_flax and water_needed then
+    srReadScreen()
+    startPos = findCoords()
+    if not startPos then
+      error("ATITD clock not found. Try unchecking Read Clock option if problem persists")
+    end
+    lsPrintln("Start pos:" .. startPos[0] .. ", " .. startPos[1])
+  else
+    rot_flax = false;
+    water_needed = false;
     srReadScreen()
     startPos = findCoords()
     if not startPos then
@@ -483,12 +485,10 @@ function doit()
 
   for loop_count = 1, num_loops do
     checkBreak()
-    firstSeedHarvest = false
     quit = false
-    error_status = ""
     numSeedsHarvested = 0
     clicks = {}
-    local finalPos = plantAndPin(loop_count)
+    plantAndPin(loop_count)
     dragWindows(loop_count)
     harvestAll(loop_count)
     if is_plant and (water_needed or rot_flax) then
@@ -502,8 +502,11 @@ function doit()
     if rot_flax then
       rotFlax()
     end
-    walkHome(loop_count, startPos)
+    walkHome(startPos)
     drawWater()
+    if finish_up == 1 or quit then
+      break;
+    end
   end
   lsPlaySound("Complete.wav")
   lsMessageBox("Elapsed Time:", getElapsedTime(startTime), 1)
@@ -655,7 +658,7 @@ function plantHere(xyPlantFlax, y_pos)
   end
 
   -- Check for window size
-  checkWindowSize(bed[0], bed[1])
+  checkWindowSize()
 
   -- Move window into corner
   stashWindow(bed[0] + 5, bed[1], BOTTOM_RIGHT)
@@ -733,22 +736,20 @@ function harvestAll(loop_count)
       harvestLeft = (seeds_per_pass * #tops) - numSeedsHarvested -- New method in case one or more plants failed and we have less flax beds than expected
     end
 
-    if not is_plant and firstSeedHarvest then
-      if lsButtonText(lsScreenX - 110, lsScreenY - 90, z, 100, 0xFFFFFFff, "Rip Plants") then
+    if finish_up == 0 and tonumber(loop_count) ~= tonumber(num_loops) then
+      if lsButtonText(lsScreenX - 110, lsScreenY - 60, nil, 100, 0xFFFFFFff, "Finish up") then
+        finish_up = 1;
+        finish_up_message = "\n\nFinishing up..."
+      end
+      if lsButtonText(lsScreenX - 110, lsScreenY - 90, nil, 100, 0xFFFFFFff, "Rip Plants") then
         ripOutAllSeeds()
         quit = true
       end
     end
 
-    sleepWithStatus(
-      refresh_time,
-      "(" ..
-        loop_count ..
-          "/" .. num_loops .. ") Harvests Left: " .. harvestLeft .. "\n\nElapsed Time: " .. getElapsedTime(startTime),
-      nil,
-      0.7,
-      "Monitoring Plant Windows"
-    )
+sleepWithStatus(refresh_time, "(" .. loop_count .. "/" .. num_loops ..
+         ") Harvests Left: " .. harvestLeft .. "\n\nElapsed Time: " .. getElapsedTime(startTime) ..
+         finish_up_message, nil, 0.7, "Monitoring Plant Windows");
 
     if is_plant then
       lsPrintln("Checking Weeds")
@@ -832,7 +833,7 @@ end
 -- Walk back to the origin (southwest corner) to start planting again.
 -------------------------------------------------------------------------------
 
-function walkHome(loop_count, finalPos)
+function walkHome(finalPos)
   -- Close all empty windows
   --closeEmptyAndErrorWindows();
   closeAllWindows(0, 0, xyWindowSize[0] - max_width_offset, xyWindowSize[1])
@@ -872,7 +873,6 @@ function walk(dest, abortOnError)
   centerMouse()
   srReadScreen()
   local coords = findCoords()
-  local startPos = coords
   local failures = 0
   while coords[0] ~= dest[0] or coords[1] ~= dest[1] do
     centerMouse()
