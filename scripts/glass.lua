@@ -277,6 +277,7 @@ function glassTick(window_pos, state)
 
 
 		if not stop_cooking then
+			srReadScreen();
 
 			-- Check if all conditions are met to make Glass and start project
 
@@ -308,7 +309,7 @@ function glassTick(window_pos, state)
 				end
 				if not made_one then
 					-- refresh window
-					srReadScreen();
+					--srReadScreen(); -- Moved the scrape above, under if not stop_cooking then
 					lsSleep(100);
 					thisIs = srFindImageInRange("ThisIs.png", window_pos[0], window_pos[1], window_w, window_h, tol);
 					if not thisIs then 
