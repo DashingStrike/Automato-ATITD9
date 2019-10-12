@@ -21,7 +21,7 @@ askText =
   of the screen. You may need to
   F12 at low resolutions or hide your chat window (if it starts
   planting and fails to move downward, it probably clicked on your
-  chat window). 
+  chat window).
   Will plant a spiral grid heading North-East of current  location.
   'Plant all crops where you stand' must be ON.
   'Right click pins/unpins a menu' must be ON.
@@ -466,11 +466,11 @@ function doit()
   promptFlaxNumbers()
   askForWindow(askText)
   initGlobals()
-
+  local startPos
 
   if readClock then
     srReadScreen()
-    local startPos = findCoords()
+    startPos = findCoords()
     if not startPos then
       error("ATITD clock not found. Try unchecking Read Clock option if problem persists")
     end
