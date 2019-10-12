@@ -166,6 +166,7 @@ stds.automato = {
     "lsControlHeld",
     "lsDisplaySystemSprite",
     "lsDoFrame",
+	"lsDropdown",
     "lsDrawCircle",
     "lsDrawLine",
     "lsDrawRect",
