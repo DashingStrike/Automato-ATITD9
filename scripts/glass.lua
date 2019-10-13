@@ -106,6 +106,8 @@ function addCC(window_pos, state, message)
 	  state.status = state.status .. " (Error, Adding2CC failed, not found" .. message .. ")";
       else
         srClickMouseNoMove(pos[0]+5, pos[1]+2);
+        lsSleep(100);
+        srReadScreen();
 	  state.status = state.status .. " (Adding2CC" .. message .. ")";
       end
 end
@@ -277,7 +279,6 @@ function glassTick(window_pos, state)
 
 
 		if not stop_cooking then
-			srReadScreen();
 
 			-- Check if all conditions are met to make Glass and start project
 
@@ -309,8 +310,8 @@ function glassTick(window_pos, state)
 				end
 				if not made_one then
 					-- refresh window
-					--srReadScreen(); -- Moved the scrape above, under if not stop_cooking then
 					lsSleep(100);
+					srReadScreen();
 					thisIs = srFindImageInRange("ThisIs.png", window_pos[0], window_pos[1], window_w, window_h, tol);
 					if not thisIs then 
 					  state.status = state.status .. " NothingToMake - Error Refreshing Window";
