@@ -364,9 +364,7 @@ function getPoints()
     end
 
   if #clickList >= 7 then
-    if lsButtonText(10, lsScreenY - 30, z, 75, 0x80ff80ff, "Start") then
-      is_done = 1;
-    end
+    is_done = 1;
   end
 
   if #clickList == 0 then
