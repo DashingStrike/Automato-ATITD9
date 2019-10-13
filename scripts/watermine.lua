@@ -49,7 +49,7 @@ function wind (wind_timer)
 			--Windthe = srFindImage("Windthecollarspring.png");
 			Windthe = findText("Wind the collar spring");
 			if Windthe then
-				srClickMouseNoMove(Windthe[0]+5, Windthe[1]+5);
+				srClickMouseNoMove(Windthe[0]+10, Windthe[1]+5);
 				lsSleep(srdelay)
 				return lsGetTimer();
 			else
@@ -78,7 +78,7 @@ function trygem ()
 	--Takethe = srFindImage("Takethe.png");
 	Takethe = findText("Take the");
 	if Takethe then
-		srClickMouseNoMove(Takethe[0]+5, Takethe[1]+5);
+		srClickMouseNoMove(Takethe[0]+10, Takethe[1]+5);
 		lsSleep(srdelay)
 		return 1;
 	else 
