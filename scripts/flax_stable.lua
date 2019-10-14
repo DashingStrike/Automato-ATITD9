@@ -461,7 +461,7 @@ function doit()
   initGlobals()
   local startPos
 
-  if readClock and rot_flax and water_needed then
+  if readClock then
     srReadScreen()
     startPos = findCoords()
     if not startPos then
@@ -471,12 +471,6 @@ function doit()
   else
     rot_flax = false;
     water_needed = false;
-    srReadScreen()
-    startPos = findCoords()
-    if not startPos then
-      error("ATITD clock not found. Try unchecking Read Clock option if problem persists")
-    end
-    lsPrintln("Start pos:" .. startPos[0] .. ", " .. startPos[1])
   end
 
   setCameraView(CARTOGRAPHER2CAM)
@@ -698,12 +692,7 @@ function dragWindows(loop_count)
     window_w = nil
     offsetWidth = min_width_offset
   end
-
-  if rot_flax or water_needed then
-    arrangeStashed(nil, true, window_w, window_h, space_to_leave, offsetWidth, offsetHeight)
-  else
     arrangeStashed(nil, waterGap, window_w, window_h, space_to_leave, offsetWidth, offsetHeight)
-  end
 end
 
 -------------------------------------------------------------------------------
@@ -720,6 +709,7 @@ function harvestAll(loop_count)
   local lastTops = {}
 
   while not did_harvest do
+    lsSleep(10);
     srReadScreen()
 
     -- Monitor for Weed This/etc
@@ -747,9 +737,9 @@ function harvestAll(loop_count)
       end
     end
 
-sleepWithStatus(refresh_time, "(" .. loop_count .. "/" .. num_loops ..
+    statusScreen("(" .. loop_count .. "/" .. num_loops ..
          ") Harvests Left: " .. harvestLeft .. "\n\nElapsed Time: " .. getElapsedTime(startTime) ..
-         finish_up_message, nil, 0.7, "Monitoring Plant Windows");
+         finish_up_message, nil, 0.7);
 
     if is_plant then
       lsPrintln("Checking Weeds")
@@ -825,6 +815,7 @@ sleepWithStatus(refresh_time, "(" .. loop_count .. "/" .. num_loops ..
     0.7,
     "Stand by"
   )
+  closeAllWindows(0, 0, xyWindowSize[0] - max_width_offset, xyWindowSize[1])
 end
 
 -------------------------------------------------------------------------------
@@ -836,7 +827,8 @@ end
 function walkHome(finalPos)
   -- Close all empty windows
   --closeEmptyAndErrorWindows();
-  closeAllWindows(0, 0, xyWindowSize[0] - max_width_offset, xyWindowSize[1])
+-- closeAllWindows is now above, at end of harvestAll()
+--  closeAllWindows(0, 0, xyWindowSize[0] - max_width_offset, xyWindowSize[1])
 
   if readClock then
     walkTo(finalPos)
