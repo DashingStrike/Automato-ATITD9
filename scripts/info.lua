@@ -8,9 +8,16 @@ function doit()
     local pixelsRaw = srReadPixel(pos[0], pos[1]);
     local pixels = pixelDiffs(pos[0], pos[1], 0);
     local status = "Pos: " .. pos[0] .. ", " .. pos[1] .. "\n";
-    status = status .. "Color: " .. table.concat(pixels, ", ") .. "\nPixelRaw: " .. pixelsRaw;
-    lsDrawRect(10, 140, 40, 160, 0,  pixelsRaw);
-    statusScreen(status, statusColor);
-    lsSleep(tick_delay);
+
+    status = status .. "Color: " .. table.concat(pixels, ", ") .. "\nPixelRaw: " .. pixelsRaw .. "\nDecimal: " .. decimal(pixels[1], pixels[2], pixels[3]);
+    lsDrawRect(10, 200, 40, 170, 0,  pixelsRaw);
+    statusScreen(status, nil, 0.7);
+    lsSleep(10);
   end
+end
+
+
+function decimal(r, g, b)
+  dec = b + (g * 256) + (r * 65536)
+  return dec;
 end
