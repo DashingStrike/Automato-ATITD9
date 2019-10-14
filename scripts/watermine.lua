@@ -11,7 +11,7 @@ do_initial_wind = 1;  	-- default
 do_wind = 1;		-- default
 
 srdelay = 100;  	--how long to wait after interacting before assuming the screen has finished changing
-delay   = 100;  	--how long to wait when busy waiting
+delay   = 10;  	--how long to wait when busy waiting
 
 function doit()
 	promptOptions();
@@ -28,9 +28,9 @@ function doit()
 				time_left = check_time - (lsGetTimer() - start_time);
 				time_left2 = wind_time - (lsGetTimer() - wind_timer);
 				if (do_wind) then
-					statusScreen("Gems found: " .. gems .. "\nTotal runtime: " .. timestr(lsGetTimer() - initial_start_time) .. "\nChecking in " .. timestr(time_left) .. "\nWinding in " .. timestr(time_left2));
+					statusScreen("Gems found: " .. gems .. "\nTotal runtime: " .. timestr(lsGetTimer() - initial_start_time) .. "\nChecking in: " .. timestr(time_left) .. "\nWinding in: " .. timestr(time_left2));
 				else
-					statusScreen("Gems found: " .. gems .. "\nTotal runtime: " .. timestr(lsGetTimer() - initial_start_time) .. "\nChecking in " .. timestr(time_left) .. "\nNot Winding");
+					statusScreen("Gems found: " .. gems .. "\nTotal runtime: " .. timestr(lsGetTimer() - initial_start_time) .. "\nChecking in: " .. timestr(time_left) .. "\nNot Winding");
 
 				end
 				lsSleep(delay);
