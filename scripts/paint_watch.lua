@@ -26,6 +26,8 @@ paint_colourG = { 64,  112, 96,  64,  96,  240, 16,  80,  16,  48, 192  };
 paint_colourB = { 144, 32,  32,  64,  48,  224, 24,  96,  32,  32, 192  };
 catalyst1 = 12;
 
+anchor = nil;
+
 dofile("screen_reader_common.inc");
 dofile("ui_utils.inc");
 dofile("common.inc");
@@ -42,7 +44,7 @@ per_click_delay = 10;
 -- This used to be 307 until around Dec 2018.
 -- We think the addition of Red/Green cloth to menus or Falcon Bait caused the window to be wider and causing the pixels to stretch
 
-bar_width = 304; 
+bar_width = 305; 
 
 function doit()
 
@@ -69,6 +71,8 @@ function doit()
 
     srReadScreen();
     xyWindowSize = srGetWindowSize();
+		anchor = findImage("thisis.png");
+
     local colour_panel = findAllImages("paint_watch/paint-black.png");
     if (#colour_panel == 0) then
         m_x, m_y = srMousePos();
@@ -92,7 +96,7 @@ function doit()
 counter = 0
             for i= 1, 10 do
 counter = counter + 1
-                srClickMouse(paint_buttons[7][0]+2,paint_buttons[7][1]+2, right_click);
+                srClickMouseNoMove(paint_buttons[7][0]+2,paint_buttons[7][1]+2, right_click);
                 lsSleep(per_click_delay);
             end
 
@@ -140,7 +144,7 @@ counter = counter + 1
             if not (button_push==0) then
             --{
                 -- click the appropriate button to add paint.
-                srClickMouse(paint_buttons[button_push][0]+2,paint_buttons[button_push][1]+2, right_click);
+                srClickMouseNoMove(paint_buttons[button_push][0]+2,paint_buttons[button_push][1]+2, right_click);
                 lsSleep(per_click_delay);
             
                 if(button_push < catalyst1) then
@@ -157,19 +161,22 @@ counter = counter + 1
             lsSleep(per_paint_delay_time);
             srReadScreen();
 
-            bar_colour[1] = #findAllImages("paint_watch/paint-redbarC.png");
+            bar_colour[1] = getBarSize(1); --#findAllImages("paint_watch/paint-redbarC.png");
+            lsPrintln("Red: " .. bar_colour[1]);
             lsSleep(per_read_delay_time/3);
-            bar_colour[2] = #findAllImages("paint_watch/paint-greenbarC.png");
+            bar_colour[2] = getBarSize(2); --#findAllImages("paint_watch/paint-greenbarC.png");
+            lsPrintln("Green: " .. bar_colour[2]);
             lsSleep(per_read_delay_time/3);
-            bar_colour[3] = #findAllImages("paint_watch/paint-bluebarC.png");
+            bar_colour[3] = getBarSize(3); --#findAllImages("paint_watch/paint-bluebarC.png");
+            lsPrintln("Blue: " .. bar_colour[3]);
             lsSleep(per_read_delay_time/3);
             update_now = 0;
 
             -- tweak/hack because we miss the first pixel
             for i=1, 3 do
                 if(bar_colour[i]>0)then                
-                    bar_colour[i]=bar_colour[i]+1;
-                    bar_colour[i]=bar_colour[i]*256.0/bar_width;
+                    --bar_colour[i]=bar_colour[i];
+                    bar_colour[i]=((bar_colour[i]/bar_width)*256.0);
                 end
             end
 
@@ -210,4 +217,43 @@ counter = counter + 1
         lsDoFrame();
         lsSleep(10);
     end
+end
+
+function getBarSize(cIndex)
+	local xLoc = anchor[0]-4;
+	local yLoc = anchor[1] + 151 + ((cIndex-1)*10)
+	local c = 0;
+	
+	for x=xLoc,xLoc+305 do
+		local p = srReadPixelFromBuffer(x,yLoc);
+  	local p_R = (math.floor(p/256/256/256) % 256);
+  	local p_G = (math.floor(p/256/256) % 256);
+  	local p_B = (math.floor(p/256) % 256);
+  	local p_A = (p % 256);
+		
+		if cIndex == 1 then
+			if p_R > 128 and p_G < 128 and p_B < 128 then
+				c = c + 1;
+			else
+				break;
+			end
+		elseif cIndex == 2 then
+			if p_G > 128 and  p_R < 128 and p_B < 128 then
+			  c = c + 1;
+			else
+				break;
+			end
+		else
+			if p_B > 128 and p_R < 128 and p_G < 128 then
+				c = c + 1;
+			else
+				break;
+			end
+		end
+	end
+	
+	lsPrintln("x:" .. xLoc .. ",y:" .. yLoc);
+	lsPrintln("C:" .. c);
+	
+	return c;
 end
