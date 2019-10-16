@@ -469,15 +469,9 @@ local function excavateBlocks()
 end
 
 function churnButter()
-    -- Since we want to click on Churn and window has same word multiple times, we will do a dirty hack and look for Pour in Cows Milk and click with a -10 Y offset to hit Churn on menu
-    -- clickText(parse, safe, offsetX, offsetY)
-    local window = findText("This is [a-z]+ Butter Churn", nil, REGION + REGEX);
-    if window == nil then
-        return;
-    end
-    local t = findText("Pour in Cows Milk", window);
+    local t = srFindImage("statclicks/churn.png");
     if t then
-        clickText(t, true, nil, -10);
+        srClickMouseNoMove(t[0]+5, t[1]);
     end
 end
 
