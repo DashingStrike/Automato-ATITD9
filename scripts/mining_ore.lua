@@ -804,17 +804,14 @@ function threeStoneCombo()
                 --function compareColorEx(left, right, rgbTol, hueTol)
                 if(not compareColorEx(thisColor1, clickListColor[i][1], rgbTol, hueTol)) then
                   status = status .. "I:" .. i .. " ";
-                  srSetMousePos(clickList[i][1], clickList[i][2]);
                 end
 
                 if(not compareColorEx(thisColor2, clickListColor[j][1], rgbTol, hueTol)) then
                   status = status .. "J:" .. j .. " ";
-                  srSetMousePos(clickList[j][1], clickList[j][2]);
                 end
 
                 if(not compareColorEx(thisColor3, clickListColor[k][1], rgbTol, hueTol)) then
                   status = status .. "K:" .. k .. " ";
-                  srSetMousePos(clickList[k][1], clickList[k][2]);
                 end
 
                 if status ~= "" then
@@ -921,22 +918,18 @@ function fourStoneCombo()
                 --function compareColorEx(left, right, rgbTol, hueTol)
                 if(not compareColorEx(thisColor1, clickListColor[i][1], rgbTol, hueTol)) then
                   status = status .. "I:" .. i .. " ";
-                  srSetMousePos(clickList[i][1], clickList[i][2]);
                 end
 
                 if(not compareColorEx(thisColor2, clickListColor[j][1], rgbTol, hueTol)) then
                   status = status .. "J:" .. j .. " ";
-                  srSetMousePos(clickList[j][1], clickList[j][2]);
                 end
 
                 if(not compareColorEx(thisColor3, clickListColor[k][1], rgbTol, hueTol)) then
                   status = status .. "K:" .. k .. " ";
-                  srSetMousePos(clickList[k][1], clickList[k][2]);
                 end
 
                 if(not compareColorEx(thisColor4, clickListColor[l][1], rgbTol, hueTol)) then
                   status = status .. "L:" .. l .. " ";
-                  srSetMousePos(clickList[l][1], clickList[l][2]);
                 end
 
                 if status ~= "" then
