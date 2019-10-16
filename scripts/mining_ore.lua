@@ -17,6 +17,7 @@
 -- v 2.2.9 + New check box "Broken Stone Check" . When you tap shift over each node, it now records pixel color, in addition to the x,y position.
 -- The tolerance is defined in rgbTol and hueTol. It might occassionaly give a false positive.  I've found if you zoom in a bit more, it usually fixes that.
 -- The purpose of this is to skip all future nodes from attempting to be worked. Speeds up by not trying to work future stones that don't exist.
+-- When this box is checked, the mouse position appears with the color you're highlighting.
 
 -- For a more detailed Change Log and history, see https://github.com/DashingStrike/Automato-ATITD/commits/master/scripts/mining_ore.lua
 
@@ -36,7 +37,7 @@ autoWorkMine = true; -- written to Settings.mining_ore.lua.txt
 timesworked = 0;
 miningTimeTotal = 0;
 dropdown_key_values = {"Shift Key", "Ctrl Key", "Alt Key", "Mouse Wheel Click"};
-dropdown_ore_values = {"Aluminum (9)", "Antimony (14)", "Copper (8)", "Gold (12)", "Iron (7)", "Lead (9)", "Cobalt (10)", "Magnesium (9)", "Nickel (13)", "Platinum (12)", "Silver (10)", "Tin (9)", "Zinc (10)"};
+dropdown_ore_values = {"Aluminum (9)", "Antimony (14)", "Cobalt (10)", "Copper (8)", "Gold (12)", "Iron (7)", "Lead (9)", "Magnesium (9)", "Nickel (13)", "Platinum (12)", "Silver (10)", "Tin (9)", "Zinc (10)"};
 cancelButton = 0;
 lastLineFound = "";
 lastLineFound2 = "";
@@ -201,20 +202,20 @@ function getPoints()
         ore = "Antimony";
         stonecount = 14;
     elseif (dropdown_ore_cur_value == 3) then
-        ore = "Copper";
-        stonecount = 8;
-    elseif (dropdown_ore_cur_value == 4) then
-        ore = "Gold";
-        stonecount = 12;
-    elseif (dropdown_ore_cur_value == 5) then
-        ore = "Iron";
-        stonecount = 7;
-    elseif (dropdown_ore_cur_value == 6) then
-        ore = "Lead";
-        stonecount = 9;
-    elseif (dropdown_ore_cur_value == 7) then
         ore = "Cobalt";
         stonecount = 10;
+    elseif (dropdown_ore_cur_value == 4) then
+        ore = "Copper";
+        stonecount = 8;
+    elseif (dropdown_ore_cur_value == 5) then
+        ore = "Gold";
+        stonecount = 12;
+    elseif (dropdown_ore_cur_value == 6) then
+        ore = "Iron";
+        stonecount = 7;
+    elseif (dropdown_ore_cur_value == 7) then
+        ore = "Lead";
+        stonecount = 9;
     elseif (dropdown_ore_cur_value == 8) then
         ore = "Magnesium";
         stonecount = 9;
@@ -253,7 +254,11 @@ function getPoints()
     local z = 0;
     while not is_done do
         nx, ny = srMousePos();
-        pixels = srReadPixel(nx, ny);
+        if brokenStoneCheck then
+          pixels = srReadPixel(nx, ny);
+        else
+          pixels = 0xFFFFFFFF;
+        end
         local is_shifted = lsShiftHeld();
         if (dropdown_cur_value_key == 1) then
             is_shifted = lsShiftHeld();
@@ -290,7 +295,7 @@ function getPoints()
           brokenStoneCheckColor = 0xffffffff;
         end
         brokenStoneCheck = readSetting("brokenStoneCheck",brokenStoneCheck);
-        brokenStoneCheck = lsCheckBox(15, y, z, brokenStoneCheckColor, " Beta: Broken Stone Check", brokenStoneCheck);
+        brokenStoneCheck = lsCheckBox(15, y, z, brokenStoneCheckColor, " Broken Stone Check", brokenStoneCheck);
         writeSetting("brokenStoneCheck",brokenStoneCheck);
         y = y + 25
         extraStones = readSetting("extraStones",extraStones);
