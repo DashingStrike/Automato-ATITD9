@@ -98,17 +98,16 @@ function addCC(window_pos, state, message)
 		return;
 	end
 	lsPrintln(window_pos[0] .. " " .. window_pos[1] .. " " .. window_w .. " " .. window_h);
-	local pos = srFindImageInRange("glass/GlassAdd2Charcoal.png", window_pos[0], window_pos[1], window_w, window_h, tol);
-	state.just_added = 1;
---	srClickMouseNoMove(pos[0]+5, pos[1]+2);
+	local pos = srFindImageInRange("glass/GlassAdd" .. ccQty .. "Charcoal.png", window_pos[0], window_pos[1], window_w, window_h, tol);
       if not pos then
-        sleepWithStatus(2000, "Uh Oh, Add 2 CC not found on bench #" .. window_index .. "\nIf this error persists than your bench may have problems.");
-	  state.status = state.status .. " (Error, Adding2CC failed, not found" .. message .. ")";
+        sleepWithStatus(2000, "Uh Oh, Add " .. ccQty .. " CC not found on bench\nIf this error persists than your bench may have problems.");
+	  state.status = state.status .. " (Error, Adding" .. ccQty .. "CC failed, not found" .. message .. ")";
       else
         srClickMouseNoMove(pos[0]+5, pos[1]+2);
         lsSleep(100);
         srReadScreen();
-	  state.status = state.status .. " (Adding2CC" .. message .. ")";
+	  state.status = state.status .. " (Adding" .. ccQty .. "CC" .. message .. ")";
+	  state.just_added = 1;
       end
 end
 
@@ -387,6 +386,19 @@ function doit()
 		error 'Could not find any \'Glazier\'s Bench\' windows.';
 	end
 
+      --New feature to detect if user has specialization to use 50% less charcoal (1, 3, 6 cc)
+	local findCharred = findAllText("Add 1 Charcoal")
+	if #findCharred > 0 then
+	  ccQty = 1;
+	    while not lsShiftHeld() do
+	      sleepWithStatus(100,"Glazier Spec: Half-Charred detected!\n\nMacro will use 'Add 1 Charcoal' in future.\n\nTap Shift to continue ...", nil, 0.7, "Information Alert");
+	    end
+	    while lsShiftHeld() do
+	      sleepWithStatus(16,nil , nil, 0.7, "Release Shift");
+	    end
+	else
+	  ccQty = 2;
+	end
 
 	--Pause before starting macro, to allow player to set priority. Hopefully prevent making an unintended item on first round.
 	while setPriority do
@@ -416,7 +428,7 @@ function doit()
 	  showTicks = lsCheckBox(200, lsScreenY - 70, 10, 0xFFFFFFff, " Display Ticks/HV/DV", showTicks);
 	  writeLogs = lsCheckBox(200, lsScreenY - 40, 10, 0xFFFFFFff, " Write Log File", writeLogs);
 	  lsDoFrame();
-	  lsSleep(100);
+	  lsSleep(10);
 	end
 
 
@@ -518,12 +530,10 @@ function doit()
 			  lsSetCamera(0,0,lsScreenX*1.1,lsScreenY*1.1);
 
 
-			-- New buttons to help add charcoal and melt materials
-			if lsButtonText(lsScreenX - 59, lsScreenY - 100, z, 60, 0x00FFFFff, "+2cc") then
+			if lsButtonText(lsScreenX - 59, lsScreenY - 100, z, 60, 0x00FFFFff, "+" .. ccQty .. "cc") then
 				menuButtonSelected = 1;
 			end
 			
-
 			if lsButtonText(lsScreenX - 86, lsScreenY - 65, z, 22, 0xFFFF00ff, "M") then
 				menuButtonSelected = 2;
 			end
@@ -572,8 +582,7 @@ end
 
 function checkButtons()
 	if (menuButtonSelected == 1) then
-		-- User has clicked the +2 cc button, so click all Add 2 Charcoal buttons on the screen
-		clickAllText("Add 2 Charcoal");
+		clickAllText("Add " .. ccQty .. " Charcoal");
 	end
 	
 	if (menuButtonSelected == 2) then
