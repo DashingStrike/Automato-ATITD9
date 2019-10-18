@@ -1,5 +1,5 @@
 --
--- 
+--
 --
 
 dofile("common.inc");
@@ -46,11 +46,11 @@ function clickAll(image_name, up)
 	srReadScreen();
 	xyWindowSize = srGetWindowSize();
 	local buttons = findAllImages(image_name);
-	
+
 	if #buttons == 0 then
-		statusScreen("Could not find " .. image_name, nil, 0.7, 0.7);
+		statusScreen("Could not find " .. image_name, nil, 0.7);
 	else
-		statusScreen("Clicking " .. #buttons .. "button(s)...", nil, 0.7, 0.7);
+		statusScreen("Clicking " .. #buttons .. "button(s)...", nil, 0.7);
 		if up then
 			for i=#buttons, 1, -1  do
 				srClickMouseNoMove(buttons[i][0]+2, buttons[i][1]+2);
@@ -62,7 +62,7 @@ function clickAll(image_name, up)
 				lsSleep(per_click_delay);
 			end
 		end
-		statusScreen("Done clicking (" .. #buttons .. " clicks).", nil, 0.7, 0.7);
+		statusScreen("Done clicking (" .. #buttons .. " clicks).", nil, 0.7);
 		lsSleep(150);
 	end
 end
@@ -81,7 +81,7 @@ function doit()
 	if not thermos then
 	  error('No match on screen for Thermometer.png\nDo you have Start Making menu pinned?');
 	end
-	sleepWithStatus(5000, "Preparing to start macro!\n\nDon\'t touch mouse, EVER, while running!\n\nAre you sure chat is minimized?\n\nNow is your chance to Abort if not...", nil, 0.7, 0.7);
+	sleepWithStatus(5000, "Preparing to start macro!\n\nDon\'t touch mouse, EVER, while running!\n\nAre you sure chat is minimized?\n\nNow is your chance to Abort if not...", nil, 0.7);
 	for i = 1, num_rounds do
 		keystrokes = 0;
 		status = "";
@@ -99,16 +99,17 @@ function doit()
             status = status .. currKey;
 			lsSleep(keyDelay);
 
-            statusScreen("[" .. i .. "/" .. num_rounds .. "] Thermometer(s)\n[" .. keystrokes .. "/" .. recipeLen .. "] Keystrokes remaining\n\nPlease be patient; Don\'t touch mouse!\nSending keystrokes to the glory hole...\n\n" .. status,nil, 0.7, 0.7);
+            statusScreen("[" .. i .. "/" .. num_rounds .. "] Thermometer(s)\n[" .. keystrokes .. "/" .. recipeLen .. "] Keystrokes remaining\n\nPlease be patient; Don\'t touch mouse!\nSending keystrokes to the glory hole...\n\n" .. status, nil, 0.7);
 
 		end
-		lsSleep(keyDelay);
-			srKeyEvent("u");
-		lsSleep(keyDelay);
-		clickAll("WindowEmpty.png");
+
+		srKeyEvent("u");
 		lsSleep(keyDelay);
 		clickAll("Ok.png");
 		lsSleep(keyDelay);
+		clickAll("WindowEmpty.png");
+		lsSleep(keyDelay);
+
 	end
 lsPlaySound("Complete.wav");
 end
