@@ -65,7 +65,7 @@ actions = {
     stoked = true,
     menuImage = "kettle/Kettle_Salt.png",
     output = 3,
-    matLabels = {"Coconut Water", "Wood"},
+    matLabels = {"Salt Water", "Wood"},
     matCounts = {25, 28}
   },
   {
