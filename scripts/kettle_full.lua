@@ -65,7 +65,7 @@ actions = {
     stoked = true,
     menuImage = "kettle/Kettle_Salt.png",
     output = 3,
-    matLabels = {"Coconut Water", "Wood"},
+    matLabels = {"Salt Water", "Wood"},
     matCounts = {25, 28}
   },
   {
@@ -231,7 +231,7 @@ function menuKettles()
 	selected = actions[i];
       end
     end
-      
+
     if lsButtonText(lsScreenX - 110, lsScreenY - 30, z, 100, 0xFFFFFFff,
 		    "End script")
     then
