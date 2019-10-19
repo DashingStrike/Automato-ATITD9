@@ -114,9 +114,11 @@ end
 function glassTick(window_pos, state)
 	state.status = "";
 	local pos;
+	local pos2;
 	local out_of_glass = nil;
 	pos = srFindImageInRange("glass/GlassTimeToStop.png", window_pos[0], window_pos[1], window_w, window_h, tol);
-	if pos then
+	pos2 = srFindImageInRange("glass/GlassNoMelted.png", window_pos[0], window_pos[1], window_w, window_h, tol);
+	if pos or pos2 then
 		out_of_glass = 1;
 	end
 	pos = srFindImageInRange("glass/GlassTemperature.png", window_pos[0], window_pos[1], window_w, window_h, tol);
@@ -290,7 +292,7 @@ function glassTick(window_pos, state)
 			if temp >= (1600 - state.HV + state.DV) and temp <= (2399 - state.HV) and not maintainHeatNoCook and state.MinTempReachedOnce and not ( (state.spiking or state.want_spike) and not cookDuringSpike ) then  
 				local made_one=nil;
 				for item_index=1, #item_priority do
-					pos = srFindImageInRange(item_priority[item_index], window_pos[0], window_pos[1], window_w, window_h, tol);
+					pos = srFindImageInRange("glass/" .. item_priority[item_index], window_pos[0], window_pos[1], window_w, window_h, tol);
 					if pos then
 							for pngName, glassName in pairs(item_name) do
 								if pngName == item_priority[item_index] then
