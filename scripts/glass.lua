@@ -240,7 +240,7 @@ function glassTick(window_pos, state)
 	end
 
 		    -- Calculate if this bench will spike beyond 2400 and prevent cooking during spiking.
-		if state.lastSpike > 0 and (1600 - state.HV + state.DV + state.lastSpike) <= 2399 then
+		if state.lastSpike > 0 and (temp - state.HV + state.DV + state.lastSpike) <= 2399 then
 		  cookDuringSpike = true; -- This bench will not overheat from a spike and allowed to cook during spiking
 		else
 		  cookDuringSpike = nil; 
