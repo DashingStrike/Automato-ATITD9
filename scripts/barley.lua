@@ -24,7 +24,7 @@ seeds_per_iter = 0;
 finish_up = 0;
 finish_up_message = "";
 use_fert = true;
-waterGap = true;
+waterGap = false;
 readClock = true;
 
 seedType = "Barley";
@@ -42,9 +42,14 @@ xyFlaxMenu = {};
 
 -- The barley bed window
 window_w = 258;
-window_h = 218;
+window_h = 218
 
-max_width_offset = 350; -- This should be about 425 if we can use aquaduct. We can use 350 if no aquaduct window is present (to refill jugs).
+--[[
+How much of the ATITD screen to ignore (protect the right side of screen from closing windows when finished
+max_width_offset will prevent it from reading all the way to the right edge of game client
+This should be about 425 if we can use aquaduct. We can use 350 if no aquaduct window is present (to refill jugs).
+--]]
+max_width_offset = 350
 
 -------------------------------------------------------------------------------
 -- initGlobals()
@@ -307,7 +312,7 @@ end
     clicks = {};
     local finalPos = plantAndPin(loop_count);
     dragWindows(loop_count);
-    statusScreen("Adding 2 Water/Fertilizer ...",nil, 0.7);
+    statusScreen("Adding 2 Water/Fertilizer ...",nil, nil, 0.7);
     waterBarley(); -- Do initial 2 water
     fertilizeBarley(); -- Do initial 2 fertilizer
     lsSleep(100);
@@ -321,17 +326,16 @@ end
 
 	if not barleyWaterBar then
 	  ticks = ticks + 1;
-		if ticks+1 <= totalWater then
+		if ticks+2 <= totalWater then
 	  	  waterBarley();
 		end
 
-		if ticks+1 <= totalFertilizer then
+		if ticks+2 <= totalFertilizer then
 	  	  fertilizeBarley();
 		end
 			if (ticks < totalWater - 1) and ticks ~= 0 then
-		  	  sleepWithStatus(15000, "Tended Barley ...",nil, 0.7, "Waiting to Water");
+		  	  sleepWithStatus(1000, "Tended Barley...",nil, 0.7);
 			end
-
       end
 
 
@@ -351,16 +355,16 @@ end
 		end
 	end
 
-  statusScreen("Watching top-left window for tick ...\n\nTicks since planting: " .. ticks .. "/" .. totalWater - 1 .. "\n\n[" .. waterUsed .. "/" .. totalWater*goodPlantings .. "]  Jugs of Water Used "  .. "\n[" .. fertilizerUsed .. "/" .. totalFertilizer*goodPlantings .. "]  Fertilizer Used\n\n[" .. loop_count .. "/" .. num_loops .. "]  Current Pass\n\nElapsed Time: " .. getElapsedTime(startTime) .. finish_up_message,nil, 0.7);
+  statusScreen("Watching top-left window for tick ...\n\nTicks since planting: " .. ticks .. "/" .. totalWater - 1 .. "\n\n[" .. waterUsed .. "/" .. totalWater*goodPlantings .. "]  Jugs of Water Used "  .. "\n[" .. fertilizerUsed .. "/" .. totalFertilizer*goodPlantings .. "]  Fertilizer Used\n\n[" .. loop_count .. "/" .. num_loops .. "]  Current Pass\n\nElapsed Time: " .. getElapsedTime(startTime) .. finish_up_message, nil, nil, 0.7);
 
-  lsSleep(100);
+  lsSleep(10);
   end -- while
 
-  sleepWithStatus(1000, "Ticks since planting: " .. ticks .. "/" .. totalWater - 1 .. "\n\n[" .. waterUsed .. "/" .. totalWater*goodPlantings .. "]  Jugs of Water Used "  .. "\n[" .. fertilizerUsed .. "/" .. totalFertilizer*goodPlantings .. "] Fertilizer Used\n\n[" .. loop_count .. "/" .. num_loops .. "]  Current Pass\n\nElapsed Time: " .. getElapsedTime(startTime) .. finish_up_message,nil, 0.7, "PLANT READY FOR HARVEST");
+  sleepWithStatus(1000, "Ticks since planting: " .. ticks .. "/" .. totalWater - 1 .. "\n\n[" .. waterUsed .. "/" .. totalWater*goodPlantings .. "]  Jugs of Water Used "  .. "\n[" .. fertilizerUsed .. "/" .. totalFertilizer*goodPlantings .. "] Fertilizer Used\n\n[" .. loop_count .. "/" .. num_loops .. "]  Current Pass\n\nElapsed Time: " .. getElapsedTime(startTime) .. finish_up_message,nil, 0.7, "Ready for Harvesting");
 
   harvestAll();
 
-  sleepWithStatus(7000, "Harvested " .. #harvest .. " plants!\n\nWaiting for windows to catch up!\n\nPreparing to close windows ...\n\nElapsed Time: " .. getElapsedTime(startTime) .. finish_up_message,nil, 0.7);
+  sleepWithStatus(7000, "Harvested " .. #harvest .. " plants!\n\nWaiting for windows to catch up!\n\nPreparing to close windows ...\n\nElapsed Time: " .. getElapsedTime(startTime) .. finish_up_message, nil, 0.7, "Please standby");
   srReadScreen();
   clickAllText("This is"); -- Right click to close all windows in range
   lsSleep(1000);
@@ -471,10 +475,10 @@ function plantHere(xyPlantFlax, y_pos)
     return false;
   end
 
-   goodPlantings = goodPlantings + 1;
+  goodPlantings = goodPlantings + 1; 
 
   -- Check for window size
-  checkWindowSize(bed[0], bed[1]);
+  checkWindowSize();
 
   -- Move window into corner
   stashWindow(bed[0] + 5, bed[1], BOTTOM_RIGHT);
@@ -521,15 +525,12 @@ function walkHome(loop_count, finalPos)
     walkTo(finalPos);
   end
 
-
   -- Refresh any empty windows (in case we used out last seed, re-vive the previously plant window
   srReadScreen();
   closedPlantWindow = srFindImage("WindowEmpty.png")
   if closedPlantWindow then
     srClickMouseNoMove(closedPlantWindow[0]+2, closedPlantWindow[1]+2);
   end
-
-
 end
 
 
