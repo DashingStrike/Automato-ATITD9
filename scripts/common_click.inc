@@ -222,7 +222,7 @@ function drawWater(skipTimer)
   -- First, check for rain barrel
   --local rain = srFindImage("draw_water.png");
   if rain then
-    sleepWithStatus(200, "Refilling water...");
+    sleepWithStatus(200, "Refilling water...", nil, 0.7);
     safeClick(rain[0], rain[1]);
     local max = waitForImage("crem-max.png", 3000, "Waiting for Max button");
     if max then
@@ -238,9 +238,9 @@ function drawWater(skipTimer)
       --aqueduct = srFindImage("Aqueduct2.png");
     end
     if aqueduct then
-    sleepWithStatus(200, "Refilling water...");
+    sleepWithStatus(200, "Refilling water...", nil, 0.7);
       safeClick(aqueduct[0], aqueduct[1]);
-      sleepWithStatus(200, "Refreshing aqueduct...");
+      sleepWithStatus(200, "Refreshing aqueduct...", nil, 0.7);
       srReadScreen();
       local fill = srFindImage("FillWithWater.png");
       if fill then
@@ -257,7 +257,7 @@ function drawWater(skipTimer)
 
     --if (water or watersmall) then
     if (water) then
-    sleepWithStatus(200, "Refilling water...");
+    sleepWithStatus(200, "Refilling water...", nil, 0.7);
 	if water then
         safeClick(water[0]+3, water[1]-5);
 	else
@@ -267,7 +267,7 @@ function drawWater(skipTimer)
       if max then
         safeClick(max[0]+5, max[1]+5);
       if not skipTimer then
-        sleepWithStatus(3500, "Waiting for water pickup animation...");
+        sleepWithStatus(3500, "Waiting for water pickup animation...", nil, 0.7, "Please standby");
       end
         result = true;
       end
