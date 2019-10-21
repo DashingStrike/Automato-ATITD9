@@ -231,12 +231,12 @@ function arrangeStashed(cascade, waterGap, varWidth, varHeight, sizeRight, offse
     local bounds = srGetWindowBorders(window[0], window[1]);
     local width, height;
     if not varWidth then
-      width = bounds[2] - bounds[0];
+      width = bounds[2] - bounds[0] + 7; -- The +7 offset is due to bigger borders in T9. Prevent touching/overlapping.
     else
       width = varWidth;
     end
     if not varHeight then
-      height = bounds[3] - bounds[1];
+      height = bounds[3] - bounds[1] + 14; -- The +14 offset is due to bigger borders in T9. Prevent touching/overlapping.
     else
       height = varHeight;
     end
