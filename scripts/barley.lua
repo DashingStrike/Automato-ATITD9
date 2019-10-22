@@ -24,14 +24,13 @@ seeds_per_iter = 0;
 finish_up = 0;
 finish_up_message = "";
 use_fert = true;
-waterGap = false;
 readClock = true;
 
 seedType = "Barley";
 
 -- Tweakable delay values
 refresh_time = 60; -- Time to wait for windows to update
-walk_time = 600; -- Reduce to 300 if you're fast.
+walk_time = 750; -- Reduce to 300 if you're fast.
 
 -- Don't touch. These are set according to Jimbly's black magic.
 walk_px_y = 340;
@@ -181,11 +180,25 @@ function promptFlaxNumbers()
 
     y = y + 35;
 
+
+		if grid_w < 3 then
+		  totalWater = 4
+		elseif grid_w == 3 then
+		  totalWater = 5
+		elseif grid_w == 4 then
+		  totalWater = 6
+		else
+		  totalWater = 7;
+		end
+
       use_fert = readSetting("use_fert",use_fert);
 	if use_fert then
     	  use_fert = CheckBox(10, y, z, 0xff8080ff, " Use Fertilizer (Uncheck for Water Only)", use_fert, 0.7, 0.7);
+		  totalWater = 7;
+		  totalFertilizer = 4;
 	else
     	  use_fert = CheckBox(10, y, z, 0x8080ffff, " Use Water Only (Check for Fertilizer)", use_fert, 0.7, 0.7);
+		totalFertilizer = 0;
 	end
       writeSetting("use_fert",use_fert);
 
@@ -206,7 +219,7 @@ function promptFlaxNumbers()
         lsPrintWrapped(10, y+10, z+10, lsScreenX - 20, 0.7, 0.7, 0xD0D0D0ff,
                      "Plant/Harvest a " .. grid_w .. "x" ..
                      grid_w .. " grid of " .. seedType .. " " .. num_loops ..
-                     " times\n\nRequires:\n(" .. math.floor(grid_w * grid_w * num_loops) .. ") Barley\n(" .. math.floor(grid_w * grid_w * num_loops*4) .. ") Water\n\nYields: 2 per plant\n+10 x each Worship test passed");
+                     " times\n\nRequires:\n(" .. math.floor(grid_w * grid_w * num_loops) .. ") Barley\n(" .. math.floor(grid_w * grid_w * num_loops*totalWater) .. ") Water\n\nYields: 2 per plant\n+10 x each Worship test passed");
 
 	end
     end
@@ -276,32 +289,23 @@ end
 function doit()
 
   size = srGetWindowSize();
-  totalWater = 7;
-  totalFertilizer = 4;
-
   promptFlaxNumbers();
   askForWindow(askText);
   initGlobals();
   local startPos;
 
-if readClock then
-  srReadScreen();
-  startPos = findCoords();
-  if not startPos then
-    error("ATITD clock not found. Try unchecking Read Clock option if problem persists");
+  if readClock then
+    srReadScreen();
+    startPos = findCoords();
+      if not startPos then
+        error("ATITD clock not found. Try unchecking Read Clock option if problem persists");
+      end
+    lsPrintln("Start pos:" .. startPos[0] .. ", " .. startPos[1]);
   end
-  lsPrintln("Start pos:" .. startPos[0] .. ", " .. startPos[1]);
-end
 
   setCameraView(CARTOGRAPHER2CAM);
   drawWater();
   startTime = lsGetTimer();
-
-  if not use_fert then
-    totalWater = 4;
-    totalFertilizer = 0;
-  end
-
 
   for loop_count=1, num_loops do
     ticks = -1;
@@ -315,9 +319,6 @@ end
     statusScreen("Adding 2 Water/Fertilizer ...",nil, nil, 0.7);
     waterBarley(); -- Do initial 2 water
     fertilizeBarley(); -- Do initial 2 fertilizer
-    lsSleep(100);
-    barleyWaterBar = true;
-    firstWater = 1;
 
 
   while 1 do
@@ -334,7 +335,7 @@ end
 	  	  fertilizeBarley();
 		end
 			if (ticks < totalWater - 1) and ticks ~= 0 then
-		  	  sleepWithStatus(1000, "Tended Barley...",nil, 0.7);
+		  	  sleepWithStatus(999, "Added Water / Fertilizer",nil, 0.7, "Tended Barley");
 			end
       end
 
@@ -357,18 +358,12 @@ end
 
   statusScreen("Watching top-left window for tick ...\n\nTicks since planting: " .. ticks .. "/" .. totalWater - 1 .. "\n\n[" .. waterUsed .. "/" .. totalWater*goodPlantings .. "]  Jugs of Water Used "  .. "\n[" .. fertilizerUsed .. "/" .. totalFertilizer*goodPlantings .. "]  Fertilizer Used\n\n[" .. loop_count .. "/" .. num_loops .. "]  Current Pass\n\nElapsed Time: " .. getElapsedTime(startTime) .. finish_up_message, nil, nil, 0.7);
 
-  lsSleep(10);
+  lsSleep(100);
   end -- while
 
   sleepWithStatus(1000, "Ticks since planting: " .. ticks .. "/" .. totalWater - 1 .. "\n\n[" .. waterUsed .. "/" .. totalWater*goodPlantings .. "]  Jugs of Water Used "  .. "\n[" .. fertilizerUsed .. "/" .. totalFertilizer*goodPlantings .. "] Fertilizer Used\n\n[" .. loop_count .. "/" .. num_loops .. "]  Current Pass\n\nElapsed Time: " .. getElapsedTime(startTime) .. finish_up_message,nil, 0.7, "Ready for Harvesting");
 
-  harvestAll();
-
-  sleepWithStatus(7000, "Harvested " .. #harvest .. " plants!\n\nWaiting for windows to catch up!\n\nPreparing to close windows ...\n\nElapsed Time: " .. getElapsedTime(startTime) .. finish_up_message, nil, 0.7, "Please standby");
-  srReadScreen();
-  clickAllText("This is"); -- Right click to close all windows in range
-  lsSleep(1000);
-
+    harvestAll();
     walkHome(loop_count, startPos);
     drawWater();
 	if finish_up == 1 or quit then
@@ -490,6 +485,7 @@ function clickPlant(xyPlantFlax)
   local spot = getWaitSpot(xyFlaxMenu[0], xyFlaxMenu[1]);
   safeClick(xyPlantFlax[0], xyPlantFlax[1], 0);
 
+  spot = getWaitSpot(xyFlaxMenu[0], xyFlaxMenu[1])
   local plantSuccess = waitForChange(spot, 1500);
   if not plantSuccess then
     error_status = "No barley bed was placed when planting.";
@@ -507,7 +503,8 @@ end
 function dragWindows(loop_count)
   statusScreen("(" .. loop_count .. "/" .. num_loops .. ")  " ..
                "Dragging Windows into Grid" .. "\n\nElapsed Time: " .. getElapsedTime(startTime));
-    arrangeStashed(nil, waterGap, window_w, window_h);
+--    arrangeStashed(nil, waterGap, window_w, window_h);
+    arrangeStashed();
 end
 
 -------------------------------------------------------------------------------
@@ -544,11 +541,6 @@ function waterBarley()
 			checkBreak();
 			safeClick(barleyWaterImage[i][0]+192, barleyWaterImage[i][1]+3);
 			waterUsed = waterUsed + 1;
-			--lsSleep(10);
-				if firstWater == 0 then
-				  safeClick(barleyWaterImage[i][0]+192, barleyWaterImage[i][1]+3);
-				  waterUsed = waterUsed + 1;
-				end
 		end
     end
 end
@@ -564,11 +556,6 @@ function fertilizeBarley()
 			checkBreak();
 			safeClick(barleyWaterImage[i][0]+192, barleyWaterImage[i][1]+23);
 			fertilizerUsed = fertilizerUsed + 1;
-			--lsSleep(10);
-				if firstWater == 0 then
-				  safeClick(barleyWaterImage[i][0]+192, barleyWaterImage[i][1]+23);
-				  fertilizerUsed = fertilizerUsed + 1;
-				end
 		end
     end
 end
@@ -577,32 +564,37 @@ end
 function findWaterBar()
   srReadScreen();
   barleyWaterBar = srFindImageInRange("barley/barleyWaterFull.png", 0, 0, window_w, window_h);
-  if barleyWaterBar then
-    safeClick(barleyWaterBar[0], barleyWaterBar[1]);
-    --lsSleep(10);
-    safeClick(barleyWaterBar[0], barleyWaterBar[1]);
-  end
 end
 
 
 
 function harvestAll()
+  srReadScreen();
   harvest = findAllImages("barley/BarleyHarvest.png");
     if #harvest == 0 then
-       error("No harvet images found");
+       error("No harvest images found");
     else
 	for i=#harvest, 1, -1  do
 	  safeClick(harvest[i][0]+5, harvest[i][1]+5);
 	  lsSleep(100);
 	end
     end
+
+  local totalHarvested = #harvest
+
+    while #harvest > 0 do
+      srReadScreen();
+      harvest = findAllImages("barley/BarleyHarvest.png");
+      sleepWithStatus(100, "Harvested " .. totalHarvested .. " plants!\n\nWaiting for windows to catch up!\n\nElapsed Time: " .. getElapsedTime(startTime) .. finish_up_message, nil, 0.7, "Please standby");
+    end
+  closeWindowsFast();
 end
 
 
-function clickAllText(textToFind)
-	local allTextReferences = findAllText(textToFind);
+function closeWindowsFast()
+	srReadScreen();
+	local allTextReferences = findAllText("This is");
 	for buttons=1, #allTextReferences do
 		srClickMouseNoMove(allTextReferences[buttons][0]+20, allTextReferences[buttons][1]+5, 1);
-		lsSleep(10)
 	end
 end
