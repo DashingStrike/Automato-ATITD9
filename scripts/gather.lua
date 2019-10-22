@@ -1449,7 +1449,7 @@ function stashAllButWood()
         local pos = findText("Stash...");
         if(pos) then
             safeClick(pos[0] + 10, pos[1] + 5);
-            lsSleep(150);
+            lsSleep(250);
             srReadScreen();
             local pos = findText("Clay (");
             if(pos) then

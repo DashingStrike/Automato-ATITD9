@@ -93,7 +93,7 @@ function config()
 	lsPrintWrapped(10,10, z+10, lsScreenX - 20, 0.7, 0.7, 0xD0D0D0ff, 
 			"Stonecutting V1.0 by Rhaom\n(Merged rockSaw.lua and masonsBench.lua)\n\n");
     
-	passCount = readSetting("passCount",passCount);
+	passCount = readSetting("passCount",tonumber(passCount));
     lsPrint(15, y, z, scale, scale, 0xffffffff, "Passes:");
     is_done, passCount = lsEditBox("passes", 110, y, z, 50, 30, scale, scale,
                                    0x000000ff, passCount);
