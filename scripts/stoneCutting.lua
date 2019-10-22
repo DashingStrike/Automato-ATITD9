@@ -102,7 +102,7 @@ function config()
       lsPrint(10, y+30, z+10, 0.7, 0.7, 0xFF2020ff, "MUST BE A NUMBER");
       passCount = 1;
     end
-    writeSetting("passCount",passCount);
+    writeSetting("passCount",tonumber(passCount));
     y = y + 48;
 	
 	arrangeWindows = readSetting("arrangeWindows",arrangeWindows);
