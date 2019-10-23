@@ -56,7 +56,7 @@ water_location[1] = 0
 
 -- Tweakable delay values
 refresh_time = 100 -- Time to wait for windows to update
-walk_time = 600 -- Reduce to 300 if you're fast.
+walk_time = 750 -- Reduce to 300 if you're fast.
 
 -- Don't touch. These are set according to Jimbly's black magic.
 walk_px_x = 380
@@ -269,7 +269,7 @@ function promptFlaxNumbers()
         water_location[0] = tonumber(water_location[0])
         if not water_location[0] then
           is_done = nil
-          lsPrint(10, y + 18, z + 10, 0.7, 0.7, 0xFF2020ff, "MUST BE A NUMBER")
+          lsPrint(135, y + 28, z + 10, 0.7, 0.7, 0xFF2020ff, "MUST BE A NUMBER")
           water_location[0] = 1
         end
         writeSetting("water_locationX", water_location[0])
@@ -280,7 +280,7 @@ function promptFlaxNumbers()
         water_location[1] = tonumber(water_location[1])
         if not water_location[1] then
           is_done = nil
-          lsPrint(10, y + 18, z + 10, 0.7, 0.7, 0xFF2020ff, "MUST BE A NUMBER")
+          lsPrint(135, y + 28, z + 10, 0.7, 0.7, 0xFF2020ff, "MUST BE A NUMBER")
           water_location[1] = 1
         end
         writeSetting("water_locationY", water_location[1])
@@ -295,7 +295,7 @@ function promptFlaxNumbers()
         0.7,
         0.7,
         0xffff40ff,
-        "WalkTo() Settings\n-------------------------------------------"
+        "Walk To Settings:\n-------------------------------------------"
       )
 
       water_needed = readSetting("water_needed", water_needed)
