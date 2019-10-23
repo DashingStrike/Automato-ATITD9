@@ -5,13 +5,6 @@
 
 dofile("common.inc");
 
-askText = singleLine([[
-Hackling Rake v1.0 (by Bardoth - Revised by Cegaiel) --
-Pin Hacking Rake or Flax Comb window up and have Rotten Flax in your inventory. Make sure your rake is showing "Step 1, Remove Straw" before starting. You MUST have Skills window open and everything from Strength to Perception skill should be visible.
-This macro will not break if you need to alt-tab out of game to do something or need to move pinned window. As soon as you flip back in game, it will continue where it left off at!
-Press Shift to continue.
-]]);
-
 do_click_refresh = 1;
 do_click_refresh_when_end_red = 1;
 improved_rake = 0;
@@ -76,7 +69,6 @@ function promptRakeNumbers()
 			error "Clicked End Script button";
 		end
 	
-		
 		lsDoFrame();
 		lsSleep(10); -- Sleep just so we don't eat up all the CPU for no reason
 	end
@@ -85,7 +77,7 @@ end
 
 function doit()
 	promptRakeNumbers();
-    askForWindow(askText);
+	askForWindow("Hackling Rake v1.0 by Bardoth - (Revised by Cegaiel)\n\nPin Hacking Rake or Flax Comb window up and have Rotten Flax in your inventory.\n\nMake sure your rake is showing \"Step 1, Remove Straw\" before starting.\n\nYou MUST have Skills window open and everything from Strength to Perception skill should be visible.\n\nYou can optionally pin 'Eat some Grilled Onion' menu to eat it whenever your endurance is not green.");
 
 	step = 1;
 	local task = "";
@@ -107,6 +99,8 @@ function doit()
 	while num_loops do
 		checkBreak();
 		srReadScreen();
+		grilledOnion = findText("Grilled Onions");
+		buffed = srFindImage("foodBuff.png");
 		OK = srFindImage("ok.png"); -- If we got an OK popup, this suggests "Your Flax Comb/Hackling Rake has wore out", quit
 		foundRepair = findText("Repair");
 
@@ -118,6 +112,10 @@ function doit()
 		stats_black = srFindImage("endurance.png");
 		stats_blackB = srFindImage("endurance2.png"); -- We can proceed when it's semi-dark red (same as white)
 		stats_blackC = srFindImage("endurance3.png"); -- We can proceed when it's dark red (same as white)
+
+		if grilledOnion and not buffed then
+		  clickAllText("Grilled Onions");
+		end
 
 		if not stats_black then
 			--stats_black2 = srFindImage("AllStats-Black2.png");
@@ -171,11 +169,8 @@ GUI = "\n\nNext Step: " .. step .. "/4 - " .. task_text .. "\n\n----------------
 
 		else
 		
-			srReadScreen();
 			clickAllText("This is");
 			lsSleep(100);
-		
-			srReadScreen();
 			clickAllText(task);
 			lsSleep(100);
 			if step == 1 then
@@ -196,7 +191,6 @@ GUI = "\n\nNext Step: " .. step .. "/4 - " .. task_text .. "\n\n----------------
 			end
 			step = step + 1;
 			sleepWithStatus(100, "Endurance Timer OK - Clicking window(s)" .. GUI, nil, 0.7);
-			srReadScreen();
 			clickAllText("This is")
 			lsSleep(100);
 		end
@@ -209,7 +203,6 @@ end
 
 
 function checkCurrentStep()
-  srReadScreen();
   clickAllText("This is");
   lsSleep(100);
   taskStep1 = findText("Remove Straw");
