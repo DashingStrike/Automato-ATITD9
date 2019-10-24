@@ -19,7 +19,7 @@ function mainMenu()
   srReadScreen();
   lsPrint(10, y, z, scale, scale, 0xFFFFFFff, "Enter valid .png name:");
   y = y + 20;
-  is_done, image = lsEditBox("image", 10, y, z, 200, 25, scale, scale, 0x000000ff);
+  is_done, image = lsEditBox("image", 10, y, z, 260, 25, scale, scale, 0x000000ff);
 
   y = y + 50;
   lsPrint(5, y, z, scale, scale, 0xFFFFFFff, "X offset:    +/-");
@@ -44,13 +44,16 @@ function mainMenu()
         end
   lsSetCamera(0,0,lsScreenX*1.0,lsScreenY*1.0);  -- Shrink the text boxes and text down
   y = y + 30;
+
+  if image ~= "" then
     if lsButtonText(10, lsScreenY - 30, z, 100, 0xFFFFFFff, "Search") then
       findPNG();
     end
+  end
 
-    if lsButtonText(lsScreenX - 110, lsScreenY - 30, z, 100, 0xFFFFFFff, "End script") then
-      error "Clicked End Script button";
-    end
+  if lsButtonText(lsScreenX - 110, lsScreenY - 30, z, 100, 0xFFFFFFff, "End script") then
+    error "Clicked End Script button";
+  end
   lsDoFrame();
   lsSleep(10);
  end
@@ -65,8 +68,8 @@ function findPNG()
     findBlah = findAllImages(image);
   end
 
-  if not findBlah then
-    result = "NOT Found";
+  if #findBlah == 0 then
+    result = "Image NOT Found";
   else
     result = "FOUND " .. #findBlah .. " Locations\n\nClick Point button to hover mouse over Locations";
   end
@@ -141,7 +144,7 @@ function sleepWithStatus(delay_time, message, color, scale, waitMessage)
       mainMenu();
     end
 
-    if findBlah and not disablePointButton then
+    if #findBlah > 0 and not disablePointButton then
       if lsButtonText(10, lsScreenY - 30, z, 100, 0xFFFFFFff, "Point") then
         pointToLocation();
       end
