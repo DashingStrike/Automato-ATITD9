@@ -5,6 +5,8 @@ askText = "Enter a .png name and optional offset values. Mouse will point to loc
 xOffset = 0;
 yOffset = 0;
 scale = 0.7;
+tol = 4500; -- Automato uses a default of 4500. Larger values will be more forgiving. Smaller values will want more precision.
+pointing_delay = 6000; -- How long to point to each image found, before moving onto next one.
 
 function doit()
   askForWindow(askText);
@@ -34,6 +36,9 @@ function mainMenu()
   lsSetCamera(0,0,lsScreenX*1.0,lsScreenY*1.0);  -- Shrink the text boxes and text down
   y = y + 40;
   lsPrint(5, y-10, z, scale, scale, 0xFFFFFFff, "Y offset:    +/-");
+  lsPrint(5, y+30, z, scale, scale, 0xFFFFFFff, "Tolerance:");
+  lsPrint(5, y+70, z, scale, scale, 0xFFFFFFff, "Point Delay:");
+
   lsSetCamera(0,0,lsScreenX*1.3,lsScreenY*1.3);  -- Shrink the text boxes and text down
   is_done, yOffset = lsEditBox("yoffset", 130, y+25, z, 50, 30, scale, scale, 0x000000ff, yOffset);
         yOffset = tonumber(yOffset);
@@ -42,6 +47,27 @@ function mainMenu()
             lsPrint(200, y+30, 10, 0.7, 0.7, 0xFF2020ff, "MUST BE A NUMBER");
             yOffset = 0;
         end
+
+  y = y + 50;
+
+  is_done, tol = lsEditBox("tol", 130, y+25, z, 80, 30, scale, scale, 0x000000ff, tol);
+        tol = tonumber(tol);
+        if not tol then
+            is_done = false;
+            lsPrint(220, y+30, 10, 0.7, 0.7, 0xFF2020ff, "MUST BE A NUMBER");
+            tol = 4500;
+        end
+
+  y = y + 50;
+
+  is_done, pointing_delay = lsEditBox("pointing_delay", 130, y+25, z, 80, 30, scale, scale, 0x000000ff, pointing_delay);
+        pointing_delay = tonumber(pointing_delay);
+        if not pointing_delay then
+            is_done = false;
+            lsPrint(220, y+30, 10, 0.7, 0.7, 0xFF2020ff, "MUST BE A NUMBER");
+            pointing_delay = 6000;
+        end
+
   lsSetCamera(0,0,lsScreenX*1.0,lsScreenY*1.0);  -- Shrink the text boxes and text down
   y = y + 30;
 
@@ -65,7 +91,7 @@ function findPNG()
     srReadScreen();
 
   if image ~= "" then
-    findBlah = findAllImages(image);
+    findBlah = findAllImages(image, nil, tol);
   end
 
   if #findBlah == 0 then
@@ -96,7 +122,7 @@ function pointToLocation()
 
 		for i=1,#findBlah do
 		  srSetMousePos(findBlah[i][0]+xOffset,findBlah[i][1]+yOffset);
-		  sleepWithStatus(6000, "Pointing to Location: " .. i .. "/" .. #findBlah .. "\n\nX Offset: " 
+		  sleepWithStatus(pointing_delay, "Pointing to Location: " .. i .. "/" .. #findBlah .. "\n\nX Offset: " 
 		  .. xOffset .. "\nY Offset: " .. yOffset .. "\n\nMouse Location (no offset):\n" .. math.floor(findBlah[i][0]) .. ", " .. math.floor(findBlah[i][1]) .. "\n\nMouse Location (after offsets):\n" .. math.floor(findBlah[i][0]+xOffset) .. ", " .. 
 		  math.floor(findBlah[i][1]+yOffset), nil, 0.7);
 		end
