@@ -322,17 +322,24 @@ function promptFlaxNumbers()
     readClock = readSetting("readClock", readClock)
     readClock = CheckBox(120, y + 5, z + 10, 0xFFFFFFff, " Read Clock Coords", readClock, 0.7, 0.7)
     writeSetting("readClock", readClock)
+    y = y + 2
+
+    clearUI = readSetting("clearUI",clearUI);
+    clearUI = CheckBox(120, y + 19, z + 10, 0xFFFFFFff, " Pin grid below the UI", clearUI, 0.7, 0.7);
+    writeSetting("clearUI",clearUI);
+    y = y + 2
 
     extraGridSpacing = readSetting("extraGridSpacing", extraGridSpacing)
-    extraGridSpacing = CheckBox(120, y + 22, z + 10, 0xFFFFFFff, " Extra Spacing on Grid", extraGridSpacing, 0.7, 0.7)
+    extraGridSpacing = CheckBox(120, y + 33, z + 10, 0xFFFFFFff, " Extra Spacing on Grid", extraGridSpacing, 0.7, 0.7)
     writeSetting("extraGridSpacing", extraGridSpacing)
+    y = y + 2
 
     is_plant = readSetting("is_plant", is_plant)
-    is_plant = CheckBox(120, y + 39, z + 10, 0xFFFFFFff, " Grow Flax", is_plant, 0.7, 0.7)
+    is_plant = CheckBox(120, y + 47, z + 10, 0xFFFFFFff, " Grow Flax", is_plant, 0.7, 0.7)
     writeSetting("is_plant", is_plant)
 
     y = y + 50
-    if ButtonText(10, y - 30, z, 100, 0x00ff00ff, "Start !", 0.9, 0.9) then
+    if ButtonText(10, y - 33, z, 100, 0x00ff00ff, "Start !", 0.9, 0.9) then
       is_done = 1
     end
     y = y + 10
@@ -341,11 +348,11 @@ function promptFlaxNumbers()
       -- Will plant and harvest flax
       window_w = 285
       space_to_leave = false
-      lsPrintWrapped(10, y, z + 10, lsScreenX - 20, 0.7, 0.7, 0xffff40ff, 'Uncheck "Grow Flax" for SEEDS!')
+      lsPrintWrapped(10, y+10, z + 10, lsScreenX - 20, 0.7, 0.7, 0xffff40ff, 'Uncheck "Grow Flax" for SEEDS!')
       y = y + 24
       lsPrintWrapped(
         10,
-        y,
+        y + 7,
         z + 10,
         lsScreenX - 20,
         0.7,
@@ -364,7 +371,7 @@ function promptFlaxNumbers()
                             " seeds, doing " .. math.floor(grid_w * grid_w * num_loops) .. " flax harvests."
       )
     else
-      lsPrintWrapped(10, y, z + 10, lsScreenX - 20, 0.7, 0.7, 0x00ff00ff, 'Check "Grow Flax" for FLAX!')
+      lsPrintWrapped(10, y+10, z + 10, lsScreenX - 20, 0.7, 0.7, 0x00ff00ff, 'Check "Grow Flax" for FLAX!')
       y = y + 24
 
       -- Will make seeds
@@ -377,7 +384,7 @@ function promptFlaxNumbers()
 
       lsPrintWrapped(
         10,
-        y,
+        y + 7,
         z + 10,
         lsScreenX - 20,
         0.7,
@@ -692,7 +699,13 @@ function dragWindows(loop_count)
     window_w = nil
     offsetWidth = min_width_offset
   end
-    arrangeStashed(nil, waterGap, window_w, window_h, space_to_leave, offsetWidth, offsetHeight)
+
+  if clearUI then
+    arrangeStashed(nil, true, window_w, window_h, space_to_leave, offsetWidth, offsetHeight);
+  else
+    arrangeStashed(nil, waterGap, window_w, window_h, space_to_leave, offsetWidth, offsetHeight);
+  end
+  
 end
 
 -------------------------------------------------------------------------------
