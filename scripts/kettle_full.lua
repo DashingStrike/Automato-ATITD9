@@ -216,7 +216,7 @@ end
 
 function doit()
   askForWindow(askText);
-  windowManager("Kettle Setup", wmText, false, true, 215, 288);
+  windowManager("Kettle Setup", wmText, false, true, 215, 288, nil, 10, 25);
   askForFocus();
   unpinOnExit(menuKettles);
 end
