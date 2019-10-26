@@ -301,7 +301,7 @@ WaypointColors[Cricklewood] = 0x5D2F00FF;
 WaypointColors[GiantCricklewood] = 0x401500FF;
 WaypointColors[Arconis] = 0x508729FF;
 WaypointColors[PratyekaTree] = 0x253A0EFF;
-WaypointColors[Savaka] = 0x557919FF;  
+WaypointColors[Savaka] = 0x557919FF;
 WaypointColors[Trilobellia] = 0x9C7A02FF;
 WaypointColors[BlazeMaple] = 0xC40606FF;
 WaypointColors[Dikbas] = 0xC39593FF;
@@ -420,7 +420,7 @@ function queryRoute()
         y = y + 32;
         lsPrint(35, y+5, z, 1, 1, 0xFFFFFFff, "Number of jugs:");
         numJugs = readSetting("numJugs",numJugs);
-        nada, numJugs = lsEditBox("jugCount", 
+        nada, numJugs = lsEditBox("jugCount",
             200, y+7, z, 70, 0, 1.0, 1.0, 0x000000ff, numJugs);
         writeSetting("numJugs",numJugs);
         if (clay and (not tonumber(numJugs))) then
@@ -500,7 +500,7 @@ function editRoute(route)
     local z = 0;
     local done = nil;
     local nada = nil;
-    
+
     lsSetCamera(0,0,lsScreenX*scale,lsScreenY*scale);
 --    lsScreenX = 500;
 --    lsScreenY = 500;
@@ -540,7 +540,7 @@ function editRoute(route)
         thisRoute[2] = {};
         thisRoute[2][1] = "";
     end
-    
+
     updateUnique();
     while not done do
         checkBreak();
@@ -563,7 +563,7 @@ function editRoute(route)
         lsSetCamera(0,0,lsScreenX*scale,lsScreenY*scale);
         lsPrint(5, y, z, scale, scale, 0xFFFFFFff, "Route:");
         y = y + 32;
-        done, thisRoute[0] = lsEditBox("routeName" .. unique, 
+        done, thisRoute[0] = lsEditBox("routeName" .. unique,
             5, y, z, 404, 30, scale, scale, 0x000000ff, thisRoute[0]);
         done = nil;
         y = y + 50;
@@ -596,7 +596,7 @@ function editRoute(route)
             if(#thisRoute[1] >= i) then
                 t = thisRoute[1][i][1];
             end
-            nada, t = lsEditBox("waypointX_" .. i .. "_" .. unique, 
+            nada, t = lsEditBox("waypointX_" .. i .. "_" .. unique,
                 x, sy, z+1, coordw, 30, scale, scale, 0x000000ff, t);
             if(#thisRoute[1] >= i) then
                 thisRoute[1][i][1] = t;
@@ -605,7 +605,7 @@ function editRoute(route)
             if(#thisRoute[1] >= i) then
                 t = thisRoute[1][i][2];
             end
-            nada, t = lsEditBox("waypointY_" .. i .. "_" .. unique, 
+            nada, t = lsEditBox("waypointY_" .. i .. "_" .. unique,
                 x, sy, z+1, coordw, 30, scale, scale, 0x000000ff, t);
             if(#thisRoute[1] >= i) then
                 thisRoute[1][i][2] = t;
@@ -614,7 +614,7 @@ function editRoute(route)
             if(#thisRoute[1] >= i) then
                 t = findWaypointOrder(thisRoute[1][i][3]);
             end
-            t = lsDropdown("waypointType_" .. i .. "_" .. unique, 
+            t = lsDropdown("waypointType_" .. i .. "_" .. unique,
                 x, sy, z, waypointw, t, WaypointTypesOrdered);
             if(#thisRoute[1] >= i) then
                 thisRoute[1][i][3] = WaypointOrder[t];
@@ -646,7 +646,7 @@ function editRoute(route)
                 end
                 x = x + buttonw + 2;
                 t = thisRoute[2][i];
-                nada, t = lsEditBox("menuText_" .. i .. "_" .. unique, 
+                nada, t = lsEditBox("menuText_" .. i .. "_" .. unique,
                     x, sy, z+1, 300, 30, scale, scale, 0x000000ff, t);
                 thisRoute[2][i] = t;
                 sy = sy + 32;
@@ -1019,7 +1019,7 @@ function ensureClickWaypoint(route,waypoint)
         end
         pos = findCoords();
         if(pos) then
-            if(direction == 1) then                    
+            if(direction == 1) then
                 moveTo(route[waypoint][1]-1,route[waypoint][2]-1,false,false);
                 moveTo(route[waypoint][1]+1,route[waypoint][2]+1,false,false);
             elseif (direction == 2) then
@@ -1088,7 +1088,7 @@ function clickWaypoint(typeOfWaypoint)
 end
 
 function clickWaypointPixel(x, y, typeOfWaypoint)
-    
+
     local pos = {};
     local xyWindowSize = srGetWindowSize();
 
@@ -1117,7 +1117,7 @@ function clickWaypointPixel(x, y, typeOfWaypoint)
     local radius = 2;
     local rgbTol = 450;
     local hueTol = 450;
-    
+
     local roughness = 20;
     if (typeOfWaypoint == Oranje) or (typeOfWaypoint == Ranyahn) or (typeOfWaypoint == Hawthorn) or (typeOfWaypoint == MiniatureFernPalm) then
         roughness = 100;
@@ -1400,9 +1400,7 @@ function checkSlate()
     if(not slate) then
         return false;
     end
-    local xyWindowSize = srGetWindowSize();
-    local midX = xyWindowSize[0] / 2;
-    local pos = srFindImageInRange("slate.png",0,0,midX,100,1000);
+    local pos = srFindImage("slate.png");
     if(pos) then
         stopMoving();
         safeClick(pos[0] + 3, pos[1] + 3);
@@ -1416,8 +1414,6 @@ function checkGrass()
     if(not grass) then
         return false;
     end
-    local xyWindowSize = srGetWindowSize();
-    local midX = xyWindowSize[0] / 2;
     local pos = srFindImage("grass.png");
     if(pos) then
         safeClick(pos[0] + 3, pos[1] + 3);
@@ -1590,7 +1586,7 @@ function stashAllButWood()
                                         if(pos) then
                                             stashItem(pos,false);
                                             stashedSomething = true;
-                                                    
+
                                         end
                                     end
                                 end
