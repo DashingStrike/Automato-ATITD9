@@ -739,20 +739,9 @@ function harvestAll(loop_count)
       harvestLeft = (seeds_per_pass * #tops) - numSeedsHarvested -- New method in case one or more plants failed and we have less flax beds than expected
     end
 
-    if finish_up == 0 and tonumber(loop_count) ~= tonumber(num_loops) then
-      if lsButtonText(lsScreenX - 110, lsScreenY - 60, nil, 100, 0xFFFFFFff, "Finish up") then
-        finish_up = 1;
-        finish_up_message = "\n\nFinishing up..."
-      end
-      if lsButtonText(lsScreenX - 110, lsScreenY - 90, nil, 100, 0xFFFFFFff, "Rip Plants") then
-        ripOutAllSeeds()
-        quit = true
-      end
-    end
-
-    statusScreen("(" .. loop_count .. "/" .. num_loops ..
+    sleepWithStatusHarvest(200, "(" .. loop_count .. "/" .. num_loops ..
          ") Harvests Left: " .. harvestLeft .. "\n\nElapsed Time: " .. getElapsedTime(startTime) ..
-         finish_up_message, nil, 0.7);
+         finish_up_message, nil, 0.7, "Monitoring Windows");
 
     if is_plant then
       lsPrintln("Checking Weeds")
@@ -963,4 +952,52 @@ function lastClickTime(x, y)
   end
   lsPrintln("Click " .. x .. ", " .. y .. " not found. ")
   return nil
+end
+
+local waitChars = {"-", "\\", "|", "/"};
+local waitFrame = 1;
+
+function sleepWithStatusHarvest(delay_time, message, color, scale, waitMessage)
+  if not waitMessage then
+    waitMessage = "Waiting ";
+  else
+    waitMessage = waitMessage .. " ";
+  end
+  if not color then
+    color = 0xffffffff;
+  end
+  if not delay_time then
+    error("Incorrect number of arguments for sleepWithStatus()");
+  end
+  if not scale then
+    scale = 0.8;
+  end
+  local start_time = lsGetTimer();
+  while delay_time > (lsGetTimer() - start_time) do
+    local frame = math.floor(waitFrame/5) % #waitChars + 1;
+    time_left = delay_time - (lsGetTimer() - start_time);
+    newWaitMessage = waitMessage;
+    if delay_time >= 1000 then
+      newWaitMessage = waitMessage .. time_left .. " ms ";
+    end
+    lsPrintWrapped(10, 50, 0, lsScreenX - 20, scale, scale, 0xd0d0d0ff,
+                   newWaitMessage .. waitChars[frame]);
+
+    if finish_up == 0 and tonumber(loop_count) ~= tonumber(num_loops) then
+      if lsButtonText(lsScreenX - 110, lsScreenY - 60, nil, 100, 0xFFFFFFff, "Finish up") then
+        finish_up = 1;
+        finish_up_message = "\n\nFinishing up..."
+      end
+    end
+
+
+      if lsButtonText(lsScreenX - 110, lsScreenY - 90, nil, 100, 0xFFFFFFff, "Rip Plants") then
+        ripOutAllSeeds()
+        quit = true
+      end
+
+    statusScreen(message, color, nil, scale);
+    lsSleep(tick_delay);
+    waitFrame = waitFrame + 1;
+  end
 end
