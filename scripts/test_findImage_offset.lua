@@ -107,7 +107,6 @@ end
 function pointToLocation()
   local y = 20;
     while 1 do
-      disablePointButton = 1;
       if lsMouseIsDown(1) then
 	  lsSleep(50);
 	  -- Don't move mouse until we let go of mouse button
@@ -126,8 +125,6 @@ function pointToLocation()
 		  .. xOffset .. "\nY Offset: " .. yOffset .. "\n\nMouse Location (no offset):\n" .. math.floor(findBlah[i][0]) .. ", " .. math.floor(findBlah[i][1]) .. "\n\nMouse Location (after offsets):\n" .. math.floor(findBlah[i][0]+xOffset) .. ", " .. 
 		  math.floor(findBlah[i][1]+yOffset), nil, 0.7);
 		end
-
-      disablePointButton = nil;
       break;
       end
     end -- while
@@ -170,7 +167,7 @@ function sleepWithStatus(delay_time, message, color, scale, waitMessage)
       mainMenu();
     end
 
-    if #findBlah > 0 and not disablePointButton then
+    if #findBlah > 0 then
       if lsButtonText(10, lsScreenY - 30, z, 100, 0xFFFFFFff, "Point") then
         pointToLocation();
       end
