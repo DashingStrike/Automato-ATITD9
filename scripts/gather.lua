@@ -1,4 +1,6 @@
--- Macro created by Unknown, updated for T8 by Manon on 10 march 2018.
+-- Macro created by Unknown, updated for T8 by Manon on 10 March 2018.
+-- WaypointColors are hexadecimal RGBA
+-- Tree and color definitions updated for T9 by Spatulus 2019-10-25
 
 dofile("screen_reader_common.inc");
 dofile("ui_utils.inc");
@@ -65,6 +67,30 @@ Arconis = 50;
 PratyekaTree = 51;
 Savaka = 52;
 Trilobellia = 53;
+BlazeMaple = 54;
+Dikbas = 55;
+Illawara = 56;
+Jacaranda = 57;
+Katsura = 58;
+Khaya = 59;
+Mimosa = 60;
+MontereyPine = 61;
+MontuMaple = 62;
+Oranje = 63;
+Parrotia = 64;
+PnCMaple = 65;
+SilkyOak = 66;
+AutumnBloodbark = 67;
+RiverBirch = 68;
+GoldenHemlock = 69;
+JapaneseCherry = 70;
+GreenAsh = 71;
+Acacia = 72;
+SummerMaple = 73;
+WhitePine = 74;
+Safsaf = 75;
+SweetPine = 76;
+
 
 WaypointOrder = {};
 WaypointOrder[#WaypointOrder+1] = Waypoint;
@@ -72,54 +98,78 @@ WaypointOrder[#WaypointOrder+1] = MenuClick;
 WaypointOrder[#WaypointOrder+1] = Bonfire;
 WaypointOrder[#WaypointOrder+1] = Warehouse;
 WaypointOrder[#WaypointOrder+1] = Water;
-WaypointOrder[#WaypointOrder+1] = WindriverPalm;
-WaypointOrder[#WaypointOrder+1] = UmbrellaPalm;
-WaypointOrder[#WaypointOrder+1] = Trilobellia;
-WaypointOrder[#WaypointOrder+1] = ToweringPalm;
-WaypointOrder[#WaypointOrder+1] = TinyOilPalm;
-WaypointOrder[#WaypointOrder+1] = TapacaeMiralis;
-WaypointOrder[#WaypointOrder+1] = StoutPalm;
-WaypointOrder[#WaypointOrder+1] = SpindleTree;
-WaypointOrder[#WaypointOrder+1] = SpikedFishTree;
-WaypointOrder[#WaypointOrder+1] = Savaka;
-WaypointOrder[#WaypointOrder+1] = RoyalPalm;
-WaypointOrder[#WaypointOrder+1] = RedMaple;
-WaypointOrder[#WaypointOrder+1] = RazorPalm;
-WaypointOrder[#WaypointOrder+1] = Ranyahn;
-WaypointOrder[#WaypointOrder+1] = PratyekaTree;
-WaypointOrder[#WaypointOrder+1] = PhoenixPalm;
-WaypointOrder[#WaypointOrder+1] = Passam;
-WaypointOrder[#WaypointOrder+1] = Orrorin;
-WaypointOrder[#WaypointOrder+1] = Oleaceae;
-WaypointOrder[#WaypointOrder+1] = OilPalm;
-WaypointOrder[#WaypointOrder+1] = MonkeyPalm;
-WaypointOrder[#WaypointOrder+1] = MiniPalmetto;
-WaypointOrder[#WaypointOrder+1] = MiniatureFernPalm;
-WaypointOrder[#WaypointOrder+1] = LocustPalm;
-WaypointOrder[#WaypointOrder+1] = Kaeshra;
-WaypointOrder[#WaypointOrder+1] = Hokkaido;
-WaypointOrder[#WaypointOrder+1] = Hawthorn;
-WaypointOrder[#WaypointOrder+1] = GiantCricklewood;
-WaypointOrder[#WaypointOrder+1] = FoldedBirch;
-WaypointOrder[#WaypointOrder+1] = FernPalm;
-WaypointOrder[#WaypointOrder+1] = FeatherTree;
-WaypointOrder[#WaypointOrder+1] = Elephantia;
-WaypointOrder[#WaypointOrder+1] = DeltaPalm;
-WaypointOrder[#WaypointOrder+1] = Cricklewood;
-WaypointOrder[#WaypointOrder+1] = CoconutPalm;
-WaypointOrder[#WaypointOrder+1] = Cinnar;
-WaypointOrder[#WaypointOrder+1] = Chicory;
-WaypointOrder[#WaypointOrder+1] = ChakkanutTree;
-WaypointOrder[#WaypointOrder+1] = CeruleanBlue;
-WaypointOrder[#WaypointOrder+1] = ButterleafTree;
-WaypointOrder[#WaypointOrder+1] = BroadLeafPalm;
-WaypointOrder[#WaypointOrder+1] = BrambleHedge;
-WaypointOrder[#WaypointOrder+1] = BottleTree;
-WaypointOrder[#WaypointOrder+1] = Bloodbark;
-WaypointOrder[#WaypointOrder+1] = Beetlenut;
-WaypointOrder[#WaypointOrder+1] = AshPalm;
-WaypointOrder[#WaypointOrder+1] = Arconis;
+WaypointOrder[#WaypointOrder+1] = Acacia;
 WaypointOrder[#WaypointOrder+1] = Anaxi;
+WaypointOrder[#WaypointOrder+1] = Arconis;
+WaypointOrder[#WaypointOrder+1] = AshPalm;
+WaypointOrder[#WaypointOrder+1] = AutumnBloodbark;
+WaypointOrder[#WaypointOrder+1] = Beetlenut;
+WaypointOrder[#WaypointOrder+1] = BlazeMaple;
+WaypointOrder[#WaypointOrder+1] = Bloodbark;
+WaypointOrder[#WaypointOrder+1] = BottleTree;
+WaypointOrder[#WaypointOrder+1] = BrambleHedge;
+WaypointOrder[#WaypointOrder+1] = BroadLeafPalm;
+WaypointOrder[#WaypointOrder+1] = ButterleafTree;
+WaypointOrder[#WaypointOrder+1] = CeruleanBlue;
+WaypointOrder[#WaypointOrder+1] = ChakkanutTree;
+WaypointOrder[#WaypointOrder+1] = Chicory;
+WaypointOrder[#WaypointOrder+1] = Cinnar;
+WaypointOrder[#WaypointOrder+1] = CoconutPalm;
+WaypointOrder[#WaypointOrder+1] = Cricklewood;
+WaypointOrder[#WaypointOrder+1] = DeltaPalm;
+WaypointOrder[#WaypointOrder+1] = Dikbas;
+WaypointOrder[#WaypointOrder+1] = Elephantia;
+WaypointOrder[#WaypointOrder+1] = FeatherTree;
+WaypointOrder[#WaypointOrder+1] = FernPalm;
+WaypointOrder[#WaypointOrder+1] = FoldedBirch;
+WaypointOrder[#WaypointOrder+1] = GiantCricklewood;
+WaypointOrder[#WaypointOrder+1] = GoldenHemlock;
+WaypointOrder[#WaypointOrder+1] = GreenAsh
+WaypointOrder[#WaypointOrder+1] = Hawthorn;
+WaypointOrder[#WaypointOrder+1] = Hokkaido;
+WaypointOrder[#WaypointOrder+1] = Illawara;
+WaypointOrder[#WaypointOrder+1] = Jacaranda;
+WaypointOrder[#WaypointOrder+1] = JapaneseCherry;
+WaypointOrder[#WaypointOrder+1] = Kaeshra;
+WaypointOrder[#WaypointOrder+1] = Katsura;
+WaypointOrder[#WaypointOrder+1] = Khaya;
+WaypointOrder[#WaypointOrder+1] = LocustPalm;
+WaypointOrder[#WaypointOrder+1] = Mimosa;
+WaypointOrder[#WaypointOrder+1] = MiniatureFernPalm;
+WaypointOrder[#WaypointOrder+1] = MiniPalmetto;
+WaypointOrder[#WaypointOrder+1] = MonkeyPalm;
+WaypointOrder[#WaypointOrder+1] = MontereyPine;
+WaypointOrder[#WaypointOrder+1] = MontuMaple;
+WaypointOrder[#WaypointOrder+1] = OilPalm;
+WaypointOrder[#WaypointOrder+1] = Oleaceae;
+WaypointOrder[#WaypointOrder+1] = Oranje;
+WaypointOrder[#WaypointOrder+1] = Orrorin;
+WaypointOrder[#WaypointOrder+1] = Parrotia;
+WaypointOrder[#WaypointOrder+1] = Passam;
+WaypointOrder[#WaypointOrder+1] = PhoenixPalm;
+WaypointOrder[#WaypointOrder+1] = PnCMaple;
+WaypointOrder[#WaypointOrder+1] = PratyekaTree;
+WaypointOrder[#WaypointOrder+1] = Ranyahn;
+WaypointOrder[#WaypointOrder+1] = RazorPalm;
+WaypointOrder[#WaypointOrder+1] = RedMaple;
+WaypointOrder[#WaypointOrder+1] = RiverBirch;
+WaypointOrder[#WaypointOrder+1] = RoyalPalm;
+WaypointOrder[#WaypointOrder+1] = Savaka;
+WaypointOrder[#WaypointOrder+1] = SilkyOak;
+WaypointOrder[#WaypointOrder+1] = SpikedFishTree;
+WaypointOrder[#WaypointOrder+1] = SpindleTree;
+WaypointOrder[#WaypointOrder+1] = StoutPalm;
+WaypointOrder[#WaypointOrder+1] = TapacaeMiralis;
+WaypointOrder[#WaypointOrder+1] = TinyOilPalm;
+WaypointOrder[#WaypointOrder+1] = ToweringPalm;
+WaypointOrder[#WaypointOrder+1] = Trilobellia;
+WaypointOrder[#WaypointOrder+1] = UmbrellaPalm;
+WaypointOrder[#WaypointOrder+1] = WindriverPalm;
+WaypointOrder[#WaypointOrder+1] = SummerMaple;
+WaypointOrder[#WaypointOrder+1] = WhitePine;
+WaypointOrder[#WaypointOrder+1] = Safsaf;
+WaypointOrder[#WaypointOrder+1] = SweetPine;
+
 
 WaypointTypes = {};
 WaypointTypes[Waypoint] = "Waypoint";
@@ -176,10 +226,34 @@ WaypointTypes[Arconis] = "Arconis";
 WaypointTypes[PratyekaTree] = "Pratyeka Tree";
 WaypointTypes[Savaka] = "Savaka";
 WaypointTypes[Trilobellia] = "Trilobellia";
+WaypointTypes[BlazeMaple] = "Blaze Maple";
+WaypointTypes[Dikbas] = "Dikbas";
+WaypointTypes[Illawara] = "Illawara";
+WaypointTypes[Jacaranda] = "Jacaranda";
+WaypointTypes[Katsura] = "Katsura";
+WaypointTypes[Khaya] = "Khaya";
+WaypointTypes[Mimosa] = "Mimosa";
+WaypointTypes[MontereyPine] = "Monterey Pine";
+WaypointTypes[MontuMaple] = "Montu Maple";
+WaypointTypes[Oranje] = "Oranje";
+WaypointTypes[Parrotia] = "Parrotia";
+WaypointTypes[PnCMaple] = "Peaches 'n Cream Maple";
+WaypointTypes[SilkyOak] = "Silky Oak";
+WaypointTypes[AutumnBloodbark] = "Autumn Bloodbark";
+WaypointTypes[RiverBirch] = "River Birch";
+WaypointTypes[GoldenHemlock] = "Golden Hemlock";
+WaypointTypes[JapaneseCherry] = "Japanese Cherry";
+WaypointTypes[GreenAsh] = "Green Ash";
+WaypointTypes[Acacia] = "Acacia";
+WaypointTypes[SummerMaple] = "Summer Maple";
+WaypointTypes[WhitePine] = "White Pine";
+WaypointTypes[Safsaf] = "Safsaf";
+WaypointTypes[SweetPine] = "Sweet Pine";
+
 
 WaypointColors = {};
 WaypointColors[Bonfire] = 0x3F3325FF;
-WaypointColors[Warehouse] = 0xA07338FF;
+WaypointColors[Warehouse] = 0X4C2B09FF; -- was 0xA07338FF
 WaypointColors[MenuClick] = 0x0;
 WaypointColors[ToweringPalm] = 0x5E7C2FFF;
 WaypointColors[RoyalPalm] = 0x83201FF;
@@ -227,8 +301,32 @@ WaypointColors[Cricklewood] = 0x5D2F00FF;
 WaypointColors[GiantCricklewood] = 0x401500FF;
 WaypointColors[Arconis] = 0x508729FF;
 WaypointColors[PratyekaTree] = 0x253A0EFF;
-WaypointColors[Savaka] = 0x587C08FF;
+WaypointColors[Savaka] = 0x557919FF;  
 WaypointColors[Trilobellia] = 0x9C7A02FF;
+WaypointColors[BlazeMaple] = 0xC40606FF;
+WaypointColors[Dikbas] = 0xC39593FF;
+WaypointColors[Illawara] = 0xDAD0CFFF;
+WaypointColors[Jacaranda] = 0xC97DFFFF;
+WaypointColors[Katsura] = 0xCD5932FF;
+WaypointColors[Khaya] = 0x57570DFF;
+WaypointColors[Mimosa] = 0x598742FF;
+WaypointColors[MontereyPine] = 0x775701FF;
+WaypointColors[MontuMaple] = 0xAE4600FF;
+WaypointColors[Oranje] = 0xCC761AFF;
+WaypointColors[Parrotia] = 0xF2C43CFF;
+WaypointColors[PnCMaple] = 0xE64500FF;
+WaypointColors[SilkyOak] = 0xA6B022FF;
+WaypointColors[AutumnBloodbark] = 0x7B0C0CFF;
+WaypointColors[RiverBirch] = 0xDD9E52FF;
+WaypointColors[GoldenHemlock] = 0xD5BF16FF;
+WaypointColors[JapaneseCherry] = 0xECA4ECFF;
+WaypointColors[GreenAsh] = 0xFFFF25FF;
+WaypointColors[Acacia] = 0x5D5913FF;
+WaypointColors[SummerMaple] = 0x1C711CFF;
+WaypointColors[WhitePine] = 0x0A830AFF;
+WaypointColors[Safsaf] = 0x076501FF;
+WaypointColors[SweetPine] = 0x97BE7DFF;
+
 
 keyDelay = 30;
 minDelta = 45;
@@ -249,7 +347,7 @@ walkingRoute = false;
 routeStartTime = 0;
 
 function doit()
-    if(not promptOkay("WARNING! This macro requires your chats to be minimized and your \"Use arrow keys for movement\" option to be enabled.")) then
+    if(not promptOkay("WARNING! This macro requires your chats to be minimized and your \"Use arrow keys for movement\" option to be enabled. Enable fast gather from the One-Click Options menu.")) then
         return;
     end
     if(not promptOkay("Time of day, shadows and light intensity should be on lowest setting. Updated for T8 by Manon.")) then
@@ -990,17 +1088,18 @@ function clickWaypoint(typeOfWaypoint)
 end
 
 function clickWaypointPixel(x, y, typeOfWaypoint)
+    
     local pos = {};
     local xyWindowSize = srGetWindowSize();
 
     checkBreak();
     if(typeOfWaypoint == Bonfire) then
         local currColor = srReadPixelFromBuffer(x, y);
+
         if(compareColorEx(WaypointColors[typeOfWaypoint],currColor,6,2)) then
             local mid = {};
             mid[0] = xyWindowSize[0] / 2;
             mid[1] = xyWindowSize[1] / 2;
-            --srSetMousePos(mid[0],mid[1]);
             safeClick(x,y);
             lsSleep(150);
             srReadScreen();
@@ -1018,9 +1117,11 @@ function clickWaypointPixel(x, y, typeOfWaypoint)
     local radius = 2;
     local rgbTol = 450;
     local hueTol = 450;
+    
     local roughness = 20;
-    if (typeOfWaypoint == Ranyahn) or (typeOfWaypoint == Hawthorn) or (typeOfWaypoint == MiniatureFernPalm) then
+    if (typeOfWaypoint == Oranje) or (typeOfWaypoint == Ranyahn) or (typeOfWaypoint == Hawthorn) or (typeOfWaypoint == MiniatureFernPalm) then
         roughness = 100;
+        radius = 4;
     end
     local foundSomething = false;
     if(pixelBlockCheck(x, y, WaypointColors[typeOfWaypoint], rgbTol, hueTol, roughness, radius)) then
@@ -1475,22 +1576,22 @@ function stashAllButWood()
                                 stashItem(pos,true);
                                 stashedSomething = true;
                             else
-                            		pos = findText("Wood (");
-                            		if(pos) then
-                            				stashItem(pos,true);
-                            				stashedSomething = true;
-                            		else
-                                		pos = findText("Insect...");
-                                		if(pos) then
-                                    		safeClick(pos[0] + 10, pos[1] + 5);
-                                    		lsSleep(150);
-                                    		srReadScreen();
-                                    		pos = findText("All Insect");
-                                    		if(pos) then
-                                        		stashItem(pos,false);
-                                        		stashedSomething = true;
-                                						
-                                				end
+                                pos = findText("Wood (");
+                                if(pos) then
+                                        stashItem(pos,true);
+                                        stashedSomething = true;
+                                else
+                                    pos = findText("Insect...");
+                                    if(pos) then
+                                        safeClick(pos[0] + 10, pos[1] + 5);
+                                        lsSleep(150);
+                                        srReadScreen();
+                                        pos = findText("All Insect");
+                                        if(pos) then
+                                            stashItem(pos,false);
+                                            stashedSomething = true;
+                                                    
+                                        end
                                     end
                                 end
                             end
@@ -1687,7 +1788,3 @@ function deleteMenuText(where,thisRoute)
     end
     return thisRoute;
 end
-
-
-
-
