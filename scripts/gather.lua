@@ -253,7 +253,7 @@ WaypointTypes[SweetPine] = "Sweet Pine";
 
 WaypointColors = {};
 WaypointColors[Bonfire] = 0x3F3325FF;
-WaypointColors[Warehouse] = 0X4C2B09FF; -- was 0xA07338FF
+WaypointColors[Warehouse] = 0xD3AB86FF; -- was 0xA07338FF
 WaypointColors[MenuClick] = 0x0;
 WaypointColors[ToweringPalm] = 0x5E7C2FFF;
 WaypointColors[RoyalPalm] = 0x83201FF;
