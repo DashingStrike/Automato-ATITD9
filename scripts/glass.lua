@@ -324,6 +324,11 @@ function glassTick(window_pos, state)
 					lsSleep(100);
 					srReadScreen();
 					thisIs = srFindImageInRange("ThisIs.png", window_pos[0], window_pos[1], window_w, window_h, tol);
+                                  ok = srFindImage("ok.png")
+                                  if ok then
+                                    srClickMouseNoMove(ok[0], ok[1])
+                                    lsSleep(100)
+                                  end
 					if not thisIs then 
 					  state.status = state.status .. " NothingToMake - Error Refreshing Window";
 					else
