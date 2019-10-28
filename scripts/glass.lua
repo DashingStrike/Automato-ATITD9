@@ -6,7 +6,8 @@
 -- Major revamp by Cegaiel 08-MAY-2018
 
 
-dofile("common.inc"); -- To allow the findAllText function
+dofile("common.inc");
+dofile("settings.inc");
 
 -- Initial variables
 window_w = 320;
@@ -22,6 +23,8 @@ thisLog = "\n***************  New Session Started  ***************\n\n";
 this_tick = "";
 last_tick = "";
 showTicks = true;  -- Change to false to supress this status message (Ticks:# / DV:value / HV:value / min/maxTemp:value-value)
+glazierBenchSpec = false;
+
 
 -- It will make the first in the list if available, otherwise the next, etc
 -- This will let you make, e.g. Rods on your Soda Glass and Sheet Glass on your normal, by putting
@@ -116,8 +119,15 @@ function glassTick(window_pos, state)
 	local pos;
 	local pos2;
 	local out_of_glass = nil;
-	pos = srFindImageInRange("glass/GlassTimeToStop.png", window_pos[0], window_pos[1], window_w, window_h, tol);
+
+	if glazierBenchSpec then
+	  pos = srFindImageInRange("glass/GlassTimeToStop_GlazierSpec.png", window_pos[0], window_pos[1], window_w, window_h, tol);
+	else
+	  pos = srFindImageInRange("glass/GlassNoMelted.png", window_pos[0], window_pos[1], window_w, window_h, tol);
+	end
 	pos2 = srFindImageInRange("glass/GlassNoMelted.png", window_pos[0], window_pos[1], window_w, window_h, tol);
+
+
 	if pos or pos2 then
 		out_of_glass = 1;
 	end
@@ -429,6 +439,11 @@ function doit()
 
 	  showTicks = lsCheckBox(200, lsScreenY - 70, 10, 0xFFFFFFff, " Display Ticks/HV/DV", showTicks);
 	  writeLogs = lsCheckBox(200, lsScreenY - 40, 10, 0xFFFFFFff, " Write Log File", writeLogs);
+
+	  glazierBenchSpec = readSetting("glazierBenchSpec",glazierBenchSpec);
+	  glazierBenchSpec = lsCheckBox(200, lsScreenY - 10, 10, 0xFFFFFFff, " Have Glazier\'s Bench Handling Spec?", glazierBenchSpec);
+	  writeSetting("glazierBenchSpec",glazierBenchSpec);
+
 	  lsDoFrame();
 	  lsSleep(10);
 	end
@@ -529,6 +544,7 @@ function doit()
 			  end
 			    showTicks = lsCheckBox(200, lsScreenY - 70, 10, 0xFFFFFFff, " Display Ticks/HV/DV", showTicks);
 			    writeLogs = lsCheckBox(200, lsScreenY - 40, 10, 0xFFFFFFff, " Write Log File", writeLogs);
+			    glazierBenchSpec = lsCheckBox(200, lsScreenY - 10, 10, 0xFFFFFFff, " Have Glazier\'s Bench Handling Spec?", glazierBenchSpec);
 			  lsSetCamera(0,0,lsScreenX*1.1,lsScreenY*1.1);
 
 
