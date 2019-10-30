@@ -137,8 +137,8 @@ if replant then
 --    lsPrint(10, lsScreenY - checkStart - 20, 0, 0.7, 0.7, 0xffffffff, vineForReplanting);
 
   end
-end    
-    
+end
+
    -- lsSetCamera(0,0,lsScreenX*1.0,lsScreenY*1.0);
 --    action = lsDropdown("VineyardAction", 125, lsScreenY - 120, 0, 100, action, vineyardActions);
     lsSetCamera(0,0,lsScreenX*1.0,lsScreenY*1.0);
@@ -177,7 +177,7 @@ end
 
 
 function noCuttings()
-local hasNoCuttings = waitForImage("OK-popup.png",250,"Waiting for popup");
+local hasNoCuttings = waitForImage("OK.png",250,"Waiting for popup");
   if hasNoCuttings then
       safeClick(hasNoCuttings[0] + 10, hasNoCuttings[1] + 10);
       return "No Cuttings";
@@ -307,7 +307,7 @@ function promptAdd()
 		    "End Script") then
       error(quit_message);
     end
-    
+
     lsSetCamera(0,0,lsScreenX*1.2,lsScreenY*1.2);
     addIndex = lsDropdown("VineAddIndex", 30, 50, 0, 250, addIndex,
 			  vineNames);
@@ -534,7 +534,7 @@ function statusNumber(name,endCharacter,suppressName)
   local result = "";
   local image = "vineyard/Number_" .. name .. ".png"
   local anchor = srFindImage(image);
-  if not endCharacter then 
+  if not endCharacter then
     endCharacter = "\n";
   end
   if anchor then
@@ -544,7 +544,7 @@ function statusNumber(name,endCharacter,suppressName)
 	if not suppressName then
       result = name .. ": " .. number .. endCharacter;
 	else
-      result = number .. endCharacter;	
+      result = number .. endCharacter;
 	end
 	end
   end
@@ -554,19 +554,19 @@ end
 
 --      elseif vine == 2 then
 --	if sagging and vigor -1>0 then
---	  clickpos=srFindImage("V_TV.png")		
+--	  clickpos=srFindImage("V_TV.png")
 --	elseif wilting and vigor -1>0 then
---	  clickpos=srFindImage("V_PO.png")		
+--	  clickpos=srFindImage("V_PO.png")
 --	elseif musty and vigor -2 >0 then
---	  clickpos=srFindImage("V_TV.png")		
---	elseif fat and vigor -4 >0 then 
---	  clickpos=srFindImage("V_TL.png")		
+--	  clickpos=srFindImage("V_TV.png")
+--	elseif fat and vigor -4 >0 then
+--	  clickpos=srFindImage("V_TL.png")
 --	elseif rustle and vigor -1>0 then
---	  clickpos=srFindImage("V_AS.png")		
+--	  clickpos=srFindImage("V_AS.png")
 --	elseif shrivel and vigor -3>0 then
---	  clickpos=srFindImage("V_SV.png")		
+--	  clickpos=srFindImage("V_SV.png")
 --	elseif shimmer and vigor -1>0 then
---	  clickpos=srFindImage("V_SV.png")		
+--	  clickpos=srFindImage("V_SV.png")
 --	end
 
 function findVineState()
