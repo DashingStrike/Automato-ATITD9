@@ -116,7 +116,7 @@ function tendWheat()
 	srReadScreen();
 
 
-  local water = findAllImages("water.png");
+  local water = findAllImages("wheat/waterWheat.png");
 	if #water > 0 then
 
 			for i=1, #water do
