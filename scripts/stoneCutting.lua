@@ -227,6 +227,11 @@ function start()
 		lsSleep(500);
 		closePopUp();  --If you don't have enough cuttable stones in inventory, then a popup will occur. We don't want these, so check.
 		checkMaking();
+
+		clickAllText("Take...");
+		lsSleep(500);
+		clickAllText("Everything");
+
     lsPlaySound("Complete.wav");
 	end
 end
@@ -248,7 +253,7 @@ function checkMaking()
 					if #making == 0 then
 						break; --We break this while statement because Making is not detect, hence we're done with this round
 					end
-				sleepWithStatus(999, "Waiting for " .. product .. " to finish" .. #making , nil, 0.7);
+				sleepWithStatus(999, "Waiting for " .. product .. " to finish", nil, 0.7);
 			end
 end
 
