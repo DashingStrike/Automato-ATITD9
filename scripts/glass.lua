@@ -123,7 +123,7 @@ function glassTick(window_pos, state)
 	if glazierBenchSpec then
 	  pos = srFindImageInRange("glass/GlassTimeToStop_GlazierSpec.png", window_pos[0], window_pos[1], window_w, window_h, tol);
 	else
-	  pos = srFindImageInRange("glass/GlassNoMelted.png", window_pos[0], window_pos[1], window_w, window_h, tol);
+	  pos = srFindImageInRange("glass/GlassTimeToStop.png", window_pos[0], window_pos[1], window_w, window_h, tol);
 	end
 	pos2 = srFindImageInRange("glass/GlassNoMelted.png", window_pos[0], window_pos[1], window_w, window_h, tol);
 
