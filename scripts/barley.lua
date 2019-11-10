@@ -465,7 +465,7 @@ function plantHere(xyPlantFlax, y_pos)
 
   -- Bring up menu
   lsPrintln('menu ' .. bed[0] .. ',' .. bed[1]);
-  if not openAndPin(bed[0]-100, bed[1], 3500) then
+  if not openAndPin(bed[0], bed[1], 3500) then
     error_status = "No window came up after planting.";
     return false;
   end
