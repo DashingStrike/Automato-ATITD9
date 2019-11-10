@@ -63,6 +63,7 @@ function doit()
     local update_now = 1;
     local y=0;
     local button_push = 0;
+    local added = "Nothing";
 
     lsSetCaptureWindow();
 
@@ -154,6 +155,8 @@ counter = counter + 1
                     paint_sum[3] =     paint_sum[3] + paint_colourB[button_push];
                     paint_count = paint_count + 1.0;
                 end
+
+                added = button_names[button_push];
             --}
             end
 
@@ -183,7 +186,7 @@ counter = counter + 1
 
             
             -- New colour has been added, mix in the pot, and see if there's a difference from the expected value.
-            if not (button_push==0) then
+            if ((paint_count > 0) and (button_push > 0)) then
             --{                
                 for i=1, 3 do
                     expected_colour[i] = paint_sum[i] / paint_count;
@@ -208,6 +211,8 @@ counter = counter + 1
         y = y + 26;
         lsPrintWrapped(0, y, 1, lsScreenX, 1, 1, 0xFFFFFFff,
             " Reactions RGB: " .. math.floor(diff_colour[1]+0.5) .. "," .. math.floor(diff_colour[2]+0.5) .. "," .. math.floor(diff_colour[3]+0.5) );
+        y = y + 26;
+        lsPrintWrapped(0, y, 1, lsScreenX, 1, 1, 0xFFFFFFff, " Added: " .. added);
 
 
         if lsButtonText(lsScreenX - 30, lsScreenY - 30, 0, 100, 0xFFFFFFff, "Exit") then
