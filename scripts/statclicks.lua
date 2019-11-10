@@ -33,6 +33,7 @@ items = {
         },
         --foc
         {"",
+            "Rawhide Strips",
             "Barrel Tap",
             "Bottle Stopper",
             "Crudely Carved Handle",
@@ -170,12 +171,14 @@ end
 
 function carve(item)
     if item == "Tinder" then
-        carveText = findText("Carve Wood into " .. item);
-    elseif item == "Wooden Peg" then
-        carveText = findText("Carve a small " .. item);
-    else
-        carveText = findText("Carve a " .. item);
-    end
+         carveText = findText("Carve Wood into " .. item);
+      elseif item == "Wooden Peg" then
+         carveText = findText("Carve a small " .. item);
+      elseif item == "Rawhide Strips" then
+         carveText = findText("Carve Leather into " .. item);
+      else
+         carveText = findText("Carve a " .. item);
+   end
 
     if carveText ~= nil then
         clickText(carveText);
@@ -519,6 +522,8 @@ function doTasks()
                     churnButter();
                 elseif curTask == "Barrel Tap" then
                     carve(curTask);
+                 elseif curTask == "Rawhide Strips" then
+                     carve(curTask);
                 elseif curTask == "Bottle Stopper" then
                     carve(curTask);
                 elseif curTask == "Crudely Carved Handle" then

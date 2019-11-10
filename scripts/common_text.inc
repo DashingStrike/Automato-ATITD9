@@ -78,8 +78,9 @@ end
 function getChatText()
   local creg = findChatRegionReplacement();
   while not creg do
+    srReadScreen();
     creg = findChatRegionReplacement();
-    sleepWithStatus(100,"Cound not find \'Main\' Chat Tab.\n\nTry moving the chat window so that all four borders are visible. ", nil, 0.7);
+    sleepWithStatus(100,"Can\'t find \'Main\' Chat Tab.\n\nTry moving the chat window so that all four borders are visible.\n\nAlso make sure Automato or no other windows are partially covering the chat region.", nil, 0.7, "Searching for Main Chat");
   end
   -- The below line is a hack introduced for T7 to handle the fact that
   -- there isn't as much of a buffer below chat as there was in T6 and prior.

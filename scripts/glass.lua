@@ -6,7 +6,8 @@
 -- Major revamp by Cegaiel 08-MAY-2018
 
 
-dofile("common.inc"); -- To allow the findAllText function
+dofile("common.inc");
+dofile("settings.inc");
 
 -- Initial variables
 window_w = 320;
@@ -22,6 +23,8 @@ thisLog = "\n***************  New Session Started  ***************\n\n";
 this_tick = "";
 last_tick = "";
 showTicks = true;  -- Change to false to supress this status message (Ticks:# / DV:value / HV:value / min/maxTemp:value-value)
+glazierBenchSpec = false;
+
 
 -- It will make the first in the list if available, otherwise the next, etc
 -- This will let you make, e.g. Rods on your Soda Glass and Sheet Glass on your normal, by putting
@@ -114,9 +117,18 @@ end
 function glassTick(window_pos, state)
 	state.status = "";
 	local pos;
+	local pos2;
 	local out_of_glass = nil;
-	pos = srFindImageInRange("glass/GlassTimeToStop.png", window_pos[0], window_pos[1], window_w, window_h, tol);
-	if pos then
+
+	if glazierBenchSpec then
+	  pos = srFindImageInRange("glass/GlassTimeToStop_GlazierSpec.png", window_pos[0], window_pos[1], window_w, window_h, tol);
+	else
+	  pos = srFindImageInRange("glass/GlassTimeToStop.png", window_pos[0], window_pos[1], window_w, window_h, tol);
+	end
+	pos2 = srFindImageInRange("glass/GlassNoMelted.png", window_pos[0], window_pos[1], window_w, window_h, tol);
+
+
+	if pos or pos2 then
 		out_of_glass = 1;
 	end
 	pos = srFindImageInRange("glass/GlassTemperature.png", window_pos[0], window_pos[1], window_w, window_h, tol);
@@ -240,7 +252,7 @@ function glassTick(window_pos, state)
 	end
 
 		    -- Calculate if this bench will spike beyond 2400 and prevent cooking during spiking.
-		if state.lastSpike > 0 and (1600 - state.HV + state.DV + state.lastSpike) <= 2399 then
+		if state.lastSpike > 0 and (temp - state.HV + state.DV + state.lastSpike) <= 2399 then
 		  cookDuringSpike = true; -- This bench will not overheat from a spike and allowed to cook during spiking
 		else
 		  cookDuringSpike = nil; 
@@ -290,7 +302,7 @@ function glassTick(window_pos, state)
 			if temp >= (1600 - state.HV + state.DV) and temp <= (2399 - state.HV) and not maintainHeatNoCook and state.MinTempReachedOnce and not ( (state.spiking or state.want_spike) and not cookDuringSpike ) then  
 				local made_one=nil;
 				for item_index=1, #item_priority do
-					pos = srFindImageInRange(item_priority[item_index], window_pos[0], window_pos[1], window_w, window_h, tol);
+					pos = srFindImageInRange("glass/" .. item_priority[item_index], window_pos[0], window_pos[1], window_w, window_h, tol);
 					if pos then
 							for pngName, glassName in pairs(item_name) do
 								if pngName == item_priority[item_index] then
@@ -312,6 +324,11 @@ function glassTick(window_pos, state)
 					lsSleep(100);
 					srReadScreen();
 					thisIs = srFindImageInRange("ThisIs.png", window_pos[0], window_pos[1], window_w, window_h, tol);
+                                  ok = srFindImage("ok.png")
+                                  if ok then
+                                    srClickMouseNoMove(ok[0], ok[1])
+                                    lsSleep(100)
+                                  end
 					if not thisIs then 
 					  state.status = state.status .. " NothingToMake - Error Refreshing Window";
 					else
@@ -427,6 +444,11 @@ function doit()
 
 	  showTicks = lsCheckBox(200, lsScreenY - 70, 10, 0xFFFFFFff, " Display Ticks/HV/DV", showTicks);
 	  writeLogs = lsCheckBox(200, lsScreenY - 40, 10, 0xFFFFFFff, " Write Log File", writeLogs);
+
+	  glazierBenchSpec = readSetting("glazierBenchSpec",glazierBenchSpec);
+	  glazierBenchSpec = lsCheckBox(200, lsScreenY - 10, 10, 0xFFFFFFff, " Have Glazier\'s Bench Handling Spec?", glazierBenchSpec);
+	  writeSetting("glazierBenchSpec",glazierBenchSpec);
+
 	  lsDoFrame();
 	  lsSleep(10);
 	end
@@ -527,6 +549,7 @@ function doit()
 			  end
 			    showTicks = lsCheckBox(200, lsScreenY - 70, 10, 0xFFFFFFff, " Display Ticks/HV/DV", showTicks);
 			    writeLogs = lsCheckBox(200, lsScreenY - 40, 10, 0xFFFFFFff, " Write Log File", writeLogs);
+			    glazierBenchSpec = lsCheckBox(200, lsScreenY - 10, 10, 0xFFFFFFff, " Have Glazier\'s Bench Handling Spec?", glazierBenchSpec);
 			  lsSetCamera(0,0,lsScreenX*1.1,lsScreenY*1.1);
 
 

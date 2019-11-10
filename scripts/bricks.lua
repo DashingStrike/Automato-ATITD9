@@ -78,16 +78,16 @@ function promptParameters()
 
     if pinnedMode then
       arrangeWindows = readSetting("arrangeWindows",arrangeWindows);
-      arrangeWindows = CheckBox(10, y+30, z, 0xFFFFFFff, "Arrange windows (Grid format)", arrangeWindows, 0.65, 0.65);
+      arrangeWindows = CheckBox(10, y+30, z, 0xFFFFFFff, " Arrange windows (Grid format)", arrangeWindows, 0.65, 0.65);
       writeSetting("arrangeWindows",arrangeWindows);
 
       unpinWindows = readSetting("unpinWindows",unpinWindows);
-      unpinWindows = CheckBox(10, y+50, z, 0xFFFFFFff, "Unpin windows on exit", unpinWindows, 0.65, 0.65);
+      unpinWindows = CheckBox(10, y+50, z, 0xFFFFFFff, " Unpin windows on exit", unpinWindows, 0.65, 0.65);
       writeSetting("unpinWindows",unpinWindows);
       y = y + 62;
     else
       unpinWindows = readSetting("unpinWindows",unpinWindows);
-      unpinWindows = CheckBox(10, y+30, z, 0xFFFFFFff, "Unpin windows on exit", unpinWindows, 0.65, 0.65);
+      unpinWindows = CheckBox(10, y+30, z, 0xFFFFFFff, " Unpin windows on exit", unpinWindows, 0.65, 0.65);
       writeSetting("unpinWindows",unpinWindows);
       y = y + 42;
     end
@@ -110,7 +110,7 @@ function promptParameters()
     hotkeyMode = readSetting("hotkeyMode",hotkeyMode);
 
     if not hotkeyMode then
-      pinnedMode = CheckBox(10, y+50, z, pinnedModeColor, "Pinned Window Mode", pinnedMode, 0.65, 0.65);
+      pinnedMode = CheckBox(10, y+50, z, pinnedModeColor, " Pinned Window Mode", pinnedMode, 0.65, 0.65);
       writeSetting("pinnedMode",pinnedMode);
 		  y = y + 22;
 		else
@@ -118,34 +118,46 @@ function promptParameters()
 		end
 
     if not pinnedMode then
-      hotkeyMode = CheckBox(10, y+50, z, hotkeyModeColor, "Hotkey Mode", hotkeyMode, 0.65, 0.65);
+      hotkeyMode = CheckBox(10, y+50, z, hotkeyModeColor, " Hotkey Mode", hotkeyMode, 0.65, 0.65);
       writeSetting("hotkeyMode",hotkeyMode);
 		  y = y + 22;
 		else
 		  hotkeyMode = false
     end
 
+    y = y + 50
+    if pinnedMode then
+      helpText = "Uncheck Pinned Mode to switch to Hotkey Mode"
+    elseif hotkeyMode then
+      helpText = "Uncheck Hotkey Mode to switch to Pinned Mode"
+    else
+      helpText = "Check Hotkey or Pinned Mode to Begin"
+    end
+
+    lsPrint(10, y+3, z, 0.65, 0.65, 0xFFFFFFff, helpText);
+
+
     if hotkeyMode then
-      lsPrint(10, y+50, z, 1.0, 1.0, 0xFFFFFFff, "Grid width:");
+      lsPrint(10, y+30, z, 0.8, 0.8, 0xFFFFFFff, "Grid width:");
       gridWidth = readSetting("gridWidth",gridWidth);
-      is_done, gridWidth = lsEditBox("gridWidth", 135, y+50, z, 50, 30, scale, scale,
+      is_done, gridWidth = lsEditBox("gridWidth", 110, y+28, z, 50, 30, scale, scale,
                                   0x000000ff, gridWidth);
       if not tonumber(gridWidth) then
         is_done = nil;
-        lsPrint(10, y+18, z+10, 0.7, 0.7, 0xFF2020ff, "MUST BE A NUMBER");
+        lsPrint(165, y+35, z+10, 0.68, 0.68, 0xFF2020ff, "MUST BE A NUMBER");
         gridWidth = 1;
       end
       gridWidth = tonumber(gridWidth);
       writeSetting("gridWidth",gridWidth);
       y = y + 32;
     
-      lsPrint(10, y+50, z, 1.0, 1.0, 0xFFFFFFff, "Grid height:");
+      lsPrint(10, y+30, z, 0.8, 0.8, 0xFFFFFFff, "Grid height:");
       gridHeight = readSetting("gridHeight",gridHeight);
-      is_done, gridHeight = lsEditBox("gridHeight", 135, y+50, z, 50, 30, scale, scale,
+      is_done, gridHeight = lsEditBox("gridHeight", 110, y+28, z, 50, 30, scale, scale,
                                   0x000000ff, gridHeight);
       if not tonumber(gridHeight) then
         is_done = nil;
-        lsPrint(10, y+18, z+10, 0.7, 0.7, 0xFF2020ff, "MUST BE A NUMBER");
+        lsPrint(165, y+30, z+10, 0.68, 0.68, 0xFF2020ff, "MUST BE A NUMBER");
         gridHeight = 1;
       end
       gridHeight = tonumber(gridHeight);
@@ -153,7 +165,7 @@ function promptParameters()
       y = y + 32;    
     end
     
-    lsPrintWrapped(10, y+60, z+10, lsScreenX - 20, 0.7, 0.7, 0xD0D0D0ff,
+    lsPrintWrapped(10, y+30, z+10, lsScreenX - 20, 0.7, 0.7, 0xD0D0D0ff,
 	  "Stand where you can reach all brick racks with all ingredients on you.");
 	  
 	if pinnedMode or hotkeyMode then
@@ -190,9 +202,6 @@ function makeBricks()
     local y = ThisIsList[i][1];
     local width = 100;
     local height = 250;
-    local util = srFindImageInRange("utility.png", x, y, width, height, 5000);
-    if(util) then
-      height = util[1] - y;
       local p = srFindImageInRange("bricks/" .. brickImages[typeOfBrick], x, y, width, height);
       if(p) then
         safeClick(p[0]+4,p[1]+4);
@@ -218,7 +227,6 @@ function makeBricks()
           end
         end
       end
-    end
 end
 
 function brickHotkeyMode()

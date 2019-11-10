@@ -5,13 +5,6 @@
 
 dofile("common.inc");
 
-askText = singleLine([[
-Hackling Rake v1.0 (by Bardoth - Revised by Cegaiel) --
-Pin Hacking Rake or Flax Comb window up and have Rotten Flax in your inventory. Make sure your rake is showing "Step 1, Remove Straw" before starting. You MUST have Skills window open and everything from Strength to Perception skill should be visible.
-This macro will not break if you need to alt-tab out of game to do something or need to move pinned window. As soon as you flip back in game, it will continue where it left off at!
-Press Shift to continue.
-]]);
-
 do_click_refresh = 1;
 do_click_refresh_when_end_red = 1;
 improved_rake = 0;
@@ -76,7 +69,6 @@ function promptRakeNumbers()
 			error "Clicked End Script button";
 		end
 	
-		
 		lsDoFrame();
 		lsSleep(10); -- Sleep just so we don't eat up all the CPU for no reason
 	end
@@ -85,7 +77,7 @@ end
 
 function doit()
 	promptRakeNumbers();
-    askForWindow(askText);
+	askForWindow("Hackling Rake v1.0 by Bardoth - (Revised by Cegaiel)\n\nPin Hacking Rake or Flax Comb window up and have Rotten Flax in your inventory.\n\nMake sure your rake is showing \"Step 1, Remove Straw\" before starting.\n\nYou MUST have Skills window open and everything from Strength to Perception skill should be visible.\n\nYou can optionally pin 'Eat some Grilled Onion' menu to eat it whenever your endurance is not green.");
 
 	step = 1;
 	local task = "";
@@ -97,6 +89,7 @@ function doit()
 	local tow = 0;
 	local lint = 0;
 	local clean = 0;
+	local eatTimer = 0;
 	local startTime = lsGetTimer();
 
 	checkCurrentStep(); -- Verify what step we're on when you start macro and update.
@@ -105,8 +98,10 @@ function doit()
 	  end
 	
 	while num_loops do
-		checkBreak();
+		runTimer = lsGetTimer();
 		srReadScreen();
+		grilledOnion = findText("Grilled Onions");
+		buffed = srFindImage("foodBuff.png");
 		OK = srFindImage("ok.png"); -- If we got an OK popup, this suggests "Your Flax Comb/Hackling Rake has wore out", quit
 		foundRepair = findText("Repair");
 
@@ -118,6 +113,12 @@ function doit()
 		stats_black = srFindImage("endurance.png");
 		stats_blackB = srFindImage("endurance2.png"); -- We can proceed when it's semi-dark red (same as white)
 		stats_blackC = srFindImage("endurance3.png"); -- We can proceed when it's dark red (same as white)
+
+		-- Prevent eating more than 1 grilled per 10m, in case the screen didn't detect foodbuff
+		if grilledOnion and not buffed  and (eatTimer == 0 or runTimer - eatTimer > 600000) then
+		  clickAllText("Grilled Onions");
+                  eatTimer = lsGetTimer()
+		end
 
 		if not stats_black then
 			--stats_black2 = srFindImage("AllStats-Black2.png");
@@ -154,8 +155,20 @@ function doit()
 		end
 		
 
+		if eatTimer > 0 and (runTimer - eatTimer > 720000) then
+		  eatTimer = 0;
+		  lastAte = "\nAte Last Grilled: 12m has elapsed, problem? Reseting";
+		elseif eatTimer > 0 then
+		  lastAte = "\nAte Last Grilled: " .. getElapsedTime(eatTimer);
+		elseif buffed then
+		  lastAte = "\nAte Last Grilled: Waiting on Buff to Expire";
+		elseif not grilledOnion then
+		  lastAte = "\nAte Last Grilled: Menu not pinned";
+		else
+		  lastAte = "\nAte Last Grilled: Never";
+		end 
 
-GUI = "\n\nNext Step: " .. step .. "/4 - " .. task_text .. "\n\n----------------------------------------------\n1) Straw Removed: " .. straw .."/" .. num_loops*per_rake .. "\n2) Tow Seperated: " .. tow .. "/" .. num_loops*per_rake .. "\n3) Lint Refined: " .. lint .. "/" .. num_loops*per_rake .. "\n4) Cleanings: " .. clean .. "/" .. num_loops .. "\n----------------------------------------------\n\nFlax Processed: " .. (loop_count-1)*per_rake .. "\nFlax Remaining: " .. (num_loops*per_rake) - straw .. "\nRepair Attempts: " .. repairAttempt .. "\n\nElapsed Time: " .. getElapsedTime(startTime);
+GUI = "Next Step: " .. step .. "/4 - " .. task_text .. "\n\n----------------------------------------------\n1) Straw Removed: " .. straw .."/" .. num_loops*per_rake .. "\n2) Tow Seperated: " .. tow .. "/" .. num_loops*per_rake .. "\n3) Lint Refined: " .. lint .. "/" .. num_loops*per_rake .. "\n4) Cleanings: " .. clean .. "/" .. num_loops .. "\n----------------------------------------------\n\nFlax Processed: " .. (loop_count-1)*per_rake .. "\nFlax Remaining: " .. (num_loops*per_rake) - straw .. "\nRepair Attempts: " .. repairAttempt .. "\n\nElapsed Time: " .. getElapsedTime(startTime) .. lastAte;
 
 
 
@@ -165,17 +178,15 @@ GUI = "\n\nNext Step: " .. step .. "/4 - " .. task_text .. "\n\n----------------
 		elseif foundRepair then
 		  repairRake();
 		  clickAllText("This is"); -- Refresh window 
+		  lsSleep(100);
 
 		elseif not stats_black and not stats_black2 and not stats_black3 and not stats_blackB and not stats_blackC then
-			sleepWithStatus(100, "Waiting on Endurance Timer ..." .. GUI, nil, 0.7);
+			sleepWithStatus(200, GUI, nil, 0.7, "Waiting on Endurance Timer");
 
 		else
 		
-			srReadScreen();
 			clickAllText("This is");
 			lsSleep(100);
-		
-			srReadScreen();
 			clickAllText(task);
 			lsSleep(100);
 			if step == 1 then
@@ -195,8 +206,7 @@ GUI = "\n\nNext Step: " .. step .. "/4 - " .. task_text .. "\n\n----------------
 				  end
 			end
 			step = step + 1;
-			sleepWithStatus(100, "Endurance Timer OK - Clicking window(s)" .. GUI, nil, 0.7);
-			srReadScreen();
+			sleepWithStatus(100, GUI, nil, 0.7, "Endurance OK - Clicking window(s)");
 			clickAllText("This is")
 			lsSleep(100);
 		end
@@ -209,7 +219,6 @@ end
 
 
 function checkCurrentStep()
-  srReadScreen();
   clickAllText("This is");
   lsSleep(100);
   taskStep1 = findText("Remove Straw");

@@ -910,4 +910,11 @@ return
 		,
 	}
 	,
+	["Mouldboard"] = 
+	{
+		["metal"] = "Steel",
+		["prod"] = 1,
+		["q"] = 10,
+		["time"] = 10,
+	}
 }

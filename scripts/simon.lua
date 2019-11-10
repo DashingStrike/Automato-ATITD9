@@ -69,7 +69,7 @@ end
 function promptRun()
   local is_done = false;
   local count = 1;
-  local scale = 0.8;
+  local scale = 0.7;
   while not is_done do
     checkBreak();
     lsPrint(10, 10, 0, scale, scale, 0xffffffff,
@@ -77,7 +77,7 @@ function promptRun()
     local y = 60;
     lsPrint(5, y, 0, scale, scale, 0xffffffff, "Passes:");
     count = readSetting("count",count);
-    is_done, count = lsEditBox("passes", 140, y, 0, 50, 30, scale, scale,
+    is_done, count = lsEditBox("passes", 140, y-5, 0, 50, 30, scale, scale,
                                0x000000ff, count);
     count = tonumber(count);
     if not count then
@@ -88,19 +88,20 @@ function promptRun()
     writeSetting("count",count);
     y = y + 45;
     refresh = readSetting("refresh",refresh);
-    lsPrint(165, y+2, 0, 0.6, 0.6, 0xffffffff, "(each pass)");
-    refresh = CheckBox(10, y, 10, 0xffffffff, " Refresh Windows", refresh);
+    lsPrint(145, y+2, 0, 0.6, 0.6, 0xffffffff, "(Click 'This Is' each pass)");
+    refresh = CheckBox(10, y, 10, 0xffffffff, " Refresh Windows", refresh, 0.7, 0.7);
     writeSetting("refresh",refresh);
-    y = y + 32;
+    y = y + 20;
     is_stats = readSetting("is_stats",is_stats);
-    lsPrint(136, y+2, 0, 0.6, 0.6, 0xffffffff, "(I\'m Tired - Red/Black Stats)");
-    is_stats = CheckBox(10, y, 10, 0xffffffff, " Wait for Stats", is_stats);
+    lsPrint(145, y+2, 0, 0.6, 0.6, 0xffffffff, "(I\'m Tired - Red/Black Stats)");
+    is_stats = CheckBox(10, y, 10, 0xffffffff, " Wait for Stats", is_stats, 0.7, 0.7);
     writeSetting("is_stats",is_stats);
-    y = y + 32;
+    y = y + 42;
+
     if not is_stats then
       lsPrint(5, y, 0, scale, scale, 0xffffffff, "Click Delay (ms):");
       clickDelay = readSetting("clickDelay",clickDelay);
-      is_done, clickDelay = lsEditBox("delay", 140, y, 0, 50, 30, scale, scale,
+      is_done, clickDelay = lsEditBox("delay", 140, y-5, 0, 50, 30, scale, scale,
                                       0x000000ff, clickDelay);
       clickDelay = tonumber(clickDelay);
       if not clickDelay then
@@ -110,7 +111,7 @@ function promptRun()
       end
       writeSetting("clickDelay",clickDelay);
 
-    y = y + 48
+    y = y + 28
     lsPrint(5, y, 0, scale, scale, 0xffffffff, "Pass Delay (s):");
     passDelay = readSetting("passDelay",passDelay);
     is_done, passDelay = lsEditBox("passDelay", 140, y, 0, 50, 30, scale, scale,
@@ -121,10 +122,21 @@ function promptRun()
       lsPrint(10, y+30, 10, 0.7, 0.7, 0xFF2020ff, "MUST BE A NUMBER");
       passDelay = 0;
     end
+
+
+
+
     lsPrint(200, y+6, 0, 0.6, 0.6, 0xffffffff, math.floor(passDelay*1000) .. " (ms)");
     writeSetting("passDelay",passDelay);
     y = y + 48;
     lsPrintWrapped(5, y, z, lsScreenX - 20, 0.65, 0.65, 0xFFFFFFff, "Pass Delay: How long to wait, after each click sequence, before moving onto the next pass.");
+else
+--    lsPrint(10, 180, z, 0.7, 0.7, 0xFFFFFFff,
+--	    "Uncheck Wait for Status Button");
+
+lsPrintWrapped(10, 170, z, lsScreenX - 20, 0.67, 0.67, 0xFFFFFFff, "Unchecking 'Wait for Stats' checkbox will present options for Click Delay and Pass Delay");
+
+
     end
 
     if ButtonText(10, lsScreenY - 30, 0, 80, 0xFFFFFFff, "Begin") then

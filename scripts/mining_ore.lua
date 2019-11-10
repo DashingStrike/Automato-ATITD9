@@ -1,4 +1,4 @@
--- mining_ore.lua v2.2.9.3 -- by Cegaiel
+-- mining_ore.lua v2.3.0 -- by Cegaiel
 -- Credits to Tallow for his Simon macro, which was used as a template to build on.
 -- 
 -- Brute force method, you manually click/set every stones' location and it will work every possible 3 node/stone combinations.
@@ -14,18 +14,22 @@
 -- It will then move mouse once to upper left corner then start popping up menus.
 -- BEWARE: You must uncheck Options, Interface Options: Right-Click opens a menu as pinned. Or else you will have tons of left-over pinned menus, that you need to close out!
 --
--- v 2.2.9 + New check box "Broken Stone Check" . When you tap shift over each node, it now records pixel color, in addition to the x,y position.
+-- v2.2.9 + New check box "Broken Stone Check" . When you tap shift over each node, it now records pixel color, in addition to the x,y position.
 -- The tolerance is defined in rgbTol and hueTol. It might occassionaly give a false positive.  I've found if you zoom in a bit more, it usually fixes that.
 -- The purpose of this is to skip all future nodes from attempting to be worked. Speeds up by not trying to work future stones that don't exist.
 -- When this box is checked, the mouse position appears with the color you're highlighting.
 
 -- For a more detailed Change Log and history, see https://github.com/DashingStrike/Automato-ATITD/commits/master/scripts/mining_ore.lua
 
+-- v2.3.0 Adds new checkbox 'Manually Set Patterns'.  This incorporates the same method that mining_t5.lua uses.
+-- When using this checkbox, you will be asked to set patterns you find. Practice using ATITD/mining_t5.lua to see how this works.
+-- After setting your matching patterns manually, it will then click them.  This method (while takes longer to set up), does require less sets to process; Potentially more yield.
+
 
 dofile("common.inc");
 dofile("settings.inc");
 
-info = "Ore Mining v2.2.9.3 by Cegaiel --\nMacro brute force tries every possible 3 stone combination (and optionally 4 stone, too). Time consuming but it works!\n\nMAIN chat tab MUST be showing and wide enough so that each line doesn't wrap.\n\nChat MUST be minimized but Visible (Options, Chat-Related, \'Minimized chat channels are still visible\' - ON). Options/Interface Options: 'Use Flyaway message for some things' - OFF\n\nOptional: Pin the mine's Take... Ore... menu (\"All Ore\" will appear in pinned window) and it will refresh every round.\n\nWARNING: If you use the Dual Monitor option, uncheck in Interface Options: Right-Click opens a menu as pinned.";
+info = "Ore Mining v2.3.0 by Cegaiel --\nMacro brute force tries every possible 3 stone combination (and optionally 4 stone, too). Time consuming but it works!\n\nMAIN chat tab MUST be showing and wide enough so that each line doesn't wrap.\n\nChat MUST be minimized but Visible (Options, Chat-Related, \'Minimized chat channels are still visible\' - ON). Options/Interface Options: 'Use Flyaway message for some things' - OFF\n\nOptional: Pin the mine's Take... Ore... menu (\"All Ore\" will appear in pinned window) and it will refresh every round.\n\nWARNING: If you use the Dual Monitor option, uncheck in Interface Options: Right-Click opens a menu as pinned.";
 
 
 -- Start don't alter these ...
@@ -76,6 +80,10 @@ function doit()
     promptDelays();
     getMineLoc();
     getPoints();
+    if manualSets then
+      getTraits();
+      findSets();
+    end
     clickSequence();
 end
 
@@ -84,6 +92,10 @@ function doit2()
     promptDelays();
     getMineLoc();
     getPoints();
+    if manualSets then
+      getTraits();
+      findSets();
+    end
     clickSequence();
 end
 
@@ -104,7 +116,6 @@ function getMineLoc()
         was_shifted = lsMouseIsDown(2); --Button 3, which is middle mouse or mouse wheel
         key = "click MWheel ";
     end
-
     local is_done = false;
     mx = 0;
     my = 0;
@@ -112,7 +123,6 @@ function getMineLoc()
     while not is_done do
         mx, my = srMousePos();
         local is_shifted = lsShiftHeld();
-
         if (dropdown_cur_value_key == 1) then
             is_shifted = lsShiftHeld();
         elseif (dropdown_cur_value_key == 2) then
@@ -148,11 +158,9 @@ function getMineLoc()
             mineX = mineList[i][1];
             mineY = mineList[i][2];
         end
-
         if #mineList >= 1 then
             is_done = 1;
         end
-
         if ButtonText(205, lsScreenY - 30, z, 110, 0xFFFFFFff,
             "End script") then
             error "Clicked End Script button";
@@ -195,6 +203,7 @@ end
 function getPoints()
     clickList = {};
     clickListColor = {};
+    mines = {};
     if (dropdown_ore_cur_value == 1) then
         ore = "Aluminum";
         stonecount = 9;
@@ -235,7 +244,6 @@ function getPoints()
         ore = "Zinc";
         stonecount = 10;
     end
-
     local nodeleft = stonecount;
     local was_shifted = lsShiftHeld();
     if (dropdown_cur_value_key == 1) then
@@ -247,7 +255,6 @@ function getPoints()
     elseif (dropdown_cur_value_key == 4) then
         was_shifted = lsMouseIsDown(2); --Button 3, which is middle mouse or mouse wheel
     end
-
     local is_done = false;
     local nx = 0;
     local ny = 0;
@@ -269,10 +276,12 @@ function getPoints()
         elseif (dropdown_cur_value_key == 4) then
             is_shifted = lsMouseIsDown(2);
         end
-
         if is_shifted and not was_shifted then
             clickList[#clickList + 1] = {nx, ny};
             clickListColor[#clickListColor + 1] = {pixels};
+            index = #clickList;
+            mines[index] = {};
+            mines[index].trait = {};
             nodeleft = nodeleft - 1;
         end
         was_shifted = is_shifted;
@@ -289,30 +298,36 @@ function getPoints()
         noMouseMove = lsCheckBox(15, y, z, 0xffffffff, " Dual Monitor (NoMouseMove) Mode", noMouseMove);
         writeSetting("noMouseMove",noMouseMove);
         y = y + 25
-        if brokenStoneCheck then
-          brokenStoneCheckColor = 0xffc0c0ff;
-        else
-          brokenStoneCheckColor = 0xffffffff;
-        end
-        brokenStoneCheck = readSetting("brokenStoneCheck",brokenStoneCheck);
-        brokenStoneCheck = lsCheckBox(15, y, z, brokenStoneCheckColor, " Broken Stone Check", brokenStoneCheck);
-        writeSetting("brokenStoneCheck",brokenStoneCheck);
+        manualSets = readSetting("manualSets",manualSets);
+        manualSets = lsCheckBox(15, y, z, 0xffffffff, " Manually Set Patterns", manualSets);
+        writeSetting("manualSets",manualSets);
         y = y + 25
-        extraStones = readSetting("extraStones",extraStones);
-        extraStones = lsCheckBox(15, y, z, 0xffffffff, " Work 4 stone combinations", extraStones);
-        writeSetting("extraStones",extraStones);
-        if defaultOrder then
-          defaultOrderText = " Order: Do 4 stone combo first, then 3";
-          defaultOrderTextColor = 0xffffffff;
-        else
-          defaultOrderText = " Order: Do 3 stone combo first, then 4";
-          defaultOrderTextColor = 0xffff80ff;
-        end
-        y = y + 25
-        if extraStones then
-          defaultOrder = readSetting("defaultOrder",defaultOrder);
-          defaultOrder = lsCheckBox(15, y, z, defaultOrderTextColor, defaultOrderText, defaultOrder);
-          writeSetting("defaultOrder",defaultOrder);
+        if not manualSets then
+          if brokenStoneCheck then
+            brokenStoneCheckColor = 0xffc0c0ff;
+          else
+            brokenStoneCheckColor = 0xffffffff;
+          end
+          brokenStoneCheck = readSetting("brokenStoneCheck",brokenStoneCheck);
+          brokenStoneCheck = lsCheckBox(15, y, z, brokenStoneCheckColor, " Broken Stone Check", brokenStoneCheck);
+          writeSetting("brokenStoneCheck",brokenStoneCheck);
+          y = y + 25
+          extraStones = readSetting("extraStones",extraStones);
+          extraStones = lsCheckBox(15, y, z, 0xffffffff, " Work 4 stone combinations", extraStones);
+          writeSetting("extraStones",extraStones);
+          if defaultOrder then
+            defaultOrderText = " Order: Do 4 stone combo first, then 3";
+            defaultOrderTextColor = 0xffffffff;
+          else
+            defaultOrderText = " Order: Do 3 stone combo first, then 4";
+            defaultOrderTextColor = 0xffff80ff;
+          end
+          y = y + 25
+          if extraStones then
+            defaultOrder = readSetting("defaultOrder",defaultOrder);
+            defaultOrder = lsCheckBox(15, y, z, defaultOrderTextColor, defaultOrderText, defaultOrder);
+            writeSetting("defaultOrder",defaultOrder);
+          end
         end
         lsSetCamera(0,0,lsScreenX*1.0,lsScreenY*1.0);
         y = y - 22
@@ -327,13 +342,11 @@ function getPoints()
         else
           miningTimeGUI = "N/A";
         end
-
         if miningTimeTotal ~= 0 then
           avgMiningTimeGUI = DecimalsToMinutes(miningTimeTotal/timesworked/1000);
         else
           avgMiningTimeGUI =  "N/A";
         end
-
         lsPrint(10, y, z, 0.7, 0.7, 0xf0f0f0ff, "Last: " .. miningTimeGUI .. "   /   Average: " .. avgMiningTimeGUI);
         y = y + 20;
         lsPrint(10, y, z, 0.7, 0.7, 0x80ff80ff, "Total Ore Found: " .. comma_value(math.floor(oreGatheredTotal)));
@@ -387,6 +400,7 @@ function getPoints()
             "End script") then
             error "Clicked End Script button";
         end
+
         lsDoFrame();
         lsSleep(10);
     end
@@ -394,10 +408,14 @@ end
 
 
 function clickSequence()
-    fetchTotalCombos3();
-  if extraStones then
-    fetchTotalCombos4();
-  end
+    if manualSets then
+      TotalCombos = #sets;
+    else
+      fetchTotalCombos3();
+        if extraStones then
+          fetchTotalCombos4();
+        end
+    end
     chatRead();	
     if noMouseMove then
       sleepWithStatus(3000, "Starting... Now is your chance to move your mouse to second monitor!", nil, 0.7);
@@ -409,22 +427,23 @@ function clickSequence()
     worked = 0;
     startMiningTime = lsGetTimer();
 
-  if extraStones and defaultOrder then
-    fourStoneCombo();
-    threeStoneCombo();
-  elseif extraStones and not defaultOrder then
-    threeStoneCombo();
-    fourStoneCombo();
-  else
-    threeStoneCombo();
-  end
+    if manualSets then
+      setsCombo();
+    elseif extraStones and defaultOrder then
+      fourStoneCombo();
+      threeStoneCombo();
+    elseif extraStones and not defaultOrder then
+      threeStoneCombo();
+      fourStoneCombo();
+    else
+      threeStoneCombo();
+    end
 
     miningTime = lsGetTimer() - startMiningTime;
     miningTimeTotal =  miningTimeTotal + miningTime;
     timesworked = timesworked + 1;
 
     lsSleep(1000); -- Delay not required, just gives a slight chance to see the last node worked on GUI, from updateGUI(), before it disappears off screen
-
 
     if not muteSoundEffects then
 
@@ -450,10 +469,9 @@ function workMine()
       --Send 'W' key over Mine to Work it (Get new nodes)
       srKeyEvent('W');
     end
-
-if writeLogFile then
-  WriteLog("\nWorking Mine...");
-end
+    if writeLogFile then
+      WriteLog("\nWorking Mine...");
+    end
     sleepWithStatus(1000, "Working mine (Fetching new nodes)");
     findClosePopUpOld();
 end
@@ -480,6 +498,10 @@ end
 
 function reset()
     getPoints();
+    if manualSets then
+      getTraits();
+      findSets();
+    end
     clickSequence();
 end
 
@@ -1032,6 +1054,46 @@ function fourStoneCombo()
 end
 
 
+function setsCombo()
+	for i=1, #sets do
+		for j=1, #sets[i] do
+                findClosePopUpOld(); --Extra precaution to check for remaining popup before working the nodes
+                startSetTime = lsGetTimer();
+
+                if j == #sets[i] then
+                  key = "S"
+                else
+                  key = "A"
+                end
+
+                node = sets[i][j];
+                x = clickList[node][1]
+                y = clickList[node][2]
+                srSetMousePos(x,y)
+                lsSleep(clickDelay);
+                srKeyEvent(key);
+                w = sets[i][1]
+                x = sets[i][2]
+                y = sets[i][3]
+                z = sets[i][4]
+		end -- for j
+
+                findClosePopUp();
+                elapsedTime = lsGetTimer() - startMiningTime;
+                setTime = lsGetTimer() - startSetTime;
+			if writeLogFile then
+			  if #sets[i] == 4 then
+			    WriteLog("[" .. worked+1 .. "/" .. TotalCombos .. "] Nodes Worked: " .. w .. ", " .. x .. ", " .. y .. ", " .. z);
+			  else -- else it's 3 nodes
+			    WriteLog("[" .. worked+1 .. "/" .. TotalCombos .. "] Nodes Worked: " .. w .. ", " .. x .. ", " .. y);
+			  end
+			end
+                worked = worked + 1
+                updateGUI(w,x,y,z);
+	end -- for i
+end
+
+
 function compareColorEx(left, right, rgbTol, hueTol)
 	local leftRgb = parseColor(left);
 	local rightRgb = parseColor(right);
@@ -1080,4 +1142,222 @@ function WriteLog(Text)
 	logfile = io.open("mining_ore_Logs.txt","a+");
 	logfile:write(Text .. "\n");
 	logfile:close();
+end
+
+
+function getTraits()
+  minesB = {}
+  trait=1;
+  traits_done = nil;
+  trait_value = 1;
+
+  while not traits_done do
+    checkBreak()
+    local z = 0;
+    local y = 2;
+    y = 40;
+
+      for i=1,#clickList do
+
+        for j=1,#minesB do
+	    if minesB[j][1] == i then
+	      lsPrint(150, y, 0, 0.7, 0.7, 0xFFFFFFff, minesB[j][2] .. ":" .. minesB[j][3]);
+	    end
+        end --end j
+
+	  lsPrint(50, y, 0, 0.7, 0.7, 0xFFFFFFff, "Node " .. i);
+
+	  if ButtonText(110, y, z, 50, 0xFFFFFFff, "Set", 0.7, 0.7) then
+	      isSet = nil
+	      for j=1,#minesB do
+	          if minesB[j][1] == i and minesB[j][1] ~= nil then
+	            isSet = 1
+	          end
+	      end
+	      if not isSet then
+	        minesB[#minesB + 1] = {i, trait, trait_value}
+	        index = i
+	        mines[index].trait[trait] = trait_value;
+	      end
+	  end
+
+
+	  if ButtonText(10, y, z, 40, 0xFFFFFFff, "PM", 0.7, 0.7) then
+	    while lsMouseIsDown() do
+	      lsPrintWrapped(10, 10, z, lsScreenX - 20, 0.7, 0.7, 0xf2f2f2ff, "Point Mouse to Node " .. i .. "\n\nRelease Mouse Button to continue ...");
+	      lsDoFrame()
+	      lsSleep(16)
+	    end
+	    srSetMousePos(clickList[i][1], clickList[i][2])
+	  end
+          y = y + 20;
+
+
+	end --end i
+
+
+			if ButtonText(5, lsScreenY - 100, 1, 120, 0xFFFFFFff, "Next Value", 0.7, 0.7) then
+			  trait_value = trait_value + 1;
+			end
+
+			if ButtonText(5, lsScreenY - 75, 1, 120, 0xFFFFFFff, "Next Trait", 0.7, 0.7) then
+				if not allMinesHaveTrait(trait) then
+					lsMessageBox("Trait not done", "You have not finished assigning values to all ore stones for this trait.");
+				else
+					trait = trait + 1;
+					trait_value = 1;
+				end
+			end
+
+			if trait > 1 then
+			  if ButtonText(5, lsScreenY - 50, 1, 120, 0xFFFFFFff, "Prev Trait", 0.7, 0.7) then
+				trait = trait - 1;
+				trait_value = 1;
+			  end
+			end
+			
+			if ButtonText(5, lsScreenY - 25, 1, 220, 0xFFFFFFff, "Done assigning traits", 0.7, 0.7) then
+				traits_done = true;
+			end
+
+
+
+    lsPrintWrapped(10, 2, z, lsScreenX - 20, 0.7, 0.7, 0xf2f2f2ff, "Trait #" .. trait .. ", value #" .. trait_value .. "\nClick all matching ore stones");
+    lsDoFrame()
+    lsSleep(10);
+  end -- while not traits_done
+end
+
+
+function findSets()
+	local set_min_size = 3; -- Number of ore stones needed to make a set?
+	-- find all sets
+	statusScreen("Searching for sets (this may take a while)", 0xFFFFFFff, "no break");
+	num_traits = trait;
+	sets = {};
+	count = 0;
+	for set_size = set_min_size, #mines do
+		local found_one_at_this_size = false;
+		set = {};
+		for i=1, set_size do
+			set[i] = i;
+		end
+		
+		while set do
+			count = count + 1;
+			if count == 1000 then
+				count = 0;
+				lsPrintln(set_to_string(set) .. " found " .. #sets .. " so far.");
+			end
+			
+			if is_valid_set(set) then
+				if is_matching_set(set) then
+					sets[#sets + 1] = set;
+					found_one_at_this_size = true;
+				end	
+			end
+			
+			set = increment_set(set);
+		end
+		if not found_one_at_this_size then
+			break;
+		end
+	end
+	
+	-- display results
+	
+	while true do
+		if #sets == 0 then
+			statusScreen("NO matching sets", 0xFFFFFFff, "no break");
+		else
+			statusScreen("Matching sets", 0xFFFFFFff, "no break");
+		end
+		lsScrollAreaBegin("ResultsScroll", 0, 100, 0, lsScreenX - 50, lsScreenX - 110)
+		for i=1, #sets do
+			lsPrint(0, (i-1)*20, 3, 1, 1, 0xFFFFFFff, set_to_string(sets[i]));
+		end	
+		lsScrollAreaEnd(#sets*20);
+		--lsScrollAreaEnd(lsScreenY-50);
+
+        if ButtonText(10, lsScreenY - 30, z, 110, 0xFFFFFFff, "GO") then
+          break;
+        end
+	lsSleep(10);
+	end
+end
+
+
+function is_valid_set(set)
+	local used = {};
+	local last = 0;
+	for i=1, #set do
+		if set[i] <= last then
+			return false;
+		end
+		last = set[i];
+	end
+	return true;
+end
+
+
+function is_matching_set(set)
+	for i=1, num_traits do
+		local match=false;
+		local unmatch=false;
+		for j=2, #set do
+			for k=1, j-1 do
+				if mines[set[j]].trait[i] == mines[set[k]].trait[i] then
+					match = true;
+				else
+					unmatch = true;
+				end
+			end
+		end
+		if match and unmatch then
+			return false;
+		end
+	end
+	return true;
+end
+
+
+function increment_set(set)
+	local newset = {};
+	for i=1, #set do
+		newset[i] = set[i];
+	end
+	set = newset;
+	local index = #set;
+	while true do
+		if set[index] == #mines then
+			if index == 1 then
+				return nil;
+			end
+			set[index] = 1;
+			index = index - 1;
+
+		else
+			set[index] = set[index] + 1;
+			return set;
+		end
+	end
+end
+
+
+function set_to_string(set)
+	local ret = "";
+	for i=1, #set do
+		ret = ret .. "  " .. set[i];
+	end
+	return ret;
+end
+
+
+function allMinesHaveTrait(trait_num)
+	for i=1, #mines do
+		if not mines[i].trait[trait_num] then
+			return false;
+		end
+	end
+	return true;
 end
