@@ -158,6 +158,7 @@ function getTime(fmt)
 
       local year, season, month, day, hour, minute, ampm = string.match(str, "Year (%d+) (%a+) (%a+)-(%d+) (%d+):(%d+)(%a+)");
       if year and season and month and day and hour and minute then
+         month = string.gsub(month, "l", "I"); -- Change small "L" (misinterpreted) back to capital I
          newstr = "Year: " .. year .. ", " .. season .. " " .. month .. "-" .. day .. ", " .. hour .. ":" .. minute .. ampm
          -- perform data validation
          local seasonIndex = {};
@@ -166,10 +167,10 @@ function getTime(fmt)
          seasonIndex["Shemu"] = 3;
          local monthIndex = {};
          --Beware on T9, the clock reads "I" as lower cased "L" or "l"
-         monthIndex["l"] = 1;
-         monthIndex["ll"] = 2;
-         monthIndex["lll"] = 3;
-         monthIndex["lV"] = 4;
+         monthIndex["I"] = 1;
+         monthIndex["II"] = 2;
+         monthIndex["III"] = 3;
+         monthIndex["IV"] = 4;
          year = tonumber(year);
          day = tonumber(day);
          hour = tonumber(hour);
