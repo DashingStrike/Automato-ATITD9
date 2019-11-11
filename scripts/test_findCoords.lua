@@ -1,8 +1,12 @@
+-- Note: Script does not attempt to read clock's region via OCR.
+-- Instead it reads the coordinates, then looks them up using function coords2region on common_gps.inc (valid for T9)
+
 dofile("common.inc");
 dofile("settings.inc");
 
 walkX = 0;
 walkY = 0;
+showTime = nil;
 
 function doit()
 
@@ -12,13 +16,21 @@ askForWindow("Test OCR on ATITD Clock.\n\nReturn Coordinates and Lookup Regions"
     checkBreak();
     srReadScreen();
     local startPos = findCoords();
+
+    if showTime then
+      srReadScreen(); -- on purpose we have another srReadScreen(), after the one above; or else it'll error
+      time = "\n\nTime: " .. getTime(1)
+    else
+      time = "";
+    end
+
     --faction is a global returned from findCoords() -- common_find.inc
-    local message = "Note: You can run around and see coordinates update ...\n\nFaction Region: " .. faction .. "\n\n";
+    local message = "Note: You can run around and see coordinates update ...\n\nFaction Region: " .. faction .. "\n";
   if startPos then
     local x = startPos[0];
     local y = startPos[1];
     coord2region(x,y);
-    message = message .. "Region: " .. regionName .. "\n\nCoordinates: " .. startPos[0] .. ", " .. startPos[1];
+    message = message .. "Region: " .. regionName .. "\nCoordinates: " .. startPos[0] .. ", " .. startPos[1] .. time;
   else
     message = message .. "Coordinates NOT Found";
   end
@@ -57,9 +69,10 @@ function sleepWithStatus(delay_time, message, color, scale, waitMessage)
       newWaitMessage = waitMessage .. time_left .. " ms ";
     end
 
-  local y = 220;
+  local y = 240;
   local z = 0;
   local scale = 0.7;
+  showTime = CheckBox(10, y-28, z, 0xFFFFFFff, " Show Clock Time", showTime, 0.65, 0.65);
   lsPrint(10, y, z, scale, scale, 0xFFFFFFff, "Walk to Coordinates:");
   y = y + 25;
   lsPrint(10, y, z, scale, scale, 0xFFFFFFff, "X:");
