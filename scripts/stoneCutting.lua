@@ -6,7 +6,9 @@ dofile("common.inc");
 dofile("settings.inc");
 
 arrangeWindows = true;
-askText = "Stone cutting v1.0 - by Rhaom\n\nMerged functionality from rockSaw.lua and masonsBench.lua into a single stoneCutting script.\n\nPin up windows manually or use the Arrange Windows option to pin/arrange windows.";
+askText = "Stone cutting v1.0 - by Rhaom" ..
+"\n\nMerged functionality from rockSaw.lua and masonsBench.lua into a single stoneCutting script." ..
+"\n\nPin up windows manually or use the Arrange Windows option to pin/arrange windows.";
 
 function doit()
 	askForWindow(askText);
@@ -225,12 +227,8 @@ function start()
 		end
 
 		lsSleep(500);
-		closePopUp();  --If you don't have enough cuttable stones in inventory, then a popup will occur. We don't want these, so check.
+		closePopUp();  --If you don't have enough cuttable stones in inventory, then a popup will occur.
 		checkMaking();
-
-		clickAllText("Take...");
-		lsSleep(500);
-		clickAllText("Everything");
 
     lsPlaySound("Complete.wav");
 	end
