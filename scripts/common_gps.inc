@@ -25,8 +25,15 @@ function findCoords()
 	  str = string.gsub(str, " 1", "1");
 	  str = string.gsub(str, "1 ", "1");
 
+
+	  -- Misc Exceptions we want to strip
+	  str = string.gsub(str, "<=t", "");
+
+
+	  -- Attempt to find the : to fetch coordinates, but also look at some exceptions
 	  if string.find(str, ": ([0-9-]+)") then
 	    str = string.sub(str, string.find(str, ": ([0-9-]+)")+2, string.len(str));
+
 	  elseif string.find(str, ":([0-9-]+)") then
 	    str = string.sub(str, string.find(str, ":([0-9-]+)")+1, string.len(str));
 
@@ -37,8 +44,8 @@ function findCoords()
 	  elseif string.find(str, "<# ([0-9-]+)") then
 	    str = string.sub(str, string.find(str, "<# ([0-9-]+)")+1, string.len(str));
 	    str = string.gsub(str, "# ", ""); -- East Sinai weird scenario
-
 	  end
+
 
 	  str = string.gsub(str, "  ", ","); -- Catch double space between numbers
 	  str = string.gsub(str, " ", ",");  -- Catch single space between numbers
@@ -151,6 +158,8 @@ function getTime(fmt)
    str = string.gsub(str, "1 ", "1");
    str = string.gsub(str, "AMl", "AM");
    str = string.gsub(str, "PMl", "PM");
+   str = string.gsub(str, "Axet", "Akhet");
+   str = string.gsub(str, "l~", "lV");
 
    if t == nil then
       return t;
