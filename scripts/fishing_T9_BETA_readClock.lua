@@ -807,7 +807,7 @@ function doit()
                 noWriteLog = nil;
                 overweight = nil;
                 skipOkOnce = nil; -- Helps prevent premature break, from OK box while checking Isis ship debris
-                lsSleep(100);
+                lsSleep(16);
                 checkBreak();
                 castWait = (lsGetTimer() - startTime);
                 gui_refresh();
