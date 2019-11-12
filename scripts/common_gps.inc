@@ -146,6 +146,10 @@ function getTime(fmt)
    local newstr = nil;
    local t = findAllText("Year", findClockRegion());
 
+   if #t == 0 then
+      return nil;
+   end
+
     for i=1,#t do
       --lsPrintln("LINE " .. i .. " : " .. table.concat(t[i], ","));
 	if i == 1 then
@@ -160,10 +164,6 @@ function getTime(fmt)
    str = string.gsub(str, "PMl", "PM");
    str = string.gsub(str, "Axet", "Akhet");
    str = string.gsub(str, "l~", "lV");
-
-   if t == nil then
-      return t;
-   end
 
       local year, season, month, day, hour, minute, ampm = string.match(str, "Year (%d+) (%a+) (%a+)-(%d+) (%d+):(%d+)(%a+)");
       if year and season and month and day and hour and minute then
