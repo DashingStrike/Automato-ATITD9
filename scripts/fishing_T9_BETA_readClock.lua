@@ -12,12 +12,12 @@
 -- You should ensure that your chat has timestamps
 
 
--- ********** This macro writes to a log file (Fishlog.txt) for most actions, so you can review later! ******
+-- ********** This macro writes to a log file (Fishlog_T9.txt) for most actions, so you can review later! ******
 -- ********** This also macro writes to a log file (Fishstats.txt) showing stats of your last fishing session, so you can review later! ******
 
 
 --You can delete any of the log files if you wish. It will automatically create new ones if they dont exist.
---The fishlog.txt file gets APPENDED everytime you fish, so the file can grow quite long over time.
+--The fishlog_T9.txt file gets APPENDED everytime you fish, so the file can grow quite long over time.
 --The fishstats.txt file gets OVERWRITTEN everytime your gui program window updates, so it doesn't 'grow' over time.
 
 
@@ -37,7 +37,7 @@
 
 
 dofile("common.inc");
-dofile("Fishing_Func.inc");
+dofile("Fishing_Func_T9.inc");
 dofile("settings.inc");
 
 
@@ -45,6 +45,8 @@ SNum = 0;
 Sfish = "";
 muteSoundEffects = false;
 TotalCasts = 5;
+maxWaitTime = 23000; -- Max ms to wait after casting to look for a change in main chat window before giving up and recasting. 20000 should be enough. Supper laggy server might need more.
+
 
 -- Additional reporting in the log file
 -- Choose true or false.
@@ -108,7 +110,7 @@ function setOptions()
         y = y + 18
         lsPrintWrapped(10, y, 0, lsScreenX, 0.6, 0.6, 0xffffffff, "(Abdju, Chromis, Catfish, Carp, Perch, Phagrus, Tilapia)");
         y = y + 20;
-        lsPrintWrapped(10, y, 0, lsScreenX, 0.6, 0.6, 0x80ff80ff, "Log entries are recorded to FishLog.txt in Automato/games/ATITD folder.");
+        lsPrintWrapped(10, y, 0, lsScreenX, 0.6, 0.6, 0x80ff80ff, "Log entries are recorded to FishLogT9.txt in Automato/games/ATITD folder.");
         y = y + 35;
         LogFails = readSetting("LogFails",LogFails);
         LogFails = CheckBox(10, y, 10, 0xFFFFFFff, " Log Failed Catches (Log Everything)", LogFails, 0.7, 0.7);
@@ -332,7 +334,7 @@ function UseLure()
     LostLure = 0;
 
     if lure then
-        srClickMouseNoMove(lure[0]+12,lure[1]+5);
+        srClickMouseNoMove(lure[0]+50,lure[1]+5);
         lsSleep(200);
         srReadScreen();
 
@@ -662,7 +664,7 @@ end
 
 function doit()
 
-    askForWindow("Fishing v2.0.7 (by Tutmault, revised by KasumiGhia, Cegaiel, and Skyfeather)\n\nMAIN chat tab MUST be showing and wide enough so that each line doesn't wrap.\n\nRequired: Pin Lures Menu (Self, Skills, Fishing, Use Lures). History will be recorded in FishLog.txt and stats in FishStats.txt.\n\nOptional: Pin Fillet Menu (Self, Skills, Fishing, Fillet). 'All Fish' will be clicked after each caught fish (empty windows are refreshed).\n\nSelf, Options, Interface Options (Menu:) \"Display available fishing lures in submenus\" MUST BE CHECKED! Egypt Clock /clockloc must be showing and unobstructed. Move clock window slightly if any problems.\n\nMost problems can be fixed by adjusting main chat window! Ensure that your chat displays timestamps");
+    askForWindow("Fishing v2.0.7 (by Tutmault, revised by KasumiGhia, Cegaiel, and Skyfeather)\n\nMAIN chat tab MUST be showing and wide enough so that each line doesn't wrap.\n\nRequired: Pin Lures Menu (Self, Skills, Fishing, Use Lures). History will be recorded in FishLogT9.txt and stats in FishStats.txt.\n\nOptional: Pin Fillet Menu (Self, Skills, Fishing, Fillet). 'All Fish' will be clicked after each caught fish (empty windows are refreshed).\n\nSelf, Options, Interface Options (Menu:) \"Display available fishing lures in submenus\" MUST BE CHECKED! Egypt Clock /clockloc must be showing and unobstructed. Move clock window slightly if any problems.\n\nMost problems can be fixed by adjusting main chat window! Ensure that your chat displays timestamps");
 
     ----------------------------------------
     --Variables Used By Program -- Don't Edit Unless you know what you're doing!
@@ -839,7 +841,7 @@ function doit()
                 end
 
 
-                if (lastLineFound2 ~= lastLineParse2 or lastLineFound ~= lastLineParse) or (OK and not ignoreOK and not skipOkOnce) or ( (lsGetTimer() - startTime) > 20000 ) then
+                if (lastLineFound2 ~= lastLineParse2 or lastLineFound ~= lastLineParse) or (OK and not ignoreOK and not skipOkOnce) or ( (lsGetTimer() - startTime) > maxWaitTime ) then
                     lastCastWait = castWait;
                     break;
                 end
