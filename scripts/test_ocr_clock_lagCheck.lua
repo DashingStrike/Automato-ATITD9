@@ -18,29 +18,23 @@ duckTimeAvg = 0;
 minsElapsedGUI = "Awaiting Change";
 message = "";
 message2 = "";
-
-clockSize = {
-"Tiny",
-"Small",
-"Medium",
-"Large",
-"Huge",
-};
+scriptStartTime = lsGetTimer();
 
 	findClockInfo();
-
 	while 1 do
         local pos = getMousePos();
         lastTime = Time;
         findClockInfo();
 
+        if minsElapsed == -1 then
+          scriptStartTime = lsGetTimer()
+        end
+
         if lastTime ~= Time then
           minsElapsed = minsElapsed + 1;
-
-	     if minsElapsed == -1 then
-	       minsElapsedGUI = "Waiting for 1st change";
-	     elseif minsElapsed == 0 then
+	     if minsElapsed == 0 then
 	       minsElapsedGUI = "Starting Timer";
+	       scriptStartTime = lsGetTimer()
 	     else
 	       minsElapsedGUI = minsElapsed;
 	     end
@@ -68,7 +62,7 @@ clockSize = {
 	end
 
         sleepWithStatus(100, "Mouse Pos: " .. pos[0] .. ", " .. pos[1] .. "\n\nYear: " .. year .. "\nDate: " .. Date .. "\nTime: " .. Time .. "\nRegion: " .. regionName .. "\nCoords: " 
-	  .. Coordinates .. "\nFaction: " .. faction .. "\n\nElapsed Egypt Mins: " .. minsElapsedGUI .. "\nLast Secs per Egypt Minute: " .. elapsedTimeSeconds .. "\nAvg Secs per Egypt Minute: " .. elapsedTimeAvg .. "\nLast Secs per Game Minute: " 
+	  .. Coordinates .. "\nFaction: " .. faction .. "\n\nElapsed Egypt Mins: " .. minsElapsedGUI .. "\nElapsed Real Time: " .. getElapsedTime(scriptStartTime) .. "\nLast Secs per Egypt Minute: " .. elapsedTimeSeconds .. "\nAvg Secs per Egypt Minute: " .. elapsedTimeAvg .. "\nLast Secs per Game Minute: " 
 	  .. duckTimeSeconds .. "\nAvg Secs per Game Minute: " .. duckTimeAvg .. "\nAvg Teppy/Duck Multiplier: " .. round(duckTimeAvg/60,4), nil, 0.67, "Reading Clock");
 
 	end
@@ -92,15 +86,15 @@ function findClockInfo()
   end
   srReadScreen();
   fetchTime = getTime(1);
-if fetchTime ~= nil then
-  year = string.match(fetchTime, "Year (%d+)")
-  theDateTime = string.sub(fetchTime,string.find(fetchTime,",") + 0); -- I know it's weird to have +0, but don't remove it or will error, shrug
-  stripYear = string.sub(theDateTime,string.find(theDateTime,",") + 2);
-  Time = string.sub(stripYear,string.find(stripYear,",") + 2);
-  stripYear = "," .. stripYear
-  Date = string.sub(stripYear,string.find(stripYear,",") + 1, string.len(stripYear) - string.len(Time) - 2);
-  stripYear = string.sub(theDateTime,string.find(theDateTime,",") + 2);
-end
+  if fetchTime ~= nil then
+    year = string.match(fetchTime, "Year (%d+)")
+    theDateTime = string.sub(fetchTime,string.find(fetchTime,",") + 0); -- I know it's weird to have +0, but don't remove it or will error, shrug
+    stripYear = string.sub(theDateTime,string.find(theDateTime,",") + 2);
+    Time = string.sub(stripYear,string.find(stripYear,",") + 2);
+    stripYear = "," .. stripYear
+    Date = string.sub(stripYear,string.find(stripYear,",") + 1, string.len(stripYear) - string.len(Time) - 2);
+    stripYear = string.sub(theDateTime,string.find(theDateTime,",") + 2);
+  end
 end
 
 
