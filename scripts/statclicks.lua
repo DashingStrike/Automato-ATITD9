@@ -56,7 +56,7 @@ lagBound["Survey (Uncover)"] = true;
 takeAllWhenCombingFlax = false;
 
 local textLookup = {};
-textLookup["Coconuts"] = "Separate Coconut Meat";
+textLookup["Coconuts"] = "Harvest the Coconut Meat";
 textLookup["Gun Powder"] = "Gunpowder";
 textLookup["Pump Aqueduct"] = "Pump the Aqueduct";
 
@@ -544,6 +544,8 @@ function doTasks()
                     digHole();
                 elseif curTask == "Water Insects" then
                     waterInsects();
+                else
+                    clickText(findText(textLookup[curTask]));
                 end
                 statTimer[i] = lsGetTimer();
                 didTask = true;
