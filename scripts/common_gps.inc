@@ -168,7 +168,7 @@ function getTime(fmt)
       local year, season, month, day, hour, minute, ampm = string.match(str, "Year (%d+) (%a+) (%a+)-(%d+) (%d+):(%d+)(%a+)");
       if year and season and month and day and hour and minute then
          month = string.gsub(month, "l", "I"); -- Change small "L" (misinterpreted) back to capital I
-         newstr = "Year: " .. year .. ", " .. season .. " " .. month .. "-" .. day .. ", " .. hour .. ":" .. minute .. ampm
+         newstr = "Year " .. year .. ", " .. season .. " " .. month .. "-" .. day .. ", " .. hour .. ":" .. minute .. ampm
          -- perform data validation
          local seasonIndex = {};
          seasonIndex["Akhet"] = 1;
