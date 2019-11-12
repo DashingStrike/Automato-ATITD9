@@ -16,24 +16,29 @@ askForWindow("Test OCR on ATITD Clock.\n\nReturn Coordinates and Lookup Regions"
     checkBreak();
     srReadScreen();
     local startPos = findCoords();
+    --faction is a global returned from findCoords() -- common_find.inc
+    local message = "Note: You can run around and see coordinates update ...\n\nFaction Region: " .. faction .. "\n";
+    if startPos then
+      local x = startPos[0];
+      local y = startPos[1];
+      coord2region(x,y);
+      message = message .. "Region: " .. regionName .. "\nCoordinates: " .. startPos[0] .. ", " .. startPos[1];
+    else
+      message = message .. "Coordinates NOT Found";
+    end
+
 
     if showTime then
       srReadScreen(); -- on purpose we have another srReadScreen(), after the one above; or else it'll error
-      time = "\n\nTime: " .. getTime(1)
-    else
-      time = "";
+      local fetchTime = getTime(1);
+
+        if fetchTime then
+          message = message .. "\n\nTime: " .. getTime(1)
+        else
+          message = message .. "\n\nTime NOT Found";
+        end
     end
 
-    --faction is a global returned from findCoords() -- common_find.inc
-    local message = "Note: You can run around and see coordinates update ...\n\nFaction Region: " .. faction .. "\n";
-  if startPos then
-    local x = startPos[0];
-    local y = startPos[1];
-    coord2region(x,y);
-    message = message .. "Region: " .. regionName .. "\nCoordinates: " .. startPos[0] .. ", " .. startPos[1] .. time;
-  else
-    message = message .. "Coordinates NOT Found";
-  end
     sleepWithStatus(250, message, nil, 0.7, "Reading ATID Clock");
     lsSleep(10);
   end
