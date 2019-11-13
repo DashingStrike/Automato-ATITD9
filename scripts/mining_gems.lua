@@ -4,7 +4,7 @@
 -- You must click on all Quintuple colors FIRST, all Quadruple colors NEXT, all Triple colors NEXT, all Paired colors NEXT, then ALL Single colored stones LAST.
 --
 -- Credits to Tallow for his Simon macro, which was used as a template to build on.
--- Additional credits to Tallow for his assistance with stream lining code (embedded arrays and more efficient looping in function clickSequence() - v1.2) 
+-- Additional credits to Tallow for his assistance with stream lining code (embedded arrays and more efficient looping in function clickSequence() - v1.2)
 -- Thanks to Sabahl for the new 6 color (1 Pair) array, which is alternative method that breaks 6 nodes simultaneously. Supposedly better chance at a Huge Gem, when breaking more stones at same time.
 
 -- Version has jumped from 1.3 to 2.0.  2.0 now reads main chat and no longer asks you to enter Node Delay. It should be able to run very fast and auto-adjust to lag.
@@ -14,7 +14,7 @@
 -- 3: A 6 second pause has occured. Likely super lag or something wrong in macro happened (bug)
 
 -- Version 2.0.1 Some regions give a faction bonus to Ore Yield ( this includes bonus to Sand, go figure ^_^ ).  ATITD Clock will tell when bonuses apply; ie 'Who Benefit From: Increased Ore Yield by 10%'.
--- This bonus causes two messages to appear simultaneously, in main chat, for every action that normally produces a message. 
+-- This bonus causes two messages to appear simultaneously, in main chat, for every action that normally produces a message.
 -- 1st Message: 'Local support boosted your pull from ### to ###'. 2nd message (normal message): Your workload contained ### Sand or 'You got some coal and a Small Sapphire', etc.
 -- 2.0.1 attempts to address this extra message which might result in unintended behavior. Sometimes when parsing last chat line, it catches the 'Local support boosted' message, causing it to break look prematurely.
 -- Also reduced the 6s timer down to 5s (something went wrong or couldn't detect a new message (likely two messages back to back), break loop and continue).
@@ -179,7 +179,7 @@ allSets = {
 {3,4,5},
 {1,2,3,4,5}
 },
- 
+
 {  -- 7 color (All different)
 {1,2,3,4,5,6},
 {1,2,3,4,5,7},
@@ -396,15 +396,15 @@ function reset()
 end
 
 function checkAbort()
-  if lsShiftHeld() then
-    sleepWithStatus(750, "Aborting ..."); 
+  if lsControlHeld() and lsAltHeld() then
+    sleepWithStatus(750, "Aborting ...");
     reset();
   end
 end
 
 function workMine()
 	sleepWithStatus(2000, "Waiting for mine to settle ...");
-	workMineButtonLoc = getMousePos(); 
+	workMineButtonLoc = getMousePos();
 	workMineButtonLocSet = true;
     if noMouseMove then
       srClickMouseNoMove(mineX, mineY);
@@ -418,7 +418,7 @@ function workMine()
         srKeyEvent('C');
       else
         --Send 'W' key over Mine to Work it (Get new nodes)
-        srKeyEvent('W'); 
+        srKeyEvent('W');
       end
     end
 	sleepWithStatus(1000, "Working mine (Fetching new nodes)");
@@ -430,7 +430,7 @@ function TakeGemWindowRefresh()
  ---- New Feature, Refresh Gem Take menu
  -- First check to see if All Gems (From mine's Take menu) is pinned up, if so refresh it.
   findAllGems = findText("All Gems");
-	if findAllGems then 
+	if findAllGems then
 		if not autoWorkMine then
 	         sleepWithStatus(1000, "Refreshing pinned Gem menu ..."); -- Let pinned window catchup. If autowork mine, there is already a 1000 delay on workMine()
 		end
@@ -483,7 +483,7 @@ function chatRead()
       chatText = getChatText();
       sleepWithStatus(500, "Error: We must be able to read at least the last 2 lines of main chat!\n\nCurrently we only see " .. #chatText .. " lines ...\n\nYou can overcome this error by typing ANYTHING in main chat.", nil, 0.7);
    end
-   
+
    --Read last line of chat and strip the timer ie [01m]+space from it.
    lastLine = chatText[#chatText][2];
    lastLineParse = string.sub(lastLine,string.find(lastLine,"m]")+3,string.len(lastLine));
@@ -525,7 +525,7 @@ function findClosePopUp(noRead)
             popSleepDelay = clickDelay
         end
 
-	  if OK then  
+	  if OK then
 	    srClickMouseNoMove(OK[0]+2,OK[1]+2, true);
             lsSleep(popSleepDelay);
 	    break;
@@ -609,7 +609,7 @@ function clickSequence()
   y = y + 40;
   lsPrint(5, y, 0, 0.7, 0.7, 0xffffffff, "Click Delay: " .. clickDelay .. " ms");
   y = y + 40;
-  lsPrint(5, y, 0, 0.7, 0.7, 0xffffffff, "Hold Shift to Abort and Return to Menu.");
+  lsPrint(5, y, 0, 0.7, 0.7, 0xffffffff, "Hold Ctrl + Alt to Abort and Return to Menu.");
   y = y + 40;
   lsPrint(5, y, 0, 0.7, 0.7, 0xffffffff, "Don't touch mouse until finished!");
   if bonusRegion then
@@ -627,7 +627,7 @@ function clickSequence()
 	if autoWorkMine then
 	  workMine();
 	elseif workMineButtonLocSet then
-          srSetMousePos(workMineButtonLoc[0], workMineButtonLoc[1]); 
+          srSetMousePos(workMineButtonLoc[0], workMineButtonLoc[1]);
 	end
 
   TakeGemWindowRefresh();
