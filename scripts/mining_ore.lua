@@ -1,6 +1,6 @@
 -- mining_ore.lua v2.3.0 -- by Cegaiel
 -- Credits to Tallow for his Simon macro, which was used as a template to build on.
--- 
+--
 -- Brute force method, you manually click/set every stones' location and it will work every possible 3 node/stone combinations.
 --
 -- New in v2.2.0 - Now allows you to optionally try 4 stone combos after doing the regular 3 stone combos.
@@ -416,7 +416,7 @@ function clickSequence()
           fetchTotalCombos4();
         end
     end
-    chatRead();	
+    chatRead();
     if noMouseMove then
       sleepWithStatus(3000, "Starting... Now is your chance to move your mouse to second monitor!", nil, 0.7);
     else
@@ -507,7 +507,7 @@ end
 
 
 function checkAbort()
-    if lsShiftHeld() then
+    if lsControlHeld() and lsAltHeld() then
         sleepWithStatus(750, "Aborting ...");
         reset();
     end
@@ -725,19 +725,19 @@ function round(num, numDecimalPlaces)
 end
 
 
-function DecimalsToMinutes(dec) 
-  local ms = tonumber(dec) 
+function DecimalsToMinutes(dec)
+  local ms = tonumber(dec)
   if ms >= 60 then
-    return math.floor(ms / 60).."m ".. math.floor(ms % 60) .. "s"; 
+    return math.floor(ms / 60).."m ".. math.floor(ms % 60) .. "s";
   else
-    return math.floor(ms) .. "s"; 
+    return math.floor(ms) .. "s";
   end
 end
 
 
 function comma_value(amount)
   local formatted = amount
-  while true do  
+  while true do
     formatted, k = string.gsub(formatted, "^(-?%d+)(%d%d%d)", '%1,%2')
     if (k==0) then
       break
@@ -751,13 +751,13 @@ function TakeOreWindowRefresh()
  findAllOre = findText("All Ore");
  findAllMetal = findText("All Metal"); -- Silver Mines give metal, not Ore. This check is for Silver Mines.
 
-	if findAllOre then 
+	if findAllOre then
 		if not autoWorkMine then
 	         sleepWithStatus(1000, "Refreshing pinned Ore menu ..."); -- Let pinned window catchup. If autowork mine, there is already a 1000 delay on workMine()
 		end
 	 safeClick(findAllOre[0],findAllOre[1]);
 	end
-	if findAllMetal then 
+	if findAllMetal then
 		if not autoWorkMine then
 	         sleepWithStatus(1000, "Refreshing pinned Metal menu ..."); -- Let pinned window catchup. If autowork mine, there is already a 1000 delay on workMine()
 		end
@@ -800,7 +800,7 @@ function updateGUI(i,j,k,l)
                 y = y + 20;
                 lsPrint(10, y, 0, 0.7, 0.7, 0x80ff80ff, "Total Ore Found:     " .. comma_value(math.floor(oreGatheredTotal)));
                 y = y + 32;
-                lsPrint(10, y, 0, 0.7, 0.7, 0xffff80ff, "HOLD Shift to Abort and Return to Menu.");
+                lsPrint(10, y, 0, 0.7, 0.7, 0xffff80ff, "Hold Ctrl+Alt to Abort and Return to Menu.");
                 y = y + 32;
                 lsPrint(10, y, 0, 0.7, 0.7, 0xff8080ff, "Don't touch mouse until finished!");
                 lsDoFrame();
@@ -1215,7 +1215,7 @@ function getTraits()
 				trait_value = 1;
 			  end
 			end
-			
+
 			if ButtonText(5, lsScreenY - 25, 1, 220, 0xFFFFFFff, "Done assigning traits", 0.7, 0.7) then
 				traits_done = true;
 			end
@@ -1242,30 +1242,30 @@ function findSets()
 		for i=1, set_size do
 			set[i] = i;
 		end
-		
+
 		while set do
 			count = count + 1;
 			if count == 1000 then
 				count = 0;
 				lsPrintln(set_to_string(set) .. " found " .. #sets .. " so far.");
 			end
-			
+
 			if is_valid_set(set) then
 				if is_matching_set(set) then
 					sets[#sets + 1] = set;
 					found_one_at_this_size = true;
-				end	
+				end
 			end
-			
+
 			set = increment_set(set);
 		end
 		if not found_one_at_this_size then
 			break;
 		end
 	end
-	
+
 	-- display results
-	
+
 	while true do
 		if #sets == 0 then
 			statusScreen("NO matching sets", 0xFFFFFFff, "no break");
@@ -1275,7 +1275,7 @@ function findSets()
 		lsScrollAreaBegin("ResultsScroll", 0, 100, 0, lsScreenX - 50, lsScreenX - 110)
 		for i=1, #sets do
 			lsPrint(0, (i-1)*20, 3, 1, 1, 0xFFFFFFff, set_to_string(sets[i]));
-		end	
+		end
 		lsScrollAreaEnd(#sets*20);
 		--lsScrollAreaEnd(lsScreenY-50);
 
