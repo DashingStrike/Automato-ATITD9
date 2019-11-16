@@ -171,10 +171,10 @@ function SetupLureGroup()
         srReadScreen();
         -- Push Up arrow, just in case its current at bottom of list
         --DownPin = srFindImageInRange("Fishing/Menu_DownArrow.png",FindPin[0]-10,FindPin[1],50,500);
-        DownPin = srFindImage("Fishing/Menu_DownArrow.png");
+        DownPin = srFindImage("Fishing/Menu_DownArrow.png", 6000);
         if DownPin then
             --UpArrow = srFindImageInRange("Fishing/Menu_UpArrow.png",FindPin[0]-10,FindPin[1],50,50);
-            UpArrow = srFindImage("Fishing/Menu_UpArrow.png");
+            UpArrow = srFindImage("Fishing/Menu_UpArrow.png", 6000);
             if UpArrow then
                 srClickMouseNoMove(UpArrow[0]+5,UpArrow[1]+5);
                 lsSleep(200);
@@ -217,7 +217,8 @@ function SetupLureGroup()
                 table.insert(TLures,Lures[i]);
                 if Lures[i] == LastLure then
                     --End of Menu, Use Down Arrow
-                    arrow=srFindImageInRange("Fishing/menu_downarrow.png",test[0],test[1]-5,175,50);
+                    --arrow=srFindImageInRange("Fishing/menu_downarrow.png",test[0],test[1]-5,175,50);
+                    arrow=srFindImage("Fishing/menu_downarrow.png",6000);
                     if arrow then
                         DownArrowLocs = arrow;
                         srClickMouseNoMove(arrow[0]+5,arrow[1]+5);
@@ -233,7 +234,7 @@ function SetupLureGroup()
 
         --Reset Lure Menu
         --UpArrow = srFindImageInRange("Fishing/Menu_UpArrow.png",FindPin[0]-10,FindPin[1],50,50);
-        UpArrow = srFindImage("Fishing/Menu_UpArrow.png");
+        UpArrow = srFindImage("Fishing/Menu_UpArrow.png", 6000);
         if UpArrow then
             srClickMouseNoMove(UpArrow[0]+5,UpArrow[1]+5);
             lsSleep(200);
@@ -314,11 +315,11 @@ function UseLure()
     srReadScreen();
     --Only the first 30 lures will show in window, 31+ needs the down arrow clicked to be viewed, else click the up arrow (if more than 30 lures).
     if QCurrentLureIndex > 30 then
-        down = srFindImage("Fishing/Menu_DownArrow.png");
+        down = srFindImage("Fishing/Menu_DownArrow.png", 6000);
         srClickMouseNoMove(down[0]+5,down[1]+5);
         lsSleep(200);
     elseif #PlayersLures > 30 then
-        up = srFindImage("Fishing/Menu_UpArrow.png");
+        up = srFindImage("Fishing/Menu_UpArrow.png", 6000);
         srClickMouseNoMove(up[0]+5,up[1]+5);
         lsSleep(200);
     end
@@ -732,7 +733,7 @@ function doit()
             checkBreak();
             srReadScreen();
             cast = srFindImage("fishicon.png");
-            sleepWithStatus(500, "Can\'t find Fishing icon ...");
+            sleepWithStatus(500, "Can\'t find Fishing icon ...", nil, 0.7);
         end
 
 
