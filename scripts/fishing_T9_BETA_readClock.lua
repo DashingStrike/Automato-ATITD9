@@ -755,7 +755,7 @@ function doit()
 
             if OK then
                 srClickMouseNoMove(OK[0]+5,OK[1]+3);  -- Close the popup OK button
-                sleepWithStatus(1500,"No " .. QCurrentLure .. " lure found!\nRefreshing lure list ...", nil, 0.7)
+                sleepWithStatus(1500,"No " .. CurrentLure .. " lure found!\nRefreshing lure list ...", nil, 0.7)
                 PlayersLures = SetupLureGroup();
                 if QCurrentLureIndex  > #PlayersLures or QCurrentLureIndex == 1 then
                     QCurrentLureIndex = 2;
