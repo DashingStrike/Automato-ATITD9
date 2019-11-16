@@ -22,7 +22,7 @@ function doit()
 	end
 
 	if travelFree then
-	  safeClick(travel[0]+10, travel[1]+2)
+	  safeClick(travelFree[0]+10, travelFree[1]+2)
 	  break;
 	end
 
@@ -30,4 +30,5 @@ function doit()
 
   end
 lsPlaySound("complete.wav")
+promptOkay("You have arrived at " .. chariot .. " !\n\nElapsed Time: " .. getElapsedTime(startTime), nil, 0.7, nil, true);
 end 
