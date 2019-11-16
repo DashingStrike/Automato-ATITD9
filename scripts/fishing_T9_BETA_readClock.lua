@@ -45,7 +45,7 @@ SNum = 0;
 Sfish = "";
 muteSoundEffects = false;
 TotalCasts = 5;
-maxWaitTime = 23000; -- Max ms to wait after casting to look for a change in main chat window before giving up and recasting. 20000 should be enough. Supper laggy server might need more.
+maxWaitTime = 18000; -- Max ms to wait after casting to look for a change in main chat window before giving up and recasting. 18000 should be enough. Supper laggy server might need more.
 
 
 -- Additional reporting in the log file
@@ -156,7 +156,7 @@ function SetupLureGroup()
     LastLure = "";
 
     lsDoFrame();
-    statusScreen("Indexing Lures ...",nil, 0.7);
+    statusScreen("Indexing Lures ...",nil, nil, 0.7);
     checkBreak()
     srReadScreen();
 
@@ -212,7 +212,7 @@ function SetupLureGroup()
             if test then
                 --Add Lure
                 lureCounter = lureCounter + 1;
-                statusScreen("Indexing Lures [" .. lureCounter .. "]\n" .. Lures[i],nil, 0.7);
+                statusScreen("Indexing Lures [" .. lureCounter .. "]\n" .. Lures[i],nil, nil, 0.7);
                 lsSleep(50);
                 table.insert(TLures,Lures[i]);
                 if Lures[i] == LastLure then
@@ -246,7 +246,7 @@ function SetupLureGroup()
             test = findText(Lures[i]);
             if test then
                 lureCounter = lureCounter + 1;
-                statusScreen("Indexing Lures [" .. lureCounter .. "]\n" .. Lures[i],nil, 0.7);
+                statusScreen("Indexing Lures [" .. lureCounter .. "]\n" .. Lures[i],nil, nil, 0.7);
                 lsSleep(50);
                 table.insert(TLures,Lures[i]);
             end
@@ -299,15 +299,15 @@ function UseLure()
     lsDoFrame(); -- Blank the screen so next statusScreen messages isn't mixed/obscured with previous gui_refresh info on screen
     lsSleep(10);
     if LostLure == 1 and not lastCast then
-        statusScreen("Lost Lure! | " .. lastLostLure .. "\nUsing same lure again!", nil, 0.7);
+        statusScreen("Lost Lure! | " .. lastLostLure .. "\nUsing same lure again!", nil, nil, 0.7);
         table.insert(lostlure_log, Time .. " | " .. lastLostLure .. " (" .. lastLostLureType .. ")");
         lsSleep(1000);
     elseif LostLure == 1 then
-        statusScreen("Lost Lure! | " .. lastLostLure .. "\nSwitching Lures | " .. QCurrentLure, nil, 0.7);
+        statusScreen("Lost Lure! | " .. lastLostLure .. "\nSwitching Lures | " .. QCurrentLure, nil, nil, 0.7);
         table.insert(lostlure_log, Time .. " | " .. lastLostLure .. " (" .. lastLostLureType .. ")");
         lsSleep(1000);
     else
-        statusScreen("Switching Lures | " .. QCurrentLure, nil, 0.7);
+        statusScreen("Switching Lures | " .. QCurrentLure, nil, nil, 0.7);
         lsSleep(750);
     end
 
@@ -573,7 +573,7 @@ function gui_refresh()
     lsPrintWrapped(10, winsize[1]-58, 0, lsScreenX - 20, 0.5, 0.5, 0xFFFFFFff, "-----------------------------");
     lsPrintWrapped(10, winsize[1]-46, 0, lsScreenX - 20, 0.5, 0.5, 0xc0ffffff, "Completed Casts: " .. GrandTotalCasts);
     lsPrintWrapped(10, winsize[1]-34, 0, lsScreenX - 20, 0.5, 0.5, 0xff8080ff, "Failed Catches: " .. GrandTotalFailed);
-    lsPrintWrapped(10, winsize[1]-22, 0, lsScreenX - 20, 0.5, 0.5, 0xffffc0ff, "Fish Caught: " .. GrandTotalCaught .. " (" .. math.floor(GrandTotaldb) .. "db)");
+    lsPrintWrapped(10, winsize[1]-22, 0, lsScreenX - 20, 0.5, 0.5, 0xffffc0ff, "Fish Caught: " .. GrandTotalCaught .. "   (" .. math.floor(GrandTotaldb) .. " db)");
     lsSetCamera(0,0,lsScreenX*1.6,lsScreenY*1.6);
 
     if lsButtonText(lsScreenX + 40, lsScreenY + 20, 0, 130, 0xFFFFFFff,
@@ -827,7 +827,7 @@ function doit()
                   end
                 end
 
-                if OK then
+                if OK and ignoreOK then
                   skipOkOnce = 1; -- Prevents a premature break below from OK box while Examining Isis ship pieces, until next loop. Give a chance for ignoreOK to get recognized
                 end
 
@@ -846,6 +846,9 @@ function doit()
                     break;
                 end
             end -- end while 1 do
+
+
+ if not OK then -- don't log
 
             castcount = castcount + 1;
             GrandTotalCasts = GrandTotalCasts + 1;
@@ -987,6 +990,8 @@ function doit()
         end
         gui_refresh();
     end
+
+ end -- if not OK -- don't log
 end
 
 function round(num, numDecimalPlaces)
