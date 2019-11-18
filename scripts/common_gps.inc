@@ -27,6 +27,7 @@ function findCoords()
 
 
 	  -- Misc Exceptions we want to strip
+	  str = string.gsub(str, "0::#", ":"); -- Giza Exception
 	  str = string.gsub(str, "<=t", "");
 
 
