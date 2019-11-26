@@ -1,0 +1,142 @@
+//
+// Config for thistle search program
+//
+// Note you can copy or rename this file to config_thistle_local.txt
+// New in Automato v2.27:
+// Thistle Mode now tries to load from "config_thistle_local.txt" first before trying config_thistle.txt
+// This will help prevent losing your settings by it being overwritten every time there is an update from github.
+//
+//
+//
+// Any text after // will be ignored
+
+num_ticks 40	// Leave at 40 unless testing things
+max_dung 0		// Maximum number of dung actions
+max_saltpeter 0	// Maximum number of saltpeter actions
+do_sun 1		// Allow changing sun (otherwise assums 0 or 99)
+random_per_tick 3000 // Amount of random sampling to take as well as smart smart sampling
+print_unique 0	// Display list of all found requirements (as well as the specifc ones searched for)
+print_history 0 // Display the full history of a recipe, for comparing differences between this and ThistleSim
+
+// // different set for testing
+// print_unique 0
+// num_ticks 10
+// do_dung 0
+// do_saltpeter 0
+// do_sun 1
+
+// Set these to 0 to disable these rules (voids)
+
+rule_Nit_Asc 1
+rule_Car_Asc 1
+rule_Fol_Asc 1
+
+rule_Pot_Bio 1
+rule_Asc_Bio 1
+rule_Pyr_Bio 1
+
+rule_Thi_Car 1
+rule_Pot_Car 1
+rule_Asc_Car 1
+
+rule_Nia_Fol 1
+rule_Thi_Fol 1
+rule_Pot_Fol 1
+
+rule_Asc_Nia 1
+rule_Pyr_Nia 1
+rule_Thi_Nia 1
+
+rule_Nit_Pyr 1
+rule_Car_Pyr 1
+rule_Fol_Pyr 1
+
+rule_Asc_Thi 1
+rule_Car_Thi 1
+rule_Nia_Thi 1
+
+
+
+/////////////////////////////////
+// List of desired requirements - delete this list and replace with your own
+// The examples before are whatever I happen to have been searching for at the time,
+// along with notes to myself on which ones I've done what with
+// Any line starting with "label:" will effectively label all those after it
+
+desired "label:My Treatment Tank"
+//Comment or Uncomment below to include/exclude from Thistle Mode
+// desired B-F-N+P-
+// desired A+B-C+P~
+
+
+desired "label:Random Test"
+// desired A~F+N+T~
+// desired A+B+F~N-
+// desired A-C+F+N+
+desired A~B~N+P+
+desired F-N-P+T+
+
+
+// // Not really needed, just there for feeding void testing
+// desired "label:Misc"
+// desired A+F+N+T~
+// desired B~C~F~N+
+// desired B-F~N+T+
+// desired B-C+P-T+
+// desired A~F+N+T~
+// desired C~F~N-T+
+// desired A~C+F~N~
+// desired A+B+F+T-
+// desired C+F+N+T-
+// desired A+B-P-T~
+// desired A+F-P+T+
+// 
+// desired "label:Random"
+// desired A~B+F~P~
+// desired B~C-F~N-
+// desired B+C-P~T-
+// desired B~N-P~T-
+// desired B~C-F+N-
+
+
+// List your stock of thistles here
+//  (use some creative find and replace after copying from ATITD, don't edit this by hand ;)
+// Independent of the searching, this will also report if any of the desired list matches
+//  something in stock.  The existing ones in this file might be out of date, but if
+//  something matches what you need, you can contact Jimbly to see if it is still available.
+// There is a tool at https://atitd.sharpnetwork.net
+// Link is under Misc on main page titled "Convert Chest clipboard to Stock Data".
+// This will let you click Copy Clipboard on Warehouse or Chest and paste into a text box.
+// It will output the correct format for quick pasting into this file
+
+// Any line starting with "label:" will effectively label all those after it
+
+Stock "label:Jimbly"
+Stock "155 A+B+C-F~N~P+T-"
+Stock "70 A+B+C~F+N~P~T~"
+Stock "40 A-B+C+F-N+P+T+"
+Stock "160 A-B+C+F-N-P-T~"
+Stock "150 A-B+C-F+N-P+T~"
+Stock "160 A-B+C-F+N~P+T~"
+Stock "55 A-B+C-F-N-P+T-"
+Stock "150 A-B+C~F-N-P~T-"
+Stock "10 A-B+C~F~N+P~T~"
+Stock "120 A-B-C+F~N-P~T-"
+Stock "55 A-B-C-F-N-P-T-"
+Stock "60 A-B-C-F-N~P~T+"
+Stock "130 A-B-C~F~N-P+T-"
+Stock "155 A-B-C~F~N-P-T-"
+Stock "160 A-B~C+F~N-P+T+"
+Stock "140 A-B~C~F-N-P+T-"
+Stock "380 A~B+C+F~N-P+T-"
+Stock "45 A~B+C+F~N-P+T~"
+Stock "160 A~B+C-F-N~P-T~"
+Stock "130 A~B-C-F~N-P-T-"
+
+Stock "label:Warehouse in Resources compound"
+Stock "380 A~B+C+F~N-P+T-"
+Stock "45 A~B+C+F~N-P+T~"
+
+Stock "label:Chest near Thistle Gardens"
+Stock "380 A~B+C+F~N-P+T-"
+Stock "45 A~B+C+F~N-P+T~"
