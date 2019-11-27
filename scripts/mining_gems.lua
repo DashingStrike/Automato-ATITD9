@@ -427,6 +427,7 @@ end
 
 
 function TakeGemWindowRefresh()
+ srReadScreen();
  ---- New Feature, Refresh Gem Take menu
  -- First check to see if All Gems (From mine's Take menu) is pinned up, if so refresh it.
   findAllGems = findText("All Gems");
@@ -438,6 +439,7 @@ function TakeGemWindowRefresh()
 	end
 --Now check to see if there is a Huge Gem and give a special alert.
 	 lsSleep(500);
+ srReadScreen();
  findHugeGems = findText("Huge");
  if findHugeGems then
   lsPlaySound("applause.wav");
