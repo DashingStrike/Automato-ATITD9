@@ -1,4 +1,4 @@
--- mining_gems.lua v2.0.6 -- by Cegaiel
+-- mining_gems.lua v2.0.7 -- by Cegaiel
 --
 -- Works the sand mine, but requires a little thought and input from you ;)
 -- You must click on all Quintuple colors FIRST, all Quadruple colors NEXT, all Triple colors NEXT, all Paired colors NEXT, then ALL Single colored stones LAST.
@@ -18,12 +18,14 @@
 -- 1st Message: 'Local support boosted your pull from ### to ###'. 2nd message (normal message): Your workload contained ### Sand or 'You got some coal and a Small Sapphire', etc.
 -- 2.0.1 attempts to address this extra message which might result in unintended behavior. Sometimes when parsing last chat line, it catches the 'Local support boosted' message, causing it to break look prematurely.
 -- Also reduced the 6s timer down to 5s (something went wrong or couldn't detect a new message (likely two messages back to back), break loop and continue).
+-- 2.0.7 -- Add Progress bar, increase FPS on non clicking screens.
+
 
 dofile("common.inc");
 dofile("settings.inc");
 
 
-askText = "Sand Mining v2.0.6 by Cegaiel --\n\nMake sure chat is MINIMIZED and Main chat tab is visible!\n\nPress Shift over ATITD window.\n\nOptional: Pin the mine's Take... Gems... menu (\"All Gems\" will appear in pinned window).\n\nThis optionally pinned window will be refreshed every time the mine is worked. Also, if Huge Gem appears in any window, it will alert you with an applause sound.";
+askText = "Sand Mining v2.0.7 by Cegaiel --\n\nMake sure chat is MINIMIZED and Main chat tab is visible!\n\nPress Shift over ATITD window.\n\nOptional: Pin the mine's Take... Gems... menu (\"All Gems\" will appear in pinned window).\n\nThis optionally pinned window will be refreshed every time the mine is worked. Also, if Huge Gem appears in any window, it will alert you with an applause sound.";
 
 bonusRegion = false;
 noMouseMove = false;
@@ -269,7 +271,7 @@ function getMineLoc()
       error "Clicked End script button";
     end
   lsDoFrame();
-  lsSleep(50);
+  lsSleep(10);
   end
 end
 
@@ -386,7 +388,7 @@ function getPoints()
       error "Clicked End script button";
     end
   lsDoFrame();
-  lsSleep(100);
+  lsSleep(10);
   end
 end
 
@@ -397,13 +399,16 @@ end
 
 function checkAbort()
   if lsControlHeld() and lsAltHeld() then
+    while lsControlHeld() and lsAltHeld() do
+      sleepWithStatus(16, "Release Keys...");
+    end
     sleepWithStatus(750, "Aborting ...");
     reset();
   end
 end
 
 function workMine()
-	sleepWithStatus(2000, "Waiting for mine to settle ...");
+	sleepWithStatus(2000, "Waiting for mine to settle ...", nil, 0.7, "Please Wait");
 	workMineButtonLoc = getMousePos();
 	workMineButtonLocSet = true;
     if noMouseMove then
@@ -421,7 +426,7 @@ function workMine()
         srKeyEvent('W');
       end
     end
-	sleepWithStatus(1000, "Working mine (Fetching new nodes)");
+	sleepWithStatus(1000, "Working mine (Fetching new nodes)", nil, 0.7, "Please Wait");
 	findClosePopUp(1);
 end
 
@@ -433,7 +438,7 @@ function TakeGemWindowRefresh()
   findAllGems = findText("All Gems");
 	if findAllGems then
 		if not autoWorkMine then
-	         sleepWithStatus(1000, "Refreshing pinned Gem menu ..."); -- Let pinned window catchup. If autowork mine, there is already a 1000 delay on workMine()
+	         sleepWithStatus(1000, "Refreshing pinned Gem menu ...", nil, 0.7); -- Let pinned window catchup. If autowork mine, there is already a 1000 delay on workMine()
 		end
 	 safeClick(findAllGems[0],findAllGems[1]);
 	end
@@ -443,7 +448,7 @@ function TakeGemWindowRefresh()
  findHugeGems = findText("Huge");
  if findHugeGems then
   lsPlaySound("applause.wav");
- sleepWithStatus(15000, "Congrats! You found a Huge Gem!\n\nYou should take it now!", 0x80ff80ff, 0.7);
+ sleepWithStatus(15000, "You found a Huge Gem!\n\nYou should take it now!", 0x80ff80ff, 0.7, "Congratulations");
  end
 end
 
@@ -475,7 +480,7 @@ function chatRead()
       srReadScreen();
       chatText = getChatText();
       onMain = checkIfMain(chatText);
-      sleepWithStatus(100, "Looking for Main chat screen ...\n\nIf main chat is showing, then try clicking Work Mine to clear this screen");
+      sleepWithStatus(100, "Looking for Main chat screen ...\n\nIf main chat is showing, then try clicking Work Mine to clear this screen", nil, 0.7, "Error Parsing Screen");
    end
 
    -- Verify chat window is showing minimum 2 lines
@@ -483,7 +488,7 @@ function chatRead()
    	checkBreak();
       srReadScreen();
       chatText = getChatText();
-      sleepWithStatus(500, "Error: We must be able to read at least the last 2 lines of main chat!\n\nCurrently we only see " .. #chatText .. " lines ...\n\nYou can overcome this error by typing ANYTHING in main chat.", nil, 0.7);
+      sleepWithStatus(500, "Error: We must be able to read at least the last 2 lines of main chat!\n\nCurrently we only see " .. #chatText .. " lines ...\n\nYou can overcome this error by typing ANYTHING in main chat.", nil, 0.7, "Error Parsing Screen");
    end
 
    --Read last line of chat and strip the timer ie [01m]+space from it.
@@ -544,9 +549,9 @@ end
 function clickSequence()
 --  chatRead();
     if noMouseMove then
-      sleepWithStatus(3000, "Starting... Now is your chance to move your mouse to second monitor!", nil, 0.7);
+      sleepWithStatus(3000, "Starting... Now is your chance to move your mouse to second monitor!", nil, 0.7, "Are you ready?");
     else
-      sleepWithStatus(150, "Starting... Don\'t move mouse!");
+      sleepWithStatus(150, "Starting... Don\'t move mouse!", nil, 0.8, "Hands Off Da\' Mouse");
     end
 
   local startMiningTime = lsGetTimer();
@@ -621,6 +626,17 @@ function clickSequence()
   lsPrint(5, y, 0, 0.7, 0.7, 0xff4040ff, "Read last line only. Ignore 2nd to last line.");
   end
 
+  y = y + 40
+
+  -- Progress Bar
+  barWidth = 200;
+  barTextX = (barWidth / 2) - 10
+  percent = round(worked / #sets * 100,2) 
+  progress = (barWidth / #sets) * worked
+  lsPrint(barTextX, y, 2, 0.7, 0.7, 0x000000ff, percent .. " %");
+  lsDrawRect(10, y, barWidth, y+15, 0,  0xf6f6f6FF);
+  lsDrawRect(10, y, progress, y+15, 1,  0x80ff80FF);
+
   lsDoFrame();
   worked = worked + 1
 
@@ -685,7 +701,12 @@ function promptDelays()
       error(quitMessage);
     end
   lsDoFrame();
-  lsSleep(50);
+  lsSleep(10);
   end
   return count;
+end
+
+function round(num, numDecimalPlaces)
+  local mult = 10^(numDecimalPlaces or 0)
+  return math.floor(num * mult + 0.5) / mult
 end
