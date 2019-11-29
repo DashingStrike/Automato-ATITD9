@@ -628,14 +628,7 @@ function clickSequence()
 
   y = y + 40
 
-  -- Progress Bar
-  barWidth = 200;
-  barTextX = (barWidth / 2) - 10
-  percent = round(worked / #sets * 100,2) 
-  progress = (barWidth / #sets) * worked
-  lsPrint(barTextX, y, 2, 0.7, 0.7, 0x000000ff, percent .. " %");
-  lsDrawRect(10, y, barWidth, y+15, 0,  0xf6f6f6FF);
-  lsDrawRect(10, y, progress, y+15, 1,  0x80ff80FF);
+  progressBar(y)
 
   lsDoFrame();
   worked = worked + 1
@@ -709,4 +702,40 @@ end
 function round(num, numDecimalPlaces)
   local mult = 10^(numDecimalPlaces or 0)
   return math.floor(num * mult + 0.5) / mult
+end
+
+function progressBar(y)
+  barWidth = 220;
+  barTextX = (barWidth - 22) / 2
+  barX = 10;
+  percent = round(worked / #sets * 100,2) 
+  progress = (barWidth / #sets) * worked
+  if progress < barX+6 then
+    progress = barX+6
+  end
+
+  if math.floor(percent) <= 25 then
+    progressBarColor = 0x669c35FF
+  elseif math.floor(percent) <= 50 then
+    progressBarColor = 0x77bb41FF
+  elseif math.floor(percent) <= 65 then
+    progressBarColor = 0x96d35fFF
+  elseif math.floor(percent) <= 72 then
+    progressBarColor = 0xdced41FF
+  elseif math.floor(percent) <= 79 then
+    progressBarColor = 0xe9ea18FF
+  elseif math.floor(percent) <= 83 then
+    progressBarColor = 0xf8be0cFF
+  elseif math.floor(percent) <= 92 then
+    progressBarColor = 0xff7567FF
+  elseif math.floor(percent) <= 99 then
+    progressBarColor = 0xff301bFF
+  else
+    progressBarColor = 0xe3c6faFF
+  end
+
+  lsPrint(barTextX, y+3.5, 15, 0.60, 0.60, 0x000000ff, percent .. " %");
+  lsDrawRect(barX, y, barWidth, y+20, 5,  0x3a88feFF); -- blue shadow
+  lsDrawRect(barX+2, y+2, barWidth-2, y+18, 10,  0xf6f6f6FF); -- white bar background
+  lsDrawRect(barX+4, y+4, progress, y+16, 15,  progressBarColor); -- colored progress bar
 end
