@@ -107,7 +107,7 @@ function findStuff()
   lsPrint(10, y, z, scale, scale, 0xFFFFFFff, "Results: " .. result);
   y = y + 18;
 
-  for i=#findBlah,1,-1 do
+  for i=1, #findBlah do
     local parse = findBlah[i];
     lsPrint(10, y, 10, scale, scale, 0xFFFFFFff, parse[0] .. "," .. parse[1] .. ": " .. parse[2]);
     if lsMouseClick(10, y, 200, 16) then
