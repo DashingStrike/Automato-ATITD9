@@ -194,14 +194,25 @@ function calcPos()
         sleepWithStatus(250,"Could not find Wood Treatment Tank window ..." ..
 				"\n\nIs it pinned and 'This is' showing?",nil, 0.7);
       end
-	posFlexibility = { posTank[0] + 104 , posTank[1] + 209  } ;
-	posCuttability = { posTank[0] + 104 , posTank[1] + 225  } ;
-	posFlammability = { posTank[0] + 104 , posTank[1] + 241  } ;
-	posWaterResist = { posTank[0] + 104 , posTank[1] + 257  } ;
-	posInsectTox = { posTank[0] + 104 , posTank[1] + 273  } ;
-	posHumanTox = { posTank[0] + 104 , posTank[1] + 289  } ;
-	posDarkness  = { posTank[0] + 104 , posTank[1] + 305  } ;
-	posGlossiness = { posTank[0] + 104 , posTank[1] + 321  } ;
+				if label then
+					posFlexibility = { posTank[0] + 104 , posTank[1] + 210  } ;
+					posCuttability = { posTank[0] + 104 , posTank[1] + 226  } ;
+					posFlammability = { posTank[0] + 104 , posTank[1] + 242  } ;
+					posWaterResist = { posTank[0] + 104 , posTank[1] + 258  } ;
+					posInsectTox = { posTank[0] + 104 , posTank[1] + 274  } ;
+					posHumanTox = { posTank[0] + 104 , posTank[1] + 290  } ;
+					posDarkness  = { posTank[0] + 104 , posTank[1] + 306  } ;
+					posGlossiness = { posTank[0] + 104 , posTank[1] + 322  } ;
+				else
+					posFlexibility = { posTank[0] + 104 , posTank[1] + 209  } ;
+					posCuttability = { posTank[0] + 104 , posTank[1] + 225  } ;
+					posFlammability = { posTank[0] + 104 , posTank[1] + 241  } ;
+					posWaterResist = { posTank[0] + 104 , posTank[1] + 257  } ;
+					posInsectTox = { posTank[0] + 104 , posTank[1] + 273  } ;
+					posHumanTox = { posTank[0] + 104 , posTank[1] + 289  } ;
+					posDarkness  = { posTank[0] + 104 , posTank[1] + 305  } ;
+					posGlossiness = { posTank[0] + 104 , posTank[1] + 321  } ;
+				end
 end
 
 function doit()
@@ -221,9 +232,9 @@ function doit()
 
 	while not finished
 	do
-		local startFlexibility = calcFlexibility() ;
-		local startCuttability = calcCuttability() ;
-		local startFlammability = calcFlammability() ;
+		local startFlexibility = calcFlexibility();
+		local startCuttability = calcCuttability();
+		local startFlammability = calcFlammability();
 		local startWaterResist = calcWaterResist();
 		local startInsectTox = calcInsectTox();
 		local startHumanTox = calcHumanTox();
@@ -306,8 +317,12 @@ function doit()
 		done = false;
 		while not done
 		do
-			lsPrintWrapped(10, 15, 5, lsScreenX-15, 0.7, 0.7, 0xFFFFFFFF,
-				"Press start before treating the boards! (Read the Wood Treatment Guide on wiki, the part about the K-Values, if you don't know what to do).\n\n" .. suggest .. suggestion) ;
+			lsPrintWrapped(10, 10, 5, lsScreenX-15, 0.7, 0.7, 0xFFFFFFFF,
+				"Press start before treating the boards! (Read the Wood Treatment Guide on wiki, the part about the K-Values" ..
+				", if you don't know what to do).\n\n\n" .. suggest .. suggestion) ;
+
+					label = CheckBox(10, 80, 5, 0xffff40ff, " Wood Treatment Tank has been labeled", label, 0.65, 0.65);
+
 			checkBreak();
 			lsDoFrame();
 			lsSleep(25);
@@ -322,16 +337,20 @@ function doit()
 		while not done
 		do
 			calcPos() ;
-			flexibility = calcFlexibility() ;
-			cuttability = calcCuttability() ;
-			flammability = calcFlammability() ;
+			flexibility = calcFlexibility();
+			cuttability = calcCuttability();
+			flammability = calcFlammability();
 			waterResist = calcWaterResist();
 			insectTox = calcInsectTox();
 			humanTox = calcHumanTox();
 			darkness = calcDarkness();
 			glossiness = calcGlossiness();
 
-			lsPrintWrapped(10, 45, 5, lsScreenX-15, 0.8, 0.8, 0xFFFFFFFF,
+			lsPrintWrapped(10, 10, 5, lsScreenX-15, 0.8, 0.8, 0xFF0000ff,
+				"DO NOT click the tank window after you start processing " ..
+				"as the 'Last Added' line will break the monitoring!") ;
+
+			lsPrintWrapped(10, 75, 5, lsScreenX-15, 0.8, 0.8, 0xFFFFFFFF,
 				"Monitoring window for real-time changes!\n\n" ..
 				"Flexibility: " .. tostring(flexibility) .. "\n" ..
 				"Cuttability: " .. tostring(cuttability) .. "\n" ..
@@ -353,51 +372,66 @@ function doit()
 		num_seconds = promptNumber("How many seconds? [" .. estimation .. "]" , estimation);
 		done = false
 		local kvalue = "" ;
-		local endFlexibility = calcFlexibility() ;
-		local endCuttability = calcCuttability() ;
-		local endFlammability = calcFlammability() ;
-		local endWaterResist = calcWaterResist();
-		local endInsectTox = calcInsectTox();
-		local endHumanTox = calcHumanTox();
-		local endDarkness = calcDarkness();
-		local endGlossiness = calcGlossiness();
+		local endFlexibility = flexibility;
+		local endCuttability = cuttability;
+		local endFlammability = flammability;
+		local endWaterResist = waterResist;
+		local endInsectTox = insectTox;
+		local endHumanTox = humanTox;
+		local endDarkness = darkness;
+		local endGlossiness = glossiness;
 		while not done
 		do
-
 
 			lsPrintWrapped(10, 25, 5, lsScreenX-15, 0.8, 0.8, 0xFFFFFFFF,
 				"Select the property that you have been watching:"
 			 ) ;
 			if ButtonText(10, lsScreenY - 270, 0, 200, 0xFFFFFFff, "Flexibility") then
-				kvalue = "Formula: (" .. math.abs(endFlexibility - startFlexibility) .. "*" .. math.abs(endFlexibility - startFlexibility) .. ") / " .. num_seconds .. ".0 / 2.0" .. "\nValue: " .. tostring(((endFlexibility - startFlexibility)*(endFlexibility - startFlexibility)/num_seconds)/2.0 )
-				done = true;
+				kvalue = "Formula: (" .. math.abs(endFlexibility) .. " - " .. math.abs(startFlexibility) .. ") " ..
+				"* 2 / (2 * " .. num_seconds .. ")\nValue: " ..
+				tostring((endFlexibility - startFlexibility)*2 / (2 * num_seconds))
+        done = true;
 			end
 			if ButtonText(10, lsScreenY - 240, 0, 200, 0xFFFFFFff, "Cuttability") then
-				kvalue = "Formula: (" .. math.abs(endCuttability - startCuttability) .. "*" .. math.abs(endCuttability - startCuttability) .. ") / " .. num_seconds .. ".0 / 2.0" .. "\nValue: " .. tostring(((endCuttability - startCuttability)*(endCuttability - startCuttability)/num_seconds)/2.0 )
+				kvalue = "Formula: (" .. math.abs(endCuttability) .. " - " .. math.abs(startCuttability) .. ") " ..
+				"* 2 / (2 * " .. num_seconds .. ")\nValue: " ..
+				tostring((endCuttability - startCuttability)*2 / (2 * num_seconds))
 				done = true;
 			end
 			if ButtonText(10, lsScreenY - 210, 0, 200, 0xFFFFFFff, "Flammability") then
-				kvalue = "Formula: (" .. math.abs(endFlammability - startFlammability) .. "*" .. math.abs(endFlammability - startFlammability) .. ") / " .. num_seconds .. ".0 / 2.0" .. "\nValue: " .. tostring(((endFlammability - startFlammability)*(endFlammability - startFlammability)/num_seconds)/2.0 )
+				kvalue = "Formula: (" .. math.abs(endFlammability) .. " - " .. math.abs(startFlammability) .. ") " ..
+				"* 2 / (2 * " .. num_seconds .. ")\nValue: " ..
+				tostring((endFlammability - startFlammability)*2 / (2 * num_seconds))
 				done = true;
 			end
 			if ButtonText(10, lsScreenY - 180, 0, 200, 0xFFFFFFff, "Water Resist") then
-				kvalue = "Formula: ("..  math.abs(endWaterResist - startWaterResist) .. "*" .. math.abs(endWaterResist - startWaterResist) .. ") / " .. num_seconds .. ".0 / 2.0" .. "\nValue: " .. tostring(((endWaterResist - startWaterResist)*(endWaterResist - startWaterResist)/num_seconds)/2.0 )
+				kvalue = "Formula: (" .. math.abs(endWaterResist) .. " - " .. math.abs(startWaterResist) .. ") " ..
+				"* 2 / (2 * " .. num_seconds .. ")\nValue: " ..
+				tostring((endWaterResist - startWaterResist)*2 / (2 * num_seconds))
 				done = true;
 			end
 			if ButtonText(10, lsScreenY - 150, 0, 200, 0xFFFFFFff, "Insect Toxicity") then
-				kvalue = "Formula: (" .. math.abs(endInsectTox - startInsectTox) .. "*" .. math.abs(endInsectTox - startInsectTox) .. ") / " .. num_seconds .. ".0 / 2.0" .. "\nValue: " .. tostring(((endInsectTox - startInsectTox)*(endInsectTox - startInsectTox)/num_seconds)/2.0 )
+				kvalue = "Formula: (" .. math.abs(endInsectTox) .. " - " .. math.abs(startInsectTox) .. ") " ..
+				"* 2 / (2 * " .. num_seconds .. ")\nValue: " ..
+				tostring((endInsectTox - startInsectTox)*2 / (2 * num_seconds))
 				done = true;
 			end
 			if ButtonText(10, lsScreenY - 120, 0, 200, 0xFFFFFFff, "Human Toxicity") then
-				kvalue = "Formula: (" .. math.abs(endHumanTox - startHumanTox) .. "*" .. math.abs(endHumanTox - startHumanTox) .. ") / " .. num_seconds .. ".0 / 2.0" .. "\nValue: " .. tostring(((endHumanTox - startHumanTox)*(endHumanTox - startHumanTox)/num_seconds)/2.0 )
+				kvalue = "Formula: (" .. math.abs(endHumanTox) .. " - " .. math.abs(startHumanTox) .. ") " ..
+				"* 2 / (2 * " .. num_seconds .. ")\nValue: " ..
+				tostring((endHumanTox - startHumanTox)*2 / (2 * num_seconds))
 				done = true;
 			end
 			if ButtonText(10, lsScreenY - 90, 0, 200, 0xFFFFFFff, "Darkness") then
-				kvalue = "Formula: (" .. math.abs(endDarkness - startDarkness) .. "*" .. math.abs(endDarkness - startDarkness) .. ") / " .. num_seconds .. ".0 / 2.0" .. "\nValue: " .. tostring(((endDarkness - startDarkness)*(endDarkness - startDarkness)/num_seconds)/2.0 )
+				kvalue = "Formula: (" .. math.abs(endDarkness) .. " - " .. math.abs(startDarkness) .. ") " ..
+				"* 2 / (2 * " .. num_seconds .. ")\nValue: " ..
+				tostring((endDarkness - startDarkness)*2 / (2 * num_seconds))
 				done = true;
 			end
 			if ButtonText(10, lsScreenY - 60, 0, 200, 0xFFFFFFff, "Glossiness") then
-				kvalue = "Formula: (" .. math.abs(endGlossiness - startGlossiness) .. "*" .. math.abs(endGlossiness - startGlossiness) .. ") / " .. num_seconds .. ".0 / 2.0" .. "\nValue: " .. tostring(((endGlossiness - startGlossiness)*(endGlossiness - startGlossiness)/num_seconds)/2.0 )
+				kvalue = "Formula: (" .. math.abs(endGlossiness) .. " - " .. math.abs(startGlossiness) .. ") " ..
+				"* 2 / (2 * " .. num_seconds .. ")\nValue: " ..
+				tostring((endGlossiness - startGlossiness)*2 / (2 * num_seconds))
 				done = true;
 			end
 			checkBreak();
