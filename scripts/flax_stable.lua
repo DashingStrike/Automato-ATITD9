@@ -56,7 +56,7 @@ water_location[1] = 0
 
 -- Tweakable delay values
 refresh_time = 100 -- Time to wait for windows to update
-walk_time = 600 -- Reduce to 300 if you're fast.
+walk_time = 750 -- Reduce to 300 if you're fast.
 
 -- Don't touch. These are set according to Jimbly's black magic.
 walk_px_x = 380
@@ -269,7 +269,7 @@ function promptFlaxNumbers()
         water_location[0] = tonumber(water_location[0])
         if not water_location[0] then
           is_done = nil
-          lsPrint(10, y + 18, z + 10, 0.7, 0.7, 0xFF2020ff, "MUST BE A NUMBER")
+          lsPrint(135, y + 28, z + 10, 0.7, 0.7, 0xFF2020ff, "MUST BE A NUMBER")
           water_location[0] = 1
         end
         writeSetting("water_locationX", water_location[0])
@@ -280,7 +280,7 @@ function promptFlaxNumbers()
         water_location[1] = tonumber(water_location[1])
         if not water_location[1] then
           is_done = nil
-          lsPrint(10, y + 18, z + 10, 0.7, 0.7, 0xFF2020ff, "MUST BE A NUMBER")
+          lsPrint(135, y + 28, z + 10, 0.7, 0.7, 0xFF2020ff, "MUST BE A NUMBER")
           water_location[1] = 1
         end
         writeSetting("water_locationY", water_location[1])
@@ -295,7 +295,7 @@ function promptFlaxNumbers()
         0.7,
         0.7,
         0xffff40ff,
-        "WalkTo() Settings\n-------------------------------------------"
+        "Walk To Settings:\n-------------------------------------------"
       )
 
       water_needed = readSetting("water_needed", water_needed)
@@ -322,17 +322,24 @@ function promptFlaxNumbers()
     readClock = readSetting("readClock", readClock)
     readClock = CheckBox(120, y + 5, z + 10, 0xFFFFFFff, " Read Clock Coords", readClock, 0.7, 0.7)
     writeSetting("readClock", readClock)
+    y = y + 2
+
+    clearUI = readSetting("clearUI",clearUI);
+    clearUI = CheckBox(120, y + 19, z + 10, 0xFFFFFFff, " Pin grid below the UI", clearUI, 0.7, 0.7);
+    writeSetting("clearUI",clearUI);
+    y = y + 2
 
     extraGridSpacing = readSetting("extraGridSpacing", extraGridSpacing)
-    extraGridSpacing = CheckBox(120, y + 22, z + 10, 0xFFFFFFff, " Extra Spacing on Grid", extraGridSpacing, 0.7, 0.7)
+    extraGridSpacing = CheckBox(120, y + 33, z + 10, 0xFFFFFFff, " Extra Spacing on Grid", extraGridSpacing, 0.7, 0.7)
     writeSetting("extraGridSpacing", extraGridSpacing)
+    y = y + 2
 
     is_plant = readSetting("is_plant", is_plant)
-    is_plant = CheckBox(120, y + 39, z + 10, 0xFFFFFFff, " Grow Flax", is_plant, 0.7, 0.7)
+    is_plant = CheckBox(120, y + 47, z + 10, 0xFFFFFFff, " Grow Flax", is_plant, 0.7, 0.7)
     writeSetting("is_plant", is_plant)
 
     y = y + 50
-    if ButtonText(10, y - 30, z, 100, 0x00ff00ff, "Start !", 0.9, 0.9) then
+    if ButtonText(10, y - 33, z, 100, 0x00ff00ff, "Start !", 0.9, 0.9) then
       is_done = 1
     end
     y = y + 10
@@ -341,11 +348,11 @@ function promptFlaxNumbers()
       -- Will plant and harvest flax
       window_w = 285
       space_to_leave = false
-      lsPrintWrapped(10, y, z + 10, lsScreenX - 20, 0.7, 0.7, 0xffff40ff, 'Uncheck "Grow Flax" for SEEDS!')
+      lsPrintWrapped(10, y+10, z + 10, lsScreenX - 20, 0.7, 0.7, 0xffff40ff, 'Uncheck "Grow Flax" for SEEDS!')
       y = y + 24
       lsPrintWrapped(
         10,
-        y,
+        y + 7,
         z + 10,
         lsScreenX - 20,
         0.7,
@@ -364,7 +371,7 @@ function promptFlaxNumbers()
                             " seeds, doing " .. math.floor(grid_w * grid_w * num_loops) .. " flax harvests."
       )
     else
-      lsPrintWrapped(10, y, z + 10, lsScreenX - 20, 0.7, 0.7, 0x00ff00ff, 'Check "Grow Flax" for FLAX!')
+      lsPrintWrapped(10, y+10, z + 10, lsScreenX - 20, 0.7, 0.7, 0x00ff00ff, 'Check "Grow Flax" for FLAX!')
       y = y + 24
 
       -- Will make seeds
@@ -377,7 +384,7 @@ function promptFlaxNumbers()
 
       lsPrintWrapped(
         10,
-        y,
+        y + 7,
         z + 10,
         lsScreenX - 20,
         0.7,
@@ -692,7 +699,13 @@ function dragWindows(loop_count)
     window_w = nil
     offsetWidth = min_width_offset
   end
-    arrangeStashed(nil, waterGap, window_w, window_h, space_to_leave, offsetWidth, offsetHeight)
+
+  if clearUI then
+    arrangeStashed(nil, true, window_w, window_h, space_to_leave, offsetWidth, offsetHeight);
+  else
+    arrangeStashed(nil, waterGap, window_w, window_h, space_to_leave, offsetWidth, offsetHeight);
+  end
+  
 end
 
 -------------------------------------------------------------------------------
@@ -726,20 +739,9 @@ function harvestAll(loop_count)
       harvestLeft = (seeds_per_pass * #tops) - numSeedsHarvested -- New method in case one or more plants failed and we have less flax beds than expected
     end
 
-    if finish_up == 0 and tonumber(loop_count) ~= tonumber(num_loops) then
-      if lsButtonText(lsScreenX - 110, lsScreenY - 60, nil, 100, 0xFFFFFFff, "Finish up") then
-        finish_up = 1;
-        finish_up_message = "\n\nFinishing up..."
-      end
-      if lsButtonText(lsScreenX - 110, lsScreenY - 90, nil, 100, 0xFFFFFFff, "Rip Plants") then
-        ripOutAllSeeds()
-        quit = true
-      end
-    end
-
-    statusScreen("(" .. loop_count .. "/" .. num_loops ..
+    sleepWithStatusHarvest(200, "(" .. loop_count .. "/" .. num_loops ..
          ") Harvests Left: " .. harvestLeft .. "\n\nElapsed Time: " .. getElapsedTime(startTime) ..
-         finish_up_message, nil, 0.7);
+         finish_up_message, nil, 0.7, "Monitoring Windows");
 
     if is_plant then
       lsPrintln("Checking Weeds")
@@ -950,4 +952,52 @@ function lastClickTime(x, y)
   end
   lsPrintln("Click " .. x .. ", " .. y .. " not found. ")
   return nil
+end
+
+local waitChars = {"-", "\\", "|", "/"};
+local waitFrame = 1;
+
+function sleepWithStatusHarvest(delay_time, message, color, scale, waitMessage)
+  if not waitMessage then
+    waitMessage = "Waiting ";
+  else
+    waitMessage = waitMessage .. " ";
+  end
+  if not color then
+    color = 0xffffffff;
+  end
+  if not delay_time then
+    error("Incorrect number of arguments for sleepWithStatus()");
+  end
+  if not scale then
+    scale = 0.8;
+  end
+  local start_time = lsGetTimer();
+  while delay_time > (lsGetTimer() - start_time) do
+    local frame = math.floor(waitFrame/5) % #waitChars + 1;
+    time_left = delay_time - (lsGetTimer() - start_time);
+    newWaitMessage = waitMessage;
+    if delay_time >= 1000 then
+      newWaitMessage = waitMessage .. time_left .. " ms ";
+    end
+    lsPrintWrapped(10, 50, 0, lsScreenX - 20, scale, scale, 0xd0d0d0ff,
+                   newWaitMessage .. waitChars[frame]);
+
+    if finish_up == 0 and tonumber(loop_count) ~= tonumber(num_loops) then
+      if lsButtonText(lsScreenX - 110, lsScreenY - 60, nil, 100, 0xFFFFFFff, "Finish up") then
+        finish_up = 1;
+        finish_up_message = "\n\nFinishing up..."
+      end
+    end
+
+
+      if lsButtonText(lsScreenX - 110, lsScreenY - 90, nil, 100, 0xFFFFFFff, "Rip Plants") then
+        ripOutAllSeeds()
+        quit = true
+      end
+
+    statusScreen(message, color, nil, scale);
+    lsSleep(tick_delay);
+    waitFrame = waitFrame + 1;
+  end
 end

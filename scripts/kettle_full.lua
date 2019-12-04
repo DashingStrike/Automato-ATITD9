@@ -65,7 +65,7 @@ actions = {
     stoked = true,
     menuImage = "kettle/Kettle_Salt.png",
     output = 3,
-    matLabels = {"Coconut Water", "Wood"},
+    matLabels = {"Salt Water", "Wood"},
     matCounts = {25, 28}
   },
   {
@@ -216,7 +216,7 @@ end
 
 function doit()
   askForWindow(askText);
-  windowManager("Kettle Setup", wmText, false, true, 215, 288);
+  windowManager("Kettle Setup", wmText, false, true, 215, 288, nil, 10, 25);
   askForFocus();
   unpinOnExit(menuKettles);
 end
@@ -231,7 +231,7 @@ function menuKettles()
 	selected = actions[i];
       end
     end
-      
+
     if lsButtonText(lsScreenX - 110, lsScreenY - 30, z, 100, 0xFFFFFFff,
 		    "End script")
     then

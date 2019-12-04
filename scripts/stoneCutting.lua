@@ -5,81 +5,18 @@
 dofile("common.inc");
 dofile("settings.inc");
 
--- times are in minutes.  They are converted to ms and daffy/teppy time is also adjusted later
-cutstoneTimer = 3;
-flystoneTimer = 5;
-pulleyTimer = 10;
-nailmouldTimer = 7;
-crucibleTimer = 10;
-stoneblockTimer = 5;
-duckTeppyOffset = 10; -- How many extra seconds to add (to each real-life minute) to compensate for game time
-timer = 0;   -- Just a default to prevent error
 arrangeWindows = true;
-
-askText = "Stone cutting v1.0 - by Rhaom\n\nMerged functionality from rockSaw.lua and masonsBench.lua into a single stoneCutting script.\n\nPin up windows manually or use the Arrange Windows option to pin/arrange windows.";
+askText = "Stone cutting v1.0 - by Rhaom" ..
+"\n\nMerged functionality from rockSaw.lua and masonsBench.lua into a single stoneCutting script." ..
+"\n\nPin up windows manually or use the Arrange Windows option to pin/arrange windows.";
 
 function doit()
 	askForWindow(askText);
 	config();
 		if(arrangeWindows) then
-			arrangeInGrid(nil, nil, nil, nil,nil, 20, 60);
+			arrangeInGrid(nil, nil, nil, nil,nil, 10, 15);
 		end
 	unpinOnExit(start);
-end
-
-function start()
-	for i=1, passCount do
-		-- refresh windows
-		message = "Refreshing"
-		clickAllText("This");
-		lsSleep(500);
-
-		message = "Clicking " .. product;
-
-        if cutstone then
-			clickAllText("Make a Cut Stone");
-        elseif flystone then
-			clickAllText("Cut a Medium Stone into a pair of Flystones");
-		elseif pulley then
-			clickAllText("Cut a Pulley from a Cuttable Stone");
-		elseif nailmould then
-			clickAllText("Cut a Medium Stone into a Nail Mould");
-        elseif crucible then
-			clickAllText("Cut a Medium Stone into a Crucible");
-		elseif stoneblock then
-			clickAllText("Cut a Medium Stone into a Small Stone Block");
-        end
-
-		lsSleep(500);
-		closePopUp();  --If you don't have enough cuttable stones in inventory, then a popup will occur. We don't want these, so check.
-		sleepWithStatus(adjustedTimer, "Waiting for " .. product .. " to finish", nil, 0.7);
-
-	end
-	lsPlaySound("Complete.wav");
-end
-
-
-function closePopUp()
-  while 1 do
-    srReadScreen()
-    local ok = srFindImage("OK.png")
-    if ok then
-      statusScreen("Found and Closing Popups ...", nil, 0.7);
-      srClickMouseNoMove(ok[0]+5,ok[1],1);
-      lsSleep(100);
-    else
-      break;
-    end
-  end
-end
-
-function refreshWindows()
-    srReadScreen();
-    this = findAllText("This is");
-    for i = 1, #this do
-        clickText(this[i]);
-    end
-    lsSleep(100);
 end
 
 function config()
@@ -87,41 +24,47 @@ function config()
   local z = 0;
   local is_done = nil;
   while not is_done do
-	local y = 60;
-  
-    checkBreak("disallow pause");
-	lsPrintWrapped(10,10, z+10, lsScreenX - 20, 0.7, 0.7, 0xD0D0D0ff, 
-			"Stonecutting V1.0 by Rhaom\n(Merged rockSaw.lua and masonsBench.lua)\n\n");
-    
-	passCount = readSetting("passCount",passCount);
-    lsPrint(15, y, z, scale, scale, 0xffffffff, "Passes:");
-    is_done, passCount = lsEditBox("passes", 110, y, z, 50, 30, scale, scale,
+	local y = 7;
+
+  checkBreak("disallow pause");
+
+	lsPrintWrapped(10, y, z+10, lsScreenX - 20, 0.7, 0.7, 0xffff40ff,
+		"Global Settings\n-------------------------------------------");
+	y = y + 35;
+
+	passCount = readSetting("passCount",tonumber(passCount));
+    lsPrint(15, y, z, scale, scale, 0xffffffff, "Passes :");
+    is_done, passCount = lsEditBox("passes", 110, y-2, z, 50, 30, scale, scale,
                                    0x000000ff, passCount);
     if not tonumber(passCount) then
       is_done = false;
       lsPrint(10, y+30, z+10, 0.7, 0.7, 0xFF2020ff, "MUST BE A NUMBER");
       passCount = 1;
     end
-    writeSetting("passCount",passCount);
-    y = y + 48;
-	
+    writeSetting("passCount",tonumber(passCount));
+    y = y + 32;
+
 	arrangeWindows = readSetting("arrangeWindows",arrangeWindows);
 	arrangeWindows = CheckBox(15, y, z+10, 0xFFFFFFff, "Arrange windows (Grid format)", arrangeWindows, 0.65, 0.65);
 	writeSetting("arrangeWindows",arrangeWindows);
-	y = y + 32;
-	
+	y = y + 28;
+
+	lsPrintWrapped(10, y, z+10, lsScreenX - 20, 0.7, 0.7, 0xffff40ff,
+		"Product Settings\n-------------------------------------------");
+	y = y + 35;
+
 	if not masonBench then
 	rockSaw = readSetting("rockSaw",rockSaw);
 	rockSaw = CheckBox(15, y, z+10, 0xFFFFFFff, "Cut stones on a Rocksaw", rockSaw, 0.65, 0.65);
 	writeSetting("rockSaw",rockSaw);
-	y = y + 32;
+	y = y + 22;
 	end
-	
+
 	if not rockSaw then
 	masonBench = readSetting("masonBench",masonBench);
 	masonBench = CheckBox(15, y, z+10, 0xFFFFFFff, "Cut stones on a Masons Bench", masonBench, 0.65, 0.65);
 	writeSetting("masonBench",masonBench);
-	y = y + 32;
+	y = y + 22;
 	end
 
     if cutstone then
@@ -166,23 +109,23 @@ function config()
 		if not flystone and not pulley then
 		  cutstone = CheckBox(25, y, z+10, cutstoneColor, " Make Cut Stones from Cuttable Stone",
 							   cutstone, 0.65, 0.65);
-		  y = y + 32;
+		  y = y + 25;
 		else
 		  cutstone = false
 		end
 
 		if not cutstone and not pulley then
-		  flystone = CheckBox(25, y, z+10, flystoneColor, " Make Pair Flystones from Med Stone",
+		  flystone = CheckBox(25, y, z+10, flystoneColor, " Make a Pair of Flystones from Med Stone",
 								  flystone, 0.65, 0.65);
-		  y = y + 32;
+		  y = y + 25;
 		else
 		  flystone = false
 		end
 
 		if not cutstone and not flystone then
-		  pulley = CheckBox(25, y, z+10, pulleyColor, " Make Pulley from Cuttable Stone",
+		  pulley = CheckBox(25, y, z+10, pulleyColor, " Make a Pulley from Cuttable Stone",
 								  pulley, 0.65, 0.65);
-		  y = y + 32;
+		  y = y + 25;
 		else
 		  pulley = false;
 		end
@@ -190,25 +133,25 @@ function config()
 
 	if masonBench then
 		if not crucible and not stoneblock then
-		  nailmould = CheckBox(15, y, z+10, nailmouldColor, " Cut a Medium Stone into a Nail Mould",
+		  nailmould = CheckBox(25, y, z+10, nailmouldColor, " Cut a Medium Stone into a Nail Mould",
 							   nailmould, 0.65, 0.65);
-		  y = y + 32;
+		  y = y + 25;
 		else
 		  nailmould = false
 		end
 
 		if not nailmould and not stoneblock then
-		  crucible = CheckBox(15, y, z+10, crucibleColor, " Cut a Medium Stone into a Crucible",
+		  crucible = CheckBox(25, y, z+10, crucibleColor, " Cut a Medium Stone into a Crucible",
 								  crucible, 0.65, 0.65);
-		  y = y + 32;
+		  y = y + 25;
 		else
 		  crucible = false
 		end
 
 		if not nailmould and not crucible then
-		  stoneblock = CheckBox(15, y, z+10, stoneblockColor, " Cut a Medium Stone into a Small Stone Block",
+		  stoneblock = CheckBox(25, y, z+10, stoneblockColor, " Cut a Medium Stone into a Small Stone Block",
 								  stoneblock, 0.65, 0.65);
-		  y = y + 32;
+		  y = y + 25;
 		else
 		  stoneblock = false;
 		end
@@ -223,65 +166,35 @@ function config()
 
     if cutstone then
       product = "Cut Stones";
-      timer = cutstoneTimer;
     elseif flystone then
       product = "Pair Flystones";
-      timer = flystoneTimer;
     elseif pulley then
-      product = "Pulley";
-      timer = pulleyTimer;
+      product = "Pulleys";
     elseif nailmould then
-      product = "Nail Mould";
-      timer = nailmouldTimer;
+      product = "Nail Moulds";
     elseif crucible then
-      product = "Crucible";
-      timer = crucibleTimer;
+      product = "Crucibles";
     elseif stoneblock then
-      product = "Small Stone Block";
-      timer = stoneblockTimer;
+      product = "Small Stone Blocks";
     end
-
-	msTimer = (timer * 60) * 1000
-
-	if (flystone) then
-		msTimerTeppyDuckOffset = (duckTeppyOffset * timer) * 1300 -- Add extra time to compensate for duck/teppy time
-    elseif (pulley) then
-		msTimerTeppyDuckOffset = (duckTeppyOffset * timer) * 200 -- Add extra time to compensate for duck/teppy time
-	elseif (cutstone) then
-		msTimerTeppyDuckOffset = (duckTeppyOffset * timer) * 1000 -- Add extra time to compensate for duck/teppy time
-	elseif (nailmould) then
-		msTimerTeppyDuckOffset = (duckTeppyOffset * timer) * 1000 -- Add extra time to compensate for duck/teppy time
-	elseif (crucible) then
-		msTimerTeppyDuckOffset = (duckTeppyOffset * timer) * 1000 -- Add extra time to compensate for duck/teppy time
-	else
-		msTimerTeppyDuckOffset = (duckTeppyOffset * timer) * 650 -- Add extra time to compensate for duck/teppy time
-	end
-
-	adjustedTimer = msTimer + msTimerTeppyDuckOffset;
 
 	if rockSaw then
 		if cutstone or flystone or pulley then
-		lsPrintWrapped(25, y-10, z+10, lsScreenX - 20, 0.7, 0.7, 0xd0d0d0ff,
-					   product .. " requires " .. timer .. "m per pass\n\n" .. timer .. "m = " .. msTimer .. " ms\n" .. "+ Game Time Offset: " ..  msTimerTeppyDuckOffset .. " ms\n= " .. msTimer + msTimerTeppyDuckOffset .. " ms per pass");
+		  if lsButtonText(10, lsScreenY - 30, z, 100, 0x00ff00ff, "Begin") then
+			is_done = 1;
+		  end
+		end
+	end
 
+	if masonBench then
+		if nailmould or crucible or stoneblock then
 		  if lsButtonText(10, lsScreenY - 30, z, 100, 0xFFFFFFff, "Begin") then
 			is_done = 1;
 		  end
 		end
 	end
-	
-	if masonBench then
-		if nailmould or crucible or stoneblock then
-		lsPrintWrapped(25, y-10, z+10, lsScreenX - 20, 0.7, 0.7, 0xd0d0d0ff,
-					   product .. " requires " .. timer .. "m per pass\n\n" .. timer .. "m = " .. msTimer .. " ms\n" .. "+ Game Time Offset: " ..  msTimerTeppyDuckOffset .. " ms\n= " .. msTimer + msTimerTeppyDuckOffset .. " ms per pass");
 
-		  if lsButtonText(10, lsScreenY - 30, z, 100, 0xFFFFFFff, "Begin") then
-			is_done = 1;
-		  end
-		end	
-	end
-
-    if lsButtonText(lsScreenX - 110, lsScreenY - 30, z, 100, 0xFFFFFFff,
+    if lsButtonText(lsScreenX - 110, lsScreenY - 30, z, 100, 0xFF0000ff,
                     "End script") then
       error "Clicked End Script button";
     end
@@ -290,27 +203,68 @@ function config()
   end
 end
 
--- Custom function to override the one in common_click.inc
-function clickAllPoints(points, offsetX, offsetY, rightClick)
-  if not points then
-    error("Incorrect number of arguments for clickAllPoints()");
-  end
-  if not offsetX then
-    offsetX = 5;
-  end
-  if not offsetY then
-    offsetY = 5;
-  end
+function start()
+	for i=1, passCount do
+		-- refresh windows
+		message = "Refreshing"
+		refreshWindows();
+		lsSleep(500);
 
-  for i=1, #points  do
-    if click_delay > 0 and #points > 1 then
-      statusScreen(message .. " " .. #points .. " window(s) ...", nil, 0.7);
+		message = "Clicking " .. product;
+
+		if cutstone then
+				clickAllText("Cut Stone");
+			elseif flystone then
+				clickAllText("Flystones");
+			elseif pulley then
+				clickAllText("Pulley");
+			elseif nailmould then
+				clickAllText("Nail Mould");
+			elseif crucible then
+				clickAllText("Crucible");
+			elseif stoneblock then
+				clickAllText("Small Stone Block");
+		end
+
+		lsSleep(500);
+		closePopUp();  --If you don't have enough cuttable stones in inventory, then a popup will occur.
+		checkMaking();
+
+    lsPlaySound("Complete.wav");
+	end
+end
+
+function refreshWindows()
+    srReadScreen();
+    this = findAllText("This");
+    for i = 1, #this do
+        clickText(this[i]);
     end
-    safeClick(points[i][0]+offsetX, points[i][1]+offsetY, rightClick);
-    lsSleep(click_delay);
+    lsSleep(100);
+end
+
+function checkMaking()
+			while 1 do
+				refreshWindows();
+				srReadScreen();
+				making = findAllText("Making")
+					if #making == 0 then
+						break; --We break this while statement because Making is not detect, hence we're done with this round
+					end
+				sleepWithStatus(999, "Waiting for " .. product .. " to finish", nil, 0.7);
+			end
+end
+
+function closePopUp()
+  while 1 do
+    srReadScreen()
+    local ok = srFindImage("OK.png")
+    if ok then
+      statusScreen("Found and Closing Popups ...", nil, 0.7);
+      srClickMouseNoMove(ok[0]+5,ok[1],1);
+      lsSleep(100);
+    else
+      break;
+    end
   end
-  if click_delay > 0 and #points > 1 then
-    statusScreen("Done " .. message .. " (" .. #points .. " windows)", nil, 0.7);
-  end
-  lsSleep(click_delay);
 end

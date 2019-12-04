@@ -19,7 +19,7 @@
 --Lime           | catalyst       | 20     | Y | normal  | 1
 --Saltpeter      | catalyst       | 10     | Y | normal  | 1
 
--- 317, 55, 71
+
 --                 cj   ca  cl   dt   ts   el   rs   le   si   ir   co   su  po li sp
 paint_colourR = { 128, 224, 128, 112, 48,  128, 144, 80,  16,  96,  64  };
 paint_colourG = { 64,  112, 96,  64,  96,  240, 16,  80,  16,  48, 192  };
@@ -31,18 +31,18 @@ dofile("ui_utils.inc");
 dofile("common.inc");
 
 button_names = {
-"CabbageJ","Carrot","Clay","DeadTongue","ToadSkin","FalconBait","RedSand",
-"Lead","SilverP","Iron","Copper","C:Sulfur","C:Potash","C:Lime","C:Saltpeter"}; 
+"Cabbage Juice","Carrot","Clay","Dead Tongue","Toad Skin","Falcon Bait","Red Sand",
+"Lead","Silver","Iron","Copper","C: Sulfur","C: Potash","C: Lime","C: Saltpeter"}; 
 
 per_paint_delay_time = 1000;
 per_read_delay_time = 600;
 per_click_delay = 10;
+added = {};
 
--- bar_width: This is how many pixels wide the Red, Green, Blue bars are in Pigment lab.
--- This used to be 307 until around Dec 2018.
--- We think the addition of Red/Green cloth to menus or Falcon Bait caused the window to be wider and causing the pixels to stretch
+-- bar_width: This should be 307. If we get Red/Green Cloth added to menu, around Xmas time (like on T8), this will likely need to be set to 328.
+-- When they added Red/Green Cloth, this caused the window to be wider, hence increasing width of bars.
 
-bar_width = 304; 
+bar_width = 307; 
 
 function doit()
 
@@ -56,26 +56,20 @@ function doit()
     local px_G = nil;
     local px_B = nil;
     local px_A = nil;
-    local m_x = 0;
-    local m_y = 0;
+    m_x = 0; -- Do not set as local
+    m_y = 0; -- Do not set as local
     local update_now = 1;
-    local y=0;
+    local y = 0;
     local button_push = 0;
 
     lsSetCaptureWindow();
 
-    askForWindow("Open the paint window. Take any paint away so to start with 'Black'.\n\nNote you want to keep a supply of Red Sand (if you\'re testing reactions).\n\nClicking the 'Reset' button will convert your Pigment Lab 'back to Black' color, again, but it requires Red Sand to do so. It\'s Magic!");
+    askForWindow("Pin your Pigment Laboratory window, anywhere (but don\'t move it once you start macro).\n\nNote: You will want to keep a supply of Red Sand for the Reset button (100 to test all reactions should be fine).\n\nClicking the 'Reset' button will set your Pigment Lab 'back to Black' color, again, but it requires Red Sand to do so. It\'s Magic!\n\nIf you have an Upgraded Pigment Laboratory, be sure to set Batch = 1x so you use LEAST amount of resources while testing reactions!");
 
 
     srReadScreen();
     xyWindowSize = srGetWindowSize();
-    local colour_panel = findAllImages("paint_watch/paint-black.png");
-    if (#colour_panel == 0) then
-        m_x, m_y = srMousePos();
-    else
-        m_x = colour_panel[1][0];
-        m_y = colour_panel[1][1]+5;    
-    end
+    findBigColorBar();
 
     local paint_buttons = findAllImages("plus.png");
     if (#paint_buttons == 0) then
@@ -86,17 +80,14 @@ function doit()
     while 1 do
         lsSetCamera(0,0,lsScreenX*1.5,lsScreenY*1.5);
         -- Where to start putting buttons/text on the screen.
-        y=0;
+        y = 10;
         
-        if lsButtonText(lsScreenX - 30, lsScreenY - 80, 0, 100, 0xFFFFFFff, "Reset") then
-counter = 0
+        if lsButtonText(lsScreenX - 10, 50, 0, 100, 0xff6251ff, "Reset") then
+
             for i= 1, 10 do
-counter = counter + 1
-                srClickMouse(paint_buttons[7][0]+2,paint_buttons[7][1]+2, right_click);
+                srClickMouseNoMove(paint_buttons[7][0]+2,paint_buttons[7][1]+2, right_click);
                 lsSleep(per_click_delay);
             end
-
---sleepWithStatus(2000, counter);
             srReadScreen();
             lsSleep(100);
             clickAllText("Take the Paint");
@@ -111,9 +102,8 @@ counter = counter + 1
             px_G = nil;
             px_B = nil;
             px_A = nil;
-            m_x = 0;
-            m_y = 0;
             update_now = 1;
+            added = {}; -- Erase the array
         end
 
         -- Create each button and set the button push.
@@ -123,13 +113,17 @@ counter = counter + 1
                 update_now = 1;
                 button_push = i;
             end
-            y = y + 26;
+            y = y + 30;
         end
+
         srReadScreen();
 
+        if not foundBigColorBar then
+            findBigColorBar();
+        end
 
         -- read the bar pixels
-        new_px = srReadPixel(m_x, m_y+5);
+        new_px = srReadPixel(m_x, m_y);
         px_R = (math.floor(new_px/256/256/256) % 256);
         px_G = (math.floor(new_px/256/256) % 256);
         px_B = (math.floor(new_px/256) % 256);
@@ -140,7 +134,7 @@ counter = counter + 1
             if not (button_push==0) then
             --{
                 -- click the appropriate button to add paint.
-                srClickMouse(paint_buttons[button_push][0]+2,paint_buttons[button_push][1]+2, right_click);
+                srClickMouseNoMove(paint_buttons[button_push][0]+2,paint_buttons[button_push][1]+2, right_click);
                 lsSleep(per_click_delay);
             
                 if(button_push < catalyst1) then
@@ -150,6 +144,9 @@ counter = counter + 1
                     paint_sum[3] =     paint_sum[3] + paint_colourB[button_push];
                     paint_count = paint_count + 1.0;
                 end
+
+                table.insert(added, button_names[button_push]);
+
             --}
             end
 
@@ -174,9 +171,8 @@ counter = counter + 1
             end
 
 
-            
             -- New colour has been added, mix in the pot, and see if there's a difference from the expected value.
-            if not (button_push==0) then
+            if paint_count > 0 and button_push > 0 then
             --{                
                 for i=1, 3 do
                     expected_colour[i] = paint_sum[i] / paint_count;
@@ -189,25 +185,65 @@ counter = counter + 1
         --}
         end
 
+
+        if foundBigColorBar then
+          barReadRGB = px_R .. ", " .. px_G .. ", " .. px_B .. ", " .. px_A
+          pixelRGBA = math.floor(bar_colour[1]+0.5) .. ", " .. math.floor(bar_colour[2]+0.5) .. ", " .. math.floor(bar_colour[3]+0.5)
+        else
+          pixelRGBA = "Will Display on Next Reset ..."
+        end
+
         -- Display all the goodies
-        lsPrintWrapped(0, y, 1, lsScreenX, 1, 1, 0xFFFFFFff,
-            " Pixel   RGBA: " .. px_R .. "," .. px_G .. "," .. px_B .. "," .. px_A);
+        y = y + 5;
+        lsPrintWrapped(0, y, 1, lsScreenX * 1.5 - 20, 1, 1, 0xFFFFFFff,
+            " Pixel RGBA: " .. pixelRGBA);
         y = y + 26;
-        lsPrintWrapped(0, y, 1, lsScreenX, 1, 1, 0xFFFFFFff,
-            " Bar read RGB: " .. math.floor(bar_colour[1]+0.5) .. "," .. math.floor(bar_colour[2]+0.5) .. "," .. math.floor(bar_colour[3]+0.5));
+        lsPrintWrapped(0, y, 1, lsScreenX * 1.5 - 20, 1, 1, 0xFFFFFFff,
+            " Bar Read RGB: " .. math.floor(bar_colour[1]+0.5) .. ", " .. math.floor(bar_colour[2]+0.5) .. ", " .. math.floor(bar_colour[3]+0.5));
         y = y + 26;
-        lsPrintWrapped(0, y, 1, lsScreenX, 1, 1, 0xFFFFFFff,
-            " Expected RGB: " .. math.floor(expected_colour[1]+0.5) .. "," .. math.floor(expected_colour[2]+0.5) .. "," .. math.floor(expected_colour[3]+0.5) );
+        lsPrintWrapped(0, y, 1, lsScreenX * 1.5 - 20, 1, 1, 0xFFFFFFff,
+            " Expected RGB: " .. math.floor(expected_colour[1]+0.5) .. ", " .. math.floor(expected_colour[2]+0.5) .. ", " .. math.floor(expected_colour[3]+0.5) );
         y = y + 26;
-        lsPrintWrapped(0, y, 1, lsScreenX, 1, 1, 0xFFFFFFff,
-            " Reactions RGB: " .. math.floor(diff_colour[1]+0.5) .. "," .. math.floor(diff_colour[2]+0.5) .. "," .. math.floor(diff_colour[3]+0.5) );
+        lsPrintWrapped(0, y, 1, lsScreenX * 1.5 - 20, 1, 1, 0xFFFFFFff,
+            " Reactions RGB: " .. math.floor(diff_colour[1]+0.5) .. ", " .. math.floor(diff_colour[2]+0.5) .. ", " .. math.floor(diff_colour[3]+0.5) );
+        y = y + 26;
 
 
-        if lsButtonText(lsScreenX - 30, lsScreenY - 30, 0, 100, 0xFFFFFFff, "Exit") then
-            error "Canceled";
+        if not foundBigColorBar then
+          addedDisplay = "Leftover Ingredients? Reset, please!"
+        elseif #added == 0 then
+          addedDisplay = "Nothing"
+        else
+          addedDisplay = ""
+        end
+
+
+        for i = 1, #added, 1 do
+          addedDisplay =  addedDisplay .. added[i]
+            if i < #added then
+              addedDisplay = addedDisplay .. "  +  "
+            end
+        end
+
+        lsPrintWrapped(0, y, 1, lsScreenX * 1.5 - 20, 1, 1, 0xFFFFFFff, " Added: " .. addedDisplay);
+
+        if lsButtonText(lsScreenX - 10, 120, 0, 100, 0xFFFFFFff, "Exit") then
+            error "I quit!";
         end
 
         lsDoFrame();
         lsSleep(10);
+    end
+end
+
+
+function findBigColorBar()
+    local colour_panel = findAllImages("paint_watch/paint-black.png");
+    if (#colour_panel == 0) then
+        m_x, m_y = srMousePos();
+    else
+        m_x = colour_panel[1][0]-10;
+        m_y = colour_panel[1][1]+10;
+        foundBigColorBar = 1;    
     end
 end

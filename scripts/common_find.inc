@@ -485,7 +485,6 @@ function findClockRegion()
   local hyksos = srFindImage("faction/faction_hyksos.png", factionTolerance);
   local kush = srFindImage("faction/faction_kush.png", factionTolerance);
   local meshwesh = srFindImage("faction/faction_meshwesh.png", factionTolerance);
-  local clockRegion;
  
   if neutral then
     faction = "Neutral";
@@ -517,10 +516,10 @@ function findClockRegion()
   end
 
   if faction ~= "Clock not detected" then
-    clockUpperLeftX = clockUpperLeftX - 30;
-    clockUpperLeftY = clockUpperLeftY - 10;
-    clockWidth = 260;
-    clockHeight = 55;
+    local clockUpperLeftX = clockUpperLeftX - 30;
+    local clockUpperLeftY = clockUpperLeftY - 10;
+    local clockWidth = 255;
+    local clockHeight = 55;
     clockRegion = makeBox(clockUpperLeftX, clockUpperLeftY, clockWidth, clockHeight);
   end
   return clockRegion;

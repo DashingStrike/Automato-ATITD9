@@ -10,6 +10,7 @@ offsetY = 0;
 function doit()
   askForWindow("Train Clock OCR\n\nUse offsetX/Y to get the white box to surround a letter/number on Clock. Then click Train button to show the code (in Console).\n\nOnce you find the values in Console, copy that to automato/games/ATITD9//data/charTemplate.txt file.");
 
+  srReadScreen()
   clockRegion = findClockRegion();
 
   while true do

@@ -20,6 +20,7 @@ items = {
             "Excavate Blocks",
             "Hackling Rake",
             "Pump Aqueduct",
+            "Push Pyramid",
             "Stir Cement",
             "Weave Canvas",
             "Weave Linen",
@@ -33,6 +34,7 @@ items = {
         },
         --foc
         {"",
+            "Rawhide Strips",
             "Barrel Tap",
             "Bottle Stopper",
             "Crudely Carved Handle",
@@ -55,7 +57,7 @@ lagBound["Survey (Uncover)"] = true;
 takeAllWhenCombingFlax = false;
 
 local textLookup = {};
-textLookup["Coconuts"] = "Separate Coconut Meat";
+textLookup["Coconuts"] = "Harvest the Coconut Meat";
 textLookup["Gun Powder"] = "Gunpowder";
 textLookup["Pump Aqueduct"] = "Pump the Aqueduct";
 
@@ -170,12 +172,14 @@ end
 
 function carve(item)
     if item == "Tinder" then
-        carveText = findText("Carve Wood into " .. item);
-    elseif item == "Wooden Peg" then
-        carveText = findText("Carve a small " .. item);
-    else
-        carveText = findText("Carve a " .. item);
-    end
+         carveText = findText("Carve Wood into " .. item);
+      elseif item == "Wooden Peg" then
+         carveText = findText("Carve a small " .. item);
+      elseif item == "Rawhide Strips" then
+         carveText = findText("Carve Leather into " .. item);
+      else
+         carveText = findText("Carve a " .. item);
+   end
 
     if carveText ~= nil then
         clickText(carveText);
@@ -377,13 +381,40 @@ function repairRake()
     end -- if repair
 end
 
-
 function eatOnion()
     srReadScreen();
     local buffed = srFindImage("foodBuff.png");
         if not buffed then
             clickAllText("Grilled Onions");
         end
+end
+
+function pyramidPush()
+   local curCoords = findCoords();
+   local t, u;
+   if curCoords[0] > pyramidXCoord + 2 then
+      t = findText("Push this block West");
+      if t ~= nil then u = t end;
+   elseif curCoords[0] < pyramidXCoord - 2 then
+      t = findText("Push this block East");
+      if t ~= nil then u = t end;
+   else
+      t = findText("Turn this block to face North-South");
+      if t ~= nil then u = t end;
+   end
+   if curCoords[1] > pyramidYCoord + 2 then
+      t = findText("Push this block South");
+      if t ~= nil then u = t end;
+   elseif curCoords[1] < pyramidYCoord - 2 then
+      t = findText("Push this block North");
+      if t ~= nil then u = t end;
+   else
+      t = findText("Turn this block to face East-West");
+      if t ~= nil then u = t end;
+   end
+   if u ~= nil then
+      clickText(u);
+   end
 end
 
 function stirCement()
@@ -469,15 +500,9 @@ local function excavateBlocks()
 end
 
 function churnButter()
-    -- Since we want to click on Churn and window has same word multiple times, we will do a dirty hack and look for Pour in Cows Milk and click with a -10 Y offset to hit Churn on menu
-    -- clickText(parse, safe, offsetX, offsetY)
-    local window = findText("This is [a-z]+ Butter Churn", nil, REGION + REGEX);
-    if window == nil then
-        return;
-    end
-    local t = findText("Pour in Cows Milk", window);
+    local t = srFindImage("statclicks/churn.png");
     if t then
-        clickText(t, true, nil, -10);
+        srClickMouseNoMove(t[0]+5, t[1]);
     end
 end
 
@@ -525,6 +550,8 @@ function doTasks()
                     churnButter();
                 elseif curTask == "Barrel Tap" then
                     carve(curTask);
+                 elseif curTask == "Rawhide Strips" then
+                     carve(curTask);
                 elseif curTask == "Bottle Stopper" then
                     carve(curTask);
                 elseif curTask == "Crudely Carved Handle" then
@@ -545,6 +572,8 @@ function doTasks()
                     digHole();
                 elseif curTask == "Water Insects" then
                     waterInsects();
+                else
+                    clickText(findText(textLookup[curTask]));
                 end
                 statTimer[i] = lsGetTimer();
                 didTask = true;
@@ -581,51 +610,6 @@ function checkStatsPane()
     return false;
 end
 
-function checkAndEat()
-    if foodTimer == nil or lsGetTimer() - foodTimer > 3000 then
-        srReadScreen();
-        invLoc = srFindInvRegion();
-
-        invLoc[0] = invLoc[0] + 1;
-        invLoc[2] = invLoc[2] - 2;
-        stripRegion(invLoc);
-        inv = parseRegion(invLoc);
-        if inv == nil then
-            return;
-        end
-        onFood = false;
-        allStatsVisible = true;
-        for i = 1, #statNames do
-            foundStat = false;
-            for j = 1, #inv do
-                -- Check for a stat with an unparseable number. if so, on food.
-                if string.find(inv[j][2], statNames[i]:gsub("^%l", string.upper)) and
-                    string.find(inv[j][2], statNames[i]:gsub("^%l", string.upper) .. "%s+%d") == nil then
-                    onFood = true;
-                end
-                if string.find(inv[j][2], statNames[i]:gsub("^%l", string.upper)) then
-                    foundStat = true;
-                end
-            end
-            if foundStat == false then
-                allStatsVisible = false;
-            end
-        end
-
-        if onFood == false and allStatsVisible == true then
-            lsPrint(10, 10, 0, 0.7, 0.7, 0xB0B0B0ff, "Eating food");
-            lsDoFrame();
-            parse = findText("Enjoy the food")
-            if parse then
-                clickText(parse)
-            else
-                clickText(findText("Eat some Grilled"));
-            end
-            foodTimer = lsGetTimer();
-        end
-    end
-end
-
 function closePopUp()
     lsSleep(100);
     while 1 do
@@ -643,7 +627,7 @@ end
 
 function doit()
     getClickActions();
-    if items[3][tasks[3]] == "Push Pyramid" then
+    if items[2][tasks[2]] == "Push Pyramid" then
         pyramidXCoord = promptNumber("Pyramid x coordinate:");
         pyramidYCoord = promptNumber("Pyramid y coordinate:");
     end
@@ -651,7 +635,6 @@ function doit()
     windowSize = srGetWindowSize();
     done = false;
     while done == false do
-        checkAndEat();
         doTasks();
         checkBreak();
         lsSleep(80);

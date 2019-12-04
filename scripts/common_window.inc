@@ -222,21 +222,23 @@ function arrangeStashed(cascade, waterGap, varWidth, varHeight, sizeRight, offse
   local lastY = 0;
   local xMax = 0;
   local yMax = 0;
+  local counter = 0
   srReadScreen();
   local window = findImageInWindow("ThisIs.png", bottomRightX, bottomRightY);
   while window and (window[0] > lastX or window[1] > lastY) do
+    counter = counter + 1
     safeClick(window[0], window[1]);
     lsSleep(click_delay);
     srReadScreen();
     local bounds = srGetWindowBorders(window[0], window[1]);
     local width, height;
     if not varWidth then
-      width = bounds[2] - bounds[0];
+      width = bounds[2] - bounds[0] + 7; -- The +7 offset is due to bigger borders in T9. Prevent touching/overlapping.
     else
       width = varWidth;
     end
     if not varHeight then
-      height = bounds[3] - bounds[1];
+      height = bounds[3] - bounds[1] + 14; -- The +14 offset is due to bigger borders in T9. Prevent touching/overlapping.
     else
       height = varHeight;
     end
@@ -272,6 +274,14 @@ function arrangeStashed(cascade, waterGap, varWidth, varHeight, sizeRight, offse
     if cascade then
       currentX = currentX + 8;
       currentY = currentY + 25;
+
+      -- This fixes a bug and I'm not sure why it does this.
+      -- The 2nd window on a cascade paritally covers This Is on first window. Left border is touching on Window 1 and 2.
+      if counter == 1 then
+        currentX = currentX + 4 -- Add an additional 4 on currentX and Y on 2nd window
+        currentY = currentY + 4
+      end
+
     else
       currentX = currentX + width + 5;
     end
@@ -280,7 +290,7 @@ function arrangeStashed(cascade, waterGap, varWidth, varHeight, sizeRight, offse
     lsSleep(tick_delay);
     srReadScreen();
     window = findImageInWindow("ThisIs.png", bottomRightX, bottomRightY);
-    statusScreen("Arranging Windows");
+    statusScreen("Arranging Windows " .. counter);
   end
 end
 

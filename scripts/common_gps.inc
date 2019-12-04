@@ -25,10 +25,16 @@ function findCoords()
 	  str = string.gsub(str, " 1", "1");
 	  str = string.gsub(str, "1 ", "1");
 
---	  sleepWithStatus(5000, str)
 
+	  -- Misc Exceptions we want to strip
+	  str = string.gsub(str, "0::#", ":"); -- Giza Exception
+	  str = string.gsub(str, "<=t", "");
+
+
+	  -- Attempt to find the : to fetch coordinates, but also look at some exceptions
 	  if string.find(str, ": ([0-9-]+)") then
 	    str = string.sub(str, string.find(str, ": ([0-9-]+)")+2, string.len(str));
+
 	  elseif string.find(str, ":([0-9-]+)") then
 	    str = string.sub(str, string.find(str, ":([0-9-]+)")+1, string.len(str));
 
@@ -39,8 +45,8 @@ function findCoords()
 	  elseif string.find(str, "<# ([0-9-]+)") then
 	    str = string.sub(str, string.find(str, "<# ([0-9-]+)")+1, string.len(str));
 	    str = string.gsub(str, "# ", ""); -- East Sinai weird scenario
-
 	  end
+
 
 	  str = string.gsub(str, "  ", ","); -- Catch double space between numbers
 	  str = string.gsub(str, " ", ",");  -- Catch single space between numbers
@@ -137,19 +143,40 @@ local gpsStep;
 -- Returns nil if the date cannot be obtained
 ---------------------------------------------------------------
 function getTime(fmt)
-   local t = findAllText("Year", nil, nil, NOPIN);
-   if t == nil then
-      return t;
+   local str = nil;
+   local newstr = nil;
+   local t = findAllText("Year", findClockRegion());
+
+   if #t == 0 then
+      return nil;
    end
-   for i=1, #t do
-      local year, season, month, day, hour, minute, ampm = string.match(t[i][2], "Year (%d+), (%a+) (%a+)-(%d+), (%d+):(%d+)(%a+)");
+
+    for i=1,#t do
+      --lsPrintln("LINE " .. i .. " : " .. table.concat(t[i], ","));
+	if i == 1 then
+	  str = t[i][2];
+	end
+    end
+
+   -- Strip spaces - Fixes issue where one's (1) will show as a space before and after it. ie 11 shows as 1 1
+   str = string.gsub(str, " 1", "1");
+   str = string.gsub(str, "1 ", "1");
+   str = string.gsub(str, "AMl", "AM");
+   str = string.gsub(str, "PMl", "PM");
+   str = string.gsub(str, "Axet", "Akhet");
+   str = string.gsub(str, "l~", "lV");
+
+      local year, season, month, day, hour, minute, ampm = string.match(str, "Year (%d+) (%a+) (%a+)-(%d+) (%d+):(%d+)(%a+)");
       if year and season and month and day and hour and minute then
+         month = string.gsub(month, "l", "I"); -- Change small "L" (misinterpreted) back to capital I
+         newstr = "Year " .. year .. ", " .. season .. " " .. month .. "-" .. day .. ", " .. hour .. ":" .. minute .. ampm
          -- perform data validation
          local seasonIndex = {};
          seasonIndex["Akhet"] = 1;
          seasonIndex["Peret"] = 2;
          seasonIndex["Shemu"] = 3;
          local monthIndex = {};
+         --Beware on T9, the clock reads "I" as lower cased "L" or "l"
          monthIndex["I"] = 1;
          monthIndex["II"] = 2;
          monthIndex["III"] = 3;
@@ -169,7 +196,7 @@ function getTime(fmt)
          end
          if year and season and month and day and hour and minute and ampm then
             if fmt ~= nil then
-               return t[i][2];
+               return newstr;
             end
             if hour == 12 then
                hour = 0;
@@ -183,7 +210,6 @@ function getTime(fmt)
             return minutes;
          end
       end
-   end
    return nil;
 end
 

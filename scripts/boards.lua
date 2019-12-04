@@ -5,12 +5,20 @@
 dofile("common.inc");
 dofile("settings.inc");
 
+bladeList = {"Slate Blade", "Flint Blade", "Carpentry Blade"};
+
 function doit()
   promptParameters();
-  askForWindow("Open and pin as many Wood Planes as you want to use.\n\nAutomatically planes boards from any number of Wood Plane or Carpentry Shop windows. Will repair the wood planes. Make sure to carry Slate blades!\n\nThe automato window must be in the TOP-RIGHT corner of the screen.\nStand where you can reach all Wood Planes with all ingredients on you.");
+  askForWindow("Open and pin as many Wood Planes or Carpentry Shops as you want to use." ..
+  "\n\nAutomatically planes boards from any number of Wood Plane or Carpentry Shop " ..
+  "windows. Will repair the wood planes. Make sure to carry Slate blades!" ..
+  "\n\nThe automato window must be in the TOP-RIGHT corner of the screen." ..
+  "\nStand where you can reach all Wood Planes with all ingredients on you.");
+
   if(arrangeWindows) then
     arrangeInGrid(false, false, 360, 130);
   end
+
   while (true) do
     checkBreak();
     closePopUp();
@@ -28,7 +36,6 @@ function promptParameters()
 
   local z = 0;
   local is_done = nil;
-  local value = nil;
   -- Edit box and text display
   while not is_done do
     -- Make sure we don't lock up with no easy way to escape!
@@ -38,13 +45,20 @@ function promptParameters()
 
     lsSetCamera(0,0,lsScreenX*scale,lsScreenY*scale);
 
-    lsPrintWrapped(10, y, z+10, lsScreenX - 20, 0.7, 0.7, 0xD0D0D0ff,
-      "Board Maker V2.0 Rewrite by Manon for T9\n\n");
+    lsPrint(10, y, 0, scale, scale, 0xd0d0d0ff, "Blade:");
+    blade = lsDropdown("Blade", 90, y, 0, 180, blade, bladeList);
+
+    if blade == 1 then
+        bladeName = "Slate Blade"
+    elseif blade == 2 then
+        bladeName = "Flint Blade"
+    elseif blade == 3 then
+        bladeName = "Carpentry Blade"
+    end
 
     carpShop = readSetting("carpShop",carpShop);
     carpShop = lsCheckBox(10, 40, z, 0xFFFFFFff, "Use carpentry shop", carpShop);
     writeSetting("carpShop",carpShop);
-    y = y + 32;
 
     lsPrintWrapped(10, 60, z+10, lsScreenX - 20, 0.7, 0.7, 0xD0D0D0ff,
       "Will use Carpentry Shops instead of Wood Planes to plane boards.");
@@ -52,7 +66,6 @@ function promptParameters()
     arrangeWindows = readSetting("arrangeWindows",arrangeWindows);
     arrangeWindows = lsCheckBox(10, 100, z, 0xFFFFFFff, "Arrange windows", arrangeWindows);
     writeSetting("arrangeWindows",arrangeWindows);
-    y = y + 32;
 
     lsPrintWrapped(10, 120, z+10, lsScreenX - 20, 0.7, 0.7, 0xD0D0D0ff,
       "Will sort your pinned Wood Planes or Carpentry Shops into a grid on your screen.");
@@ -60,7 +73,6 @@ function promptParameters()
     unpinWindows = readSetting("unpinWindows",unpinWindows);
     unpinWindows = lsCheckBox(10, 160, z, 0xFFFFFFff, "Unpin windows on exit", unpinWindows);
     writeSetting("unpinWindows",unpinWindows);
-    y = y + 32;
 
     lsPrintWrapped(10, 180, z+10, lsScreenX - 20, 0.7, 0.7, 0xD0D0D0ff,
       "On exit will close all windows when you close this macro.\n\nPress OK to continue.");
@@ -75,7 +87,7 @@ function promptParameters()
     end
 
     lsDoFrame();
-    lsSleep(tick_delay);
+    lsSleep(100);
   end
   if(unpinWindows) then
     setCleanupCallback(cleanup); -- unpin all open windows
@@ -96,13 +108,11 @@ function repairBoards()
 
   if not carpShop then
     clickrepair = findAllText("Repair this Wood Plane");
-  else
-  clickrepair = findAllText("Install");
-  end
 
-  for i=1,#clickrepair do
-    clickText(clickrepair[i]);
-    lsSleep(100);
+    for i=1,#clickrepair do
+      clickText(clickrepair[i]);
+      lsSleep(100);
+    end
   end
 end
 
@@ -115,22 +125,61 @@ function planeBoards()
     if(#woodplane < 1) then
       error("Could not any Wood Planes.");
     end
-    statusScreen("Found " .. #woodplane .. " Wood Planes.\nPlaning  " .. #clickplane .. " Boards\nRepaired " .. #clickrepair .. " Wood Planes.");
+    statusScreen("Found " .. #woodplane .. " Wood Planes.\nPlaning  " ..
+    #clickplane .. " Boards\nRepaired " .. #clickrepair .. " Wood Planes.");
   else
-    clickplane = findAllText("wood into boards");
-    carpentryShop = findAllText("Carpentry Shop")
-    if(#carpentryShop < 1) then
-      error("Could not any Carpentry Shops.");
+    local click_delay = 200;
+while 1 do
+  -- Click pin ups to refresh the window
+  clickAllImages("ThisIs.png");
+  sleepWithStatus(500, "Refreshing");
+
+srReadScreen();
+local clickCount = 0;
+local ThisIsList = findAllImages("ThisIs.png");
+for i=1,#ThisIsList do
+  local x = ThisIsList[i][0];
+  local y = ThisIsList[i][1];
+  local width = 285;
+  local height = 250;
+  local p = srFindImageInRange("boards/planeWood.png", x, y, width, height, 5000);
+    if(p) then
+      closePopUp();
+      waitForStats();
+      safeClick(p[0]+4,p[1]+4);
+      clickCount = clickCount + 1;
+      srReadScreen();
+    else
+      p = srFindImageInRange("boards/upgrade.png", x, y, width, height, 5000);
+      if(p) then
+        safeClick(p[0]+4,p[1]+4);
+        lsSleep(click_delay);
+        srReadScreen();
+          if bladeName == "Slate Blade" then
+            p = srFindImage("boards/installASlateBlade.png", 5000);
+          elseif bladeName == "Flint Blade" then
+            p = srFindImage("boards/installAFlintBlade.png", 5000);
+          elseif bladeName == "Carpentry Blade" then
+            p = srFindImage("boards/installACarpentryBlade.png", 5000);
+          end
+          if(p) then
+            safeClick(p[0]+4,p[1]+4);
+            lsSleep(click_delay);
+            if bladeName == "Carpentry Blade" then
+              srReadScreen();
+              p = srFindImage("boards/quality.png", 5000);
+              if(p) then
+                safeClick(p[0]+4,p[1]+4);
+                lsSleep(click_delay);
+                srReadScreen();
+              end
+          end
+        end
+      end
     end
-    statusScreen("Found " .. #carpentryShop .. " Wood Planes.\nRepaired " .. #clickrepair .. " Wood Planes.");
   end
-
-  for i=1,#clickplane do
-    waitForStats()
-    clickText(clickplane[i]);
-  end
-  lsSleep(100);
-
+end
+end
 end
 
 function waitForStats()
@@ -153,7 +202,7 @@ function cleanup()
 end
 
 function closePopUp()
-  while 1 do -- Perform a loop in case there are multiple pop-ups behind each other; this will close them all before continuing.
+  while 1 do -- Perform a loop in case there are multiple pop-ups behind each other;
     checkBreak();
     srReadScreen();
     OK = srFindImage("OK.png");

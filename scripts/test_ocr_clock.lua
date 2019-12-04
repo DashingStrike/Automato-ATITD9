@@ -11,6 +11,7 @@ function doit()
   local zoomLevel = 1.0; -- Default Zoom Level
   local zoomeLevelStep = 0.5; -- If you want smaller/larger zoom levels, then change to 0.25, 0.50, 0.75, 1.0, or whatever
 
+  srReadScreen();
   local clockRegion = findClockRegion();
 
   while 1 do

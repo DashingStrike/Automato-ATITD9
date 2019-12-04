@@ -9,6 +9,7 @@ function doit()
   lsRequireVersion(2,40);
   askForWindow("Test to find text in clock region.\n\nEnter text value and optional offset. Mouse will point to location. Useful to finding where a macro is clicking.\n\nPress Shift (while hovering ATITD) to continue.");
 
+  srReadScreen();
   clockRegion = findClockRegion();
 
   while true do

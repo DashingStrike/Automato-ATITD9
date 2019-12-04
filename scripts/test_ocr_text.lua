@@ -1,7 +1,7 @@
 dofile("common.inc");
 
-xOffset = 0;
-yOffset = 0;
+xOffset = 10;
+yOffset = 2;
 pointingSpeed = 2000; --ms
 
 function doit()
@@ -37,7 +37,7 @@ function pointToLocation()
         srSetMousePos(findBlah[i][0]+xOffset,findBlah[i][1]+yOffset);
         sleepWithStatus(pointingSpeed, "Pointing to Location " .. window .. "/" .. #findBlah .. "\n\nX Offset: " 
           .. xOffset .. "\nY Offset: " .. yOffset .. "\n\nMouse Location: " .. findBlah[i][0]+xOffset .. ", " .. 
-        findBlah[i][1]+yOffset, nil, 0.7, 0.7);
+        findBlah[i][1]+yOffset, nil, 0.7, "Moving Mouse");
         window = window + 1;
       end
 
@@ -107,7 +107,7 @@ function findStuff()
   lsPrint(10, y, z, scale, scale, 0xFFFFFFff, "Results: " .. result);
   y = y + 18;
 
-  for i=#findBlah,1,-1 do
+  for i=1, #findBlah do
     local parse = findBlah[i];
     lsPrint(10, y, 10, scale, scale, 0xFFFFFFff, parse[0] .. "," .. parse[1] .. ": " .. parse[2]);
     if lsMouseClick(10, y, 200, 16) then
@@ -125,6 +125,9 @@ function findStuff()
     lsPrint(10, lsScreenY - 30 - 18*2, 20, scale, scale, 0xFFFFFFff, "Click a string above to move mouse to that location.");
     lsPrint(10, lsScreenY - 30 - 18, 20, scale, scale, 0xFFFFFFff, "Click Point to move mouse to location(s).");
     if lsButtonText(10, lsScreenY - 30, 20, 100, 0xFFFFFFff, "Point") then
+      while lsMouseIsDown() do
+        sleepWithStatus(16, "Release Mouse to continue ...", nil, 0.7, "Preparing to Click");
+      end
       pointToLocation();
     end
   end

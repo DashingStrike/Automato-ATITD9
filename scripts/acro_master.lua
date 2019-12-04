@@ -376,7 +376,7 @@ function displayMoves()
 
     lsSetCamera(0,0,lsScreenX*1.5,lsScreenY*1.5);
 
-    foo, moveDelay = lsEditBox("ms Delay per Move", 15, y, z, 70, 30, 0.7,
+    foo, moveDelay = lsEditBox("ms Delay per Move", 15, y, z, 70, 30, 0.7, 0.7,
                                0x000000ff, moveDelay);
 
     if not tonumber(moveDelay) then
