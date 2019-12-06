@@ -389,49 +389,49 @@ function doit()
 			if ButtonText(10, lsScreenY - 270, 0, 200, 0xFFFFFFff, "Flexibility") then
 				kvalue = "Formula: (" .. math.abs(endFlexibility) .. " - " .. math.abs(startFlexibility) .. ") " ..
 				"* 2 / (2 * " .. num_seconds .. ")\nValue: " ..
-				tostring((endFlexibility - startFlexibility)*2 / (2 * num_seconds))
+				tostring((endFlexibility - startFlexibility)*(endFlexibility - startFlexibility) / (2 * num_seconds))
         done = true;
 			end
 			if ButtonText(10, lsScreenY - 240, 0, 200, 0xFFFFFFff, "Cuttability") then
 				kvalue = "Formula: (" .. math.abs(endCuttability) .. " - " .. math.abs(startCuttability) .. ") " ..
 				"* 2 / (2 * " .. num_seconds .. ")\nValue: " ..
-				tostring((endCuttability - startCuttability)*2 / (2 * num_seconds))
+				tostring((endCuttability - startCuttability)*(endCuttability - startCuttability) / (2 * num_seconds))
 				done = true;
 			end
 			if ButtonText(10, lsScreenY - 210, 0, 200, 0xFFFFFFff, "Flammability") then
 				kvalue = "Formula: (" .. math.abs(endFlammability) .. " - " .. math.abs(startFlammability) .. ") " ..
 				"* 2 / (2 * " .. num_seconds .. ")\nValue: " ..
-				tostring((endFlammability - startFlammability)*2 / (2 * num_seconds))
+				tostring((endFlammability - startFlammability)*(endFlammability - startFlammability) / (2 * num_seconds))
 				done = true;
 			end
 			if ButtonText(10, lsScreenY - 180, 0, 200, 0xFFFFFFff, "Water Resist") then
 				kvalue = "Formula: (" .. math.abs(endWaterResist) .. " - " .. math.abs(startWaterResist) .. ") " ..
 				"* 2 / (2 * " .. num_seconds .. ")\nValue: " ..
-				tostring((endWaterResist - startWaterResist)*2 / (2 * num_seconds))
+				tostring((endWaterResist - startWaterResist)*(endWaterResist - startWaterResist) / (2 * num_seconds))
 				done = true;
 			end
 			if ButtonText(10, lsScreenY - 150, 0, 200, 0xFFFFFFff, "Insect Toxicity") then
 				kvalue = "Formula: (" .. math.abs(endInsectTox) .. " - " .. math.abs(startInsectTox) .. ") " ..
 				"* 2 / (2 * " .. num_seconds .. ")\nValue: " ..
-				tostring((endInsectTox - startInsectTox)*2 / (2 * num_seconds))
+				tostring((endInsectTox - startInsectTox)*(endInsectTox - startInsectTox) / (2 * num_seconds))
 				done = true;
 			end
 			if ButtonText(10, lsScreenY - 120, 0, 200, 0xFFFFFFff, "Human Toxicity") then
 				kvalue = "Formula: (" .. math.abs(endHumanTox) .. " - " .. math.abs(startHumanTox) .. ") " ..
 				"* 2 / (2 * " .. num_seconds .. ")\nValue: " ..
-				tostring((endHumanTox - startHumanTox)*2 / (2 * num_seconds))
+				tostring((endHumanTox - startHumanTox)*(endHumanTox - startHumanTox) / (2 * num_seconds))
 				done = true;
 			end
 			if ButtonText(10, lsScreenY - 90, 0, 200, 0xFFFFFFff, "Darkness") then
 				kvalue = "Formula: (" .. math.abs(endDarkness) .. " - " .. math.abs(startDarkness) .. ") " ..
 				"* 2 / (2 * " .. num_seconds .. ")\nValue: " ..
-				tostring((endDarkness - startDarkness)*2 / (2 * num_seconds))
+				tostring((endDarkness - startDarkness)*(endDarkness - startDarkness) / (2 * num_seconds))
 				done = true;
 			end
 			if ButtonText(10, lsScreenY - 60, 0, 200, 0xFFFFFFff, "Glossiness") then
 				kvalue = "Formula: (" .. math.abs(endGlossiness) .. " - " .. math.abs(startGlossiness) .. ") " ..
 				"* 2 / (2 * " .. num_seconds .. ")\nValue: " ..
-				tostring((endGlossiness - startGlossiness)*2 / (2 * num_seconds))
+				tostring((endGlossiness - startGlossiness)*(endGlossiness - startGlossiness) / (2 * num_seconds))
 				done = true;
 			end
 			checkBreak();
