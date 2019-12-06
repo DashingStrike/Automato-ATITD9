@@ -108,10 +108,10 @@ function pointToLocation()
   local y = 20;
     while 1 do
       if lsMouseIsDown(1) then
-	  lsSleep(50);
+	  lsSleep(10);
 	  -- Don't move mouse until we let go of mouse button
       else
-	  lsSleep(100); -- wait a moment in case we moved mouse while clicking
+	  lsSleep(10); -- wait a moment in case we moved mouse while clicking
 	    if not tonumber(xOffset) then
 	      xOffset = 0;
 	    end
@@ -127,6 +127,7 @@ function pointToLocation()
 		end
       break;
       end
+    lsSleep(10);
     end -- while
 end
 
