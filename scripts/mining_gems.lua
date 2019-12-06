@@ -30,6 +30,7 @@ askText = "Sand Mining v2.0.7 by Cegaiel --\n\nMake sure chat is MINIMIZED and M
 bonusRegion = false;
 noMouseMove = false;
 minPopSleepDelay = 150;  -- The minimum delay time used during findClosePopUp() function
+clickDelay = 150;
 muteSoundEffects = true;
 autoWorkMine = false;
 colorBlind = false;
@@ -661,8 +662,11 @@ function promptDelays()
     lsSetCamera(0,0,lsScreenX*1.0,lsScreenY*1.0);
     y = y + 35;
     lsPrint(15, y, 0, 0.8, 0.8, 0xffffffff, "Click Delay (ms):");
+
+    clickDelay = readSetting("clickDelay",clickDelay);
     is_done, clickDelay = lsEditBox("delay", 155, y, 0, 50, 30, 1.0, 1.0,
-                                     0x000000ff, 150);
+                                     0x000000ff, clickDelay);
+    writeSetting("clickDelay",clickDelay);
      clickDelay = tonumber(clickDelay);
        if not clickDelay then
          is_done = false;
