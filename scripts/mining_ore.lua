@@ -1,4 +1,4 @@
--- mining_ore.lua v2.3.0 -- by Cegaiel
+-- mining_ore.lua v2.4.0 -- by Cegaiel
 -- Credits to Tallow for his Simon macro, which was used as a template to build on.
 --
 -- Brute force method, you manually click/set every stones' location and it will work every possible 3 node/stone combinations.
@@ -25,11 +25,17 @@
 -- When using this checkbox, you will be asked to set patterns you find. Practice using ATITD/mining_t5.lua to see how this works.
 -- After setting your matching patterns manually, it will then click them.  This method (while takes longer to set up), does require less sets to process; Potentially more yield.
 
+-- v2.4.0 Four Stone Combo no longer tries to brute force every possible 4 stone combo. Instead, it now keeps track of every 3 stone combo that produces ore.
+-- It now will verify if a 4 stone combo is possible first, before performing it. This speeds up the process tremendously (Copper will no longer do an extra 70 combos, instead only do the 1-4 that's possible).
+-- Strongly recommend you keep the "Work 4 stone combinations" check box checked. It increases chance for extra ore with hardly any extra time.
+-- Improved Broken Node detection (when you get Gem/Coal, you broke one or more nodes). It will now try to detect the broken nodes, add to array and no longer work any combos, involving broken node(s).
+-- New: Progress Bar
+-- New Checkbox: Write Log Files. Creates very thorough Log files about what has occured - mining_ore_Logs.txt
 
 dofile("common.inc");
 dofile("settings.inc");
 
-info = "Ore Mining v2.3.0 by Cegaiel --\nMacro brute force tries every possible 3 stone combination (and optionally 4 stone, too). Time consuming but it works!\n\nMAIN chat tab MUST be showing and wide enough so that each line doesn't wrap.\n\nChat MUST be minimized but Visible (Options, Chat-Related, \'Minimized chat channels are still visible\' - ON). Options/Interface Options: 'Use Flyaway message for some things' - OFF\n\nOptional: Pin the mine's Take... Ore... menu (\"All Ore\" will appear in pinned window) and it will refresh every round.\n\nWARNING: If you use the Dual Monitor option, uncheck in Interface Options: Right-Click opens a menu as pinned.";
+info = "Ore Mining v2.4.0 by Cegaiel --\nMacro brute force tries every possible 3 stone combination (and optionally 4 stone, too). Time consuming but it works!\n\nMAIN chat tab MUST be showing and wide enough so that each line doesn't wrap.\n\nChat MUST be minimized but Visible (Options, Chat-Related, \'Minimized chat channels are still visible\' - ON). Options/Interface Options: 'Use Flyaway message for some things' - OFF\n\nOptional: Pin the mine's Take... Ore... menu (\"All Ore\" will appear in pinned window) and it will refresh every round.\n\nWARNING: If you use the Dual Monitor option, uncheck in Interface Options: Right-Click opens a menu as pinned.";
 
 
 -- Start don't alter these ...
@@ -37,7 +43,6 @@ oreGathered = 0;
 oreGatheredTotal = 0;
 oreGatheredLast = 0;
 miningTime = 0;
-autoWorkMine = true; -- written to Settings.mining_ore.lua.txt
 timesworked = 0;
 miningTimeTotal = 0;
 dropdown_key_values = {"Shift Key", "Ctrl Key", "Alt Key", "Mouse Wheel Click"};
@@ -49,21 +54,19 @@ lastLineFound2 = "";
 
 
 --Customizable
-extraStones = false; -- written to Settings.mining_ore.lua.txt
+autoWorkMine = true; -- written to Settings.mining_ore.lua.txt
+extraStones = true; -- written to Settings.mining_ore.lua.txt
 noMouseMove = false; -- written to Settings.mining_ore.lua.txt
 muteSoundEffects = false; -- written to Settings.mining_ore.lua.txt
 minPopSleepDelay = 150;  -- The minimum delay time used during findClosePopUp() function
-clickDelay = 100; -- written to Settings.mining_ore.lua.txt
+clickDelay = 125; -- written to Settings.mining_ore.lua.txt
 defaultOrder = true;  -- written to Settings.mining_ore.lua.txt -- Determines to run 4 stone combo first, then 3 (true); or vice versa (false). Only applies when "Work 4 stone combo" is checked.
- -- Useful for debugging. If true, will write log file to mining_ore.txt - This also plays a sound anytime it is skipping a broken Node (assuming it's not a false positive).
--- While writeLogFile true, you should pay attention to see if you got a "You got some coal" message (node broke). Once at least one node is broke, you might hear this sound in future.
--- If you're hearing sounds, but "You got some coal" messages DON'T appear, then this is a false positive. Suggestes maybe rbgTol or hueTol needs adjust. Maybe zoom size... ?
+ -- Useful for debugging. If true, will write log file to mining_ore.txt
 writeLogFile = false;
 
-brokenStoneCheck = false;
 --These tolerance values might need tweaked
-rgbTol = 150; --50
-hueTol = 75; --10
+rgbTol = 150; --50?  Was 150
+hueTol = 75; --10?  Was 75
 
 -- We normally look for an OK popup box to move on. We also compare last chat Line to current chat Line.
 -- If we gathered the EXACT same amount of Ore from previous round, then this confuses macro and needs timeOut to move on.
@@ -184,19 +187,39 @@ function fetchTotalCombos3()
     end
 end
 
+
 function fetchTotalCombos4()
+    local text4 = "";
+    local counter = 0;
+    oreNodes4 = {};
     stoneCombo4 = 0;
---    TotalCombos = 0;
-    for i=1,#clickList do
+    TotalCombos = 0;
+    for i=1, #clickList do
         for j=i+1,#clickList do
             for k=j+1,#clickList do
             	   for l=k+1,#clickList do
-                    TotalCombos = TotalCombos + 1;
-                    stoneCombo4 = stoneCombo4 + 1;
+            	   counter = counter + 1;
+            	       if isFourSetValid(i,j,k,l) then -- really i,j,k,l
+                      text4 = text4 .. "\n" .. i .. ", " .. j .. ", " .. k .. ", " .. l;
+                      TotalCombos = TotalCombos + 1;
+                      stoneCombo4 = stoneCombo4 + 1;
+                      oreNodes4[#oreNodes4 + 1] = {i, j, k, l};
+            	       end
+            	   sleepWithStatus(20, "Verifying Four Stone Combos...\n\n(" .. counter .. ")  "  .. i .. ", " .. j .. ", " .. k .. ", " .. l .. "\n\n" .. TotalCombos .. " Found", nil, 0.7, "Parsing");
+            	   lsSleep(10);
                 end
             end
         end
     end
+    if TotalCombos == 0 then
+      text4 = text4 .. "Skipping 4 Stone Combos"
+    else
+      text4 = text4 .. "\nWorking 4 Stone Combos\n"
+    end
+    if writeLogFile then
+      WriteLog("\n**** " .. TotalCombos .. "/" .. #oreNodes .. " of the Combos that produced Ore have valid 4 Stone Combos\n" .. text4);
+    end
+    sleepWithStatus(1250, "Finished Verifying Four Stone Combos...\n\n" .. TotalCombos .. " Found -> " .. text4, nil, 0.7, "Parsing Complete");
 end
 
 
@@ -261,11 +284,7 @@ function getPoints()
     local z = 0;
     while not is_done do
         nx, ny = srMousePos();
-        if brokenStoneCheck then
-          pixels = srReadPixel(nx, ny);
-        else
-          pixels = 0xFFFFFFFF;
-        end
+        pixels = srReadPixel(nx, ny);
         local is_shifted = lsShiftHeld();
         if (dropdown_cur_value_key == 1) then
             is_shifted = lsShiftHeld();
@@ -294,40 +313,27 @@ function getPoints()
         autoWorkMine = lsCheckBox(15, y, z, 0xffffffff, " Auto 'Work Mine'", autoWorkMine);
         writeSetting("autoWorkMine",autoWorkMine);
         y = y + 25
+
         noMouseMove = readSetting("noMouseMove",noMouseMove);
         noMouseMove = lsCheckBox(15, y, z, 0xffffffff, " Dual Monitor (NoMouseMove) Mode", noMouseMove);
         writeSetting("noMouseMove",noMouseMove);
         y = y + 25
+
+
+        writeLogFile = readSetting("writeLogFile",writeLogFile);
+        writeLogFile = lsCheckBox(15, y, z, 0xffffffff, " Write Log File", writeLogFile);
+        writeSetting("writeLogFile",writeLogFile);
+        y = y + 25
+
+
         manualSets = readSetting("manualSets",manualSets);
         manualSets = lsCheckBox(15, y, z, 0xffffffff, " Manually Set Patterns", manualSets);
         writeSetting("manualSets",manualSets);
-        y = y + 25
-        if not manualSets then
-          if brokenStoneCheck then
-            brokenStoneCheckColor = 0xffc0c0ff;
-          else
-            brokenStoneCheckColor = 0xffffffff;
-          end
-          brokenStoneCheck = readSetting("brokenStoneCheck",brokenStoneCheck);
-          brokenStoneCheck = lsCheckBox(15, y, z, brokenStoneCheckColor, " Broken Stone Check", brokenStoneCheck);
-          writeSetting("brokenStoneCheck",brokenStoneCheck);
           y = y + 25
+        if not manualSets then
           extraStones = readSetting("extraStones",extraStones);
           extraStones = lsCheckBox(15, y, z, 0xffffffff, " Work 4 stone combinations", extraStones);
           writeSetting("extraStones",extraStones);
-          if defaultOrder then
-            defaultOrderText = " Order: Do 4 stone combo first, then 3";
-            defaultOrderTextColor = 0xffffffff;
-          else
-            defaultOrderText = " Order: Do 3 stone combo first, then 4";
-            defaultOrderTextColor = 0xffff80ff;
-          end
-          y = y + 25
-          if extraStones then
-            defaultOrder = readSetting("defaultOrder",defaultOrder);
-            defaultOrder = lsCheckBox(15, y, z, defaultOrderTextColor, defaultOrderText, defaultOrder);
-            writeSetting("defaultOrder",defaultOrder);
-          end
         end
         lsSetCamera(0,0,lsScreenX*1.0,lsScreenY*1.0);
         y = y - 22
@@ -408,34 +414,35 @@ end
 
 
 function clickSequence()
-    if manualSets then
-      TotalCombos = #sets;
-    else
-      fetchTotalCombos3();
-        if extraStones then
-          fetchTotalCombos4();
-        end
-    end
-    chatRead();
-    if noMouseMove then
-      sleepWithStatus(3000, "Starting... Now is your chance to move your mouse to second monitor!", nil, 0.7);
-    else
-      sleepWithStatus(150, "Starting... Don\'t move mouse!");
-    end
     oreGatheredLast = 0;
     oreGathered = 0;
     worked = 0;
+    brokenStones = {};
+    logResult = "";
+    oreNodes = {};
+    brokenStoneInfo = "";
     startMiningTime = lsGetTimer();
 
     if manualSets then
+      TotalCombos = #sets;
+    end
+    chatRead();
+    if noMouseMove then
+      sleepWithStatus(3000, "Starting...\n\nNow is your chance to move your mouse to second monitor!", nil, 0.7, "Attention");
+    else
+      sleepWithStatus(150, "Starting...\n\nDon\'t move mouse!", nil, 0.7, "Attention");
+    end
+
+    if manualSets then
       setsCombo();
-    elseif extraStones and defaultOrder then
-      fourStoneCombo();
+    elseif extraStones then
+      fetchTotalCombos3();
       threeStoneCombo();
-    elseif extraStones and not defaultOrder then
-      threeStoneCombo();
+      fetchTotalCombos4();
+      worked = 0; -- Reset worked back to 0, before doing 4 stone combos
       fourStoneCombo();
     else
+      fetchTotalCombos3();
       threeStoneCombo();
     end
 
@@ -446,7 +453,6 @@ function clickSequence()
     lsSleep(1000); -- Delay not required, just gives a slight chance to see the last node worked on GUI, from updateGUI(), before it disappears off screen
 
     if not muteSoundEffects then
-
         lsPlaySound("beepping.wav");
     end
 
@@ -472,7 +478,7 @@ function workMine()
     if writeLogFile then
       WriteLog("\nWorking Mine...");
     end
-    sleepWithStatus(1000, "Working mine (Fetching new nodes)");
+    sleepWithStatus(1000, "Working mine (Fetching new nodes)", nil, 0.7, "Refreshing Nodes");
     findClosePopUpOld();
 end
 
@@ -491,7 +497,7 @@ function checkCloseWindows()
             lsSleep(100);
             srClickMouseNoMove(closeWindows[i][0]+5, closeWindows[i][1]+10, true);
         end
-        lsSleep(50);
+        lsSleep(10);
     end
 end
 
@@ -534,6 +540,7 @@ function findClosePopUp()
         if OK then
             srClickMouseNoMove(OK[0]+2,OK[1]+2, true);
             lsSleep(popSleepDelay);
+            logResult = "Found Popup (No Ore Gathered)"
             break;
         end
 
@@ -541,18 +548,29 @@ function findClosePopUp()
 	    chatReadTimeOut = chatReadTimeOutSilver; -- Since Silver gets 1,2 ore commonly back to back, then wait less time to timeout.
 	  end
 
-       --If we gathered new ore, add to tally, we're not going to get a popup.
-	  if (lastLineFound2 ~= lastLineParse2) or (lastLineFound ~= lastLineParse) or skipRead or ( (lsGetTimer() - startTime) > chatReadTimeOut )  then
+         --If we gathered new ore, add to tally, we're not going to get a popup.
+	  if (lastLineFound2 ~= lastLineParse2) or (lastLineFound ~= lastLineParse) or ( (lsGetTimer() - startTime) > chatReadTimeOut )  then
 
-		if oreFound and ( (lsGetTimer() - startTime) <= chatReadTimeOut ) then -- if it timed out, don't add ore to total, because we're not sure if we got any or not
+
+	  if ( (lsGetTimer() - startTime) > chatReadTimeOut ) then
+	    logResult = "Timed Out (Same ore gathered as previous time?) "
+	  else
+	    logResult = "Normal Break "
+	  end
+
+
+--Assuming server lag isn't going crazy, we didn't get a popup, so we're going to assume we got the same ore amount as last time (macro could not detect a change in last lines)
+--Also check if oreGathered isn't nil. In a rare case, two or more stones might break causing multiple Found Coal/Gems back to back. oreGathered would not be found within last 2 lines on main chat
+
+		if oreFound and oreGathered ~= nil then
               oreGatheredTotal = oreGatheredTotal + oreGathered;
               oreGatheredLast = oreGatheredLast + oreGathered;
+              logResult = logResult .. "[Ore Gathered: " .. oreGathered .. "]  [oreGatheredLast: " .. math.floor(oreGatheredLast) .. "]  [oreGatheredTotal: " .. math.floor(oreGatheredTotal) .. "]";
 		end
-
             lsSleep(popSleepDelay);
             break;
         end
-    lsSleep(50);
+    lsSleep(10);
     end
 end
 
@@ -609,7 +627,7 @@ function chatRead()
    	checkBreak();
       srReadScreen();
       chatText = getChatText();
-      sleepWithStatus(500, "Error: We must be able to read at least the last 2 lines of main chat!\n\nCurrently we only see " .. #chatText .. " lines ...\n\nYou can overcome this error by typing ANYTHING in main chat.", nil, 0.7);
+      sleepWithStatus(500, "Error: We must be able to read at least the last 2 lines of main chat!\n\nCurrently we only see " .. #chatText .. " lines ...\n\nYou can overcome this error by typing something in main chat.", nil, 0.7);
    end
 
 
@@ -620,15 +638,11 @@ function chatRead()
    lastLine2 = chatText[#chatText-1][2];
    lastLineParse2 = string.sub(lastLine2,string.find(lastLine2,"m]")+3,string.len(lastLine2));
 
-   if string.sub(lastLineParse, 1, 17) == "You got some coal" then
-     lastLine = lastLine2;
-     lastLineParse = lastLineParse2;
-     skipRead = true;
-   else
-     skipRead = nil;
-   end
-
-	if string.sub(lastLineParse, 1, 13) == "Your workload" then
+	if string.sub(lastLineParse, 1, 17) == "You got some coal" then
+	  oreFound = true;
+	  oreGathered = string.match(lastLine2, "(%d+) " .. ore);
+	  findBrokenStone() -- Do pixel checks and find which nodes have poofed.
+	elseif string.sub(lastLineParse, 1, 13) == "Your workload" then
 	  --TESTING : Comment below 2 lines if you want to test this macro on a Sand Mine (Select: Iron), to see nodes break more quickly and test if it detects nodes are breaking, easier (brokenStoneCheck).
 	  oreFound = true;
 	  oreGathered = string.match(lastLine, "(%d+) " .. ore);
@@ -777,12 +791,6 @@ function updateGUI(i,j,k,l)
                 else -- We're doing a 3 stone combo (i,j,k)
                   lsPrint(10, y, 0, 0.7, 0.7, 0xB0B0B0ff, "[" .. worked .. "/" .. TotalCombos .. "] Nodes Worked: " .. i .. ", " .. j .. ", " .. k);
                 end
-
-                if extraStones then
-                  y = y + 18;
-                  lsPrint(10, y, 0, 0.7, 0.7, 0xB0B0B0ff, "Combos: 4 Stone: " .. stoneCombo4 .. " + 3 Stone: " .. stoneCombo3 .. " = " .. TotalCombos);
-                end
-
                 y = y + 20;
                 lsPrint(10, y, 0, 0.7, 0.7, 0xB0B0B0ff, "Node Click Delay: " .. clickDelay .. " ms");
                 y = y + 32;
@@ -803,6 +811,14 @@ function updateGUI(i,j,k,l)
                 lsPrint(10, y, 0, 0.7, 0.7, 0xffff80ff, "Hold Ctrl+Alt to Abort and Return to Menu.");
                 y = y + 32;
                 lsPrint(10, y, 0, 0.7, 0.7, 0xff8080ff, "Don't touch mouse until finished!");
+                y = y + 35;
+                progressBar(y)
+
+                if brokenStoneInfo ~= "" then
+                  y = y + 20
+                  lsPrintWrapped(10, y, 0, lsScreenX-20, 0.7, 0.7, 0xFFFFFFff, brokenStoneInfo);
+                end
+
                 lsDoFrame();
 end
 
@@ -813,159 +829,22 @@ function threeStoneCombo()
             for k=j+1,#clickList do
                 --checkCloseWindows();
                 findClosePopUpOld(); --Extra precaution to check for remaining popup before working the nodes
-                brokenStoneDetected = nil;
 
 
-              if brokenStoneCheck then
-
-                local status = "";
-                thisColor1 = srReadPixel(clickList[i][1], clickList[i][2]);
-                thisColor2 = srReadPixel(clickList[j][1], clickList[j][2]);
-                thisColor3 = srReadPixel(clickList[k][1], clickList[k][2]);
-
-                --function compareColorEx(left, right, rgbTol, hueTol)
-                if(not compareColorEx(thisColor1, clickListColor[i][1], rgbTol, hueTol)) then
-                  status = status .. "I:" .. i .. " ";
-                end
-
-                if(not compareColorEx(thisColor2, clickListColor[j][1], rgbTol, hueTol)) then
-                  status = status .. "J:" .. j .. " ";
-                end
-
-                if(not compareColorEx(thisColor3, clickListColor[k][1], rgbTol, hueTol)) then
-                  status = status .. "K:" .. k .. " ";
-                end
-
-                if status ~= "" then
-                  brokenStoneDetected = 1;
-			if writeLogFile then
-			  lsPlaySound("start.wav");  -- Don't annoy player with sounds, unless their debugging and have logs enabled
-			  --sleepWithStatus(100, "Skipping Broken Nodes: " .. i .. j .. k, nil, 0.7);
-			  WriteLog("[" .. worked+1 .. "/" .. TotalCombos .. "] Skipping Broken Node Combo (Broken Node#): " .. i .. ", " .. j .. ", " .. k .. " ( " .. status .. ")");
-			end
-                end  -- if status ~= ""
-
-              end-- if brokenStoneCheck
-
-              if not brokenStoneDetected then
-                startSetTime = lsGetTimer();
-
-                if noMouseMove then -- Check for dual monitor option - don't move mouse cursor over each node and send keyEvents. Instead do rightClick popup menus
-
-                -- 1st Node
-                checkBreak();
-                checkAbort();
-                --srSetMousePos(0,180); -- Move mouse to near top right corner (below icons), once, to hopefully make node popup menus appear there.
-                --lsSleep(100);
-                srClickMouseNoMove(clickList[i][1], clickList[i][2], 1);
-                lsSleep(clickDelay);
-                clickAllText("[A]", 20, 2, 1); -- offsetX, offsetY, rightClick (1 = true)
-
-                -- 2nd Node
-                checkBreak();
-                checkAbort();
-                srClickMouseNoMove(clickList[j][1], clickList[j][2], 1);
-                lsSleep(clickDelay);
-                clickAllText("[A]", 20, 2, 1); -- offsetX, offsetY, rightClick (1 = true)
-
-                -- 3rd Node
-                checkBreak();
-                checkAbort();
-                srClickMouseNoMove(clickList[k][1], clickList[k][2], 1);
-                lsSleep(clickDelay);
-                clickAllText("[S]", 20, 2, 1); -- offsetX, offsetY, rightClick (1 = true)
-
-                else -- noMouseMove is false
-
-                -- 1st Node
-                checkBreak();
-                checkAbort();
-                srSetMousePos(clickList[i][1], clickList[i][2]);
-                lsSleep(clickDelay);
-                srKeyEvent('A');
-
-                -- 2nd Node
-                checkBreak();
-                checkAbort();
-                srSetMousePos(clickList[j][1], clickList[j][2]);
-
-                lsSleep(clickDelay);
-                srKeyEvent('A');
-
-                -- 3rd Node
-                checkBreak();
-                checkAbort();
-                srSetMousePos(clickList[k][1], clickList[k][2]);
-                lsSleep(clickDelay);
-                srKeyEvent('S');
-                end -- end noMouseMove check
-
-                findClosePopUp();
-                elapsedTime = lsGetTimer() - startMiningTime;
-                setTime = lsGetTimer() - startSetTime;
-			if writeLogFile then
-			  WriteLog("[" .. worked+1 .. "/" .. TotalCombos .. "] Nodes Worked: " .. i .. ", " .. j .. ", " .. k);
-			end
-              else  --if brokenStoneDetected
-                checkBreak();
-                checkAbort();
-              end -- if not brokenStoneDetected
-
-                worked = worked + 1
-                updateGUI(i,j,k);
-            end
-        end
-    end
+if #brokenStones > 0 then
+	for z=1, #brokenStones do
+	  if z == i or z == j or z == k then
+	    skipWork = 1
+	    brokenStoneInfo = "Nodes: " .. table.concat(brokenStones,",") .. " are broken\nSkipping " .. i .. ", " .. j .. ", " .. k;
+	  else
+	    skipWork = nil
+	  end
+	end
 end
 
 
-function fourStoneCombo()
-    for i=1,#clickList do
-        for j=i+1,#clickList do
-            for k=j+1,#clickList do
-            	 for l=k+1,#clickList do
-                --checkCloseWindows();
-                findClosePopUpOld(); --Extra precaution to check for remaining popup before working the nodes
-                brokenStoneDetected = nil;
+if not skipWork then
 
-
-              if brokenStoneCheck then
-
-                local status = "";
-                thisColor1 = srReadPixel(clickList[i][1], clickList[i][2]);
-                thisColor2 = srReadPixel(clickList[j][1], clickList[j][2]);
-                thisColor3 = srReadPixel(clickList[k][1], clickList[k][2]);
-                thisColor4 = srReadPixel(clickList[l][1], clickList[l][2]);
-
-                --function compareColorEx(left, right, rgbTol, hueTol)
-                if(not compareColorEx(thisColor1, clickListColor[i][1], rgbTol, hueTol)) then
-                  status = status .. "I:" .. i .. " ";
-                end
-
-                if(not compareColorEx(thisColor2, clickListColor[j][1], rgbTol, hueTol)) then
-                  status = status .. "J:" .. j .. " ";
-                end
-
-                if(not compareColorEx(thisColor3, clickListColor[k][1], rgbTol, hueTol)) then
-                  status = status .. "K:" .. k .. " ";
-                end
-
-                if(not compareColorEx(thisColor4, clickListColor[l][1], rgbTol, hueTol)) then
-                  status = status .. "L:" .. l .. " ";
-                end
-
-                if status ~= "" then
-                  brokenStoneDetected = 1;
-			if writeLogFile then
-			  lsPlaySound("start.wav");  -- Don't annoy player with sounds, unless their debugging and have logs enabled
-			  --sleepWithStatus(100, "Skipping Broken Nodes: " .. i .. j .. k .. l, nil, 0.7);
-			  WriteLog("[" .. worked+1 .. "/" .. TotalCombos .. "] Skipping Broken Node Combo (Broken Node#): " .. i .. ", " .. j .. ", " .. k .. ", " .. l .. " ( " .. status .. ")");
-			end
-                end  -- if status ~= ""
-              end-- if brokenStoneCheck
-
-
-              if not brokenStoneDetected then
                 startSetTime = lsGetTimer();
 
                 if noMouseMove then -- Check for dual monitor option - don't move mouse cursor over each node and send keyEvents. Instead do rightClick popup menus
@@ -973,8 +852,6 @@ function fourStoneCombo()
                 -- 1st Node
                 checkBreak();
                 checkAbort();
-                --srSetMousePos(0,180); -- Move mouse to near top right corner (below icons), once, to hopefully make node popup menus appear there.
-                --lsSleep(100);
                 srClickMouseNoMove(clickList[i][1], clickList[i][2], 1);
                 lsSleep(clickDelay);
                 clickAllText("[A]", 20, 2, 1); -- offsetX, offsetY, rightClick (1 = true)
@@ -991,21 +868,12 @@ function fourStoneCombo()
                 checkAbort();
                 srClickMouseNoMove(clickList[k][1], clickList[k][2], 1);
                 lsSleep(clickDelay);
-                clickAllText("[A]", 20, 2, 1); -- offsetX, offsetY, rightClick (1 = true)
-
-                 -- 4th Node
-                checkBreak();
-                checkAbort();
-                srClickMouseNoMove(clickList[l][1], clickList[l][2]);
-                lsSleep(clickDelay);
                 clickAllText("[S]", 20, 2, 1); -- offsetX, offsetY, rightClick (1 = true)
-
 
                 else -- noMouseMove is false
 
                 -- 1st Node
                 checkBreak();
-
                 checkAbort();
                 srSetMousePos(clickList[i][1], clickList[i][2]);
                 lsSleep(clickDelay);
@@ -1015,6 +883,7 @@ function fourStoneCombo()
                 checkBreak();
                 checkAbort();
                 srSetMousePos(clickList[j][1], clickList[j][2]);
+
                 lsSleep(clickDelay);
                 srKeyEvent('A');
 
@@ -1023,12 +892,130 @@ function fourStoneCombo()
                 checkAbort();
                 srSetMousePos(clickList[k][1], clickList[k][2]);
                 lsSleep(clickDelay);
+                srKeyEvent('S');
+                end -- end noMouseMove check
+
+
+                findClosePopUp();
+                elapsedTime = lsGetTimer() - startMiningTime;
+                setTime = lsGetTimer() - startSetTime;
+
+
+end
+
+			if writeLogFile then
+			  if skipWork then
+			    lsPlaySound("start.wav");  -- Audible alert that we are skipping this workload
+			    WriteLog("[" .. worked+1 .. "/" .. TotalCombos .. "] Skipping Broken Node Combo (Broken Node(s) = " .. table.concat(brokenStones,",") .. "): " .. i .. ", " .. j .. ", " .. k);
+			  elseif not OK then
+			    logResult = logResult .. "\n\n---- Last 2 Lines BEFORE Nodes Worked ----\n** " .. lastLineFound2 .. "\n** " .. lastLineFound .. "\n\n---- Last 2 Lines AFTER Nodes Worked ----\n** " .. lastLineParse2 .. "\n** " .. lastLineParse .. "\n";
+			    WriteLog("\n[" .. worked+1 .. "/" .. TotalCombos .. "] Nodes Worked: " .. i .. ", " .. j .. ", " .. k .. " - Result: " .. logResult);
+			  else
+			    WriteLog("[" .. worked+1 .. "/" .. TotalCombos .. "] Nodes Worked: " .. i .. ", " .. j .. ", " .. k .. " - Result: " .. logResult);
+			  end
+			  logResult = "";
+			end
+
+                worked = worked + 1
+                updateGUI(i,j,k);
+                if not OK then
+                  oreNodes[#oreNodes + 1] = {i, j, k};
+                end
+            end
+        end
+    end
+			  parseOreNodes()
+end
+
+
+
+
+function fourStoneCombo()
+    for a=1,#oreNodes4 do
+                findClosePopUpOld(); --Extra precaution to check for remaining popup before working the nodes
+
+                i = oreNodes4[a][1]
+                j = oreNodes4[a][2]
+                k = oreNodes4[a][3]
+                l = oreNodes4[a][4]
+
+
+if #brokenStones > 0 then
+	for z=1, #brokenStones do
+	  if z == i or z == j or z == k or z == l then
+	    skipWork = 1
+	    brokenStoneInfo = "Nodes: " .. table.concat(brokenStones,",") .. " are broken\nSkipping " .. i .. ", " .. j .. ", " .. k .. ", " .. l;
+	  else
+	    skipWork = nil
+	  end
+	end
+end
+
+
+if not skipWork then
+
+                startSetTime = lsGetTimer();
+
+                if noMouseMove then -- Check for dual monitor option - don't move mouse cursor over each node and send keyEvents. Instead do rightClick popup menus
+
+                -- 1st Node
+                checkBreak();
+                checkAbort();
+                --srSetMousePos(0,180); -- Move mouse to near top right corner (below icons), once, to hopefully make node popup menus appear there.
+                --lsSleep(100);
+                srClickMouseNoMove(clickList[oreNodes4[a][1]][1], clickList[oreNodes4[a][1]][2]);
+                lsSleep(clickDelay);
+                clickAllText("[A]", 20, 2, 1); -- offsetX, offsetY, rightClick (1 = true)
+
+                -- 2nd Node
+                checkBreak();
+                checkAbort();
+                srClickMouseNoMove(clickList[oreNodes4[a][2]][1], clickList[oreNodes4[a][2]][2]);
+                lsSleep(clickDelay);
+                clickAllText("[A]", 20, 2, 1); -- offsetX, offsetY, rightClick (1 = true)
+
+                -- 3rd Node
+                checkBreak();
+                checkAbort();
+                srClickMouseNoMove(clickList[oreNodes4[a][3]][1], clickList[oreNodes4[a][3]][2]);
+                lsSleep(clickDelay);
+                clickAllText("[A]", 20, 2, 1); -- offsetX, offsetY, rightClick (1 = true)
+
+                 -- 4th Node
+                checkBreak();
+                checkAbort();
+                srClickMouseNoMove(clickList[oreNodes4[a][4]][1], clickList[oreNodes4[a][4]][2]);
+                lsSleep(clickDelay);
+                clickAllText("[S]", 20, 2, 1); -- offsetX, offsetY, rightClick (1 = true)
+
+                else -- noMouseMove is false
+
+                -- 1st Node
+                checkBreak();
+                checkAbort();
+                srSetMousePos(clickList[oreNodes4[a][1]][1], clickList[oreNodes4[a][1]][2]);
+                lsSleep(clickDelay);
+                srKeyEvent('A');
+
+                -- 2nd Node
+                --checkBreak();
+                checkAbort();
+                srSetMousePos(clickList[oreNodes4[a][2]][1], clickList[oreNodes4[a][2]][2]);
+
+                lsSleep(clickDelay);
+                srKeyEvent('A');
+
+                -- 3rd Node
+                checkBreak();
+                checkAbort();
+                srSetMousePos(clickList[oreNodes4[a][3]][1], clickList[oreNodes4[a][3]][2]);
+                lsSleep(clickDelay);
                 srKeyEvent('A');
 
                  -- 4th Node
                 checkBreak();
                 checkAbort();
-                srSetMousePos(clickList[l][1], clickList[l][2]);
+                srSetMousePos(clickList[oreNodes4[a][4]][1], clickList[oreNodes4[a][4]][2]);
                 lsSleep(clickDelay);
                 srKeyEvent('S');
 
@@ -1037,19 +1024,26 @@ function fourStoneCombo()
                 findClosePopUp();
                 elapsedTime = lsGetTimer() - startMiningTime;
                 setTime = lsGetTimer() - startSetTime;
+
+
+end
+
+
 			if writeLogFile then
-			  WriteLog("[" .. worked+1 .. "/" .. TotalCombos .. "] Nodes Worked: " .. i .. ", " .. j .. ", " .. k .. ", " .. l);
+			  if skipWork then
+			    lsPlaySound("start.wav");  -- Audible alert that we are skipping this workload
+			    WriteLog("[" .. worked+1 .. "/" .. TotalCombos .. "] Skipping Broken Node Combo (Broken Node(s) = " .. table.concat(brokenStones,",") .. "): " .. i .. ", " .. j .. ", " .. k .. ", " .. l);
+			  elseif not OK then
+			    logResult = logResult .. "\n\n---- Last 2 Lines BEFORE Nodes Worked ----\n** " .. lastLineFound2 .. "\n** " .. lastLineFound .. "\n\n---- Last 2 Lines AFTER Nodes Worked ----\n** " .. lastLineParse2 .. "\n** " .. lastLineParse .. "\n";
+			    WriteLog("\n[" .. worked+1 .. "/" .. TotalCombos .. "] Nodes Worked: " .. i .. ", " .. j .. ", " .. k .. ", " .. l .. " - Result: " .. logResult);
+			  else
+			    WriteLog("[" .. worked+1 .. "/" .. TotalCombos .. "] Nodes Worked: " .. i .. ", " .. j .. ", " .. k .. ", " .. l .." - Result: " .. logResult);
+			  end
+			  logResult = "";
 			end
-              else  --if brokenStoneDetected
-                checkBreak();
-                checkAbort();
-              end -- if not brokenStoneDetected
 
                 worked = worked + 1
                 updateGUI(i,j,k,l);
-            	 end
-            end
-        end
     end
 end
 
@@ -1244,7 +1238,9 @@ function findSets()
 		end
 
 		while set do
+
 			count = count + 1;
+
 			if count == 1000 then
 				count = 0;
 				lsPrintln(set_to_string(set) .. " found " .. #sets .. " so far.");
@@ -1360,4 +1356,127 @@ function allMinesHaveTrait(trait_num)
 		end
 	end
 	return true;
+end
+
+
+function progressBar(y)
+  barWidth = 220;
+  barTextX = (barWidth - 22) / 2
+  barX = 10;
+  percent = round(worked / TotalCombos * 100,2) 
+  progress = ( (barWidth-4) / TotalCombos) * worked
+  if progress < barX+6 then
+    progress = barX+6
+  end
+  if math.floor(percent) <= 25 then
+    progressBarColor = 0x669c35FF
+  elseif math.floor(percent) <= 50 then
+    progressBarColor = 0x77bb41FF
+  elseif math.floor(percent) <= 65 then
+    progressBarColor = 0x96d35fFF
+  elseif math.floor(percent) <= 72 then
+    progressBarColor = 0xdced41FF
+  elseif math.floor(percent) <= 79 then
+    progressBarColor = 0xe9ea18FF
+  elseif math.floor(percent) <= 83 then
+    progressBarColor = 0xf8be0cFF
+  elseif math.floor(percent) <= 92 then
+    progressBarColor = 0xff7567FF
+  elseif math.floor(percent) <= 99 then
+    progressBarColor = 0xff301bFF
+  else
+    progressBarColor = 0xe3c6faFF
+  end
+  lsPrint(barTextX, y+3.5, 15, 0.60, 0.60, 0x000000ff, percent .. " %");
+  lsDrawRect(barX, y, barWidth, y+20, 5,  0x3a88feFF); -- blue shadow
+  lsDrawRect(barX+2, y+2, barWidth-2, y+18, 10,  0xf6f6f6FF); -- white bar background
+  lsDrawRect(barX+4, y+4, progress, y+16, 15,  progressBarColor); -- colored progress bar
+end
+
+
+function findBrokenStone()
+  for i=1, #clickList do
+    thisColor = srReadPixel(clickList[i][1], clickList[i][2])
+    if(not compareColorEx(thisColor, clickListColor[i][1], rgbTol, hueTol)) then
+    -- Check duplicates; Make sure entry isn't already in array
+    for a=1, #brokenStones do
+      if brokenStones[a] == i then
+        duplicate = 1;
+      end
+      if not duplicate then table.insert(brokenStones, i) end;
+        duplicate = nil;
+      end -- if(not compare...
+    end -- for a
+  end -- for i
+    if writeLogFile and #brokenStones > 0 then WriteLog("\n**** Found Coal/Gem message! Nodes: " .. table.concat(brokenStones,", ") .. " are no longer present.\n") end;
+end
+
+
+function parseOreNodes()
+  if writeLogFile then WriteLog("\n**** " .. #oreNodes .. "/" .. TotalCombos .. " Combos produced Ore:") end;
+    for a=1, #oreNodes do
+      if writeLogFile then WriteLog("{" .. oreNodes[a][1] .. ", " .. oreNodes[a][2] .. ", " .. oreNodes[a][3] .. "},") end;
+    end
+end
+
+
+function parseOreNodesFour()
+  if writeLogFile then WriteLog("\n**** " .. #oreNodesFour " 4 Stone Combos produced Ore:") end;
+    for a=1, #oreNodesFour do
+      if writeLogFile then WriteLog(oreNodesFour[a][1] .. ", " .. oreNodesFour[a][2] .. ", " .. oreNodesFour[a][3] .. ", " .. oreNodesFour[a][4]) end;
+    end
+end
+
+--------------------- Credits: Ashen for below Functions
+
+function equalset(a, b)
+    if not #a == #b then
+        return false;
+    end
+    for i=1,#a do
+        local found = false;
+        for j=1,#b do
+            if (b[j] == a[i]) then
+                found = true;
+                break;
+            end
+        end
+        if not found then
+            return false;
+        end
+    end
+    return true;
+end
+
+
+function fourtothree(a, b, c, d)
+    return {
+        {a, b, c},
+        {a, b, d},
+        {b, c, d},
+        {a, c, d},
+    };
+end
+
+
+function wasThreeSetValid(s)
+    for i=1, #oreNodes do
+        if equalset(s, oreNodes[i]) then
+            return true;
+        end
+    end
+
+    return false
+end
+
+
+function isFourSetValid(a, b, c, d)
+    threesets = fourtothree(a, b, c, d);
+
+    for i=1, #threesets do
+        if not wasThreeSetValid(threesets[i]) then
+            return false;
+        end
+    end
+    return true;
 end
