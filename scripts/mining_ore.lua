@@ -1,4 +1,4 @@
--- mining_ore.lua v2.4.0 -- by Cegaiel
+-- mining_ore.lua v2.4.1 -- by Cegaiel
 -- Credits to Tallow for his Simon macro, which was used as a template to build on.
 --
 -- Brute force method, you manually click/set every stones' location and it will work every possible 3 node/stone combinations.
@@ -35,7 +35,7 @@
 dofile("common.inc");
 dofile("settings.inc");
 
-info = "Ore Mining v2.4.0 by Cegaiel --\nMacro brute force tries every possible 3 stone combination (and optionally 4 stone, too). Time consuming but it works!\n\nMAIN chat tab MUST be showing and wide enough so that each line doesn't wrap.\n\nChat MUST be minimized but Visible (Options, Chat-Related, \'Minimized chat channels are still visible\' - ON). Options/Interface Options: 'Use Flyaway message for some things' - OFF\n\nOptional: Pin the mine's Take... Ore... menu (\"All Ore\" will appear in pinned window) and it will refresh every round.\n\nWARNING: If you use the Dual Monitor option, uncheck in Interface Options: Right-Click opens a menu as pinned.";
+info = "Ore Mining v2.4.1 by Cegaiel --\nMacro brute force tries every possible 3 stone combination (and optionally 4 stone, too). Time consuming but it works!\n\nMAIN chat tab MUST be showing and wide enough so that each line doesn't wrap.\n\nChat MUST be minimized but Visible (Options, Chat-Related, \'Minimized chat channels are still visible\' - ON). Options/Interface Options: 'Use Flyaway message for some things' - OFF\n\nOptional: Pin the mine's Take... Ore... menu (\"All Ore\" will appear in pinned window) and it will refresh every round.\n\nWARNING: If you use the Dual Monitor option, uncheck in Interface Options: Right-Click opens a menu as pinned.";
 
 
 -- Start don't alter these ...
@@ -60,13 +60,12 @@ noMouseMove = false; -- written to Settings.mining_ore.lua.txt
 muteSoundEffects = false; -- written to Settings.mining_ore.lua.txt
 minPopSleepDelay = 150;  -- The minimum delay time used during findClosePopUp() function
 clickDelay = 125; -- written to Settings.mining_ore.lua.txt
-defaultOrder = true;  -- written to Settings.mining_ore.lua.txt -- Determines to run 4 stone combo first, then 3 (true); or vice versa (false). Only applies when "Work 4 stone combo" is checked.
  -- Useful for debugging. If true, will write log file to mining_ore.txt
 writeLogFile = false;
 
 --These tolerance values might need tweaked
-rgbTol = 150; --50?  Was 150
-hueTol = 75; --10?  Was 75
+rgbTol = 300; --50?  Was 150
+hueTol = 300; --10?  Was 75
 
 -- We normally look for an OK popup box to move on. We also compare last chat Line to current chat Line.
 -- If we gathered the EXACT same amount of Ore from previous round, then this confuses macro and needs timeOut to move on.
@@ -175,13 +174,11 @@ end
 
 
 function fetchTotalCombos3()
-    stoneCombo3 = 0;
     TotalCombos = 0;
     for i=1,#clickList do
         for j=i+1,#clickList do
             for k=j+1,#clickList do
                 TotalCombos = TotalCombos + 1;
-                stoneCombo3 = stoneCombo3 + 1;
             end
         end
     end
@@ -192,36 +189,53 @@ function fetchTotalCombos4()
     local text4 = "";
     local counter = 0;
     oreNodes4 = {};
-    stoneCombo4 = 0;
     TotalCombos = 0;
     for i=1, #clickList do
         for j=i+1,#clickList do
             for k=j+1,#clickList do
             	   for l=k+1,#clickList do
             	   counter = counter + 1;
-            	       if isFourSetValid(i,j,k,l) then -- really i,j,k,l
-                      text4 = text4 .. "\n" .. i .. ", " .. j .. ", " .. k .. ", " .. l;
-                      TotalCombos = TotalCombos + 1;
-                      stoneCombo4 = stoneCombo4 + 1;
-                      oreNodes4[#oreNodes4 + 1] = {i, j, k, l};
-            	       end
-            	   sleepWithStatus(20, "Verifying Four Stone Combos...\n\n(" .. counter .. ")  "  .. i .. ", " .. j .. ", " .. k .. ", " .. l .. "\n\n" .. TotalCombos .. " Found", nil, 0.7, "Parsing");
-            	   lsSleep(10);
+
+            	       if isFourSetValid(i,j,k,l) then
+            	         -- Check if i,j,k,l is already in the brokenStones{array}; if true, then don't add to oreNodes4{array}
+
+            	         for z=1, #brokenStones do
+            	           if brokenStones[z] == i or brokenStones[z] == j or brokenStones[z] == k or brokenStones[z] == l then
+            	           -- Don't add to array, Do Nothing
+            	             if writeLogFile then
+            	               WriteLog("\n" .. i .. ", " .. j .. ", " .. k .. ", " .. l .. " ..  1+ Nodes are in Broken Node List, Excluded from oreNodes4{array} (4 Stone Combo Array)")
+           	             end
+
+            	           else
+            	             text4 = text4 .. "\n" .. i .. ", " .. j .. ", " .. k .. ", " .. l;
+            	             TotalCombos = TotalCombos + 1;
+            	             oreNodes4[#oreNodes4 + 1] = {i, j, k, l};
+            	           end -- if brokenStones[z] ...
+
+            	         end -- for z
+
+                      -- Below, was added above, commented out for now...
+                      --text4 = text4 .. "\n" .. i .. ", " .. j .. ", " .. k .. ", " .. l;
+                      --TotalCombos = TotalCombos + 1;
+                      --oreNodes4[#oreNodes4 + 1] = {i, j, k, l};
+
+
+            	       end -- if isFourSetValid(i,j,k,l)
+            	   sleepWithStatus(5, "Verifying Four Stone Combos...\n\n(" .. counter .. ")  "  .. i .. ", " .. j .. ", " .. k .. ", " .. l .. "\n\n" .. TotalCombos .. " Found", nil, 0.7, "Parsing");
                 end
             end
         end
     end
     if TotalCombos == 0 then
-      text4 = text4 .. "Skipping 4 Stone Combos"
+      text4 = text4 .. "<Skipping 4 Stone Combos>"
     else
-      text4 = text4 .. "\nWorking 4 Stone Combos\n"
+      text4 = text4 .. "\n<Working 4 Stone Combos>\n"
     end
     if writeLogFile then
       WriteLog("\n**** " .. TotalCombos .. "/" .. #oreNodes .. " of the Combos that produced Ore have valid 4 Stone Combos\n" .. text4);
     end
     sleepWithStatus(1250, "Finished Verifying Four Stone Combos...\n\n" .. TotalCombos .. " Found -> " .. text4, nil, 0.7, "Parsing Complete");
 end
-
 
 function getPoints()
     clickList = {};
@@ -313,19 +327,14 @@ function getPoints()
         autoWorkMine = lsCheckBox(15, y, z, 0xffffffff, " Auto 'Work Mine'", autoWorkMine);
         writeSetting("autoWorkMine",autoWorkMine);
         y = y + 25
-
         noMouseMove = readSetting("noMouseMove",noMouseMove);
         noMouseMove = lsCheckBox(15, y, z, 0xffffffff, " Dual Monitor (NoMouseMove) Mode", noMouseMove);
         writeSetting("noMouseMove",noMouseMove);
         y = y + 25
-
-
         writeLogFile = readSetting("writeLogFile",writeLogFile);
         writeLogFile = lsCheckBox(15, y, z, 0xffffffff, " Write Log File", writeLogFile);
         writeSetting("writeLogFile",writeLogFile);
         y = y + 25
-
-
         manualSets = readSetting("manualSets",manualSets);
         manualSets = lsCheckBox(15, y, z, 0xffffffff, " Manually Set Patterns", manualSets);
         writeSetting("manualSets",manualSets);
@@ -417,8 +426,8 @@ function clickSequence()
     oreGatheredLast = 0;
     oreGathered = 0;
     worked = 0;
-    brokenStones = {};
     logResult = "";
+    brokenStones = {};
     oreNodes = {};
     brokenStoneInfo = "";
     startMiningTime = lsGetTimer();
@@ -435,12 +444,17 @@ function clickSequence()
 
     if manualSets then
       setsCombo();
+
     elseif extraStones then
       fetchTotalCombos3();
       threeStoneCombo();
-      fetchTotalCombos4();
-      worked = 0; -- Reset worked back to 0, before doing 4 stone combos
-      fourStoneCombo();
+
+      if #oreNodes > 0 then -- Unlikely, but if none of the 3 stone combos produced ore, then don't bother doing fetchTotalCombos4()
+        fetchTotalCombos4();
+        worked = 0; -- Reset worked back to 0, before doing 4 stone combos
+        fourStoneCombo();
+      end
+
     else
       fetchTotalCombos3();
       threeStoneCombo();
@@ -638,7 +652,7 @@ function chatRead()
    lastLine2 = chatText[#chatText-1][2];
    lastLineParse2 = string.sub(lastLine2,string.find(lastLine2,"m]")+3,string.len(lastLine2));
 
-	if string.sub(lastLineParse, 1, 17) == "You got some coal" then
+	if string.sub(lastLineParse, 1, 17) == "You got some coal" or string.sub(lastLineParse2, 1, 17) == "You got some coal" then
 	  oreFound = true;
 	  oreGathered = string.match(lastLine2, "(%d+) " .. ore);
 	  findBrokenStone() -- Do pixel checks and find which nodes have poofed.
@@ -833,9 +847,9 @@ function threeStoneCombo()
 
 if #brokenStones > 0 then
 	for z=1, #brokenStones do
-	  if z == i or z == j or z == k then
+	  if brokenStones[z] == i or brokenStones[z] == j or brokenStones[z] == k then
 	    skipWork = 1
-	    brokenStoneInfo = "Nodes: " .. table.concat(brokenStones,",") .. " are broken\nSkipping " .. i .. ", " .. j .. ", " .. k;
+	    brokenStoneInfo = "Broken Nodes: " .. table.concat(brokenStones,", ") .. "\nSkipping " .. i .. ", " .. j .. ", " .. k;
 	  else
 	    skipWork = nil
 	  end
@@ -906,7 +920,7 @@ end
 			if writeLogFile then
 			  if skipWork then
 			    lsPlaySound("start.wav");  -- Audible alert that we are skipping this workload
-			    WriteLog("[" .. worked+1 .. "/" .. TotalCombos .. "] Skipping Broken Node Combo (Broken Node(s) = " .. table.concat(brokenStones,",") .. "): " .. i .. ", " .. j .. ", " .. k);
+			    WriteLog("[" .. worked+1 .. "/" .. TotalCombos .. "] Skipping Broken Node Combo (Broken Node(s) = " .. table.concat(brokenStones,", ") .. "): " .. i .. ", " .. j .. ", " .. k);
 			  elseif not OK then
 			    logResult = logResult .. "\n\n---- Last 2 Lines BEFORE Nodes Worked ----\n** " .. lastLineFound2 .. "\n** " .. lastLineFound .. "\n\n---- Last 2 Lines AFTER Nodes Worked ----\n** " .. lastLineParse2 .. "\n** " .. lastLineParse .. "\n";
 			    WriteLog("\n[" .. worked+1 .. "/" .. TotalCombos .. "] Nodes Worked: " .. i .. ", " .. j .. ", " .. k .. " - Result: " .. logResult);
@@ -942,9 +956,9 @@ function fourStoneCombo()
 
 if #brokenStones > 0 then
 	for z=1, #brokenStones do
-	  if z == i or z == j or z == k or z == l then
+	  if brokenStones[z] == i or brokenStones[z] == j or brokenStones[z] == k or brokenStones[z] == l then
 	    skipWork = 1
-	    brokenStoneInfo = "Nodes: " .. table.concat(brokenStones,",") .. " are broken\nSkipping " .. i .. ", " .. j .. ", " .. k .. ", " .. l;
+	    brokenStoneInfo = "Nodes: " .. table.concat(brokenStones,", ") .. " are broken\nSkipping " .. i .. ", " .. j .. ", " .. k .. ", " .. l;
 	  else
 	    skipWork = nil
 	  end
@@ -1032,7 +1046,7 @@ end
 			if writeLogFile then
 			  if skipWork then
 			    lsPlaySound("start.wav");  -- Audible alert that we are skipping this workload
-			    WriteLog("[" .. worked+1 .. "/" .. TotalCombos .. "] Skipping Broken Node Combo (Broken Node(s) = " .. table.concat(brokenStones,",") .. "): " .. i .. ", " .. j .. ", " .. k .. ", " .. l);
+			    WriteLog("[" .. worked+1 .. "/" .. TotalCombos .. "] Skipping Broken Node Combo (Broken Node(s) = " .. table.concat(brokenStones,", ") .. "): " .. i .. ", " .. j .. ", " .. k .. ", " .. l);
 			  elseif not OK then
 			    logResult = logResult .. "\n\n---- Last 2 Lines BEFORE Nodes Worked ----\n** " .. lastLineFound2 .. "\n** " .. lastLineFound .. "\n\n---- Last 2 Lines AFTER Nodes Worked ----\n** " .. lastLineParse2 .. "\n** " .. lastLineParse .. "\n";
 			    WriteLog("\n[" .. worked+1 .. "/" .. TotalCombos .. "] Nodes Worked: " .. i .. ", " .. j .. ", " .. k .. ", " .. l .. " - Result: " .. logResult);
@@ -1360,11 +1374,11 @@ end
 
 
 function progressBar(y)
-  barWidth = 220;
-  barTextX = (barWidth - 22) / 2
-  barX = 10;
-  percent = round(worked / TotalCombos * 100,2) 
-  progress = ( (barWidth-4) / TotalCombos) * worked
+  local barWidth = 220;
+  local barTextX = (barWidth - 22) / 2
+  local barX = 10;
+  local percent = round(worked / TotalCombos * 100,2) 
+  local progress = ( (barWidth-4) / TotalCombos) * worked
   if progress < barX+6 then
     progress = barX+6
   end
@@ -1395,20 +1409,23 @@ end
 
 
 function findBrokenStone()
+  --sleepWithStatus(100, "Searching for Broken Nodes", nil, 0.7);
+  findClosePopUpOld(); -- Double check for any leftover popups that might be covering a node and prevent proper detection
+  brokenStones = {} -- Flush array
   for i=1, #clickList do
     thisColor = srReadPixel(clickList[i][1], clickList[i][2])
-    if(not compareColorEx(thisColor, clickListColor[i][1], rgbTol, hueTol)) then
-    -- Check duplicates; Make sure entry isn't already in array
-    for a=1, #brokenStones do
-      if brokenStones[a] == i then
-        duplicate = 1;
-      end
-      if not duplicate then table.insert(brokenStones, i) end;
-        duplicate = nil;
+      if(not compareColorEx(thisColor, clickListColor[i][1], rgbTol, hueTol)) then
+      table.insert(brokenStones, i);
       end -- if(not compare...
-    end -- for a
   end -- for i
-    if writeLogFile and #brokenStones > 0 then WriteLog("\n**** Found Coal/Gem message! Nodes: " .. table.concat(brokenStones,", ") .. " are no longer present.\n") end;
+
+    if writeLogFile and #brokenStones > 1 then
+      -- Plural
+      WriteLog("\n**** Found Coal/Gem message (within past 2 lines - Recheck pixel check on ALL nodes)!\nNodes: " .. table.concat(brokenStones,", ") .. " are no longer present.\n")
+      -- Singular
+    elseif writeLogFile and #brokenStones == 1 then
+      WriteLog("\n**** Found Coal/Gem message! Node: " .. table.concat(brokenStones,", ") .. " is no longer present.\n")
+    end
 end
 
 
@@ -1427,56 +1444,35 @@ function parseOreNodesFour()
     end
 end
 
+
 --------------------- Credits: Ashen for below Functions
 
-function equalset(a, b)
-    if not #a == #b then
-        return false;
-    end
-    for i=1,#a do
-        local found = false;
-        for j=1,#b do
-            if (b[j] == a[i]) then
-                found = true;
-                break;
-            end
-        end
-        if not found then
-            return false;
-        end
-    end
-    return true;
-end
-
-
-function fourtothree(a, b, c, d)
-    return {
-        {a, b, c},
-        {a, b, d},
-        {b, c, d},
-        {a, c, d},
-    };
-end
-
-
-function wasThreeSetValid(s)
+function wasThreeSetValid(a, b, c)
+    local s = {a, b, c};
     for i=1, #oreNodes do
-        if equalset(s, oreNodes[i]) then
+        if s == oreNodes[i] then
             return true;
         end
     end
-
     return false
 end
 
 
 function isFourSetValid(a, b, c, d)
-    threesets = fourtothree(a, b, c, d);
+    if not wasThreeSetValid(a, b, c) then
+       return false;
+    end
+    if not wasThreeSetValid(a, b, d) then
+       return false;
+    end
+    if not wasThreeSetValid(b, c, d) then
+       return false;
+    end
+    if not wasThreeSetValid(a, c, d) then
 
-    for i=1, #threesets do
-        if not wasThreeSetValid(threesets[i]) then
-            return false;
-        end
+       return false;
     end
     return true;
 end
+
+--------------------- 
