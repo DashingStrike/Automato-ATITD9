@@ -139,12 +139,21 @@ local gpsStep;
 --
 -- fmt -  format of resultant text
 --
--- Returns the date in minutes since epoch (Year 1, Akhet I-1, 12:00AM)
+-- if fmt == "date" then Returns Date (Shemu I-30) - ie getTime("date")
+-- if fmt == "time" then Returns Time (8:52AM) - ie getTime("time")
+-- if fmt == "time2" then Returns Time in special format (8_52AM) - ie getTime("time2")
+-- if fmt == "datetime2" then Returns date/time in special format (Akhet_I-1_12_00AM) - ie getTime("datetime2")
+-- if fmt == nil, then Returns the date in minutes since epoch (123456) - ie getTime()
+-- if fmt ~= nil then Returns the date in minutes since epoch (Year 1, Akhet I-1, 12:00AM) - ie getTime(1)
+--
 -- Returns nil if the date cannot be obtained
 ---------------------------------------------------------------
 function getTime(fmt)
    local str = nil;
-   local newstr = nil;
+   local datetime = nil;
+   local date = nil;
+   local time = nil;
+   local datetime2 = nil;
    local t = findAllText("Year", findClockRegion());
 
    if #t == 0 then
@@ -169,7 +178,11 @@ function getTime(fmt)
       local year, season, month, day, hour, minute, ampm = string.match(str, "Year (%d+) (%a+) (%a+)-(%d+) (%d+):(%d+)(%a+)");
       if year and season and month and day and hour and minute then
          month = string.gsub(month, "l", "I"); -- Change small "L" (misinterpreted) back to capital I
-         newstr = "Year " .. year .. ", " .. season .. " " .. month .. "-" .. day .. ", " .. hour .. ":" .. minute .. ampm
+         datetime = "Year " .. year .. ", " .. season .. " " .. month .. "-" .. day .. ", " .. hour .. ":" .. minute .. ampm
+         date = season .. " " .. month .. "-" .. day
+         time = hour .. ":" .. minute .. ampm
+         time2 = hour .. "_" .. minute .. ampm
+         datetime2 = season .. "_" .. month .. "-" .. day .. "_" .. hour .. "_" .. minute .. ampm
          -- perform data validation
          local seasonIndex = {};
          seasonIndex["Akhet"] = 1;
@@ -195,8 +208,16 @@ function getTime(fmt)
             ampm = nil;
          end
          if year and season and month and day and hour and minute and ampm then
-            if fmt ~= nil then
-               return newstr;
+            if fmt == "date" then
+               return date;
+            elseif fmt == "time" then
+               return time;
+            elseif fmt == "time2" then
+               return time2;
+            elseif fmt == "datetime2" then
+               return datetime2;
+            elseif fmt ~= nil then
+               return datetime;
             end
             if hour == 12 then
                hour = 0;
