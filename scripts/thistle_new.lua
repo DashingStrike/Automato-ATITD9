@@ -7,14 +7,19 @@ per_click_delay = 0;
 expected_gardens = 2; -- You no longer need to alter this setting. Instead you choose value in macro
 --local last_sun = 0; -- You no longer need to alter this setting. You can set when macro starts.
 --instructions = {}; -- You no longer need to copy your recipe here. You will paste this while macro runs (Edit Recipe).
-
+grid_mode = false; -- Expects windows to be pinned in a Grid
+screenshot_test_mode = false; -- Take a screenshot of game at Ticks 9,19,29,39. Useful when Testing Voids. Saves .png's to c:\games\Automato folder
 window_locs = {};
+button_names = {"ThistleNit.png", "ThistlePot.png", "ThistleH2O.png", "ThistleOxy.png", "ThistleSun.png"};
+
+
 
 function setWaitSpot(x0, y0)
 	setWaitSpot_x = x0;
 	setWaitSpot_y = y0;
 	setWaitSpot_px = srReadPixel(x0, y0);
 end
+
 
 function waitForChange()
 	local c=0;
@@ -30,17 +35,20 @@ end
 
 
 
-function clickAll(image_name, up)
+function clickAll(image_name, message, up)
+	if not message then
+		message = "";
+	end
 	-- Find buttons and click them!
 	srReadScreen();
 	xyWindowSize = srGetWindowSize();
 	local buttons = findAllImages(image_name);
 	
 	if #buttons == 0 then
-		statusScreen("Could not find specified buttons...");
+		statusScreen("Could not find specified buttons...", nil, nil, 0.7);
 		lsSleep(1500);
 	else
-		statusScreen("Clicking " .. #buttons .. "button(s)...");
+		statusScreen(message .. " Clicking " .. #buttons .. " button(s)...", nil, nil, 0.7);
 		if up then
 			for i=#buttons, 1, -1  do
 				srClickMouseNoMove(buttons[i][0]+5, buttons[i][1]+3);
@@ -52,7 +60,6 @@ function clickAll(image_name, up)
 				lsSleep(per_click_delay);
 			end
 		end
-		statusScreen("Done clicking (" .. #buttons .. " clicks).");
 		lsSleep(100);
 	end
 end
@@ -82,7 +89,7 @@ function clickAllComplex(image_names, message)
 		dpos[i][0] = pos[0] - window_locs[#window_locs][0];
 		dpos[i][1] = pos[1] - window_locs[#window_locs][1];
 	end
-	statusScreen(message .. " Clicking " .. #window_locs .. " button(s)...");
+	statusScreen(message .. " Clicking " .. #window_locs .. " button(s)...", nil, nil, 0.7);
 	local first = 1;
 	for i=#window_locs, 1, -1 do
 		if not first then
@@ -98,7 +105,7 @@ function clickAllComplex(image_names, message)
 		first = nil;
 	end
 	lsSleep(100);
-	statusScreen(message .. " Refocusing...");
+	statusScreen(message .. " Refocusing...", nil, nil, 0.7);
 	-- refocus
 	for i=2, #window_locs do
 		setWaitSpot(window_locs[i][0], window_locs[i][1]);
@@ -108,8 +115,6 @@ function clickAllComplex(image_names, message)
 	end
 	lsSleep(100);
 end
-
-button_names = {"ThistleNit.png", "ThistlePot.png", "ThistleH2O.png", "ThistleOxy.png", "ThistleSun.png"};
 
 local z = 2;
 
@@ -219,7 +224,7 @@ function waitForMonChange(message)
 		lsDoFrame();
 		lsSleep(100);
 	end
-	statusScreen("Changed, waiting a moment for other beds to catch up...");
+	statusScreen("Changed, waiting a moment for other beds to catch up...", nil, nil, 0.7);
 	if not first_loop then -- Don't wait, we might be behind already!
 		lsSleep(1500); -- Wait a moment after image changes before doing the next tick
 	end
@@ -241,7 +246,7 @@ end
 
 
 function doit()
-	askForWindow("Pin any number of thistle gardens. Must be CASCADED.\n\nUse Window Manager button and choose \'Form Cascade\' to arrange the windows correctly. Check \'Water Gap\' so that water icon isn\'t covered. Optionally, you can pin a rain barrel (water gap not required) to refill your jugs. Water is refilled after each tick, so you won\'t need many jugs (#gardens x 2 should be enough).\n\nCan handle up to about 32 gardens by using the cascade method (shuffles windows back and forth).");
+	askForWindow("Pin any number of thistle gardens. Must be CASCADED (can be GRID if you use Grid Mode checkbox).\n\nUse Window Manager button and choose \'Form Cascade\' (or \'Form Grid\' if using Grid Mode) to arrange the windows correctly. Check \'Water Gap\' so that water icon isn\'t covered. Optionally, you can pin a rain barrel (water gap not required) to refill your jugs. Water is refilled after each tick, so you won\'t need many jugs (#gardens x 2 should be enough).\n\nCan handle up to about 32 gardens by using the cascade method (shuffles windows back and forth).");
 
   while 1 do
 	thistleConfig();
@@ -256,7 +261,12 @@ function doit()
 	if not ( #instructions == 41*5) then
 		error("Invalid instruction length: " .. loadedFile .. "\nDid you add a valid recipe to the file?");
 	end
-      main();
+
+	if grid_mode then
+	  mainCustomMode()
+	else
+        main();
+	end
   end
 end
 
@@ -362,6 +372,89 @@ function main()
 end
 
 
+function mainCustomMode()
+	finish_up = nil;
+	abort = nil;
+	srReadScreen();	
+	window_locs = findAllImages("ThisIs.png");
+	rainBarrel = findText("Rain Barrel");
+      startTime = lsGetTimer();
+
+	-- Pinning a rain barrel will cause an error to expected_gardens (since it looks for 'This is'). Add 1 to expected_gardens if Rain Barrel menu found.
+	if rainBarrel then
+	  expected_gardens = expected_gardens + 1;
+	end
+
+	if not (#window_locs == expected_gardens) then
+		error ("Did not find expected number of thistle gardens (found " .. #window_locs .. " expected " ..  expected_gardens .. ")");
+	end
+
+
+	-- test();
+	
+	for loops=1, num_loops do
+
+		if finish_up then
+		  break;
+		end
+
+
+		for i=0, 39 do
+		drawWater(1);
+
+			if (i == 0) then
+				clickAll("ThisIs.png", 1); -- Refresh all windows
+				clickAll("thistle/ThistlePlantACrop.png", 1);
+			end
+
+			for j=0, 3 do
+				for k=1, instructions[i*5 + j + 1] do
+					clickAll("thistle/" .. button_names[j+1], 1);
+				end
+			end
+
+			if not (instructions[i*5 + 5] == last_sun) then
+				last_sun = instructions[i*5 + 5];
+				clickAll("thistle/" .. button_names[5], 1);
+			end
+
+			if (screenshot_test_mode and grid_mode) and (i == 9 or i == 19 or i == 29 or i == 39) then
+			  screenshot(i)
+			end
+
+			waitForMonChange("(" .. loops .. "/" .. num_loops .. ") Tick " .. i .. "/40 done");
+			if (i == 0) then -- first one immediately finds a change
+				waitForMonChange("(" .. loops .. "/" .. num_loops .. ") Tick " .. i .. "/40 done");
+			end
+
+			if abort then
+				clickAll("Thistle/ThistleAbort.png", ("Aborting Crops ..."));
+				closeAbortWindows();
+				break;
+			end			
+		end
+
+		if abort then
+		  clickAll("ThisIs.png");  -- Refresh windows after abort, so that 'Plant a Crop' appears
+		else
+		lsSleep(3000);
+		  clickAll("Thistle/Harvest.png");
+		end
+		lsSleep(500);
+		
+		drawWater(1);
+		lsSleep(200);
+		
+		if abort then
+			break;
+		end
+
+	end
+	lsPlaySound("Complete.wav");
+	lsMessageBox("Elapsed Time:", getElapsedTime(startTime), 1)
+end
+
+
 function config()
   local is_done = false;
   local count = 1;
@@ -376,7 +469,34 @@ function config()
     dropdown_cur_value_canopy = lsDropdown("thisCanopy", 15, y, 0, 320, dropdown_cur_value_canopy, dropdown_values_canopy);
     writeSetting("dropdown_cur_value_canopy",dropdown_cur_value_canopy);
     lsSetCamera(0,0,lsScreenX*1.0,lsScreenY*1.0);
-    y = y + 30;
+    y = y + 20;
+
+    if grid_mode then
+      grid_color = 0xff8080ff
+    else
+      grid_color = 0xFFFFFFff
+    end
+
+    if screenshot_test_mode then
+      screenshot_test_mode_color = 0xb1dd8cff
+    else
+      screenshot_test_mode_color = 0xFFFFFFff
+    end
+
+    grid_mode = readSetting("grid_mode",grid_mode);
+    grid_mode = CheckBox(15, y, z+10, grid_color, " Windows Arranged in Grid  (thistle_custom)", grid_mode, 0.65, 0.65);
+    writeSetting("grid_mode",grid_mode);
+
+    y = y + 20;
+
+    if grid_mode then
+      screenshot_test_mode = readSetting("screenshot_test_mode",screenshot_test_mode);
+      screenshot_test_mode = CheckBox(15, y, z+10, screenshot_test_mode_color, " Test Voids - Screenshot @ Ticks 9,19,29,39", screenshot_test_mode, 0.65, 0.65);
+      writeSetting("screenshot_test_mode",screenshot_test_mode);
+    end
+
+    y = y + 20;
+
     lsPrint(15, y+5, 0, 0.8, 0.8, 0xffffffff, "How many passes?");
     is_done, num_loops = lsEditBox("num_loops", 175, y+5, 0, 50, 0, 0.9, 0.9,
                                      0x000000ff, 1);
@@ -386,7 +506,7 @@ function config()
          lsPrint(15, y+22, 10, 0.7, 0.7, 0xFF2020ff, "MUST BE A NUMBER");
          num_loops = 1;
        end
-    y = y + 35;
+    y = y + 25;
     lsPrint(15, y+5, 0, 0.8, 0.8, 0xffffffff, "How many gardens?");
     expected_gardens = readSetting("expected_gardens",expected_gardens);
     is_done, expected_gardens = lsEditBox("expected_gardens", 175, y+5, 0, 50, 0, 0.9, 0.9,
@@ -399,7 +519,7 @@ function config()
        end
     writeSetting("expected_gardens",expected_gardens);
 
-    lsPrintWrapped(10, 153, z, lsScreenX - 20, 0.65, 0.65, 0xffff80FF, "Real Time Required:      " .. convertTime(436000*num_loops) .. "\nEgypt Time Required:    " .. convertTime(436000 / 1.068 * 3 * num_loops) .. "\nThistle Yield Expected:  " .. (5*num_loops*expected_gardens));
+    lsPrintWrapped(10, 160, z, lsScreenX - 20, 0.65, 0.65, 0xffff80FF, "Real Time Required:      " .. convertTime(436000*num_loops) .. "\nEgypt Time Required:    " .. convertTime(436000 / 1.068 * 3 * num_loops) .. "\nThistle Yield Expected:  " .. (5*num_loops*expected_gardens));
     lsPrintWrapped(10, 210, z, lsScreenX - 20, 0.65, 0.65, 0x40ffffff, "Current Farm: " .. loadedFarm .. "\nRecipe File: " .. convertFarmName2FileName(loadedFarm) ..
     "\n\nWe are ready to start making thistles, with this farm\'s recipe! Click Start button to proceed ..."); 
 
@@ -481,7 +601,6 @@ function thistleConfig()
 
     lsPrintWrapped(15, 95, z, lsScreenX - 20, 0.65, 0.65, 0x40ffffff, "Silk Farm " .. dropdown_cur_value_farm .. "/" .. #farms .. " selected"); 
 
-
     if checkRecipeValid(farms[dropdown_cur_value_farm]) then
 	foundRecipe = false;
     lsPrintWrapped(15, 110, z, lsScreenX - 20, 0.65, 0.65, 0xff4040ff, "Invalid Recipe - You need to Edit"); 
@@ -533,7 +652,7 @@ function closeAbortWindows()
       sleepWithStatus(50,"Closing Popup windows ...")
 	checkBreak();
 	srReadScreen();
-	local pos = srFindImage("yes3.png");
+	local pos = srFindImage("yes.png");
 		if (pos) then
 		  safeClick(pos[0] + 1, pos[1] + 1);
                lsSleep(10);
@@ -548,6 +667,7 @@ function closeAbortWindows()
 	end
   end
 end
+
 
 function miscButtons()
   while 1 do
@@ -566,20 +686,42 @@ function miscButtons()
 
   end
 
-  if lsButtonText(lsScreenX/2 - 60, 80, z, 140, 0xFFFFFFff, "Abort Crops") then
+  lsPrint(10, 80, z, 0.7, 0.7, 0xFFFFFFff, "Use these buttons if pinned in CASCADE:");
+
+  if lsButtonText(lsScreenX/2 - 60, 100, z, 140, 0xFFFFFFff, "Abort Crops") then
     if promptOkay("This is only used if you currently have crops planted and wish to abort them (if something went wrong).\n\nYou don\'t get thistles back when you abort!\n\nAre you sure want to Abort Crops?", 0xff8080ff, 0.7, true) then
       closeAbortWindows(); 
 	clickAllComplex({"Thistle/ThistleAbort.png"}, "Aborting");
 	closeAbortWindows();
-	clickAllComplex({"Thistle/Harvest.png"}, "Refreshing");  -- Refresh windows after abort, so that 'Plant a Crop' appears
+	clickAllComplex({"ThisIs.png"}, "Refreshing");  -- Refresh windows after abort, so that 'Plant a Crop' appears
     end	
   end
 
-  if lsButtonText(lsScreenX/2 - 60, 110, z, 140, 0xFFFFFFff, "Harvest Crops") then
+  if lsButtonText(lsScreenX/2 - 60, 130, z, 140, 0xFFFFFFff, "Harvest Crops") then
     if promptOkay("This is only used if you currently have crops planted and are ready for harvest. Likely something went wrong in macro.\n\nAre you sure you want to Harvest Crops?", 0xff8080ff, 0.7, true) then
       closeAbortWindows();
       clickAllComplex({"Thistle/Harvest.png"}, "Harvesting");
       clickAllComplex({"ThisIs.png"}, "Refreshing");  -- Refresh windows after abort, so that 'Plant a Crop' appears
+    end	
+  end
+
+  lsPrint(10, 180, z, 0.7, 0.7, 0xFFFFFFff, "Use these buttons if pinned in GRID:");
+
+
+  if lsButtonText(lsScreenX/2 - 60, 200, z, 140, 0xFFFFFFff, "Abort Crops") then
+    if promptOkay("This is only used if you currently have crops planted and wish to abort them (if something went wrong).\n\nYou don\'t get thistles back when you abort!\n\nAre you sure want to Abort Crops?", 0xff8080ff, 0.7, true) then
+      closeAbortWindows(); 
+	clickAll("Thistle/ThistleAbort.png", "Aborting");
+	closeAbortWindows();
+	clickAll("ThisIs.png", "Refreshing");  -- Refresh windows after abort, so that 'Plant a Crop' appears
+    end	
+  end
+
+  if lsButtonText(lsScreenX/2 - 60, 230, z, 140, 0xFFFFFFff, "Harvest Crops") then
+    if promptOkay("This is only used if you currently have crops planted and are ready for harvest. Likely something went wrong in macro.\n\nAre you sure you want to Harvest Crops?", 0xff8080ff, 0.7, true) then
+      closeAbortWindows();
+      clickAll("Thistle/Harvest.png", "Harvesting");
+      clickAll("ThisIs.png", "Refreshing");  -- Refresh windows after abort, so that 'Plant a Crop' appears
     end	
   end
 
@@ -795,6 +937,20 @@ function fetchVoidsWarning()
   lsDoFrame();
   lsSleep(10);
   end
+end
+
+function screenshot(tick)
+local dateTime;
+local filename;
+  srReadScreen();
+  if getTime() then
+    dateTime = getTime("datetime2")
+  else
+    dateTime = lsGetTimer()
+  end
+  filename = "thistle_new_tick" .. tick .. "_" .. dateTime .. ".png"
+  srSaveLastReadScreen(filename)
+  sleepWithStatus(1000, "Screenshot Saved:\n\n" .. filename, nil, 0.7)
 end
 
 -------------------------------------------------------------------------------
