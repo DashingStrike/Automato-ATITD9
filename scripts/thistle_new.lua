@@ -397,7 +397,7 @@ function mainCustomMode()
 	end
 
 	-- Check to see if we pinned windows with Form Cascade, because we are in Grid Mode.
-	if not (#window_locs == plant_buttons_found) then
+	if not (#window_locs == #plant_buttons_found) then
 		error ("Are your windows Cascaded? Because you are in Grid Mode! Uncheck the 'Windows Arranged in Grid' checkbox or Pin your windows in a Grid.");
 	end
 
