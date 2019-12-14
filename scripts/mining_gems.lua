@@ -410,6 +410,7 @@ end
 
 function workMine()
 	sleepWithStatus(2000, "Waiting for mine to settle ...", nil, 0.7, "Please Wait");
+	findClosePopUp(1);
 	workMineButtonLoc = getMousePos();
 	workMineButtonLocSet = true;
     if noMouseMove then
@@ -435,7 +436,14 @@ end
 function TakeGemWindowRefresh()
  srReadScreen();
  ---- New Feature, Refresh Gem Take menu
- -- First check to see if All Gems (From mine's Take menu) is pinned up, if so refresh it.
+-- First, check to see if we have an empty window (you previously Took All Gems); Refresh
+  findEmptyWindow = srFindImage("WindowEmpty.png")
+	if findEmptyWindow then
+	  safeClick(findEmptyWindow[0]+10,findEmptyWindow[1]+10);
+	  lsSleep(100);
+	  srReadScreen();
+	end
+ -- Next check to see if All Gems (From mine's Take menu) is pinned up, if so refresh it.
   findAllGems = findText("All Gems");
 	if findAllGems then
 		if not autoWorkMine then
@@ -443,7 +451,7 @@ function TakeGemWindowRefresh()
 		end
 	 safeClick(findAllGems[0],findAllGems[1]);
 	end
---Now check to see if there is a Huge Gem and give a special alert.
+-- Now check to see if there is a Huge Gem and give a special alert.
 	 lsSleep(500);
  srReadScreen();
  findHugeGems = findText("Huge");
