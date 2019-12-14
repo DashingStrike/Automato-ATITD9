@@ -276,6 +276,7 @@ function main()
 	abort = nil;
 	srReadScreen();	
 	window_locs = findAllImages("ThisIs.png");
+	plant_buttons_found = findAllImages("thistle/ThistlePlantACrop.png");
 	rainBarrel = findText("Rain Barrel");
       startTime = lsGetTimer();
 
@@ -288,6 +289,11 @@ function main()
 		error ("Did not find expected number of thistle gardens (found " .. #window_locs .. " expected " ..  expected_gardens .. ")");
 	end
 	
+	-- Check to see if we pinned windows with Form Grid, because we are in Cascade Mode.
+	if #plant_buttons_found > 1 then
+		error ("Are your windows in a Grid? Because you are in Cascade Mode! Check the 'Windows Arranged in Grid' checkbox or Pin your windows in a Cascade.");
+	end
+
 --	wl2 = {};
 --	wl2[1] = window_locs[31];
 --	wl2[2] = window_locs[32];
@@ -377,6 +383,7 @@ function mainCustomMode()
 	abort = nil;
 	srReadScreen();	
 	window_locs = findAllImages("ThisIs.png");
+	plant_buttons_found = findAllImages("thistle/ThistlePlantACrop.png");
 	rainBarrel = findText("Rain Barrel");
       startTime = lsGetTimer();
 
@@ -387,6 +394,11 @@ function mainCustomMode()
 
 	if not (#window_locs == expected_gardens) then
 		error ("Did not find expected number of thistle gardens (found " .. #window_locs .. " expected " ..  expected_gardens .. ")");
+	end
+
+	-- Check to see if we pinned windows with Form Cascade, because we are in Grid Mode.
+	if not (#window_locs == plant_buttons_found) then
+		error ("Are your windows Cascaded? Because you are in Grid Mode! Uncheck the 'Windows Arranged in Grid' checkbox or Pin your windows in a Grid.");
 	end
 
 
