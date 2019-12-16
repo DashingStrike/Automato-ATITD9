@@ -817,12 +817,12 @@ function clickSequence()
 
   findClosePopUp();
   end
+  lsPlaySound("beepping.wav");
 	if autoWorkMine then
 	  workMine();
 	elseif workMineButtonLocSet then
           srSetMousePos(workMineButtonLoc[0], workMineButtonLoc[1]);
 	end
-
   TakeGemWindowRefresh();
   reset();
 end
