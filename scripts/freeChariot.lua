@@ -26,7 +26,7 @@ function doit()
 	  break;
 	end
 
-	sleepWithStatus(150, "Traveling to " .. chariot .. "\n\n" .. message .. "\n\nElapsed Time: " .. getElapsedTime(startTime), nil, 0.7, "Monitoring / Refreshing Chariot")
+	sleepWithStatus(999, "Traveling to " .. chariot .. "\n\n" .. message .. "\n\nElapsed Time: " .. getElapsedTime(startTime), nil, 0.7, "Monitoring / Refreshing Chariot")
 
   end
 lsPlaySound("complete.wav")
