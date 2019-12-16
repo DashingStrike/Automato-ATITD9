@@ -5,7 +5,8 @@
 --
 -- Credits to Tallow for his Simon macro, which was used as a template to build on.
 -- Additional credits to Tallow for his assistance with stream lining code (embedded arrays and more efficient looping in function clickSequence() - v1.2)
--- Thanks to Sabahl for the new 6 color (1 Pair) array, which is alternative method that breaks 6 nodes simultaneously. Supposedly better chance at a Huge Gem, when breaking more stones at same time.
+-- Thanks to Sabahl for the new 6 color (1 Pair) array, which is alternative method that breaks 6 nodes simultaneously. Should be better chance at a Huge Gem, when breaking more stones at same time.
+-- Thanks to Tehm for Small Gem optimization (v2.0.8)
 
 -- Version has jumped from 1.3 to 2.0.  2.0 now reads main chat and no longer asks you to enter Node Delay. It should be able to run very fast and auto-adjust to lag.
 -- It will pause after clicking each sequence until one of 3 things happens
@@ -19,20 +20,27 @@
 -- 2.0.1 attempts to address this extra message which might result in unintended behavior. Sometimes when parsing last chat line, it catches the 'Local support boosted' message, causing it to break look prematurely.
 -- Also reduced the 6s timer down to 5s (something went wrong or couldn't detect a new message (likely two messages back to back), break loop and continue).
 -- 2.0.7 -- Add Progress bar, increase FPS on non clicking screens.
+-- 2.0.8 -- Small Gem Optimization by Tehm
+-- 2.0.8 Notes: Re-ordered the activations in the mining-gems macro so it does the bigger combos first (except when all different) in order to boost smaller yields.
+-- 1000 small quartz for a Barrel Grinder when you're getting equal quantities for Mediums and Smalls was not efficient for my goal there.
+-- Keep in mind this would reduce your Huges significantly, and most likely Larges as well.  But if Smalls are the goal, this will help.
+-- Added checkbox Optimize Small Gems for this feature
+
 
 
 dofile("common.inc");
 dofile("settings.inc");
 
 
-askText = "Sand Mining v2.0.7 by Cegaiel --\n\nMake sure chat is MINIMIZED and Main chat tab is visible!\n\nPress Shift over ATITD window.\n\nOptional: Pin the mine's Take... Gems... menu (\"All Gems\" will appear in pinned window).\n\nThis optionally pinned window will be refreshed every time the mine is worked. Also, if Huge Gem appears in any window, it will alert you with an applause sound.";
+askText = "Sand/Gem Mining v2.0.8 by Cegaiel\n\nAdditional Author Credits in Comments!\n\nMake sure chat is MINIMIZED and Main chat tab is visible!\n\nPress Shift over ATITD window to start.\n\nOptional: Pin the mine's Take... Gems... menu (\"All Gems\" will appear in pinned window).\n\nThis optionally pinned window will be refreshed every time the mine is worked.\n\nAlso, if Huge Gem appears in this window, it will alert you with an applause sound.";
 
 bonusRegion = false;
 noMouseMove = false;
 minPopSleepDelay = 150;  -- The minimum delay time used during findClosePopUp() function
 clickDelay = 150;
 muteSoundEffects = true;
-autoWorkMine = false;
+autoWorkMine = true;
+smallGemMode = false;
 colorBlind = false;
 dropdown_values = {"Shift Key", "Ctrl Key", "Alt Key", "Mouse Wheel Click"};
 dropdown_cur_value = 1;
@@ -196,6 +204,147 @@ allSets = {
 
 };
 
+allSetsSmall = {
+
+{  --6 color (1 Pair)
+{2,3,4,5,6,7},
+{2,4,5,6},
+{1,5,6,7},
+{1,4,6,7},
+{1,4,5,7},
+{1,3,4},
+{1,3,5},
+{1,3,6},
+{1,3,7},
+{2,3,4},
+{2,4,5},
+{2,5,6},
+{2,6,7},
+{2,3,7}
+},
+
+{  --5 color (2 Pair)
+{2,4,5,6,7},
+{1,3,5,6,7},
+{5,6,7},
+{5,1,3},
+{5,1,4},
+{5,2,3},
+{5,2,4},
+{6,1,3},
+{6,1,4},
+{6,2,3},
+{6,2,4},
+{7,1,3},
+{7,1,4},
+{7,2,3},
+{7,2,4}
+},
+
+{  --4 color (3 Pair)
+{2,4,6,7},
+{2,4,5,7},
+{2,3,6,7},
+{2,3,5,7},
+{1,4,6,7},
+{1,4,5,7},
+{1,3,6,7},
+{1,3,5},
+{1,3,6},
+{1,4,5},
+{1,4,6},
+{2,3,5},
+{2,3,6},
+{2,4,5},
+},
+
+{  --5 color (Triple)
+{3,4,5,6,7},
+{1,4,5},
+{1,4,6},
+{1,4,7},
+{1,5,6},
+{1,5,7},
+{1,6,7},
+{2,4,5},
+{2,4,6},
+{2,4,7},
+{2,5,6},
+{2,5,7},
+{2,6,7},
+{1,2,3}
+},
+
+{  --4 color (Triple + Pair)
+{1,4,6,7},
+{1,2,3},
+{1,4,6},
+{1,4,7},
+{1,5,6},
+{1,5,7},
+{1,6,7},
+{2,4,6},
+{2,4,7},
+{3,4,6},
+{3,4,7},
+{2,6,7}
+},
+
+{  --4 color (Quadruple)
+{4,5,6,7},
+{1,2,3,4},
+{1,5,6},
+{1,5,7},
+{1,6,7},
+{2,5,6},
+{2,5,7},
+{2,6,7},
+{3,5,6},
+{3,5,7},
+{3,6,7},
+{1,2,3},
+{1,2,4},
+{1,3,4},
+{2,3,4}
+},
+
+{  --3 color (Quad + Pair)
+{1,5,7},
+{1,6,7},
+{2,5,7},
+{2,6,7},
+{3,5,7},
+{3,6,7},
+{4,5,7}
+},
+
+{  --3 color (Quintuple)
+{1,2,3,4,5},
+{1,2,3},
+{1,2,4},
+{1,2,5},
+{1,3,4},
+{1,3,5},
+{1,4,5},
+{2,3,4},
+{2,3,5},
+{2,4,5},
+{3,4,5}
+},
+
+{  -- 7 color (All different)
+{1,2,3,4,5,6},
+{1,2,3,4,5,7},
+{1,2,3,4,6,7},
+{1,2,3,5,6,7},
+{1,2,4,5,6,7},
+{1,3,4,5,6,7},
+{2,3,4,5,6,7},
+{1,2,3,4,5,6,7}
+}
+};
+
+
 function doit()
   askForWindow(askText);
   promptDelays();
@@ -335,9 +484,24 @@ function getPoints()
     colorBlind = lsCheckBox(15, y, z, 0xffffffff, " 'Color Blind' Mode", colorBlind);
     writeSetting("colorBlind",colorBlind);
     y = y + 25;
+    noMouseMove = readSetting("noMouseMove",noMouseMove);
     noMouseMove = lsCheckBox(15, y, z, 0xffffffff, " Dual Monitor (NoMouseMove) Mode", noMouseMove);
+    writeSetting("noMouseMove",noMouseMove);
+    y = y + 25;
+    if smallGemMode then
+      smallGemModeColor = 0xff8080ff
+    else
+      smallGemModeColor = 0xffffffff
+    end
+    smallGemMode = readSetting("smallGemMode",smallGemMode);
+    smallGemMode = lsCheckBox(15, y, z, smallGemModeColor, " Small Gem Mode", smallGemMode);
+    writeSetting("smallGemMode",smallGemMode);
     lsSetCamera(0,0,lsScreenX*1.0,lsScreenY*1.0);
-    y = y - 20
+    y = y - 50
+    lsPrint(5, y, z, 0.6, 0.6, 0xffa9abff, "Small Gem Mode will try to get more Small Gems,");
+    y = y + 15;
+    lsPrint(5, y, z, 0.6, 0.6, 0xffa9abff, "in exchange for less Huge and Large Gems.");
+    y = y + 25;
     lsPrint(5, y, z, 0.6, 0.6, 0xf0f0f0ff, "Hover and " .. key .. " each node, in this order:");
     y = y + 15;
     lsPrint(5, y, z, 0.5, 0.5, 0xf0f0f0ff, "Quintuples (5 same color), Quadruples (4 same color)");
@@ -372,7 +536,10 @@ function getPoints()
 
   if #clickList == 0 then
     if lsButtonText(10, lsScreenY - 30, z, 110, 0xffff80ff, "Work Mine") then
-      workMine();
+      while lsMouseIsDown() do
+        sleepWithStatus(16, "Release Mouse !", nil, 0.7, "Preparing to Work Mine");
+      end
+      workMine(1);
 	srSetMousePos(mineX, mineY);
     end
   end
@@ -408,8 +575,10 @@ function checkAbort()
   end
 end
 
-function workMine()
+function workMine(skipSettle)
+    if not skipSettle then
 	sleepWithStatus(2000, "Waiting for mine to settle ...", nil, 0.7, "Please Wait");
+    end
 	findClosePopUp(1);
 	workMineButtonLoc = getMousePos();
 	workMineButtonLocSet = true;
@@ -565,7 +734,11 @@ function clickSequence()
 
   local startMiningTime = lsGetTimer();
   worked = 1;
-  sets = allSets[dropdown_pattern_cur_value];
+  if smallGemMode then
+    sets = allSetsSmall[dropdown_pattern_cur_value];
+  else
+    sets = allSets[dropdown_pattern_cur_value];
+  end
   local pattern = "Unknown";
 
    for k, v in pairs(gui) do
@@ -674,13 +847,13 @@ function promptDelays()
     clickDelay = readSetting("clickDelay",clickDelay);
     is_done, clickDelay = lsEditBox("delay", 155, y, 0, 50, 30, 1.0, 1.0,
                                      0x000000ff, clickDelay);
-    writeSetting("clickDelay",clickDelay);
-     clickDelay = tonumber(clickDelay);
+    clickDelay = tonumber(clickDelay);
        if not clickDelay then
          is_done = false;
          lsPrint(10, y+22, 10, 0.7, 0.7, 0xFF2020ff, "MUST BE A NUMBER");
          clickDelay = 150;
        end
+    writeSetting("clickDelay",clickDelay);
 	y = y + 50;
       lsPrint(5, y, 0, 0.6, 0.6, 0xffffffff, "Click Delay: Delay between most actions.");
 	y = y + 16;
