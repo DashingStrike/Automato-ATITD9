@@ -449,7 +449,7 @@ function clickSequence()
       fetchTotalCombos3();
       threeStoneCombo();
 
-      if #oreNodes > 0 then -- Unlikely, but if none of the 3 stone combos produced ore, then don't bother doing fetchTotalCombos4()
+      if #oreNodes >= 4 then -- Only try 4-stone combos if there were at least four 3-stone combos, otherwise there aren't any possible
         fetchTotalCombos4();
         worked = 0; -- Reset worked back to 0, before doing 4 stone combos
         fourStoneCombo();
@@ -1447,10 +1447,30 @@ end
 
 --------------------- Credits: Ashen for below Functions
 
+function equalset(a, b)
+    if not #a == #b then
+        return false;
+    end
+    for i=1,#a do
+        local found = false;
+        for j=1,#b do
+            if (b[j] == a[i]) then
+                found = true;
+                break;
+            end
+        end
+        if not found then
+            return false;
+        end
+    end
+    return true;
+end
+
+
 function wasThreeSetValid(a, b, c)
     local s = {a, b, c};
     for i=1, #oreNodes do
-        if s == oreNodes[i] then
+        if equalset(s, oreNodes[i]) then
             return true;
         end
     end
