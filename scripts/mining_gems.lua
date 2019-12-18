@@ -1,4 +1,4 @@
--- mining_gems.lua v2.0.7 -- by Cegaiel
+-- mining_gems.lua v2.0.9 -- by Cegaiel
 --
 -- Works the sand mine, but requires a little thought and input from you ;)
 -- You must click on all Quintuple colors FIRST, all Quadruple colors NEXT, all Triple colors NEXT, all Paired colors NEXT, then ALL Single colored stones LAST.
@@ -32,13 +32,13 @@ dofile("common.inc");
 dofile("settings.inc");
 
 
-askText = "Sand/Gem Mining v2.0.8 by Cegaiel\n\nAdditional Author Credits in Comments!\n\nMake sure chat is MINIMIZED and Main chat tab is visible!\n\nPress Shift over ATITD window to start.\n\nOptional: Pin the mine's Take... Gems... menu (\"All Gems\" will appear in pinned window).\n\nThis optionally pinned window will be refreshed every time the mine is worked.\n\nAlso, if Huge Gem appears in this window, it will alert you with an applause sound.";
+askText = "Sand/Gem Mining v2.0.9 by Cegaiel\n\nAdditional Author Credits in Comments!\n\nMake sure chat is MINIMIZED and Main chat tab is visible!\n\nPress Shift over ATITD window to start.\n\nOptional: Pin the mine's Take... Gems... menu (\"All Gems\" will appear in pinned window).\n\nThis optionally pinned window will be refreshed every time the mine is worked.\n\nAlso, if Huge Gem appears in this window, it will alert you with an applause sound.";
 
 bonusRegion = false;
 noMouseMove = false;
 minPopSleepDelay = 150;  -- The minimum delay time used during findClosePopUp() function
 clickDelay = 150;
-muteSoundEffects = true;
+muteSoundEffects = false;
 autoWorkMine = true;
 smallGemMode = false;
 colorBlind = false;
@@ -114,7 +114,6 @@ allSets = {
 {1,4,5,7},
 {2,4,5},
 {1,3,6,7},
-{1,4,6}
 },
 
 {  --5 color (Triple)
@@ -476,23 +475,47 @@ function getPoints()
 	    "Set Node Locations (" .. #clickList .. "/7)");
     y = y + 75;
     lsSetCamera(0,0,lsScreenX*1.5,lsScreenY*1.5);
-    autoWorkMine = readSetting("autoWorkMine",autoWorkMine);
-    autoWorkMine = lsCheckBox(15, y, z, 0xffffffff, " Auto 'Work Mine'", autoWorkMine);
-    writeSetting("autoWorkMine",autoWorkMine);
-    y = y + 25;
-    colorBlind = readSetting("colorBlind",autoWorkMine);
-    colorBlind = lsCheckBox(15, y, z, 0xffffffff, " 'Color Blind' Mode", colorBlind);
-    writeSetting("colorBlind",colorBlind);
-    y = y + 25;
-    noMouseMove = readSetting("noMouseMove",noMouseMove);
-    noMouseMove = lsCheckBox(15, y, z, 0xffffffff, " Dual Monitor (NoMouseMove) Mode", noMouseMove);
-    writeSetting("noMouseMove",noMouseMove);
-    y = y + 25;
+    if autoWorkMine then
+      autoWorkMineColor = 0xFFFFFFff
+    else
+      autoWorkMineColor = 0xc0c0c0ff
+    end
+    if colorBlind then
+      colorBlindColor = 0xFFFFFFff
+    else
+      colorBlindColor = 0xc0c0c0ff
+    end
+    if noMouseMove then
+      noMouseMoveColor = 0xFFFFFFff
+    else
+      noMouseMoveColor = 0xc0c0c0ff
+    end
+    if muteSoundEffects then
+      muteSoundEffectsColor = 0xFFFFFFff
+    else
+      muteSoundEffectsColor = 0xc0c0c0ff
+    end
     if smallGemMode then
       smallGemModeColor = 0xff8080ff
     else
-      smallGemModeColor = 0xffffffff
+      smallGemModeColor = 0xc0c0c0ff
     end
+    autoWorkMine = readSetting("autoWorkMine",autoWorkMine);
+    autoWorkMine = lsCheckBox(15, y, z, autoWorkMineColor, " Auto 'Work Mine'", autoWorkMine);
+    writeSetting("autoWorkMine",autoWorkMine);
+    y = y + 25;
+    colorBlind = readSetting("colorBlind",colorBlind);
+    colorBlind = lsCheckBox(15, y, z, colorBlindColor, " 'Color Blind' Mode", colorBlind);
+    writeSetting("colorBlind",colorBlind);
+    y = y + 25;
+    noMouseMove = readSetting("noMouseMove",noMouseMove);
+    noMouseMove = lsCheckBox(15, y, z, noMouseMoveColor, " Dual Monitor (NoMouseMove) Mode", noMouseMove);
+    writeSetting("noMouseMove",noMouseMove);
+    y = y + 25;
+    muteSoundEffects = readSetting("muteSoundEffects",muteSoundEffects);
+    muteSoundEffects = lsCheckBox(15, y, z, muteSoundEffectsColor, " Mute Sound Effects", muteSoundEffects);
+    writeSetting("muteSoundEffects",muteSoundEffects);
+    y = y + 25;
     smallGemMode = readSetting("smallGemMode",smallGemMode);
     smallGemMode = lsCheckBox(15, y, z, smallGemModeColor, " Small Gem Mode", smallGemMode);
     writeSetting("smallGemMode",smallGemMode);
@@ -625,7 +648,9 @@ function TakeGemWindowRefresh()
  srReadScreen();
  findHugeGems = findText("Huge");
  if findHugeGems then
-  lsPlaySound("applause.wav");
+   if not muteSoundEffects then
+     lsPlaySound("applause.wav");
+   end
  sleepWithStatus(15000, "You found a Huge Gem!\n\nYou should take it now!", 0x80ff80ff, 0.7, "Congratulations");
  end
 end
@@ -817,7 +842,9 @@ function clickSequence()
 
   findClosePopUp();
   end
-  lsPlaySound("beepping.wav");
+	if not muteSoundEffects then
+	  lsPlaySound("beepping.wav");
+	end
 	if autoWorkMine then
 	  workMine();
 	elseif workMineButtonLocSet then
@@ -845,7 +872,7 @@ function promptDelays()
     lsPrint(15, y, 0, 0.8, 0.8, 0xffffffff, "Click Delay (ms):");
 
     clickDelay = readSetting("clickDelay",clickDelay);
-    is_done, clickDelay = lsEditBox("delay", 155, y, 0, 50, 30, 1.0, 1.0,
+    is_done, clickDelay = lsEditBox("delay", 145, y-3, 0, 60, 30, 1.0, 1.0,
                                      0x000000ff, clickDelay);
     clickDelay = tonumber(clickDelay);
        if not clickDelay then
