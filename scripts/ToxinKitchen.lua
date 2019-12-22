@@ -537,9 +537,8 @@ function waitForCon()
 		--Search for black con timer
 		srReadScreen();
 		local image1 = srFindImage ("Constitution-Black.png", tol);
-		local image2 = srFindImage ("Constitution-DarkRed.png", 2000);
 
-		if not (image1 or image2) then
+		if not image1 then
 			local x = 10;
 			local y = 6;
 
