@@ -476,7 +476,7 @@ function findChatRegionSub()
 end
 
 function findClockRegion()
-  local factionTolerance = 2500;
+  local factionTolerance = 5000;
   local clockUpperLeftX;
   local clockUpperLeftY;
   local clockWidth;
