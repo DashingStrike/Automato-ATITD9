@@ -72,7 +72,7 @@ function clickAllComplex(image_names, message)
 	end
 	-- Find buttons and click them!
 	srReadScreen();
-	window_locs = findAllImages("ThisIs.png");
+	window_locs = findAllImages(thisImage);
 	if #window_locs == 0 then
 	  sleepWithStatus(1000, "No windows found");
 	  thistleConfig();
@@ -262,6 +262,20 @@ function doit()
 		error("Invalid instruction length: " .. loadedFile .. "\nDid you add a valid recipe to the file?");
 	end
 
+	-- We want to make sure a Rain Barrel or Aquaduct isn't pinned. Previously we used ThisIs.png. Rain Barrel has ThisIs.png so tries to process this window like a regular thistle window
+	-- Only check for windows showing 'This is Your Thistle Garden' or 'This is A Thistle Garden'
+	srReadScreen();	
+	local your = findAllImages("Thistle/ThisIsYourThistleGarden.png");
+	local a = findAllImages("Thistle/ThisIsAThistleGarden.png");
+
+	if #your > 0 then
+	  thisImage = "Thistle/ThisIsYourThistleGarden.png"
+	elseif #a > 0 then
+	  thisImage = "Thistle/ThisIsAThistleGarden.png"
+	else
+	  thisImage = "ThisIs.png"
+	end
+
 	if grid_mode then
 	  mainCustomMode()
 	else
@@ -274,16 +288,10 @@ end
 function main()
 	finish_up = nil;
 	abort = nil;
-	srReadScreen();	
-	window_locs = findAllImages("ThisIs.png");
+	srReadScreen();
+	window_locs = findAllImages(thisImage);
 	plant_buttons_found = findAllImages("thistle/ThistlePlantACrop.png");
-	rainBarrel = findText("Rain Barrel");
       startTime = lsGetTimer();
-
-	-- Pinning a rain barrel will cause an error to expected_gardens (since it looks for 'This is'). Add 1 to expected_gardens if Rain Barrel menu found.
-	if rainBarrel then
-	  expected_gardens = expected_gardens + 1;
-	end
 
 	if not (#window_locs == expected_gardens) then
 		error ("Did not find expected number of thistle gardens (found " .. #window_locs .. " expected " ..  expected_gardens .. ")");
@@ -306,7 +314,7 @@ function main()
 	-- test();
 	
 	for loops=1, num_loops do
-		-- clickAll("ThisIs.png", 1);
+		-- clickAll(thisImage, 1);
 		-- lsSleep(100);
 		
 		-- srReadScreen();
@@ -359,7 +367,7 @@ function main()
 		end
 
 		if abort then
-		  clickAllComplex({"ThisIs.png"});  -- Refresh windows after abort, so that 'Plant a Crop' appears
+		  clickAllComplex({thisImage});  -- Refresh windows after abort, so that 'Plant a Crop' appears
 		else
 		lsSleep(3000);
 		  clickAllComplex({"Thistle/Harvest.png"});
@@ -382,15 +390,9 @@ function mainCustomMode()
 	finish_up = nil;
 	abort = nil;
 	srReadScreen();	
-	window_locs = findAllImages("ThisIs.png");
+	window_locs = findAllImages(thisImage);
 	plant_buttons_found = findAllImages("thistle/ThistlePlantACrop.png");
-	rainBarrel = findText("Rain Barrel");
       startTime = lsGetTimer();
-
-	-- Pinning a rain barrel will cause an error to expected_gardens (since it looks for 'This is'). Add 1 to expected_gardens if Rain Barrel menu found.
-	if rainBarrel then
-	  expected_gardens = expected_gardens + 1;
-	end
 
 	if not (#window_locs == expected_gardens) then
 		error ("Did not find expected number of thistle gardens (found " .. #window_locs .. " expected " ..  expected_gardens .. ")");
@@ -415,7 +417,7 @@ function mainCustomMode()
 		drawWater(1);
 
 			if (i == 0) then
-				clickAll("ThisIs.png", 1); -- Refresh all windows
+				clickAll(thisImage, 1); -- Refresh all windows
 				clickAll("thistle/ThistlePlantACrop.png", 1);
 			end
 
@@ -447,7 +449,7 @@ function mainCustomMode()
 		end
 
 		if abort then
-		  clickAll("ThisIs.png");  -- Refresh windows after abort, so that 'Plant a Crop' appears
+		  clickAll(thisImage);  -- Refresh windows after abort, so that 'Plant a Crop' appears
 		else
 		lsSleep(3000);
 		  clickAll("Thistle/Harvest.png");
@@ -705,7 +707,7 @@ function miscButtons()
       closeAbortWindows(); 
 	clickAllComplex({"Thistle/ThistleAbort.png"}, "Aborting");
 	closeAbortWindows();
-	clickAllComplex({"ThisIs.png"}, "Refreshing");  -- Refresh windows after abort, so that 'Plant a Crop' appears
+	clickAllComplex({thisImage}, "Refreshing");  -- Refresh windows after abort, so that 'Plant a Crop' appears
     end	
   end
 
@@ -713,7 +715,7 @@ function miscButtons()
     if promptOkay("This is only used if you currently have crops planted and are ready for harvest. Likely something went wrong in macro.\n\nAre you sure you want to Harvest Crops?", 0xff8080ff, 0.7, true) then
       closeAbortWindows();
       clickAllComplex({"Thistle/Harvest.png"}, "Harvesting");
-      clickAllComplex({"ThisIs.png"}, "Refreshing");  -- Refresh windows after abort, so that 'Plant a Crop' appears
+      clickAllComplex({thisImage}, "Refreshing");  -- Refresh windows after abort, so that 'Plant a Crop' appears
     end	
   end
 
@@ -725,7 +727,7 @@ function miscButtons()
       closeAbortWindows(); 
 	clickAll("Thistle/ThistleAbort.png", "Aborting");
 	closeAbortWindows();
-	clickAll("ThisIs.png", "Refreshing");  -- Refresh windows after abort, so that 'Plant a Crop' appears
+	clickAll(thisImage, "Refreshing");  -- Refresh windows after abort, so that 'Plant a Crop' appears
     end	
   end
 
@@ -733,7 +735,7 @@ function miscButtons()
     if promptOkay("This is only used if you currently have crops planted and are ready for harvest. Likely something went wrong in macro.\n\nAre you sure you want to Harvest Crops?", 0xff8080ff, 0.7, true) then
       closeAbortWindows();
       clickAll("Thistle/Harvest.png", "Harvesting");
-      clickAll("ThisIs.png", "Refreshing");  -- Refresh windows after abort, so that 'Plant a Crop' appears
+      clickAll(thisImage, "Refreshing");  -- Refresh windows after abort, so that 'Plant a Crop' appears
     end	
   end
 
