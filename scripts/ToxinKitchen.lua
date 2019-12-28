@@ -9,6 +9,7 @@ dofile("common.inc");
 AUTOMENU = {
 	"Eye of God Serum",
 	"Nut's Essence",
+	"Cloudy Solvent",
 	"Milky Solvent",
 	"Clear Solvent",
 	"Glass Solvent",
@@ -23,6 +24,7 @@ AUTOMENU = {
 PRODUCTS = {
 	"Eye of God Serum",
 	"Nut's Essence",
+	"Revelation Solvent (Cloudy)",
 	"Revelation Solvent (Milky)",
 	"Revelation Solvent (Clear)",
 	"Revelation Solvent (Glass)",
@@ -44,6 +46,8 @@ STAGETEMP = {
 	{ { 625, 775 }, { DONTCARE, DONTCARE }, { 190, 385 } },
 	-- Nut's Essence
 	{ { 600, 800 }, { DONTCARE, DONTCARE }, { 200, 400 } },
+	-- Cloudy
+	{ { 360, 400 }, { DONTCARE, DONTCARE }, { 650, 800 } },
 	-- Milky
 	{ { 360, 400 }, { DONTCARE, DONTCARE }, { 650, 800 } },
 	-- Clear
@@ -69,6 +73,8 @@ CABBAGETEMP = {
 	{ { DONTCARE, DONTCARE }, { DONTCARE, DONTCARE }, { DONTCARE, DONTCARE } },
 	-- Nut's Essence
 	{ { DONTCARE, DONTCARE }, { DONTCARE, DONTCARE }, { DONTCARE, DONTCARE } },
+	-- Cloudy
+	{ { DONTCARE, DONTCARE }, { 0, 200 }, { DONTCARE, DONTCARE } },
 	-- Milky
 	{ { DONTCARE, DONTCARE }, { 0, 200 }, { DONTCARE, DONTCARE } },
 	-- Clear
@@ -93,6 +99,8 @@ STAGEACID = {
 	{ { DONTCARE, DONTCARE }, { 3.1, 3.6 }, { DONTCARE, DONTCARE } },
 	-- Nut's Essence
 	{ { DONTCARE, DONTCARE }, { 3.40, 3.80 }, { DONTCARE, DONTCARE } },
+	-- Cloudy
+	{ { 3.0, 3.4 }, { 1.2, 1.5 }, { DONTCARE, DONTCARE } },
 	-- Milky
 	{ { 3.0, 3.4 }, { 1.2, 1.5 }, { DONTCARE, DONTCARE } },
 	-- Clear
@@ -117,6 +125,8 @@ STAGESAP = {
 	{ 0, 2, 0 },
 	-- Nut's Essence
 	{ 0, 2, 0 },
+	-- Cloudy
+	{ 2, 0, 0 },
 	-- Milky
 	{ 0, 2, 0 },
 	-- Clear
@@ -142,6 +152,8 @@ INGREDIENTS = {
 	{ {{ 2, "Nature's Jug" }, { 1, "Arsenic"}}, 10, 15, 10, 15 },
 	-- Nut's Essence
 	{ {{ 3, "Hairy Tooth" }}, 10, 15, 10, 15 },
+	-- Cloudy
+	{ {{ 25, "Cobra Hood" }, { 25, "Camels Mane" }, { 25, "Flat"}}, 10, 15, 10, 15 },
 	-- Milky
 	{ {{ 3, "Sand Spore" }}, 10, 15, 10, 15 },
 	-- Clear
@@ -166,6 +178,8 @@ STAGEADD = {
 	{ "Nature", "Arsenic", "Nature" },
 	-- Nut's Essence
 	{ "Hairy", "Hairy", "Hairy" },
+	-- Cloudy
+	{ "Cobra", "Camels", "Flat" },
 	-- Milky
 	{ "Sand", "Sand", "Sand" },
 	-- Clear
@@ -426,6 +440,12 @@ function checkTakeProduct(tid, window_pos)
 	if (curstage == 4) then
 		srReadScreen();
 		clickloc = findWinText("Take the " .. PRODUCTS[tid], window_pos);
+
+		-- Kludge to work around misspelled Cloudy solvent
+		if (not clickloc and string.find(PRODUCTS[tid], "Cloudy")) then
+			local alt = string.gsub(PRODUCTS[tid], "Revelation", "Revealation");
+			clickloc = findWinText("Take the " .. alt, window_pos);
+		end
 
 		if (clickloc) then
 			srClickMouseNoMove(clickloc[0] + 10, clickloc[1] + 2, false);
