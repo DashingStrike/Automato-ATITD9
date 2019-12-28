@@ -51,6 +51,9 @@ function doit()
       clickAllText("Dig under");
       clickAllText("Forage this");
       clickAllText("Inspect this");
+      if (clickAllText("Eat this mushroom") == 0) then
+        clickAllText("Pick up the");
+      end
     end
 
     if (lsControlHeld()) then
