@@ -221,6 +221,7 @@ function drawWater(skipTimer)
 
   -- First, check for rain barrel
   --local rain = srFindImage("draw_water.png");
+  local rain = findText("Storage Barrel")
   if rain then
     sleepWithStatus(200, "Refilling water...", nil, 0.7);
     safeClick(rain[0], rain[1]);
