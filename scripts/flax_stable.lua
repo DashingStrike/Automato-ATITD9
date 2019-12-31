@@ -399,7 +399,8 @@ function promptFlaxNumbers()
                     " Flax and harvest it " ..
                       seeds_per_pass ..
                         " times, requiring " ..
-                          (grid_w * grid_w) .. " seeds, and repeat this " .. num_loops .. " times, yielding."
+                          (grid_w * grid_w) .. " seeds, and repeat this " .. num_loops .. " times, yielding " ..
+                          (grid_w * grid_w * seeds_per_pass * num_loops) .. " seeds."
       )
     end
 
