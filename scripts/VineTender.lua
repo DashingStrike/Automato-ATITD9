@@ -57,7 +57,7 @@ tol = 5000;
 -- ADDED BY GYGES
 	alsoTend = 1;
 	alsoCutting = 0;
-	alsoHarvest = 1;
+	alsoHarvest = 0;
 	replant = 0;
     harvestFlag = 0;
     vineForReplanting=1;

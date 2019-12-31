@@ -37,6 +37,7 @@ items = {
             "Rawhide Strips",
             "Barrel Tap",
             "Bottle Stopper",
+            "Clay Lamp",
             "Crudely Carved Handle",
             "Large Crude Handle",
             "Personal Chit",
@@ -177,6 +178,8 @@ function carve(item)
          carveText = findText("Carve a small " .. item);
       elseif item == "Rawhide Strips" then
          carveText = findText("Carve Leather into " .. item);
+       elseif item == "Clay Lamp" then
+         carveText = findText("Make a " .. item);
       else
          carveText = findText("Carve a " .. item);
    end
@@ -549,6 +552,8 @@ function doTasks()
                 elseif curTask == "Churn Butter" then
                     churnButter();
                 elseif curTask == "Barrel Tap" then
+                    carve(curTask);
+                elseif curTask == "Clay Lamp" then
                     carve(curTask);
                  elseif curTask == "Rawhide Strips" then
                      carve(curTask);
