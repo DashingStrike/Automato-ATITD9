@@ -5,7 +5,7 @@
 dofile("common.inc");
 dofile("settings.inc");
 
-bladeList = {"Slate Blade", "Flint Blade", "Carpentry Blade"};
+bladeList = {"Slate Blade", "Flint Blade", "Bone Blade", "Carpentry Blade"};
 
 function doit()
   promptParameters();
@@ -53,6 +53,8 @@ function promptParameters()
     elseif blade == 2 then
         bladeName = "Flint Blade"
     elseif blade == 3 then
+        bladeName = "Bone Blade"
+    elseif blade == 4 then
         bladeName = "Carpentry Blade"
     end
 
@@ -159,11 +161,13 @@ for i=1,#ThisIsList do
             p = srFindImage("boards/installASlateBlade.png", 5000);
           elseif bladeName == "Flint Blade" then
             p = srFindImage("boards/installAFlintBlade.png", 5000);
+          elseif bladeName == "Bone Blade" then
+            p = srFindImage("boards/installABoneBlade.png", 5000);
           elseif bladeName == "Carpentry Blade" then
             p = srFindImage("boards/installACarpentryBlade.png", 5000);
           end
           if(p) then
-            safeClick(p[0]+4,p[1]+4);
+            safeClick(p[0]+10,p[1]+10);
             lsSleep(click_delay);
             if bladeName == "Carpentry Blade" then
               srReadScreen();
