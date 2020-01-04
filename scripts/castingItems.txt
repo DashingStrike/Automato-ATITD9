@@ -27,22 +27,6 @@ return
 			["q"] = 30,
 		}
 		,
-		["Apophisite"] = 
-		{
-			["masterOnly"] = true,
-			["metal"] = "Apophisite",
-			["prod"] = 5,
-			["q"] = 100,
-		}
-		,
-		["Auricupride"] = 
-		{
-			["masterOnly"] = true,
-			["metal"] = "Auricupride",
-			["prod"] = 5,
-			["q"] = 25,
-		}
-		,
 		["Brass"] = 
 		{
 			["masterOnly"] = true,
@@ -67,14 +51,6 @@ return
 			["q"] = 35,
 		}
 		,
-		["Corinthiacum"] = 
-		{
-			["masterOnly"] = true,
-			["metal"] = "Corinthiacum",
-			["prod"] = 5,
-			["q"] = 50,
-		}
-		,
 		["Electrum"] = 
 		{
 			["masterOnly"] = true,
@@ -89,14 +65,6 @@ return
 			["metal"] = "Gold",
 			["prod"] = 5,
 			["q"] = 75,
-		}
-		,
-		["Hepatizon"] = 
-		{
-			["masterOnly"] = true,
-			["metal"] = "Hepatizon",
-			["prod"] = 5,
-			["q"] = 50,
 		}
 		,
 		["Iron"] = 
@@ -115,28 +83,12 @@ return
 			["q"] = 10,
 		}
 		,
-		["Lithium"] = 
-		{
-			["masterOnly"] = true,
-			["metal"] = "Lithium",
-			["prod"] = 5,
-			["q"] = 50,
-		}
-		,
 		["Magnesium"] = 
 		{
 			["masterOnly"] = true,
 			["metal"] = "Magnesium",
 			["prod"] = 5,
 			["q"] = 25,
-		}
-		,
-		["Malardium"] = 
-		{
-			["masterOnly"] = true,
-			["metal"] = "Malardium",
-			["prod"] = 5,
-			["q"] = 20,
 		}
 		,
 		["Metal Blue"] = 
@@ -161,14 +113,6 @@ return
 			["metal"] = "Octec's Alloy",
 			["prod"] = 5,
 			["q"] = 40,
-		}
-		,
-		["Orichalcum"] = 
-		{
-			["masterOnly"] = true,
-			["metal"] = "Orichalcum",
-			["prod"] = 5,
-			["q"] = 100,
 		}
 		,
 		["Pewter"] = 
@@ -196,26 +140,10 @@ return
 			["q"] = 100,
 		}
 		,
-		["Star"] = 
-		{
-			["masterOnly"] = true,
-			["metal"] = "Star",
-			["prod"] = 5,
-			["q"] = 50,
-		}
-		,
 		["Steel"] = 
 		{
 			["masterOnly"] = true,
 			["metal"] = "Steel",
-			["prod"] = 5,
-			["q"] = 25,
-		}
-		,
-		["Strontium"] = 
-		{
-			["masterOnly"] = true,
-			["metal"] = "Strontium",
 			["prod"] = 5,
 			["q"] = 25,
 		}
@@ -242,22 +170,6 @@ return
 			["metal"] = "Tin",
 			["prod"] = 5,
 			["q"] = 10,
-		}
-		,
-		["Titanium"] = 
-		{
-			["masterOnly"] = true,
-			["metal"] = "Titanium",
-			["prod"] = 5,
-			["q"] = 25,
-		}
-		,
-		["Tungsten"] = 
-		{
-			["masterOnly"] = true,
-			["metal"] = "Tungsten",
-			["prod"] = 5,
-			["q"] = 25,
 		}
 		,
 		["Water Metal"] = 
@@ -292,18 +204,6 @@ return
 			["q"] = 6,
 		}
 		,
-		["Apophisite"] = 
-		{
-			["prod"] = 1,
-			["q"] = 20,
-		}
-		,
-		["Auricupride"] = 
-		{
-			["prod"] = 1,
-			["q"] = 5,
-		}
-		,
 		["Brass"] = 
 		{
 			["prod"] = 1,
@@ -322,12 +222,6 @@ return
 			["q"] = 7,
 		}
 		,
-		["Corinthiacum"] = 
-		{
-			["prod"] = 1,
-			["q"] = 10,
-		}
-		,
 		["Electrum"] = 
 		{
 			["prod"] = 1,
@@ -338,12 +232,6 @@ return
 		{
 			["prod"] = 1,
 			["q"] = 15,
-		}
-		,
-		["Hepatizon"] = 
-		{
-			["prod"] = 1,
-			["q"] = 10,
 		}
 		,
 		["Iron"] = 
@@ -358,22 +246,10 @@ return
 			["q"] = 2,
 		}
 		,
-		["Lithium"] = 
-		{
-			["prod"] = 1,
-			["q"] = 10,
-		}
-		,
 		["Magnesium"] = 
 		{
 			["prod"] = 1,
 			["q"] = 5,
-		}
-		,
-		["Malardium"] = 
-		{
-			["prod"] = 1,
-			["q"] = 4,
 		}
 		,
 		["Metal Blue"] = 
@@ -392,12 +268,6 @@ return
 		{
 			["prod"] = 1,
 			["q"] = 8,
-		}
-		,
-		["Orichalcum"] = 
-		{
-			["prod"] = 1,
-			["q"] = 20,
 		}
 		,
 		["Pewter"] = 
@@ -419,19 +289,7 @@ return
 			["q"] = 20,
 		}
 		,
-		["Star"] = 
-		{
-			["prod"] = 1,
-			["q"] = 10,
-		}
-		,
 		["Steel"] = 
-		{
-			["prod"] = 1,
-			["q"] = 5,
-		}
-		,
-		["Strontium"] = 
 		{
 			["prod"] = 1,
 			["q"] = 5,
@@ -453,18 +311,6 @@ return
 		{
 			["prod"] = 1,
 			["q"] = 2,
-		}
-		,
-		["Titanium"] = 
-		{
-			["prod"] = 1,
-			["q"] = 5,
-		}
-		,
-		["Tungsten"] = 
-		{
-			["prod"] = 1,
-			["q"] = 5,
 		}
 		,
 		["Water Metal"] = 
@@ -510,9 +356,23 @@ return
 			["q"] = 2,
 		}
 		,
+		["Cobalt"] = 
+		{
+			["metal"] = "Cobalt",
+			["prod"] = 1,
+			["q"] = 2,
+		}
+		,
 		["Copper"] = 
 		{
 			["metal"] = "Copper",
+			["prod"] = 1,
+			["q"] = 2,
+		}
+		,
+		["Electrum"] = 
+		{
+			["metal"] = "Electrum",
 			["prod"] = 1,
 			["q"] = 2,
 		}
@@ -538,9 +398,9 @@ return
 			["q"] = 2,
 		}
 		,
-		["Lithium"] = 
+		["Nickel"] = 
 		{
-			["metal"] = "Lithium",
+			["metal"] = "Nickel",
 			["prod"] = 1,
 			["q"] = 2,
 		}
@@ -580,30 +440,9 @@ return
 			["q"] = 2,
 		}
 		,
-		["Strontium"] = 
-		{
-			["metal"] = "Strontium",
-			["prod"] = 1,
-			["q"] = 2,
-		}
-		,
 		["Tin"] = 
 		{
 			["metal"] = "Tin",
-			["prod"] = 1,
-			["q"] = 2,
-		}
-		,
-		["Titanium"] = 
-		{
-			["metal"] = "Titanium",
-			["prod"] = 1,
-			["q"] = 2,
-		}
-		,
-		["Tungsten"] = 
-		{
-			["metal"] = "Tungsten",
 			["prod"] = 1,
 			["q"] = 2,
 		}
@@ -639,6 +478,13 @@ return
 			["q"] = 20,
 		}
 		,
+		["Cobalt"] = 
+		{
+			["metal"] = "Cobalt",
+			["prod"] = 10,
+			["q"] = 20,
+		}
+		,
 		["Bronze"] = 
 		{
 			["metal"] = "Bronze",
@@ -649,6 +495,13 @@ return
 		["Copper"] = 
 		{
 			["metal"] = "Copper",
+			["prod"] = 10,
+			["q"] = 20,
+		}
+		,
+		["Electrum"] = 
+		{
+			["metal"] = "Electrum",
 			["prod"] = 10,
 			["q"] = 20,
 		}
@@ -674,9 +527,9 @@ return
 			["q"] = 20,
 		}
 		,
-		["Lithium"] = 
+		["Nickel"] = 
 		{
-			["metal"] = "Lithium",
+			["metal"] = "Nickel",
 			["prod"] = 10,
 			["q"] = 20,
 		}
@@ -716,30 +569,9 @@ return
 			["q"] = 20,
 		}
 		,
-		["Strontium"] = 
-		{
-			["metal"] = "Strontium",
-			["prod"] = 10,
-			["q"] = 20,
-		}
-		,
 		["Tin"] = 
 		{
 			["metal"] = "Tin",
-			["prod"] = 10,
-			["q"] = 20,
-		}
-		,
-		["Titanium"] = 
-		{
-			["metal"] = "Titanium",
-			["prod"] = 10,
-			["q"] = 20,
-		}
-		,
-		["Tungsten"] = 
-		{
-			["metal"] = "Tungsten",
 			["prod"] = 10,
 			["q"] = 20,
 		}

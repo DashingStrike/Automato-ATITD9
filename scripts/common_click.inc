@@ -221,10 +221,11 @@ function drawWater(skipTimer)
 
   -- First, check for rain barrel
   --local rain = srFindImage("draw_water.png");
+  local rain = findText("Storage Barrel")
   if rain then
     sleepWithStatus(200, "Refilling water...", nil, 0.7);
     safeClick(rain[0], rain[1]);
-    local max = waitForImage("crem-max.png", 3000, "Waiting for Max button");
+    local max = waitForImage("max.png", 3000, "Waiting for Max button");
     if max then
       safeClick(max[0]+5, max[1]+5);
       result = true;
@@ -263,7 +264,7 @@ function drawWater(skipTimer)
 	else
         safeClick(watersmall[0]+3, watersmall[1]-5);
 	end
-      local max = waitForImage("max.png", 500, "Waiting for Max button", nil, 3000);
+      local max = waitForImage("max.png", 3000, "Waiting for Max button");
       if max then
         safeClick(max[0]+5, max[1]+5);
       if not skipTimer then

@@ -52,19 +52,24 @@ function config()
 	lsPrintWrapped(10, y, z+10, lsScreenX - 20, 0.7, 0.7, 0xffff40ff,
 		"Product Settings\n-------------------------------------------");
 	y = y + 35;
-
-	if not masonBench then
 	rockSaw = readSetting("rockSaw",rockSaw);
-	rockSaw = CheckBox(15, y, z+10, 0xFFFFFFff, "Cut stones on a Rocksaw", rockSaw, 0.65, 0.65);
-	writeSetting("rockSaw",rockSaw);
-	y = y + 22;
+	masonBench = readSetting("masonBench",masonBench);
+	if not masonBench then
+	  rockSaw = CheckBox(15, y, z+10, 0xFFFFFFff, "Cut stones on a Rocksaw", rockSaw, 0.65, 0.65);
+	  writeSetting("rockSaw",rockSaw);
+	  writeSetting("nailmould",false);
+	  writeSetting("crucible",false);
+	  writeSetting("stoneblock",false);
+	  y = y + 22;
 	end
 
 	if not rockSaw then
-	masonBench = readSetting("masonBench",masonBench);
-	masonBench = CheckBox(15, y, z+10, 0xFFFFFFff, "Cut stones on a Masons Bench", masonBench, 0.65, 0.65);
-	writeSetting("masonBench",masonBench);
-	y = y + 22;
+	  masonBench = CheckBox(15, y, z+10, 0xFFFFFFff, "Cut stones on a Masons Bench", masonBench, 0.65, 0.65);
+	  writeSetting("masonBench",masonBench);
+	  writeSetting("cutstone",false);
+	  writeSetting("flystone",false);
+	  writeSetting("pulley",false);
+	  y = y + 22;
 	end
 
     if cutstone then
@@ -164,19 +169,20 @@ function config()
     writeSetting("pulley",pulley);
     writeSetting("flystone",flystone);
 
-    if cutstone then
-      product = "Cut Stones";
-    elseif flystone then
-      product = "Pair Flystones";
-    elseif pulley then
-      product = "Pulleys";
-    elseif nailmould then
+    if nailmould then
       product = "Nail Moulds";
     elseif crucible then
       product = "Crucibles";
     elseif stoneblock then
       product = "Small Stone Blocks";
+    elseif cutstone then
+      product = "Cut Stones";
+    elseif flystone then
+      product = "Pair Flystones";
+    elseif pulley then
+      product = "Pulleys";
     end
+
 
 	if rockSaw then
 		if cutstone or flystone or pulley then
@@ -204,6 +210,7 @@ function config()
 end
 
 function start()
+--sleepWithStatus(2000, product)
 	for i=1, passCount do
 		-- refresh windows
 		message = "Refreshing"
@@ -251,7 +258,7 @@ function checkMaking()
 					if #making == 0 then
 						break; --We break this while statement because Making is not detect, hence we're done with this round
 					end
-				sleepWithStatus(999, "Waiting for " .. product .. " to finish", nil, 0.7);
+				sleepWithStatus(999, "Waiting for " .. product .. " to finish", nil, 0.7, "Monitoring Pinned Window(s)");
 			end
 end
 
