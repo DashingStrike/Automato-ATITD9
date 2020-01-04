@@ -32,60 +32,14 @@ function doit()
     end
 end
 
-function setBatchSize(size)
-    batch_picker = findText("Batch Size...");
-    if batch_picker then
-        if size == "Large" then
-            print('Large');
-            srClickMouseNoMove(batch_picker[0]+20,batch_picker[1]+5);
-            lsSleep(200);
-            srReadScreen();
-            large_size = findText("Make large batches (x100)");
-            if large_size then
-                print('Clicking');
-                srClickMouseNoMove(large_size[0]+20,large_size[1]+5);
-            else
-                print('No sizes found');
-            end
-        else
-            if size == "Med" then
-                srClickMouseNoMove(batch_picker[0]+20,batch_picker[1]+5);
-                lsSleep(200);
-                srReadScreen();
-                med_size = findText("Make medium batches (x10)");
-                if med_size then
-                    print('Clicking');
-                    srClickMouseNoMove(med_size[0]+20,med_size[1]+5);
-                else
-                    print('No sizes found');
-                end
-            else
-                srClickMouseNoMove(batch_picker[0]+20,batch_picker[1]+5);
-                lsSleep(200);
-                srReadScreen();
-                small_size = findText("Make small batches (x1)");
-                if small_size then
-                    print('Clicking');
-                    srClickMouseNoMove(small_size[0]+20,small_size[1]+5);
-                else
-                    print('No sizes found');
-                end
-            end
-        end
-    else
-        print("No batch sizer found");
-    end
-    lsSleep(200);
-end
-
-function makePaintBatch(config, num_batches)
+function mixPaint(config)
     srReadScreen();
     local paint_buttons = findAllImages("plus.png");
     if (#paint_buttons == 0) then
         error "No buttons found";
     end
-
-    for i=1, num_batches do
+    
+    for i=1, config.paint_amount do
         checkBreak();
         for iidx=1, #recipes[config.color_index].ingredient do
             for aidx=1, recipes[config.color_index].amount[iidx] do
@@ -95,46 +49,13 @@ function makePaintBatch(config, num_batches)
                 sleepWithStatus(click_delay, "Making paint " .. i .. " of " .. config.paint_amount);
             end
         end
-        srReadScreen();
-        lsSleep(100);
-        clickAllText("Take the Paint");
-        lsSleep(100);
-    end
-end
-
-function makePaint(config, paint_amount)
-    if paint_amount > 100 then
-        print('Large');
-        setBatchSize("Large");
-        remainder = paint_amount % 100;
-        hundreds = paint_amount - remainder;
-        hundred_batches = hundreds / 100;
-        print(hundred_batches);
-        print(remainder);
-        makePaintBatch(config, hundred_batches);
-        makePaint(config, remainder);
-    else
-        if paint_amount > 10 then
-            print('Med')
-            setBatchSize("Med");
-            remainder = paint_amount % 10;
-            tens = paint_amount - remainder;
-            ten_batches = tens / 10;
-            print(ten_batches);
-            print(remainder);
-            makePaintBatch(config, ten_batches);
-            makePaint(config, remainder)
-        else
-            print('Small')
-            setBatchSize("Small");
-            makePaintBatch(config, paint_amount)
+        if take_paint then
+          srReadScreen();
+          lsSleep(100);
+          clickAllText("Take the Paint");
+          lsSleep(100);
         end
     end
-end
-
-function mixPaint(config)
-    srReadScreen();
-    makePaint(config, config.paint_amount);
 end
 
 -- Used to place gui elements sucessively.
