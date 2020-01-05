@@ -29,6 +29,7 @@ function findCoords()
 	  -- Misc Exceptions we want to strip
 	  str = string.gsub(str, "0::#", ":"); -- Giza Exception
 	  str = string.gsub(str, "<=t", "");
+	  str = string.gsub(str, "#u", ""); -- zau exception in GPS coord resolution
 
 
 	  -- Attempt to find the : to fetch coordinates, but also look at some exceptions
