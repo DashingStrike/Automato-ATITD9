@@ -21,15 +21,14 @@ function findCoords()
 
 	  -- Numeral 1 always has a space before and/or after it.  This attempts to repair that OCR flaw. All other numbers have no space.
 	  str = str[2];
---	  str = string.gsub(str, " 1 ", "1");
 	  str = string.gsub(str, " 1", "1");
 	  str = string.gsub(str, "1 ", "1");
 
 
 	  -- Misc Exceptions we want to strip
 	  str = string.gsub(str, "0::#", ":"); -- Giza Exception
+	  str = string.gsub(str, "#t#", ":"); -- Napata Exception occurs at minimum: 0, -6327
 	  str = string.gsub(str, "<=t", "");
-
 
 	  -- Attempt to find the : to fetch coordinates, but also look at some exceptions
 	  if string.find(str, ": ([0-9-]+)") then
@@ -46,7 +45,6 @@ function findCoords()
 	    str = string.sub(str, string.find(str, "<# ([0-9-]+)")+1, string.len(str));
 	    str = string.gsub(str, "# ", ""); -- East Sinai weird scenario
 	  end
-
 
 	  str = string.gsub(str, "  ", ","); -- Catch double space between numbers
 	  str = string.gsub(str, " ", ",");  -- Catch single space between numbers
