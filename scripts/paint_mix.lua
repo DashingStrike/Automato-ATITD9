@@ -32,14 +32,40 @@ function doit()
     end
 end
 
-function mixPaint(config)
+function clickBatchText(text)
+    batch_text = findText(text);
+    if batch_text then
+        srClickMouseNoMove(batch_text[0]+20, batch_text[1]+5);
+        lsSleep(200);
+        srReadScreen();
+    else
+        print("Batch text not found: " .. text);
+    end
+end
+
+function setBatchSize(size)
+    srReadScreen();
+    clickBatchText("Batch Size...");
+    if size == "Large" then
+        clickBatchText("Make large batches (x100)");
+    else
+        if size == "Medium" then
+            clickBatchText("Make medium batches (x10)");
+        else
+            clickBatchText("Make small batches (x1)");
+        end
+    end
+    lsSleep(200);
+end
+
+function makePaintBatch(config, num_batches)
     srReadScreen();
     local paint_buttons = findAllImages("plus.png");
     if (#paint_buttons == 0) then
         error "No buttons found";
     end
-    
-    for i=1, config.paint_amount do
+
+    for i=1, num_batches do
         checkBreak();
         for iidx=1, #recipes[config.color_index].ingredient do
             for aidx=1, recipes[config.color_index].amount[iidx] do
@@ -49,12 +75,70 @@ function mixPaint(config)
                 sleepWithStatus(click_delay, "Making paint " .. i .. " of " .. config.paint_amount);
             end
         end
-        if take_paint then
-          srReadScreen();
-          lsSleep(100);
-          clickAllText("Take the Paint");
-          lsSleep(100);
+        srReadScreen();
+        lsSleep(100);
+        clickAllText("Take the Paint");
+        lsSleep(100);
+    end
+end
+
+function makePaint(config, paint_amount)
+    if paint_amount > 100 then
+        setBatchSize("Large");
+        remainder = paint_amount % 100;
+        hundreds = paint_amount - remainder;
+        hundred_batches = hundreds / 100;
+        makePaintBatch(config, hundred_batches);
+        makePaint(config, remainder);
+    else
+        if paint_amount > 10 then
+            setBatchSize("Medium");
+            remainder = paint_amount % 10;
+            tens = paint_amount - remainder;
+            ten_batches = tens / 10;
+            makePaintBatch(config, ten_batches);
+            makePaint(config, remainder)
+        else
+            setBatchSize("Small");
+            makePaintBatch(config, paint_amount)
         end
+    end
+end
+
+function close_map()
+    srReadScreen();
+    map_close = findAllImages("map_close.png");
+
+    if map_close then
+        for i=1, #map_close do
+            -- click near each 'x' in turn to see if that brings the map into focus
+            srClickMouse(map_close[i][0]-10,map_close[i][1]);
+            lsSleep(200);
+            srReadScreen();
+            map_text = findText("Map of Egypt");
+            if map_text then
+                print("Map found, closing");
+                srClickMouse(map_close[i][0]+5,map_close[i][1]+5);
+                break;
+            end
+        end
+    end
+end
+
+function mixPaint(config)
+    close_map();
+    srReadScreen();
+
+    if true then
+        return
+    end
+
+    batch_picker = findText("Batch Size...");
+    if batch_picker then
+        makePaint(config, config.paint_amount);
+    else
+        -- if there is no batch mixer, just make the paint with size one
+        makePaintBatch(config, config.paint_amount);
     end
 end
 
@@ -71,7 +155,7 @@ function getUserParams()
     config.color_index = 1;
     while not is_done do
         current_y = 10;
-        
+
         if not got_user_params then
           lsSetCamera(0,0,lsScreenX*1.4,lsScreenY*1.4);
             lsScrollAreaBegin("scroll_area", X_PADDING, current_y, X_PADDING, lsScreenX - X_PADDING+115, 180);
@@ -104,17 +188,15 @@ function getUserParams()
             got_user_params = got_user_params and drawBottomButton(lsScreenX - 5, "Start Script");
             is_done = got_user_params;
         end
-        
+
         if drawBottomButton(110, "Exit Script") then
             error "Script exited by user";
-
-
         end
-        
+
         lsDoFrame();
         lsSleep(10);
     end
-    
+
     click_delay = 10;
     return config;
 end
