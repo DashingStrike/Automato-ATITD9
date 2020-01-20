@@ -129,10 +129,6 @@ function mixPaint(config)
     close_map();
     srReadScreen();
 
-    if true then
-        return
-    end
-
     batch_picker = findText("Batch Size...");
     if batch_picker then
         makePaint(config, config.paint_amount);
