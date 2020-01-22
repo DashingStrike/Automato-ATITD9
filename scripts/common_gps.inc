@@ -29,6 +29,7 @@ function findCoords()
 	  str = string.gsub(str, "0::#", ":"); -- Giza Exception
 	  str = string.gsub(str, "#t#", ":"); -- Napata Exception occurs at minimum: 0, -6327
 	  str = string.gsub(str, "<=t", "");
+	  str = string.gsub(str, "#u", ":"); -- Zau Exception
 
 	  -- Attempt to find the : to fetch coordinates, but also look at some exceptions
 	  if string.find(str, ": ([0-9-]+)") then
