@@ -83,7 +83,7 @@ function makePaintBatch(config, num_batches)
 end
 
 function makePaint(config, paint_amount)
-    if paint_amount > 100 then
+    if paint_amount >= 100 then
         setBatchSize("Large");
         remainder = paint_amount % 100;
         hundreds = paint_amount - remainder;
@@ -91,7 +91,7 @@ function makePaint(config, paint_amount)
         makePaintBatch(config, hundred_batches);
         makePaint(config, remainder);
     else
-        if paint_amount > 10 then
+        if paint_amount >= 10 then
             setBatchSize("Medium");
             remainder = paint_amount % 10;
             tens = paint_amount - remainder;
