@@ -963,6 +963,7 @@ local filename;
     dateTime = lsGetTimer()
   end
   filename = "thistle_new_tick" .. tick .. "_" .. dateTime .. ".png"
+  srReadScreen(); -- Do one more screenRead to remove white/stripped background on Clock (created by getTime())
   srSaveLastReadScreen(filename)
   sleepWithStatus(1000, "Screenshot Saved:\n\n" .. filename, nil, 0.7)
 end
