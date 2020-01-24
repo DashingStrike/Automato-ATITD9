@@ -1,73 +1,174 @@
+-- Revamped by Cegaiel
 
-dofile("screen_reader_common.inc");
-dofile("ui_utils.inc");
+dofile("common.inc");
 
--- optional message
-function askForWindowAndPixel(message)
-	-- Wait for release if it's already held
-	while lsShiftHeld() do end;
-	-- Display message until shift is held
-	while not lsShiftHeld() do
-		lsPrintWrapped(0, 0, 1, lsScreenX, 0.7, 0.7, 0xFFFFFFff,
-			"Mouse over the relevant pixel and press Shift.");
-		if message then
-			lsPrintWrapped(0, 40, 1, lsScreenX, 0.7, 0.7, 0xB0B0B0ff,
-				message);
-		end
-		lsSetCaptureWindow();
-		mouse_x, mouse_y = srMousePos();
-		px = srReadPixel(mouse_x, mouse_y);
-		lsPrintWrapped(0, 40, 1, lsScreenX, 0.7, 0.7, 0xB0B0B0ff,
-			mouse_x .. ", " .. mouse_y);
-		lsPrintWrapped(0, 55, 1, lsScreenX, 0.7, 0.7, px,
-			"(" .. (math.floor(px/256/256/256) % 256) .. "," .. (math.floor(px/256/256) % 256) .. "," .. (math.floor(px/256) % 256) .. "," .. (px % 256) .. ")" );
-		-- Testing other methods of grabbing the pixel, making sure RGBA values match
-		-- srReadScreen();
-		-- px2 = srReadPixelFromBuffer(mouse_x, mouse_y);
-		-- lsPrintWrapped(0, 80, 1, lsScreenX, 0.7, 0.7, 0xB0B0B0ff,
-		-- 	mouse_x .. ", " .. mouse_y .. " = " .. (math.floor(px2/256/256/256) % 256) .. "," .. (math.floor(px2/256/256) % 256) .. "," .. (math.floor(px2/256) % 256) .. "," .. (px2 % 256) );
-		-- lsButtonText(lsScreenX - 110, lsScreenY - 90, 0, 100, px, "test1");
-		-- lsButtonText(lsScreenX - 110, lsScreenY - 60, 0, 100, px2, "test2");
-		lsDoFrame();
-		if lsButtonText(lsScreenX - 110, lsScreenY - 30, 0, 100, 0xFFFFFFff, "Exit") then
-			error "Canceled";
-		end
-	end
-	lsSetCaptureWindow();
-	-- Wait for shift to be released
-	while lsShiftHeld() do end;
-	xyWindowSize = srGetWindowSize();
-end
+allow_break = false; -- Change to true if you want to allow Ctrl+Shift or Alt+Shift (false will Help prevent accidentally exiting macro)
 
 
 function doit()
-	askForWindowAndPixel();
-	
-	local t0 = lsGetTimer();
-	local px = 0;
-	local index=0;
-	while 1 do
-		lsSleep(100);
-		srReadScreen();
-		new_px = srReadPixel(mouse_x, mouse_y);
-		local t = (lsGetTimer() - t0) / 1000 / 60;
-		t = math.floor(t*10 + 0.5)/10;
-		local t_string = t;
-		if not (new_px == px) then
-			index = index+1;
-			srSaveLastReadScreen("screen_" .. index .. "_" .. t_string .. ".png");
-			px = new_px;
-			lsPlaySound("Clank.wav");
-		end
-		
-		lsPrintWrapped(0, 0, 1, lsScreenX, 1, 1, 0xFFFFFFff,
-			" pixel: " .. new_px .. "  screen: " .. index .. " timer: " .. t_string);
-		lsPrintWrapped(0, 60, 1, lsScreenX, 0.7, 0.7, px,
-			"(" .. (math.floor(px/256/256/256) % 256) .. "," .. (math.floor(px/256/256) % 256) .. "," .. (math.floor(px/256) % 256) .. "," .. (px % 256) .. ")" );
-		
-		if lsButtonText(lsScreenX - 110, lsScreenY - 30, 0, 100, 0xFFFFFFff, "Exit") then
-			error "Canceled";
-		end	
-		lsDoFrame();
-	end
+
+  askForWindow("Pin a Raeli Oven window.\nMacro will monitor the window for change based on the color/ color text on window and take a screenshot when it occurs.\n\nScreenshots appear as raeli_#_.png in C:\\Games\\Automato folder.\n\nWrites a log to raeli.txt, in ATITD9 folder, showing how long since last change occured and filename of screenshot what was created.");
+
+  srReadScreen();
+  oven = findText("This is [a-z]+ Raeli Oven", nil, REGEX)
+
+  if not oven then
+    error('Could not find a Raeli Oven pinned')
+  end
+
+  raeliRegion()
+  srMakeImage("last-raeli", topLeftX, topLeftY, width, height);
+  lastImage = srFindImageInRange("last-raeli", topLeftX, topLeftY, width, height)
+
+  startTime = lsGetTimer();
+  lastReset = lsGetTimer()
+  changes = 0;
+  lastChange = 0
+  lsPlaySound("beepping.wav")
+  screenshot()
+  DeleteLog()
+
+  while 1 do
+    if changes == 0 then
+      word = "Inital"
+    else
+      word = "Last"
+    end
+    if allow_break then
+      messageY = 50
+      imageY = 80
+      extraSpace = "\n\n\n"
+    else
+      messageY = 10
+      imageY = 40
+      extraSpace = "";
+    end
+
+    findOven()
+
+    if not lastImage and oven then
+      srMakeImage("last-raeli", topLeftX, topLeftY, width, height);
+      changes = changes + 1
+      lsPlaySound("beepping.wav")
+      resetTimer()
+	screenshot()
+    end
+
+    sleepWithStatus(500, extraSpace .. "Changes Occurred: " .. changes .. "\n\nLast Change Elapsed: " .. formatLastChange(lastChange) .. "\n\nTotal Elapsed Time: " .. getElapsedTime(startTime) .. "\n\n" .. word .. " Image Saved: " .. "raeli_" .. changes .. "_" .. ".png\n\nNote: Moving your raeli window or quickly Alt+Tabbing will NOT break the macro!", nil, 0.7, status)
+
+  end
+end
+
+
+function findOven()
+  srReadScreen();
+  oven = findText("This is [a-z]+ Raeli Oven", nil, REGEX)
+  if oven then
+    status = "Monitoring for change"
+    raeliRegion()
+    lastImage = srFindImageInRange("last-raeli", topLeftX, topLeftY, width, height)
+  else
+    status = "Can\'t find Raeli Oven"
+  end
+end
+
+
+function screenshot()
+  srReadScreen(); -- Re-Read screen so that the screenshot doesn't show a white (stripped window) from earlier findText()
+  srSaveLastReadScreen("raeli_" .. changes .. "_" .. ".png");
+  WriteLog()
+end
+
+
+function resetTimer()
+  lastChange = lsGetTimer() - lastReset
+  lastReset = lsGetTimer()
+end
+
+
+function raeliRegion()
+    window = getWindowBorders(oven[0], oven[1]);
+    bottomRightX = window.width + window.x - 15
+    bottomRightY = window.height + window.y - 55
+    topLeftX = window.x+15
+    topLeftY = bottomRightY-35
+    width = bottomRightX - topLeftX
+    height = bottomRightY - topLeftY
+end
+
+
+function formatLastChange(theTime)
+        local duration = math.floor(theTime / 1000);
+        local hours = math.floor(duration / 60 / 60);
+        local minutes = math.floor((duration - hours * 60 * 60) / 60);
+        local seconds = duration - hours * 60 * 60 - minutes * 60;
+        return string.format("%02d:%02d:%02d",hours,minutes,seconds);
+end
+
+
+function DeleteLog()
+      fetchGameClock()
+	logfile = io.open("raeli.txt","w+");
+	logfile:write(dateTime .. ": Macro started, Saving raeli_0_.png\n");
+	logfile:close();
+end
+
+
+function WriteLog()
+      fetchGameClock()
+      local Text = dateTime .. ": Detected a change. It has been " .. formatLastChange(lastChange) .. " since last change occurred. Saved raeli_" .. changes .. "_.png"
+	logfile = io.open("raeli.txt","a+");
+	logfile:write(Text .. "\n");
+	logfile:close();
+end
+
+
+function fetchGameClock()
+  srReadScreen();
+  if getTime() then
+    dateTime = getTime(1)
+  else
+    dateTime = "Unknown Date/Time"
+  end
+end
+
+
+-- Custom version of sleepWithStatus so that srShowImageDebug image appears without flickering
+
+local waitChars = {"-", "\\", "|", "/"};
+local waitFrame = 1;
+
+function sleepWithStatus(delay_time, message, color, scale, waitMessage)
+  if not waitMessage then
+    waitMessage = "Waiting ";
+  else
+    waitMessage = waitMessage .. " ";
+  end
+  if not color then
+    color = 0xffffffff;
+  end
+  if not delay_time then
+    error("Incorrect number of arguments for sleepWithStatus()");
+  end
+  if not scale then
+    scale = 0.8;
+  end
+  local start_time = lsGetTimer();
+  while delay_time > (lsGetTimer() - start_time) do
+    local frame = math.floor(waitFrame/5) % #waitChars + 1;
+    time_left = delay_time - (lsGetTimer() - start_time);
+    newWaitMessage = waitMessage;
+    if delay_time >= 1000 then
+      newWaitMessage = waitMessage .. time_left .. " ms ";
+    end
+
+    lsPrintWrapped(10, messageY, 0, lsScreenX - 20, scale, scale, 0xd0d0d0ff,
+                   newWaitMessage .. waitChars[frame]);
+    if oven then
+      srShowImageDebug("last-raeli", 10, imageY, 1, 0.8);
+    end
+    statusScreen(message, color, allow_break, scale);
+    lsSleep(tick_delay);
+    waitFrame = waitFrame + 1;
+  end
 end
