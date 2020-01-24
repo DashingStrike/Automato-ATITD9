@@ -1430,16 +1430,7 @@ function checkClay()
     local xyWindowSize = srGetWindowSize();
     local midX = xyWindowSize[0] / 2;
     if((emptyJugs > (numJugs / 2)) or (emptyJugs > 50)) then
-        stopMoving();
-        local pos = srFindImageInRange("water.png",0,0,midX,100,5000);
-        if(pos) then
-            safeClick(pos[0] + 3, pos[1] + 3);
-            lsSleep(150);
-            srReadScreen();
-            clickMax();
-            emptyJugs = 0;
-            sleepWithBreak(1250);
-        end
+        fillJugs();
     end
     if(emptyJugs == numJugs) then
         return false;
