@@ -28,6 +28,9 @@ function find_button_index(ingred_name)
 end
 
 function click_ingredient(ingredient_name)
+      while lsMouseIsDown() do
+        sleepWithStatus(16, "Release Mouse to continue ...", nil, 0.7, "Preparing to Click");
+      end
     paint_count = 0;
     paint_values = {0, 0, 0};
     paint_buttons = findAllImages("plus.png");
@@ -89,6 +92,9 @@ function findBigColorBar()
 end
 
 function reset(already_added)
+      while lsMouseIsDown() do
+        sleepWithStatus(16, "Release Mouse to continue ...", nil, 0.7, "Preparing to Click");
+      end
     print("Finishing paint with Red Sand");
     for i= 1, 10 - already_added do
         -- finish the paint recipe with red sand
