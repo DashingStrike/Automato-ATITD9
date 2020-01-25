@@ -1048,7 +1048,7 @@ function promptRecipe(farm)
 
     if foundRecipe and not pasted and not badList then
       lsPrint(140, 13, 10, 0.7, 0.7, 0x40ff40ff, "LOADED RECIPE");
-      lsPrintWrapped(10, 30, z, lsScreenX - 20, 0.6, 0.6, 0xffff40ff, "Copy your recipe, from history.txt to Clipboard (Ctrl+C), then click 'Paste' and 'Save' button."); 
+      lsPrintWrapped(10, 30, z, lsScreenX - 20, 0.6, 0.6, 0xffff40ff, "Copy your recipe, from thistle_history.txt to Clipboard (Ctrl+C), then click 'Paste' and 'Save' button."); 
     end
 
     if badList then
