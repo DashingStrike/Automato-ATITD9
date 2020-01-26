@@ -5,58 +5,23 @@ lsRequireVersion(2,50) -- v2.50 adds srSaveImageDebug used in this script. Give 
 dofile("common.inc");
 
 allow_break = false; -- Change to true if you want to allow Ctrl+Shift or Alt+Shift (false will Help prevent accidentally exiting macro)
-screenshot_filename_prefix = "raeli_"
-
 
 function doit()
 
-  askForWindow("Pin a Raeli Oven window.\n\nMacro will monitor the window for change based on the color / text (inside color bar) on window and take a screenshot when it occurs.\n\nScreenshots appear as " .. screenshot_filename_prefix .. "#_.png in C:\\Games\\Automato folder.\n\nWrites a log to raeli.txt, in ATITD9 folder, showing other useful information.");
+  askForWindow("Pin a Raeli Oven window.\n\nMacro will monitor the window for change based on the color / text (inside color bar) on window and take a screenshot when it occurs.\n\nScreenshots appear as raeli_#.png in C:\\Games\\Automato folder.\n\nWrites a log to raeli.txt, in ATITD9 folder, showing other useful information.");
 
   settings();
   srReadScreen();
   oven = findText("This is [a-z]+ Raeli Oven", nil, REGEX)
-
-
---[[
-  TODO: Try to handle more than one oven window pinned
-
-  ovenQty = findAllText("This is [a-z]+ Raeli Oven", nil, REGEX)
-
-  if #ovenQty == 0 then
-    error('Could not find a Raeli Oven pinned')
-  end
-
-  if #oven > 1 then
-  -- Do Something Different
-  end
-
---]]
-
-
   if not oven then
     error('Could not find a Raeli Oven pinned')
   end
-
-
-  if allow_break then
-    messageY = 50
-    imageY = 80
-    extraSpace = "\n\n\n"
-  else
-    messageY = 10
-    imageY = 40
-    extraSpace = "\n";
-  end
-
   raeliRegion()
   makeImage()
   lastImage = srFindImageInRange("last-raeli", topLeftX, topLeftY, width, height)
   getPixel()
-
   startTime = lsGetTimer();
   lastReset = lsGetTimer()
-  changes = 0;
-  lastChange = 0
   lsPlaySound("beepping.wav")
   screenshot()
   DeleteLog()
@@ -70,7 +35,7 @@ function doit()
 
     findOven()
 
-    if not lastImage and oven then
+    if not lastImage and oven then -- Change has occured
       makeImage()
       getPixel()
       changes = changes + 1
@@ -86,6 +51,19 @@ end
 
 
 function settings()
+  changes = 0;
+  lastChange = 0
+  screenshot_filename_prefix = "raeli_"
+  if allow_break then
+    messageY = 50
+    imageY = 80
+    extraSpace = "\n\n\n"
+  else
+    messageY = 10
+    imageY = 40
+    extraSpace = "\n";
+  end
+
   while 1 do
   local y = 10;
   local scale = 0.7;
@@ -103,7 +81,9 @@ function settings()
   lsPrintWrapped(10, y, z, lsScreenX - 20, scale, scale, 0xFFFFFFff, "Macro will save screenshots of your oven when a color/text change has occured. By default they are saved as raeli_0.png, raeli_1.png, etc. Optionally, you can add text above to alter the filename in case you are testing different ovens.\n\nAlso note log files are saved in raeli.txt which records useful information (Egypt Date/Time, coordinates, Time elapsed since last change, total time running.");
 
   if lsButtonText(10, lsScreenY - 30, z, 100, 0xFFFFFFff, "Start") then
-    lsDoFrame(); -- This isn't needed. Just quickly black out the screen to prevent a fading effect
+      while lsMouseIsDown() do
+        sleepWithStatus(16, "Release Mouse to continue ...", nil, 0.7, "Preparing to Click");
+      end
     break;
   end
   if lsButtonText(lsScreenX - 110, lsScreenY - 30, z, 100, 0xFFFFFFff, "End script") then
@@ -131,7 +111,7 @@ end
 function makeImage()
   srReadScreen(); -- Don't remove this. We always need to do another Read (even if one occured recently) to prevent stripped background from previous findText()'s
   srMakeImage("last-raeli", topLeftX, topLeftY, width, height);  -- The color part of oven window
-  srMakeImage("raeli-oven", topLeftX2, topLeftY2, width2, height2); -- The entire oven window
+  srMakeImage("raeli-oven", window.x, window.y, window.width, window.height); -- The entire oven window
 end
 
 
@@ -157,7 +137,7 @@ end
 
 
 function raeliRegion()
-  local window = getWindowBorders(oven[0], oven[1]);
+  window = getWindowBorders(oven[0], oven[1]);
   --This is the color portion of oven window
   bottomRightX = window.width + window.x - 15
   bottomRightY = window.height + window.y - 55
@@ -165,12 +145,6 @@ function raeliRegion()
   topLeftY = bottomRightY-35
   width = bottomRightX - topLeftX
   height = bottomRightY - topLeftY
-
-  --This is the entire oven window
-  topLeftX2 = window.x
-  topLeftY2 = window.h
-  width2 = window.width
-  height2 = window.height
 end
 
 
@@ -217,8 +191,7 @@ end
 
 function WriteLog()
   fetchGameClock()
-  local Text = changes .. ": " ..dateTime .. " @ " .. location .. "\nFile: " .. screenshot_filename_prefix .. changes .. screenshot_filename_suffix .. ".png\nPixel: " .. px .. "\nRGB: " .. rgba .. "\nHSV: " .. hsv .. "\nTime Macro Running: " .. getElapsedTime(startTime) .. "\nTime Since Last Change: " .. formatLastChange(lastChange) .. "\n\n"
-
+  local Text = changes .. ": " ..dateTime .. " @ " .. location .. "\nFile: " .. screenshot_filename_prefix .. changes .. screenshot_filename_suffix .. ".png\nPixel: " .. px .. "\nRGB: " .. rgba .. "\nHSV: " .. hsv .. "\n" .. formatLastChange(lastChange) .. " - Elapsed Time Since Last Change\n" .. getElapsedTime(startTime) .. " - Elapsed Time Macro has been Running\n\n"
   logfile = io.open("raeli.txt","a+");
   logfile:write(Text .. "\n");
   logfile:close();
