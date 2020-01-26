@@ -1,7 +1,5 @@
 -- Revamped by Cegaiel
 
-lsRequireVersion(2,50) -- v2.50 adds srSaveImageDebug used in this script. Give error if user tries to use lower version.
-
 dofile("common.inc");
 
 allow_break = false; -- Change to true if you want to allow Ctrl+Shift or Alt+Shift (false will Help prevent accidentally exiting macro)
@@ -18,8 +16,9 @@ function doit()
   end
   raeliRegion()
   makeImage()
-  lastImage = srFindImageInRange("last-raeli", topLeftX, topLeftY, width, height)
+--  lastImage = srFindImageInRange("last-raeli", topLeftX, topLeftY, width, height, 1)
   getPixel()
+lastPixel = px
   startTime = lsGetTimer();
   lastReset = lsGetTimer()
   lsPlaySound("beepping.wav")
@@ -35,16 +34,18 @@ function doit()
 
     findOven()
 
-    if not lastImage and oven then -- Change has occured
+--    if not lastImage and oven then -- Change has occured
+    if lastPixel ~= px and oven then -- Change has occured
       makeImage()
       getPixel()
+lastPixel = px
       changes = changes + 1
       lsPlaySound("beepping.wav")
       resetTimer()
 	screenshot()
     end
 
-    sleepWithStatus(500, extraSpace .. "Pixel: " .. px .. "\nRGBA: " .. rgba .. "\n" .. "HSV: " .. hsv .. "\n\nChanges Occurred: " .. changes .. "\n\nLast Change Elapsed: " .. formatLastChange(lastChange) .. "\n\nTotal Elapsed Time: " .. getElapsedTime(startTime) .. "\n\n" .. word .. " Image Saved: " .. screenshot_filename_prefix .. changes .. screenshot_filename_suffix .. ".png\n\nNote: Moving your raeli window or quickly Alt+Tabbing will NOT break the macro!", nil, 0.7, status)
+    sleepWithStatus(500, extraSpace .. "Pixel: " .. px .. "\nRGBA: " .. rgba .. "\n" .. "HSV: " .. hsv .. "\n\nChanges Occurred: " .. changes .. "\n\nLast Change Elapsed: " .. formatLastChange(lastChange) .. "\n\nTotal Elapsed Time: " .. getElapsedTime(startTime) .. "\n\n" .. word .. " Image Saved: " .. screenshot_filename_prefix .. changes .. screenshot_filename_suffix .. ".png\n\nNote: Moving your raeli window or quickly Alt+Tabbing will NOT break the macro !", nil, 0.7, status)
 
   end
 end
@@ -101,7 +102,8 @@ function findOven()
   if oven then
     status = "Monitoring for change"
     raeliRegion()
-    lastImage = srFindImageInRange("last-raeli", topLeftX, topLeftY, width, height)
+--    lastImage = srFindImageInRange("last-raeli", topLeftX, topLeftY, width, height, 1)
+getPixel()
   else
     status = "Can\'t find Raeli Oven"
   end
@@ -111,13 +113,14 @@ end
 function makeImage()
   srReadScreen(); -- Don't remove this. We always need to do another Read (even if one occured recently) to prevent stripped background from previous findText()'s
   srMakeImage("last-raeli", topLeftX, topLeftY, width, height);  -- The color part of oven window
-  srMakeImage("raeli-oven", window.x, window.y, window.width, window.height); -- The entire oven window
+--  srMakeImage("raeli-oven", window.x, window.y, window.width, window.height); -- The entire oven window
 end
 
 
 function screenshot()
   srReadScreen(); -- Re-Read screen so that the screenshot doesn't show a white (stripped window) from earlier findText()
-  srSaveImageDebug("raeli-oven", screenshot_filename_prefix .. changes .. screenshot_filename_suffix .. ".png");
+--  srSaveImageDebug("raeli-oven", screenshot_filename_prefix .. changes .. screenshot_filename_suffix .. ".png");
+  srSaveLastReadScreen(screenshot_filename_prefix .. changes .. screenshot_filename_suffix .. ".png");
   WriteLog()
 end
 
