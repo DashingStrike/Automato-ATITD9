@@ -274,6 +274,14 @@ function drawWater(skipTimer)
       end
     end
   end
+  if result == true then
+    lsSleep(60)
+    srReadScreen();
+    local OK = srFindImage("OK.png")
+    if OK then
+      srClickMouseNoMove(ok[0]+5,ok[1],1);
+    end
+  end
   return result;
 end
 
