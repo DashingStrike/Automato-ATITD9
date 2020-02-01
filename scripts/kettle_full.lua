@@ -149,7 +149,7 @@ function waitForKettles(message, stoked, passes, num_loops)
       finish_up_message = 1;
     end
     if passes > 1 then
-      sleepWithStatus(5000, message .. "\n\nPass Elapsed Time: " .. getElapsedTime(startTime) .. "\n\nTotal Elapsed Time: " .. getElapsedTime(startTimePass), nil, 0.7);
+      sleepWithStatus(5000, message .. "\n\nPass Elapsed Time: " .. getElapsedTime(startTimePass) .. "\n\nTotal Elapsed Time: " .. getElapsedTime(startTime), nil, 0.7);
     else
       sleepWithStatus(5000, message .. "\n\nPass Elapsed Time: " .. getElapsedTime(startTimePass), nil, 0.7);
     end
