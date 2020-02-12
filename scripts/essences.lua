@@ -32,7 +32,7 @@ essences = {
 	{"ResinDikbasYouth",60},
 	{"ResinDwarfSafsaf",11},
 	{"ResinElephantia",75},
-	{"Resinleather",66},
+	{"ResinleatherTree",66},
 	{"ResinleatherTreeSapling",28},
 	{"ResinleatherTreeYouth",64},
 	{"ResinlernPalm",27},
