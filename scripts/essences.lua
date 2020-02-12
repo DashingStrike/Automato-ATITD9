@@ -32,11 +32,11 @@ essences = {
 	{"ResinDikbasYouth",60},
 	{"ResinDwarfSafsaf",11},
 	{"ResinElephantia",75},
-	{"ResinFeatherTree",66},
-	{"ResinFeatherTreeSapling",28},
-	{"ResinFeatherTreeYouth",64},
-	{"ResinFernPalm",27},
-	{"ResinFoldedBirch",20},
+	{"Resinleather",66},
+	{"ResinleatherTreeSapling",28},
+	{"ResinleatherTreeYouth",64},
+	{"ResinlernPalm",27},
+	{"ResinloldedBirch",20},
 	{"ResinGiantCricklewood",12},
 	{"ResinGoldenHemlock",35},
 	{"ResinGoldenHemlockSapling",67},
@@ -66,7 +66,7 @@ essences = {
 	{"ResinMimosaSapling",16},
 	{"ResinMimosaYouth",20},
 	{"ResinMiniPalmetto",84},
-	{"ResinMiniatureFernPalm",50},
+	{"ResinMiniaturelernPalm",50},
 	{"ResinMonkeyPalm",47},
 	{"ResinMontereyPine",50},
 	{"ResinMontereyPineMiddleAge",42},
@@ -97,7 +97,7 @@ essences = {
 	{"ResinSavaka",3},
 	{"ResinScaleyHardwood",30},
 	{"ResinSilkyOak",60},
-	{"ResinSpikedFishtree",82},
+	{"ResinSpikedlishtree",82},
 	{"ResinSpindleTree",39},
 	{"ResinStoutPalm",16},
 	{"ResinStoutPalm",16},
@@ -602,11 +602,11 @@ function labTick(essWin, state)
 					if essences[k][2] ~= -1 and parse[i][2] == essences[k][1] and foundEss == false then
 						state.essenceIndex = k;
 						foundEss = true;
+						sleepWithStatus(5000, "Essences[k][1] is " .. tostring(essences[k][1])  .. "\nEssences[k][2] is " .. tostring(essences[k][2]) .. "\nParse[i] is " .. table.concat(parse[i],","))
 						clickText(parse[i]);
 						message = "Added Macerator: " .. essences[k][1] .. "\n";
 						state.temp = essences[k][2];
 						if state.temp == nil then
-							sleepWithStatus(5000, "THIS IS A RANDOM SLEEP TEST")
 						  error("That material has not yet been mapped.");
 						end
 					end
