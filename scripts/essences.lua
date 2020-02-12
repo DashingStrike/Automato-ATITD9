@@ -602,7 +602,6 @@ function labTick(essWin, state)
 					if essences[k][2] ~= -1 and parse[i][2] == essences[k][1] and foundEss == false then
 						state.essenceIndex = k;
 						foundEss = true;
-						sleepWithStatus(5000, "Essences[k][1] is " .. tostring(essences[k][1])  .. "\nEssences[k][2] is " .. tostring(essences[k][2]) .. "\nParse[i] is " .. table.concat(parse[i],","))
 						clickText(parse[i]);
 						message = "Added Macerator: " .. essences[k][1] .. "\n";
 						state.temp = essences[k][2];
