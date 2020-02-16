@@ -14,7 +14,7 @@ function doit()
 	askForWindow(askText);
 	config();
 		if(arrangeWindows) then
-			arrangeInGrid(nil, nil, nil, nil,nil, 10, 15);
+			arrangeInGrid(nil, nil, nil, nil,nil, 10, 25);
 		end
 	unpinOnExit(start);
 end
@@ -236,9 +236,8 @@ function start()
 		lsSleep(500);
 		closePopUp();  --If you don't have enough cuttable stones in inventory, then a popup will occur.
 		checkMaking();
-
-    lsPlaySound("Complete.wav");
 	end
+	lsPlaySound("Complete.wav");
 end
 
 function refreshWindows()

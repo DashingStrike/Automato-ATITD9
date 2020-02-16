@@ -4,7 +4,7 @@
 
 dofile("common.inc");
 
-wind_time = 7920000;  	-- 2 hours teppy time
+wind_time = 1800000;  	-- 30 minutes
 check_time = 10000;   	-- 10 seconds
 
 do_initial_wind = 1;  	-- default
