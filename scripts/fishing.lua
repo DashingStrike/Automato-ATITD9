@@ -318,7 +318,9 @@ function UseLure()
         lsSleep(200);
     elseif #PlayersLures > 30 then
         up = srFindImage("Fishing/Menu_UpArrow.png", 6000);
-        srClickMouseNoMove(up[0]+5,up[1]+5);
+          if up then
+             srClickMouseNoMove(up[0]+5,up[1]+5);
+           end
         lsSleep(200);
     end
 
