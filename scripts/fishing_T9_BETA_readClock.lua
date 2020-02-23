@@ -320,6 +320,14 @@ function UseLure()
         lsSleep(200);
     elseif #PlayersLures > 30 then
         up = srFindImage("Fishing/Menu_UpArrow.png", 6000);
+	while not up do
+	  checkBreak();
+	  srClickMouseNoMove(0,0,1); -- Try to do a right click at 0,0 to try to close out any unpinned windows that might be covering lure menu
+	  srReadScreen();
+	  up = srFindImage("Fishing/Menu_UpArrow.png", 6000);
+	  statusScreen("Problems finding the up arrow button");
+	  lsSleep(100);
+	end
         srClickMouseNoMove(up[0]+5,up[1]+5);
         lsSleep(200);
     end
