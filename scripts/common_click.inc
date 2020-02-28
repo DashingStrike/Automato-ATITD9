@@ -234,9 +234,9 @@ function drawWater(skipTimer)
 
   -- Second, check for aqueduct
   if not result then
-    --local aqueduct = srFindImage("Aqueduct.png");
+    local aqueduct = srFindImage("Aqueduct.png");
     if not aqueduct then
-      --aqueduct = srFindImage("Aqueduct2.png");
+      aqueduct = srFindImage("Aqueduct2.png");
     end
     if aqueduct then
     sleepWithStatus(200, "Refilling water...", nil, 0.7);

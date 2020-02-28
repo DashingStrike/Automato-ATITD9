@@ -63,7 +63,7 @@ STAGETEMP = {
 	-- Osiris
 	{ { 580, 600 }, { 500, 700 }, { 770, 800 } },
 	-- Renenutet
-	{ { 490, 500 }, { 100, 200 }, { 750, 800 } },
+	{ { 400, 550 }, { 100, 250 }, { 700, 850 } },
 };
 
 -- Temperature ranges in which to bother testing acidity with cabbage juice
@@ -116,7 +116,7 @@ STAGEACID = {
 	-- Osiris
 	{ { 5.0, 5.4 }, { 1.2, 1.5 }, { 3.0, 4.0 } },
 	-- Renenutet
-	{ { 2.2, 2.4 }, { 1.1, 1.3 }, { 4.9, 5.0 } },
+	{ { 2.2, 2.6 }, { 1.1, 1.5 }, { 4.6, 5.0 } },
 };
 
 -- Initial sap to add upon stage change for each stage for each product
