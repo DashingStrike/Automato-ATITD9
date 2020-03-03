@@ -230,9 +230,10 @@ function drawWater(skipTimer)
       safeClick(max[0]+5, max[1]+5);
       result = true;
     end
-  end
+  end 
 
   -- Second, check for aqueduct
+  srReadScreen();
   if not result then
     local aqueduct = srFindImage("Aqueduct.png");
     if not aqueduct then
@@ -245,13 +246,14 @@ function drawWater(skipTimer)
       srReadScreen();
       local fill = srFindImage("FillWithWater.png");
       if fill then
-    safeClick(fill[0] + 5, fill[1]);
-    result = true;
+        safeClick(fill[0] + 5, fill[1]);
+        result = true;
       end
     end
   end
 
   -- Last, check for nearby pond
+  srReadScreen();
   if not result then
     local water = srFindImage("water.png", 1);
     --local watersmall = srFindImage("iconWaterJugSmallIcon.png", 1);
