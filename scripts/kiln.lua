@@ -4,7 +4,7 @@
 dofile("common.inc");
 dofile("settings.inc");
 
-kilnList = {"True Kiln", "Vault Kiln"};
+kilnList = {"True Kiln", "Vault Kiln", "Reinforced Kiln"};
 arrangeWindows = true;
 
 -- Tweakable delay values
@@ -60,12 +60,14 @@ function config()
 	y = y + 35;
 
 	if kiln == 1 then
-			kilnName = "True Kiln"
+		kilnName = "True Kiln"
 	elseif kiln == 2 then
-			kilnName = "Vault Kiln"
+		kilnName = "Vault Kiln"
+	elseif kiln == 3 then
+		kilnName = "Reinforced Kiln"
 	end
 
-	if kilnName == "True Kiln" then
+	if kilnName == "True Kiln" or kilnName == "Reinforced Kiln" then
 		if not clayMortars and not firebricks and not jugs and not clayPot then
 			clayBricks = readSetting("clayBricks",clayBricks);
 			clayBricks = CheckBox(15, y, z+10, 0xFFFFFFff, "Load the Kiln with Wet Clay Bricks", clayBricks, 0.65, 0.65);
