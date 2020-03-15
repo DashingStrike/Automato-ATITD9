@@ -17,9 +17,7 @@ WHITE = 0xFFFFFFff;
 
 recipes = {};
 filename = "treat_boards.txt"
-exampleRecipes = "Rigid, Rotproof, Blonde : Lime 16, Beeswax 5 - #example\nPliable, Rotproof, Nontoxic, White : Bonemeal 16 Beeswax 4 Bonemeal 1 Beeswax 4 - #example"
-
-take_board = true; -- Useful to turn this option off when making Ribbons in Pigment Lab
+exampleRecipes = "Rigid, Rotproof, Blonde : Lime 16 Beeswax 5 - #example\nPliable, Rotproof, Nontoxic, White : Bonemeal 16 Beeswax 4 Bonemeal 1 Beeswax 4 - #example"
 
 function doit()
     recipes = loadRecipes(filename);
