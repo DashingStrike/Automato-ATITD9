@@ -338,6 +338,7 @@ clay = false;
 numJugs = 200;
 emptyJugs = 0;
 repeatForever = true;
+juglessGather = false;
 
 gather_iterations = 0;
 gather_randomNumber = 0;
@@ -417,15 +418,23 @@ function queryRoute()
         clay = readSetting("clay",clay);
         clay = lsCheckBox(10, y, z, 0xFFFFFFff, " Gather clay and flint", clay);
         writeSetting("clay",clay);
-        y = y + 32;
-        lsPrint(35, y+5, z, 1, 1, 0xFFFFFFff, "Number of jugs:");
-        numJugs = readSetting("numJugs",numJugs);
-        nada, numJugs = lsEditBox("jugCount",
-            200, y+7, z, 70, 0, 1.0, 1.0, 0x000000ff, numJugs);
-        writeSetting("numJugs",numJugs);
-        if (clay and (not tonumber(numJugs))) then
-            lsPrint(35, y+32, z+10, 0.9, 0.9, 0xFF2020ff, "MUST BE A NUMBER");
-        end
+		if(clay) then
+			y = y + 32;
+			juglessGather = readSetting("juglessGather",juglessGather);
+			juglessGather = lsCheckBox(35, y, z, 0xFFFFFFff, " Jugless clay gathering (Potter Talent)", juglessGather);
+			writeSetting("juglessGather",juglessGather);
+			if(not juglessGather) then
+				y = y + 32;
+				lsPrint(35, y+5, z, 1, 1, 0xFFFFFFff, "Number of jugs:");
+				numJugs = readSetting("numJugs",numJugs);
+				nada, numJugs = lsEditBox("jugCount",
+					200, y+7, z, 70, 0, 1.0, 1.0, 0x000000ff, numJugs);
+				writeSetting("numJugs",numJugs);
+				if (clay and (not tonumber(numJugs))) then
+					lsPrint(35, y+32, z+10, 0.9, 0.9, 0xFF2020ff, "MUST BE A NUMBER");
+				end
+			end
+		end
         y = y + 32;
         y = y + 32;
         repeatForever = readSetting("repeatForever",repeatForever);
@@ -1429,9 +1438,11 @@ function checkClay()
     end
     local xyWindowSize = srGetWindowSize();
     local midX = xyWindowSize[0] / 2;
-    if((emptyJugs > (numJugs / 2)) or (emptyJugs > 50)) then
-        fillJugs();
-    end
+	if(not juglessGather) then
+		if((emptyJugs > (numJugs / 2)) or (emptyJugs > 50)) then
+			--fillJugs();
+		end
+	end
     if(emptyJugs == numJugs) then
         return false;
     end
