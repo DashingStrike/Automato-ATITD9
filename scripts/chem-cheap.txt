@@ -1,0 +1,1760 @@
+Ra,Ar-----,AS+++++|Arconis,Salts Of Zinc,Powdered Quartz,Hogweed,Powdered Diamond
+Ra,Ar+++++,Sw-----|Summer Maple Sapling,Cardamom,Windriver Palm,Elephantia,Peaches 'n Cream Youth
+Ra,As-----,Bi+++++|Feather Tree Sapling,River Birch,Silky Oak,Orange Niali,Sorrel
+Ra,As-----,Sa+++++|Royal Palm,Pratyeka Tree,Tapacae Miralis,Green Ash,Chicory
+Ra,As+++++,Sw-----|Dikbas Sapling,Dwarf Safsaf,Katsura Sapling,Motherwort,Stickler Hedge
+Ra,Bi-----,Sa+++++|Bottle Tree,Hawthorn,Parrotia,White Pine Sapling,Autumn Bloodbark
+Ra,Bi-----,So+++++|Dikbas Sapling,Dwarf Safsaf,Katsura Sapling,Motherwort,Stickler Hedge
+Ra,Bi+++++,Sp-----|Orange Niali,Spindle Tree,Salts Of Cobalt,Phoenix Palm,Razor Palm
+Ra,Bi-----,Sp+++++|Cricklewood,White Pine,Dikbas Sapling,Passam,Elephantia
+Ra,Sa+++++,So-----|Summer Maple,River Birch Sapling,Royal Palm,Parrotia,Chicory
+Ra,Sa+++++,Sw-----|Towering Palm,Umbrella Palm,Pratyeka Tree,Summer Maple,Windriver Palm
+Ra,So-----,To+++++|Locust Palm,Summer Maple,Salts Of Magnesium,Black Pepper Plant,Fool's Agar
+Ra,Sp-----,To+++++|Chakkanut Tree,Green Ash Youth,Khaya Youth,Khaya,Feather Tree
+Ra,Sw-----,To+++++|Bloodbark,Autumn Bloodbark Sapling,Chakkanut Tree,Jacaranda,Illawara
+Ra,AS+++++,Ar-----|Arconis,Salts Of Zinc,Powdered Quartz,Hogweed,Powdered Diamond
+Ra,Sw-----,Ar+++++|Summer Maple Sapling,Cardamom,Windriver Palm,Elephantia,Peaches 'n Cream Youth
+Ra,Bi+++++,As-----|Feather Tree Sapling,River Birch,Silky Oak,Orange Niali,Sorrel
+Ra,Sa+++++,As-----|Royal Palm,Pratyeka Tree,Tapacae Miralis,Green Ash,Chicory
+Ra,Sw-----,As+++++|Dikbas Sapling,Dwarf Safsaf,Katsura Sapling,Motherwort,Stickler Hedge
+Ra,Sa+++++,Bi-----|Bottle Tree,Hawthorn,Parrotia,White Pine Sapling,Autumn Bloodbark
+Ra,So+++++,Bi-----|Dikbas Sapling,Dwarf Safsaf,Katsura Sapling,Motherwort,Stickler Hedge
+Ra,Sp-----,Bi+++++|Orange Niali,Spindle Tree,Salts Of Cobalt,Phoenix Palm,Razor Palm
+Ra,Sp+++++,Bi-----|Cricklewood,White Pine,Dikbas Sapling,Passam,Elephantia
+Ra,So-----,Sa+++++|Summer Maple,River Birch Sapling,Royal Palm,Parrotia,Chicory
+Ra,Sw-----,Sa+++++|Towering Palm,Umbrella Palm,Pratyeka Tree,Summer Maple,Windriver Palm
+Ra,To+++++,So-----|Locust Palm,Summer Maple,Salts Of Magnesium,Black Pepper Plant,Fool's Agar
+Ra,To+++++,Sp-----|Chakkanut Tree,Green Ash Youth,Khaya Youth,Khaya,Feather Tree
+Ra,To+++++,Sw-----|Bloodbark,Autumn Bloodbark Sapling,Chakkanut Tree,Jacaranda,Illawara
+Thoth,Ar----,As----,Bi++++|River Birch,Silky Oak,Fool's Agar,Feather Tree Sapling,Broadleaf Palm
+Thoth,Ar----,As++++,Sa++++|Arconis,Salts Of Zinc,Umbrella Palm,Hogweed,Hawthorn
+Thoth,Ar----,As----,Sa++++|Broadleaf Palm,Salts Of Aluminum,Wild Lettuce,Tapacae Miralis,Summer Maple
+Thoth,Ar----,Ar++++,Sa++++|Arconis,Salts Of Zinc,Umbrella Palm,Parrotia,Monkey Palm
+Thoth,Ar----,As----,Sp++++|Silky Oak,Salts Of Aluminum,Silvertongue Damia,Montu Maple,Golden Hemlock
+Thoth,Ar----,As----,To++++|Golden Hemlock,Monterey Pine,Salts Of Gold,Fool's Agar,Broadleaf Palm
+Thoth,Ar----,As++++,Sp----|Powdered Quartz,Arconis,Chakkanut Tree,Monkey Palm,Powdered Topaz
+Thoth,Ar----,As++++,Sw----|Bloodbark,Salts Of Zinc,Powdered Amethyst,Hogweed,Cinnar
+Thoth,Ar----,As++++,To----|Salts Of Zinc,Fern Palm,Ranyahn,Japanese Cherry Youth,Monkey Palm
+Thoth,Ar++++,As++++,So----|Acacia Sapling,Feather Tree,Miniature Fern Palm,Windriver Palm,Verdant Squill
+Thoth,Ar++++,As++++,Sp----|Feather Tree,Windriver Palm,Powdered Opal,Miniature Fern Palm,Chakkanut Tree
+Thoth,Ar++++,As----,Bi----|Mountain Mint,Passam,Daggerleaf,Salts Of Iron,Beetlenut
+Thoth,Ar++++,As----,So----|Mimosa Sapling,Royal Palm,Acacia Sapling,Tiny Oil Palm,Mountain Mint
+Thoth,Ar++++,As----,Sw----|Summer Maple Sapling,Mindanao,Mimosa Sapling,Ash Palm,Peaches 'n Cream Youth
+Thoth,Ar++++,Bi++++,Sa----|Golden Hemlock Sapling,Peaches 'n Cream Maple,Spindle Tree,Phoenix Palm,Beetlenut
+Thoth,Ar++++,Bi++++,Sp----|Golden Hemlock Sapling,Peaches 'n Cream Maple,Spindle Tree,Phoenix Palm,Windriver Palm
+Thoth,Ar++++,Bi----,So----|Daggerleaf,Feather Tree,Green Ash Sapling,Mountain Mint,Passam
+Thoth,Ar++++,Bi----,Sw----|Summer Maple Sapling,Cardamom,Cinnamon,Mimosa Youth,Dwarf Safsaf
+Thoth,Ar----,Bi----,Sa++++|Salts Of Platinum,Stickler Hedge,Coconut Palm,Arconis,Autumn Bloodbark
+Thoth,Ar----,Bi----,Sp++++|White Pine,Silvertongue Damia,Cricklewood,Jacaranda Youth,Monkey Palm
+Thoth,Ar++++,Sa++++,Sw----|Summer Maple Sapling,White Pine Sapling,Cardamom,Windriver Palm,Towering Palm
+Thoth,Ar++++,Sa----,Sp----|Golden Hemlock Sapling,Spindle Tree,Peaches 'n Cream Maple,Oranje,Feather Tree
+Thoth,Ar++++,So----,Sp----|Feather Tree,Powdered Opal,Spindle Tree,Mountain Mint,Green Ash Sapling
+Thoth,Ar++++,So----,To++++|Acacia,Autumn Bloodbark Sapling,Feather Tree,Salts Of Magnesium,Daggerleaf
+Thoth,Ar----,So++++,Sp----|Crimson Lettuce,Dark Ochoa,Scaley Hardwood,Monterey Pine Middle Age,Powdered Quartz
+Thoth,Ar----,So++++,To----|Mimosa,Jacaranda Youth,Scaley Hardwood,Salts Of Antimony,Monterey Pine Sapling
+Thoth,Ar----,So----,To++++|Summer Maple  ,Salts Of Nickel,Black Pepper Plant,Fool's Agar,Silvertongue Damia
+Thoth,Ar++++,Sp----,Sw----|Windriver Palm,Spindle Tree,Powdered Opal,Powdered White Pearl,Autumn Bloodbark Sapling
+Thoth,As----,Bi++++,Sp----|River Birch,Orange Niali,Sorrel,Peaches 'n Cream Maple,Oranje
+Thoth,As----,Bi----,Sa++++|White Pine,Powdered Aqua Pearl,Bottle Tree,Monterey Pine,Royal Palm
+Thoth,As----,Bi----,Sp++++|Passam,White Pine ,Parrotia Sapling,Monterey Pine,Mimosa Sapling
+Thoth,As----,Bi----,To++++|Monterey Pine ,Green Ash Youth,Golden Hemlock,Passam,Katsura Sapling
+Thoth,As++++,Bi----,Sa++++|Parrotia,White Pine Sapling,Salts Of Zinc,Powdered Sapphire,Hyssop
+Thoth,As++++,Bi----,So----|Feather Tree,Parrotia,Mimosa Youth,Powdered Sapphire,Green Ash Sapling
+Thoth,As++++,Bi----,Sw----|Dwarf Safsaf,Mimosa Youth,Cricklewood,Cinnar,Hokkaido
+Thoth,As++++,Bi----,To----|Japanese Cherry Youth,Cricklewood,Parrotia,Salts Of Zinc,Bottle Tree
+Thoth,As++++,Sa++++,Sw----|Umbrella Palm,Windriver Palm,Arconis,Cinnar,Towering Palm
+Thoth,As++++,Sa++++,To----|Umbrella Palm,Japanese Cherry Youth,Parrotia,Fern Palm,Hyssop
+Thoth,As++++,Sa----,Sw----|Autumn Bloodbark Sapling,Blaze Maple Sapling,Powdered Black Pearl,Cinnar,Red Nasturtium
+Thoth,As----,Sa----,So++++|Katsura Sapling,Oranje,Peaches 'n Cream Sapling,Tiny Clover,Monterey Pine Sapling
+Thoth,As----,Sa----,Sp++++|Deadwood Tree,Passam,Powdered Jade,Powdered Turquoise,Tiny Clover
+Thoth,As----,Sa----,Sw++++|Peaches 'n Cream Sapling,Powdered Turquoise,Tiny Clover,Razor Palm,Golden Hemlock Sapling
+Thoth,As----,Sa----,To++++|Katsura Sapling,Katsura Tree,Monterey Pine,Salts Of Gold,Strawberry Tree
+Thoth,As----,Sa++++,So----|Chicory,Royal Palm,Pratyeka Tree,Tiny Oil Palm,Summer Maple
+Thoth,As----,Sa++++,Sw----|Pratyeka Tree,Ash Palm,Towering Palm,Summer Maple Sapling,Royal Palm
+Thoth,As----,So++++,Sp----|Green Ash,Oranje,Orange Niali,Monterey Pine Sapling,Giant Cricklewood
+Thoth,As----,So++++,Sw----|Ash Palm,Monterey Pine Sapling,Summer Maple Youth,Towering Palm,Mini Palmetto
+Thoth,As++++,So----,Sp----|Feather Tree,Windriver Palm,Chakkanut Tree,Dikbas Youth,Verdant Squill
+Thoth,As++++,So----,Sw----|Dikbas Youth,Feather Tree,Windriver Palm,Cinnar,Summer Maple
+Thoth,As++++,Sp----,Sw----|Chakkanut Tree,Windriver Palm,Umbrella Palm,Powdered Quartz,Illawara
+Thoth,As++++,Sp----,To++++|Chakkanut Tree,Feather Tree,Khaya,Orrorin,Spiked Fishtree
+Thoth,As++++,Sp----,To----|Japanese Cherry Youth,Monterey Pine Middle Age,Indigo Damia,Scaley Hardwood,Powdered Quartz
+Thoth,As----,Sp----,To++++|Common Sage,Green Ash Youth,Monterey Pine,Giant Cricklewood,Salts Of Tin
+Thoth,As----,Sp++++,Sw++++|Anaxi,Bramble Hedge,Powdered Turquoise,Tiny Clover,Dikbas Sapling
+Thoth,As----,Sp++++,To++++|Monterey Pine,Silky Oak,Salts Of Magnesium,Powdered Jade,Powdered Ruby
+Thoth,As++++,Sw----,To++++|Windriver Palm,Chakkanut Tree,Khaya,Bluebottle Clover,Bloodbark
+Thoth,As++++,Sw----,To----|Fern Palm,Umbrella Palm,Cinnar,Elephantia,Powdered Quartz
+Thoth,Bi----,Sa----,So++++|Dikbas Sapling,Katsura Sapling,Oranje,Passam,Hazlewort
+Thoth,Bi----,Sa++++,So----|Bottle Tree,Parrotia,Chicory,Autumn Bloodbark,Feather Tree
+Thoth,Bi----,Sa++++,Sp----|Khaya Youth,Parrotia,White Pine Sapling,Chakkanut Tree,Khaya
+Thoth,Bi----,Sa++++,Sw----|Hyssop,Towering Palm,Mimosa Youth,White Pine Sapling,Chakkanut Tree
+Thoth,Bi----,Sa++++,Sw++++|Bottle Tree,Japanese Cherry Sapling,Hawthorn,Parrotia,Bramble Hedge
+Thoth,Bi----,Sa++++,To----|Bottle Tree,Illawara Sapling,Japanese Cherry Sapling,Parrotia,Cricklewood
+Thoth,Bi----,Sa----,So++++|Dikbas Sapling,Katsura Sapling,Oranje,Passam,Hazlewort
+Thoth,Bi++++,Sa----,Sp----|Spindle Tree,Golden Hemlock Sapling,Phoenix Palm,Ash Palm,Peaches 'n Cream Maple
+Thoth,Bi----,So----,Sw++++|Autumn Bloodbark,Japanese Cherry Sapling,Parrotia,Meadowsweet,Pale Dhamasa
+Thoth,Bi----,So++++,Sp++++|Dikbas Sapling,Mimosa  ,Parrotia Sapling,Cricklewood,Katsura Sapling
+Thoth,Bi----,So++++,To----|Dikbas Sapling,Dwarf Safsaf,Jacaranda Youth,Mimosa,Xanosi
+Thoth,Bi----,Sp++++,To----|Cricklewood,Elephantia,Bottle Tree,Mimosa,Passam
+Thoth,Bi----,Sp----,To++++|Green Ash Youth,Illawara,Chakkanut Tree,Coconut Palm,Daggerleaf
+Thoth,Sa++++,So----,Sw----|Summer Maple,River Bich Sapling,Windriver Palm,Dikbas Youth,Hyssop
+Thoth,Sa++++,So----,Sw++++|Japanese Cherry Youth,Meadowsweet,Chicory,Parrotia,Razor Palm
+Thoth,Sa++++,So----,To++++|Chicory,Khaya Youth,Summer Maple,Locust Palm,Tsangto
+Thoth,Sa++++,So----,To----|Japanese Cherry Sapling,Parrotia,Bottle Tree,Oil Palm,Meadowsweet
+Thoth,Sa----,So++++,Sp----|Golden Hemlock Sapling,Katsura Sapling,Monterey Pine Middle Age,Oranje,Phoenix Palm
+Thoth,So----,Sp----,To++++|Fool's Agar,Locust Palm,Chakkanut Tree,Feather Tree  ,Dikbas Youth
+Thoth,So++++,Sp----,Sw----|Monterey Pine Middle Age,Oranje,Mindanao,Hokkaido,Houseleek
+Thoth,So++++,Sp++++,To----|Dikbas Sapling,Elephantia,Jacaranda Youth,Mimosa,Parrotia Sapling
+Thoth,Sp----,Sw----,To++++|Autumn Bloodbark Sapling,Locust Palm,Chakkanut Tree,Illawara,Mini Palmetto
+Thoth,As----,Bi++++,Ar----|River Birch,Silky Oak,Fool's Agar,Feather Tree Sapling,Broadleaf Palm
+Thoth,As++++,Sa++++,Ar----|Arconis,Salts Of Zinc,Umbrella Palm,Hogweed,Hawthorn
+Thoth,As----,Sa++++,Ar----|Broadleaf Palm,Salts Of Aluminum,Wild Lettuce,Tapacae Miralis,Summer Maple
+Thoth,Ar++++,Sa++++,Ar----|Arconis,Salts Of Zinc,Umbrella Palm,Parrotia,Monkey Palm
+Thoth,As----,Sp++++,Ar----|Silky Oak,Salts Of Aluminum,Silvertongue Damia,Montu Maple,Golden Hemlock
+Thoth,As----,To++++,Ar----|Golden Hemlock,Monterey Pine,Salts Of Gold,Fool's Agar,Broadleaf Palm
+Thoth,As++++,Sp----,Ar----|Powdered Quartz,Arconis,Chakkanut Tree,Monkey Palm,Powdered Topaz
+Thoth,As++++,Sw----,Ar----|Bloodbark,Salts Of Zinc,Powdered Amethyst,Hogweed,Cinnar
+Thoth,As++++,To----,Ar----|Salts Of Zinc,Fern Palm,Ranyahn,Japanese Cherry Youth,Monkey Palm
+Thoth,As++++,So----,Ar++++|Acacia Sapling,Feather Tree,Miniature Fern Palm,Windriver Palm,Verdant Squill
+Thoth,As++++,Sp----,Ar++++|Feather Tree,Windriver Palm,Powdered Opal,Miniature Fern Palm,Chakkanut Tree
+Thoth,As----,Bi----,Ar++++|Mountain Mint,Passam,Daggerleaf,Salts Of Iron,Beetlenut
+Thoth,As----,So----,Ar++++|Mimosa Sapling,Royal Palm,Acacia Sapling,Tiny Oil Palm,Mountain Mint
+Thoth,As----,Sw----,Ar++++|Summer Maple Sapling,Mindanao,Mimosa Sapling,Ash Palm,Peaches 'n Cream Youth
+Thoth,Bi++++,Sa----,Ar++++|Golden Hemlock Sapling,Peaches 'n Cream Maple,Spindle Tree,Phoenix Palm,Beetlenut
+Thoth,Bi++++,Sp----,Ar++++|Golden Hemlock Sapling,Peaches 'n Cream Maple,Spindle Tree,Phoenix Palm,Windriver Palm
+Thoth,Bi----,So----,Ar++++|Daggerleaf,Feather Tree,Green Ash Sapling,Mountain Mint,Passam
+Thoth,Bi----,Sw----,Ar++++|Summer Maple Sapling,Cardamom,Cinnamon,Mimosa Youth,Dwarf Safsaf
+Thoth,Bi----,Sa++++,Ar----|Salts Of Platinum,Stickler Hedge,Coconut Palm,Arconis,Autumn Bloodbark
+Thoth,Bi----,Sp++++,Ar----|White Pine,Silvertongue Damia,Cricklewood,Jacaranda Youth,Monkey Palm
+Thoth,Sa++++,Sw----,Ar++++|Summer Maple Sapling,White Pine Sapling,Cardamom,Windriver Palm,Towering Palm
+Thoth,Sa----,Sp----,Ar++++|Golden Hemlock Sapling,Spindle Tree,Peaches 'n Cream Maple,Oranje,Feather Tree
+Thoth,So----,Sp----,Ar++++|Feather Tree,Powdered Opal,Spindle Tree,Mountain Mint,Green Ash Sapling
+Thoth,So----,To++++,Ar++++|Acacia,Autumn Bloodbark Sapling,Feather Tree,Salts Of Magnesium,Daggerleaf
+Thoth,So++++,Sp----,Ar----|Crimson Lettuce,Dark Ochoa,Scaley Hardwood,Monterey Pine Middle Age,Powdered Quartz
+Thoth,So++++,To----,Ar----|Mimosa,Jacaranda Youth,Scaley Hardwood,Salts Of Antimony,Monterey Pine Sapling
+Thoth,So----,To++++,Ar----|Summer Maple,Salts Of Nickel,Black Pepper Plant,Fool's Agar,Silvertongue Damia
+Thoth,Sp----,Sw----,Ar++++|Windriver Palm,Spindle Tree,Powdered Opal,Powdered White Pearl,Autumn Bloodbark Sapling
+Thoth,Bi++++,Sp----,As----|River Birch,Orange Niali,Sorrel,Peaches 'n Cream Maple,Oranje
+Thoth,Bi----,Sa++++,As----|White Pine,Powdered Aqua Pearl,Bottle Tree,Monterey Pine,Royal Palm
+Thoth,Bi----,Sp++++,As----|Passam,White Pine ,Parrotia Sapling,Monterey Pine,Mimosa Sapling
+Thoth,Bi----,To++++,As----|Monterey Pine,Green Ash Youth,Golden Hemlock,Passam,Katsura Sapling
+Thoth,Bi----,Sa++++,As++++|Parrotia,White Pine Sapling,Salts Of Zinc,Powdered Sapphire,Hyssop
+Thoth,Bi----,So----,As++++|Feather Tree,Parrotia,Mimosa Youth,Powdered Sapphire,Green Ash Sapling
+Thoth,Bi----,Sw----,As++++|Dwarf Safsaf,Mimosa Youth,Cricklewood,Cinnar,Hokkaido
+Thoth,Bi----,To----,As++++|Japanese Cherry Youth,Cricklewood,Parrotia,Salts Of Zinc,Bottle Tree
+Thoth,Sa++++,Sw----,As++++|Umbrella Palm,Windriver Palm,Arconis,Cinnar,Towering Palm
+Thoth,Sa++++,To----,As++++|Umbrella Palm,Japanese Cherry Youth,Parrotia,Fern Palm,Hyssop
+Thoth,Sa----,Sw----,As++++|Autumn Bloodbark Sapling,Blaze Maple Sapling,Powdered Black Pearl,Cinnar,Red Nasturtium
+Thoth,Sa----,So++++,As----|Katsura Sapling,Oranje,Peaches 'n Cream Sapling,Tiny Clover,Monterey Pine Sapling
+Thoth,Sa----,Sp++++,As----|Deadwood Tree,Passam,Powdered Jade,Powdered Turquoise,Tiny Clover
+Thoth,Sa----,Sw++++,As----|Peaches 'n Cream Sapling,Powdered Turquoise,Tiny Clover,Razor Palm,Golden Hemlock Sapling
+Thoth,Sa----,To++++,As----|Katsura Sapling,Katsura Tree,Monterey Pine,Salts Of Gold,Strawberry Tree
+Thoth,Sa++++,So----,As----|Chicory,Royal Palm,Pratyeka Tree,Tiny Oil Palm,Summer Maple
+Thoth,Sa++++,Sw----,As----|Pratyeka Tree,Ash Palm,Towering Palm,Summer Maple Sapling,Royal Palm
+Thoth,So++++,Sp----,As----|Green Ash,Oranje,Orange Niali,Monterey Pine Sapling,Giant Cricklewood
+Thoth,So++++,Sw----,As----|Ash Palm,Monterey Pine Sapling,Summer Maple Youth,Towering Palm,Mini Palmetto
+Thoth,So----,Sp----,As++++|Feather Tree,Windriver Palm,Chakkanut Tree,Dikbas Youth,Verdant Squill
+Thoth,So----,Sw----,As++++|Dikbas Youth,Feather Tree,Windriver Palm,Cinnar,Summer Maple
+Thoth,Sp----,Sw----,As++++|Chakkanut Tree,Windriver Palm,Umbrella Palm,Powdered Quartz,Illawara
+Thoth,Sp----,To++++,As++++|Chakkanut Tree,Feather Tree,Khaya,Orrorin,Spiked Fishtree
+Thoth,Sp----,To----,As++++|Japanese Cherry Youth,Monterey Pine Middle Age,Indigo Damia,Scaley Hardwood,Powdered Quartz
+Thoth,Sp----,To++++,As----|Common Sage,Green Ash Youth,Monterey Pine,Giant Cricklewood,Salts Of Tin
+Thoth,Sp++++,Sw++++,As----|Anaxi,Bramble Hedge,Powdered Turquoise,Tiny Clover,Dikbas Sapling
+Thoth,Sp++++,To++++,As----|Monterey Pine,Silky Oak,Salts Of Magnesium,Powdered Jade,Powdered Ruby
+Thoth,Sw----,To++++,As++++|Windriver Palm,Chakkanut Tree,Khaya,Bluebottle Clover,Bloodbark
+Thoth,Sw----,To----,As++++|Fern Palm,Umbrella Palm,Cinnar,Elephantia,Powdered Quartz
+Thoth,Sa----,So++++,Bi----|Dikbas Sapling,Katsura Sapling,Oranje,Passam,Hazlewort
+Thoth,Sa++++,So----,Bi----|Bottle Tree,Parrotia,Chicory,Autumn Bloodbark,Feather Tree
+Thoth,Sa++++,Sp----,Bi----|Khaya Youth,Parrotia,White Pine Sapling,Chakkanut Tree,Khaya
+Thoth,Sa++++,Sw----,Bi----|Hyssop,Towering Palm,Mimosa Youth,White Pine Sapling,Chakkanut Tree
+Thoth,Sa++++,Sw++++,Bi----|Bottle Tree,Japanese Cherry Sapling,Hawthorn,Parrotia,Bramble Hedge
+Thoth,Sa++++,To----,Bi----|Bottle Tree,Illawara Sapling,Japanese Cherry Sapling,Parrotia,Cricklewood
+Thoth,Sa----,So++++,Bi----|Dikbas Sapling,Katsura Sapling,Oranje,Passam,Hazlewort
+Thoth,Sa----,Sp----,Bi++++|Spindle Tree,Golden Hemlock Sapling,Phoenix Palm,Ash Palm,Peaches 'n Cream Maple
+Thoth,So----,Sw++++,Bi----|Autumn Bloodbark,Japanese Cherry Sapling,Parrotia,Meadowsweet,Pale Dhamasa
+Thoth,So++++,Sp++++,Bi----|Dikbas Sapling,Mimosa,Parrotia Sapling,Cricklewood,Katsura Sapling
+Thoth,So++++,To----,Bi----|Dikbas Sapling,Dwarf Safsaf,Jacaranda Youth,Mimosa,Xanosi
+Thoth,Sp++++,To----,Bi----|Cricklewood,Elephantia,Bottle Tree,Mimosa,Passam
+Thoth,Sp----,To++++,Bi----|Green Ash Youth,Illawara  ,Chakkanut Tree,Coconut Palm,Daggerleaf
+Thoth,So----,Sw----,Sa++++|Summer Maple,River Bich Sapling,Windriver Palm,Dikbas Youth,Hyssop
+Thoth,So----,Sw++++,Sa++++|Japanese Cherry Youth,Meadowsweet,Chicory,Parrotia,Razor Palm
+Thoth,So----,To++++,Sa++++|Chicory,Khaya Youth,Summer Maple,Locust Palm,Tsangto
+Thoth,So----,To----,Sa++++|Japanese Cherry Sapling,Parrotia,Bottle Tree,Oil Palm,Meadowsweet
+Thoth,So++++,Sp----,Sa----|Golden Hemlock Sapling,Katsura Sapling,Monterey Pine Middle Age,Oranje,Phoenix Palm
+Thoth,Sp----,To++++,So----|Fool's Agar,Locust Palm,Chakkanut Tree,Feather Tree  ,Dikbas Youth
+Thoth,Sp----,Sw----,So++++|Monterey Pine Middle Age,Oranje,Mindanao,Hokkaido,Houseleek
+Thoth,Sp++++,To----,So++++|Dikbas Sapling,Elephantia,Jacaranda Youth,Mimosa,Parrotia Sapling
+Thoth,Sw----,To++++,Sp----|Autumn Bloodbark Sapling,Locust Palm,Chakkanut Tree,Illawara,Mini Palmetto
+Thoth,Bi++++,Ar----,As----|River Birch,Silky Oak,Fool's Agar,Feather Tree Sapling,Broadleaf Palm
+Thoth,Sa++++,Ar----,As++++|Arconis,Salts Of Zinc,Umbrella Palm,Hogweed,Hawthorn
+Thoth,Sa++++,Ar----,As----|Broadleaf Palm,Salts Of Aluminum,Wild Lettuce,Tapacae Miralis,Summer Maple
+Thoth,Sa++++,Ar----,Ar++++|Arconis,Salts Of Zinc,Umbrella Palm,Parrotia,Monkey Palm
+Thoth,Sp++++,Ar----,As----|Silky Oak,Salts Of Aluminum,Silvertongue Damia,Montu Maple,Golden Hemlock
+Thoth,To++++,Ar----,As----|Golden Hemlock,Monterey Pine,Salts Of Gold,Fool's Agar,Broadleaf Palm
+Thoth,Sp----,Ar----,As++++|Powdered Quartz,Arconis,Chakkanut Tree,Monkey Palm,Powdered Topaz
+Thoth,Sw----,Ar----,As++++|Bloodbark,Salts Of Zinc,Powdered Amethyst,Hogweed,Cinnar
+Thoth,To----,Ar----,As++++|Salts Of Zinc,Fern Palm,Ranyahn,Japanese Cherry Youth,Monkey Palm
+Thoth,So----,Ar++++,As++++|Acacia Sapling,Feather Tree,Miniature Fern Palm,Windriver Palm,Verdant Squill
+Thoth,Sp----,Ar++++,As++++|Feather Tree,Windriver Palm,Powdered Opal,Miniature Fern Palm,Chakkanut Tree
+Thoth,Bi----,Ar++++,As----|Mountain Mint,Passam,Daggerleaf,Salts Of Iron,Beetlenut
+Thoth,So----,Ar++++,As----|Mimosa Sapling,Royal Palm,Acacia Sapling,Tiny Oil Palm,Mountain Mint
+Thoth,Sw----,Ar++++,As----|Summer Maple Sapling,Mindanao,Mimosa Sapling,Ash Palm,Peaches 'n Cream Youth
+Thoth,Sa----,Ar++++,Bi++++|Golden Hemlock Sapling,Peaches 'n Cream Maple,Spindle Tree,Phoenix Palm,Beetlenut
+Thoth,Sp----,Ar++++,Bi++++|Golden Hemlock Sapling,Peaches 'n Cream Maple,Spindle Tree,Phoenix Palm,Windriver Palm
+Thoth,So----,Ar++++,Bi----|Daggerleaf,Feather Tree,Green Ash Sapling,Mountain Mint,Passam
+Thoth,Sw----,Ar++++,Bi----|Summer Maple Sapling,Cardamom,Cinnamon,Mimosa Youth,Dwarf Safsaf
+Thoth,Sa++++,Ar----,Bi----|Salts Of Platinum,Stickler Hedge,Coconut Palm,Arconis,Autumn Bloodbark
+Thoth,Sp++++,Ar----,Bi----|White Pine,Silvertongue Damia,Cricklewood,Jacaranda Youth,Monkey Palm
+Thoth,Sw----,Ar++++,Sa++++|Summer Maple Sapling,White Pine Sapling,Cardamom,Windriver Palm,Towering Palm
+Thoth,Sp----,Ar++++,Sa----|Golden Hemlock Sapling,Spindle Tree,Peaches 'n Cream Maple,Oranje,Feather Tree
+Thoth,Sp----,Ar++++,So----|Feather Tree,Powdered Opal,Spindle Tree,Mountain Mint,Green Ash Sapling
+Thoth,To++++,Ar++++,So----|Acacia,Autumn Bloodbark Sapling,Feather Tree,Salts Of Magnesium,Daggerleaf
+Thoth,Sp----,Ar----,So++++|Crimson Lettuce,Dark Ochoa,Scaley Hardwood,Monterey Pine Middle Age,Powdered Quartz
+Thoth,To----,Ar----,So++++|Mimosa,Jacaranda Youth,Scaley Hardwood,Salts Of Antimony,Monterey Pine Sapling
+Thoth,To++++,Ar----,So----|Summer Maple,Salts Of Nickel,Black Pepper Plant,Fool's Agar,Silvertongue Damia
+Thoth,Sw----,Ar++++,Sp----|Windriver Palm,Spindle Tree,Powdered Opal,Powdered White Pearl,Autumn Bloodbark Sapling
+Thoth,Sp----,As----,Bi++++|River Birch,Orange Niali,Sorrel,Peaches 'n Cream Maple,Oranje
+Thoth,Sa++++,As----,Bi----|White Pine,Powdered Aqua Pearl,Bottle Tree,Monterey Pine,Royal Palm
+Thoth,Sp++++,As----,Bi----|Passam,White Pine ,Parrotia Sapling,Monterey Pine,Mimosa Sapling
+Thoth,To++++,As----,Bi----|Monterey Pine ,Green Ash Youth,Golden Hemlock,Passam,Katsura Sapling
+Thoth,Sa++++,As++++,Bi----|Parrotia,White Pine Sapling,Salts Of Zinc,Powdered Sapphire,Hyssop
+Thoth,So----,As++++,Bi----|Feather Tree,Parrotia,Mimosa Youth,Powdered Sapphire,Green Ash Sapling
+Thoth,Sw----,As++++,Bi----|Dwarf Safsaf,Mimosa Youth,Cricklewood,Cinnar,Hokkaido
+Thoth,To----,As++++,Bi----|Japanese Cherry Youth,Cricklewood,Parrotia,Salts Of Zinc,Bottle Tree
+Thoth,Sw----,As++++,Sa++++|Umbrella Palm,Windriver Palm,Arconis,Cinnar,Towering Palm
+Thoth,To----,As++++,Sa++++|Umbrella Palm,Japanese Cherry Youth,Parrotia,Fern Palm,Hyssop
+Thoth,Sw----,As++++,Sa----|Autumn Bloodbark Sapling,Blaze Maple Sapling,Powdered Black Pearl,Cinnar,Red Nasturtium
+Thoth,So++++,As----,Sa----|Katsura Sapling,Oranje,Peaches 'n Cream Sapling,Tiny Clover,Monterey Pine Sapling
+Thoth,Sp++++,As----,Sa----|Deadwood Tree,Passam,Powdered Jade,Powdered Turquoise,Tiny Clover
+Thoth,Sw++++,As----,Sa----|Peaches 'n Cream Sapling,Powdered Turquoise,Tiny Clover,Razor Palm,Golden Hemlock Sapling
+Thoth,To++++,As----,Sa----|Katsura Sapling,Katsura Tree,Monterey Pine,Salts Of Gold,Strawberry Tree
+Thoth,So----,As----,Sa++++|Chicory,Royal Palm,Pratyeka Tree,Tiny Oil Palm,Summer Maple
+Thoth,Sw----,As----,Sa++++|Pratyeka Tree,Ash Palm,Towering Palm,Summer Maple Sapling,Royal Palm
+Thoth,Sp----,As----,So++++|Green Ash,Oranje,Orange Niali,Monterey Pine Sapling,Giant Cricklewood
+Thoth,Sw----,As----,So++++|Ash Palm,Monterey Pine Sapling,Summer Maple Youth,Towering Palm,Mini Palmetto
+Thoth,Sp----,As++++,So----|Feather Tree,Windriver Palm,Chakkanut Tree,Dikbas Youth,Verdant Squill
+Thoth,Sw----,As++++,So----|Dikbas Youth,Feather Tree,Windriver Palm,Cinnar,Summer Maple
+Thoth,Sw----,As++++,Sp----|Chakkanut Tree,Windriver Palm,Umbrella Palm,Powdered Quartz,Illawara
+Thoth,To++++,As++++,Sp----|Chakkanut Tree,Feather Tree,Khaya,Orrorin,Spiked Fishtree
+Thoth,To----,As++++,Sp----|Japanese Cherry Youth,Monterey Pine Middle Age,Indigo Damia,Scaley Hardwood,Powdered Quartz
+Thoth,To++++,As----,Sp----|Common Sage,Green Ash Youth,Monterey Pine,Giant Cricklewood,Salts Of Tin
+Thoth,Sw++++,As----,Sp++++|Anaxi,Bramble Hedge,Powdered Turquoise,Tiny Clover,Dikbas Sapling
+Thoth,To++++,As----,Sp++++|Monterey Pine,Silky Oak,Salts Of Magnesium,Powdered Jade,Powdered Ruby 
+Thoth,To++++,As++++,Sw----|Windriver Palm,Chakkanut Tree,Khaya,Bluebottle Clover,Bloodbark
+Thoth,To----,As++++,Sw----|Fern Palm,Umbrella Palm,Cinnar,Elephantia,Powdered Quartz
+Thoth,So++++,Bi----,Sa----|Dikbas Sapling,Katsura Sapling,Oranje,Passam,Hazlewort
+Thoth,So----,Bi----,Sa++++|Bottle Tree,Parrotia,Chicory,Autumn Bloodbark,Feather Tree
+Thoth,Sp----,Bi----,Sa++++|Khaya Youth,Parrotia,White Pine Sapling,Chakkanut Tree,Khaya
+Thoth,Sw----,Bi----,Sa++++|Hyssop,Towering Palm,Mimosa Youth,White Pine Sapling,Chakkanut Tree
+Thoth,Sw++++,Bi----,Sa++++|Bottle Tree,Japanese Cherry Sapling,Hawthorn,Parrotia,Bramble Hedge
+Thoth,To----,Bi----,Sa++++|Bottle Tree,Illawara Sapling,Japanese Cherry Sapling,Parrotia,Cricklewood
+Thoth,So++++,Bi----,Sa----|Dikbas Sapling,Katsura Sapling,Oranje,Passam,Hazlewort
+Thoth,Sp----,Bi++++,Sa----|Spindle Tree,Golden Hemlock Sapling,Phoenix Palm,Ash Palm,Peaches 'n Cream Maple
+Thoth,Sw++++,Bi----,So----|Autumn Bloodbark,Japanese Cherry Sapling,Parrotia,Meadowsweet,Pale Dhamasa
+Thoth,Sp++++,Bi----,So++++|Dikbas Sapling,Mimosa,Parrotia Sapling,Cricklewood,Katsura Sapling
+Thoth,To----,Bi----,So++++|Dikbas Sapling,Dwarf Safsaf,Jacaranda Youth,Mimosa,Xanosi
+Thoth,To----,Bi----,Sp++++|Cricklewood,Elephantia,Bottle Tree,Mimosa,Passam
+Thoth,To++++,Bi----,Sp----|Green Ash Youth,Illawara,Chakkanut Tree,Coconut Palm,Daggerleaf
+Thoth,Sw----,Sa++++,So----|Summer Maple,River Bich Sapling,Windriver Palm,Dikbas Youth,Hyssop
+Thoth,Sw++++,Sa++++,So----|Japanese Cherry Youth,Meadowsweet,Chicory,Parrotia,Razor Palm
+Thoth,To++++,Sa++++,So----|Chicory,Khaya Youth,Summer Maple,Locust Palm,Tsangto
+Thoth,To----,Sa++++,So----|Japanese Cherry Sapling,Parrotia,Bottle Tree,Oil Palm,Meadowsweet
+Thoth,Sp----,Sa----,So++++|Golden Hemlock Sapling,Katsura Sapling,Monterey Pine Middle Age,Oranje,Phoenix Palm
+Thoth,To++++,So----,Sp----|Fool's Agar,Locust Palm,Chakkanut Tree,Feather Tree  ,Dikbas Youth
+Thoth,Sw----,So++++,Sp----|Monterey Pine Middle Age,Oranje,Mindanao,Hokkaido,Houseleek
+Thoth,To----,So++++,Sp++++|Dikbas Sapling,Elephantia,Jacaranda Youth,Mimosa,Parrotia Sapling
+Thoth,To++++,Sp----,Sw----|Autumn Bloodbark Sapling,Locust Palm,Chakkanut Tree,Illawara,Mini Palmetto
+Thoth,Bi++++,As----,Ar----|River Birch,Silky Oak,Fool's Agar,Feather Tree Sapling,Broadleaf Palm
+Thoth,Sa++++,As++++,Ar----|Arconis,Salts Of Zinc,Umbrella Palm,Hogweed,Hawthorn
+Thoth,Sa++++,As----,Ar----|Broadleaf Palm,Salts Of Aluminum,Wild Lettuce,Tapacae Miralis,Summer Maple
+Thoth,Sa++++,Ar++++,Ar----|Arconis,Salts Of Zinc,Umbrella Palm,Parrotia,Monkey Palm
+Thoth,Sp++++,As----,Ar----|Silky Oak,Salts Of Aluminum,Silvertongue Damia,Montu Maple,Golden Hemlock
+Thoth,To++++,As----,Ar----|Golden Hemlock,Monterey Pine,Salts Of Gold,Fool's Agar,Broadleaf Palm
+Thoth,Sp----,As++++,Ar----|Powdered Quartz,Arconis,Chakkanut Tree,Monkey Palm,Powdered Topaz
+Thoth,Sw----,As++++,Ar----|Bloodbark,Salts Of Zinc,Powdered Amethyst,Hogweed,Cinnar
+Thoth,To----,As++++,Ar----|Salts Of Zinc,Fern Palm,Ranyahn,Japanese Cherry Youth,Monkey Palm
+Thoth,So----,As++++,Ar++++|Acacia Sapling,Feather Tree,Miniature Fern Palm,Windriver Palm,Verdant Squill
+Thoth,Sp----,As++++,Ar++++|Feather Tree,Windriver Palm,Powdered Opal,Miniature Fern Palm,Chakkanut Tree
+Thoth,Bi----,As----,Ar++++|Mountain Mint,Passam,Daggerleaf,Salts Of Iron,Beetlenut
+Thoth,So----,As----,Ar++++|Mimosa Sapling,Royal Palm,Acacia Sapling,Tiny Oil Palm,Mountain Mint
+Thoth,Sw----,As----,Ar++++|Summer Maple Sapling,Mindanao,Mimosa Sapling,Ash Palm,Peaches 'n Cream Youth
+Thoth,Sa----,Bi++++,Ar++++|Golden Hemlock Sapling,Peaches 'n Cream Maple,Spindle Tree,Phoenix Palm,Beetlenut
+Thoth,Sp----,Bi++++,Ar++++|Golden Hemlock Sapling,Peaches 'n Cream Maple,Spindle Tree,Phoenix Palm,Windriver Palm
+Thoth,So----,Bi----,Ar++++|Daggerleaf,Feather Tree,Green Ash Sapling,Mountain Mint,Passam
+Thoth,Sw----,Bi----,Ar++++|Summer Maple Sapling,Cardamom,Cinnamon,Mimosa Youth,Dwarf Safsaf
+Thoth,Sa++++,Bi----,Ar----|Salts Of Platinum,Stickler Hedge,Coconut Palm,Arconis,Autumn Bloodbark
+Thoth,Sp++++,Bi----,Ar----|White Pine,Silvertongue Damia,Cricklewood,Jacaranda Youth,Monkey Palm
+Thoth,Sw----,Sa++++,Ar++++|Summer Maple Sapling,White Pine Sapling,Cardamom,Windriver Palm,Towering Palm
+Thoth,Sp----,Sa----,Ar++++|Golden Hemlock Sapling,Spindle Tree,Peaches 'n Cream Maple,Oranje,Feather Tree
+Thoth,Sp----,So----,Ar++++|Feather Tree,Powdered Opal,Spindle Tree,Mountain Mint,Green Ash Sapling
+Thoth,To++++,So----,Ar++++|Acacia,Autumn Bloodbark Sapling,Feather Tree,Salts Of Magnesium,Daggerleaf
+Thoth,Sp----,So++++,Ar----|Crimson Lettuce,Dark Ochoa,Scaley Hardwood,Monterey Pine Middle Age,Powdered Quartz
+Thoth,To----,So++++,Ar----|Mimosa,Jacaranda Youth,Scaley Hardwood,Salts Of Antimony,Monterey Pine Sapling
+Thoth,To++++,So----,Ar----|Summer Maple  ,Salts Of Nickel,Black Pepper Plant,Fool's Agar,Silvertongue Damia
+Thoth,Sw----,Sp----,Ar++++|Windriver Palm,Spindle Tree,Powdered Opal,Powdered White Pearl,Autumn Bloodbark Sapling
+Thoth,Sp----,Bi++++,As----|River Birch,Orange Niali,Sorrel,Peaches 'n Cream Maple,Oranje
+Thoth,Sa++++,Bi----,As----|White Pine,Powdered Aqua Pearl,Bottle Tree,Monterey Pine,Royal Palm
+Thoth,Sp++++,Bi----,As----|Passam,White Pine ,Parrotia Sapling,Monterey Pine,Mimosa Sapling
+Thoth,To++++,Bi----,As----|Monterey Pine ,Green Ash Youth,Golden Hemlock,Passam,Katsura Sapling
+Thoth,Sa++++,Bi----,As++++|Parrotia,White Pine Sapling,Salts Of Zinc,Powdered Sapphire,Hyssop
+Thoth,So----,Bi----,As++++|Feather Tree,Parrotia,Mimosa Youth,Powdered Sapphire,Green Ash Sapling
+Thoth,Sw----,Bi----,As++++|Dwarf Safsaf,Mimosa Youth,Cricklewood,Cinnar,Hokkaido
+Thoth,To----,Bi----,As++++|Japanese Cherry Youth,Cricklewood,Parrotia,Salts Of Zinc,Bottle Tree
+Thoth,Sw----,Sa++++,As++++|Umbrella Palm,Windriver Palm,Arconis,Cinnar,Towering Palm
+Thoth,To----,Sa++++,As++++|Umbrella Palm,Japanese Cherry Youth,Parrotia,Fern Palm,Hyssop
+Thoth,Sw----,Sa----,As++++|Autumn Bloodbark Sapling,Blaze Maple Sapling,Powdered Black Pearl,Cinnar,Red Nasturtium
+Thoth,So++++,Sa----,As----|Katsura Sapling,Oranje,Peaches 'n Cream Sapling,Tiny Clover,Monterey Pine Sapling
+Thoth,Sp++++,Sa----,As----|Deadwood Tree,Passam,Powdered Jade,Powdered Turquoise,Tiny Clover
+Thoth,Sw++++,Sa----,As----|Peaches 'n Cream Sapling,Powdered Turquoise,Tiny Clover,Razor Palm,Golden Hemlock Sapling
+Thoth,To++++,Sa----,As----|Katsura Sapling,Katsura Tree,Monterey Pine,Salts Of Gold,Strawberry Tree
+Thoth,So----,Sa++++,As----|Chicory,Royal Palm,Pratyeka Tree,Tiny Oil Palm,Summer Maple
+Thoth,Sw----,Sa++++,As----|Pratyeka Tree,Ash Palm,Towering Palm,Summer Maple Sapling,Royal Palm
+Thoth,Sp----,So++++,As----|Green Ash,Oranje,Orange Niali,Monterey Pine Sapling,Giant Cricklewood
+Thoth,Sw----,So++++,As----|Ash Palm,Monterey Pine Sapling,Summer Maple Youth,Towering Palm,Mini Palmetto
+Thoth,Sp----,So----,As++++|Feather Tree,Windriver Palm,Chakkanut Tree,Dikbas Youth,Verdant Squill
+Thoth,Sw----,So----,As++++|Dikbas Youth,Feather Tree,Windriver Palm,Cinnar,Summer Maple
+Thoth,Sw----,Sp----,As++++|Chakkanut Tree,Windriver Palm,Umbrella Palm,Powdered Quartz,Illawara
+Thoth,To++++,Sp----,As++++|Chakkanut Tree,Feather Tree,Khaya,Orrorin,Spiked Fishtree
+Thoth,To----,Sp----,As++++|Japanese Cherry Youth,Monterey Pine Middle Age,Indigo Damia,Scaley Hardwood,Powdered Quartz
+Thoth,To++++,Sp----,As----|Common Sage,Green Ash Youth,Monterey Pine,Giant Cricklewood,Salts Of Tin
+Thoth,Sw++++,Sp++++,As----|Anaxi,Bramble Hedge,Powdered Turquoise,Tiny Clover,Dikbas Sapling
+Thoth,To++++,Sp++++,As----|Monterey Pine,Silky Oak,Salts Of Magnesium,Powdered Jade,Powdered Ruby
+Thoth,To++++,Sw----,As++++|Windriver Palm,Chakkanut Tree,Khaya,Bluebottle Clover,Bloodbark
+Thoth,To----,Sw----,As++++|Fern Palm,Umbrella Palm,Cinnar,Elephantia,Powdered Quartz
+Thoth,So++++,Sa----,Bi----|Dikbas Sapling,Katsura Sapling,Oranje,Passam,Hazlewort
+Thoth,So----,Sa++++,Bi----|Bottle Tree,Parrotia,Chicory,Autumn Bloodbark,Feather Tree
+Thoth,Sp----,Sa++++,Bi----|Khaya Youth,Parrotia,White Pine Sapling,Chakkanut Tree,Khaya
+Thoth,Sw----,Sa++++,Bi----|Hyssop,Towering Palm,Mimosa Youth,White Pine Sapling,Chakkanut Tree
+Thoth,Sw++++,Sa++++,Bi----|Bottle Tree,Japanese Cherry Sapling,Hawthorn,Parrotia,Bramble Hedge
+Thoth,To----,Sa++++,Bi----|Bottle Tree,Illawara Sapling,Japanese Cherry Sapling,Parrotia,Cricklewood
+Thoth,So++++,Sa----,Bi----|Dikbas Sapling,Katsura Sapling,Oranje,Passam,Hazlewort
+Thoth,Sp----,Sa----,Bi++++|Spindle Tree,Golden Hemlock Sapling,Phoenix Palm,Ash Palm,Peaches 'n Cream Maple
+Thoth,Sw++++,So----,Bi----|Autumn Bloodbark,Japanese Cherry Sapling,Parrotia,Meadowsweet,Pale Dhamasa
+Thoth,Sp++++,So++++,Bi----|Dikbas Sapling,Mimosa  ,Parrotia Sapling,Cricklewood,Katsura Sapling
+Thoth,To----,So++++,Bi----|Dikbas Sapling,Dwarf Safsaf,Jacaranda Youth,Mimosa,Xanosi
+Thoth,To----,Sp++++,Bi----|Cricklewood,Elephantia,Bottle Tree,Mimosa,Passam
+Thoth,To++++,Sp----,Bi----|Green Ash Youth,Illawara,Chakkanut Tree,Coconut Palm,Daggerleaf
+Thoth,Sw----,So----,Sa++++|Summer Maple,River Bich Sapling,Windriver Palm,Dikbas Youth,Hyssop
+Thoth,Sw++++,So----,Sa++++|Japanese Cherry Youth,Meadowsweet,Chicory,Parrotia,Razor Palm
+Thoth,To++++,So----,Sa++++|Chicory,Khaya Youth,Summer Maple,Locust Palm,Tsangto
+Thoth,To----,So----,Sa++++|Japanese Cherry Sapling,Parrotia,Bottle Tree,Oil Palm,Meadowsweet
+Thoth,Sp----,So++++,Sa----|Golden Hemlock Sapling,Katsura Sapling,Monterey Pine Middle Age,Oranje,Phoenix Palm
+Thoth,To++++,Sp----,So----|Fool's Agar,Locust Palm,Chakkanut Tree,Feather Tree  ,Dikbas Youth
+Thoth,Sw----,Sp----,So++++|Monterey Pine Middle Age,Oranje,Mindanao,Hokkaido,Houseleek
+Thoth,To----,Sp++++,So++++|Dikbas Sapling,Elephantia,Jacaranda Youth,Mimosa,Parrotia Sapling
+Thoth,To++++,Sw----,Sp----|Autumn Bloodbark Sapling,Locust Palm,Chakkanut Tree,Illawara,Mini Palmetto
+Thoth,As----,Ar----,Bi++++|River Birch,Silky Oak,Fool's Agar,Feather Tree Sapling,Broadleaf Palm
+Thoth,As++++,Ar----,Sa++++|Arconis,Salts Of Zinc,Umbrella Palm,Hogweed,Hawthorn
+Thoth,As----,Ar----,Sa++++|Broadleaf Palm,Salts Of Aluminum,Wild Lettuce,Tapacae Miralis,Summer Maple
+Thoth,Ar++++,Ar----,Sa++++|Arconis,Salts Of Zinc,Umbrella Palm,Parrotia,Monkey Palm
+Thoth,As----,Ar----,Sp++++|Silky Oak,Salts Of Aluminum,Silvertongue Damia,Montu Maple,Golden Hemlock
+Thoth,As----,Ar----,To++++|Golden Hemlock,Monterey Pine,Salts Of Gold,Fool's Agar,Broadleaf Palm
+Thoth,As++++,Ar----,Sp----|Powdered Quartz,Arconis,Chakkanut Tree,Monkey Palm,Powdered Topaz
+Thoth,As++++,Ar----,Sw----|Bloodbark,Salts Of Zinc,Powdered Amethyst,Hogweed,Cinnar
+Thoth,As++++,Ar----,To----|Salts Of Zinc,Fern Palm,Ranyahn,Japanese Cherry Youth,Monkey Palm
+Thoth,As++++,Ar++++,So----|Acacia Sapling,Feather Tree,Miniature Fern Palm,Windriver Palm,Verdant Squill
+Thoth,As++++,Ar++++,Sp----|Feather Tree,Windriver Palm,Powdered Opal,Miniature Fern Palm,Chakkanut Tree
+Thoth,As----,Ar++++,Bi----|Mountain Mint,Passam,Daggerleaf,Salts Of Iron,Beetlenut
+Thoth,As----,Ar++++,So----|Mimosa Sapling,Royal Palm,Acacia Sapling,Tiny Oil Palm,Mountain Mint
+Thoth,As----,Ar++++,Sw----|Summer Maple Sapling,Mindanao,Mimosa Sapling,Ash Palm,Peaches 'n Cream Youth
+Thoth,Bi++++,Ar++++,Sa----|Golden Hemlock Sapling,Peaches 'n Cream Maple,Spindle Tree,Phoenix Palm,Beetlenut
+Thoth,Bi++++,Ar++++,Sp----|Golden Hemlock Sapling,Peaches 'n Cream Maple,Spindle Tree,Phoenix Palm,Windriver Palm
+Thoth,Bi----,Ar++++,So----|Daggerleaf,Feather Tree,Green Ash Sapling,Mountain Mint,Passam
+Thoth,Bi----,Ar++++,Sw----|Summer Maple Sapling,Cardamom,Cinnamon,Mimosa Youth,Dwarf Safsaf
+Thoth,Bi----,Ar----,Sa++++|Salts Of Platinum,Stickler Hedge,Coconut Palm,Arconis,Autumn Bloodbark
+Thoth,Bi----,Ar----,Sp++++|White Pine,Silvertongue Damia,Cricklewood,Jacaranda Youth,Monkey Palm
+Thoth,Sa++++,Ar++++,Sw----|Summer Maple Sapling,White Pine Sapling,Cardamom,Windriver Palm,Towering Palm
+Thoth,Sa----,Ar++++,Sp----|Golden Hemlock Sapling,Spindle Tree,Peaches 'n Cream Maple,Oranje,Feather Tree
+Thoth,So----,Ar++++,Sp----|Feather Tree,Powdered Opal,Spindle Tree,Mountain Mint,Green Ash Sapling
+Thoth,So----,Ar++++,To++++|Acacia,Autumn Bloodbark Sapling,Feather Tree,Salts Of Magnesium,Daggerleaf
+Thoth,So++++,Ar----,Sp----|Crimson Lettuce,Dark Ochoa,Scaley Hardwood,Monterey Pine Middle Age,Powdered Quartz
+Thoth,So++++,Ar----,To----|Mimosa,Jacaranda Youth,Scaley Hardwood,Salts Of Antimony,Monterey Pine Sapling
+Thoth,So----,Ar----,To++++|Summer Maple  ,Salts Of Nickel,Black Pepper Plant,Fool's Agar,Silvertongue Damia
+Thoth,Sp----,Ar++++,Sw----|Windriver Palm,Spindle Tree,Powdered Opal,Powdered White Pearl,Autumn Bloodbark Sapling
+Thoth,Bi++++,As----,Sp----|River Birch,Orange Niali,Sorrel,Peaches 'n Cream Maple,Oranje
+Thoth,Bi----,As----,Sa++++|White Pine,Powdered Aqua Pearl,Bottle Tree,Monterey Pine,Royal Palm
+Thoth,Bi----,As----,Sp++++|Passam,White Pine,Parrotia Sapling,Monterey Pine,Mimosa Sapling
+Thoth,Bi----,As----,To++++|Monterey Pine ,Green Ash Youth,Golden Hemlock,Passam,Katsura Sapling
+Thoth,Bi----,As++++,Sa++++|Parrotia,White Pine Sapling,Salts Of Zinc,Powdered Sapphire,Hyssop
+Thoth,Bi----,As++++,So----|Feather Tree,Parrotia,Mimosa Youth,Powdered Sapphire,Green Ash Sapling
+Thoth,Bi----,As++++,Sw----|Dwarf Safsaf,Mimosa Youth,Cricklewood,Cinnar,Hokkaido
+Thoth,Bi----,As++++,To----|Japanese Cherry Youth,Cricklewood,Parrotia,Salts Of Zinc,Bottle Tree
+Thoth,Sa++++,As++++,Sw----|Umbrella Palm,Windriver Palm,Arconis,Cinnar,Towering Palm
+Thoth,Sa++++,As++++,To----|Umbrella Palm,Japanese Cherry Youth,Parrotia,Fern Palm,Hyssop
+Thoth,Sa----,As++++,Sw----|Autumn Bloodbark Sapling,Blaze Maple Sapling,Powdered Black Pearl,Cinnar,Red Nasturtium
+Thoth,Sa----,As----,So++++|Katsura Sapling,Oranje,Peaches 'n Cream Sapling,Tiny Clover,Monterey Pine Sapling
+Thoth,Sa----,As----,Sp++++|Deadwood Tree,Passam,Powdered Jade,Powdered Turquoise,Tiny Clover
+Thoth,Sa----,As----,Sw++++|Peaches 'n Cream Sapling,Powdered Turquoise,Tiny Clover,Razor Palm,Golden Hemlock Sapling
+Thoth,Sa----,As----,To++++|Katsura Sapling,Katsura Tree,Monterey Pine,Salts Of Gold,Strawberry Tree
+Thoth,Sa++++,As----,So----|Chicory,Royal Palm,Pratyeka Tree,Tiny Oil Palm,Summer Maple
+Thoth,Sa++++,As----,Sw----|Pratyeka Tree,Ash Palm,Towering Palm,Summer Maple Sapling,Royal Palm
+Thoth,So++++,As----,Sp----|Green Ash,Oranje,Orange Niali,Monterey Pine Sapling,Giant Cricklewood
+Thoth,So++++,As----,Sw----|Ash Palm,Monterey Pine Sapling,Summer Maple Youth,Towering Palm,Mini Palmetto
+Thoth,So----,As++++,Sp----|Feather Tree,Windriver Palm,Chakkanut Tree,Dikbas Youth,Verdant Squill
+Thoth,So----,As++++,Sw----|Dikbas Youth,Feather Tree,Windriver Palm,Cinnar,Summer Maple
+Thoth,Sp----,As++++,Sw----|Chakkanut Tree,Windriver Palm,Umbrella Palm,Powdered Quartz,Illawara
+Thoth,Sp----,As++++,To++++|Chakkanut Tree,Feather Tree,Khaya,Orrorin,Spiked Fishtree
+Thoth,Sp----,As++++,To----|Japanese Cherry Youth,Monterey Pine Middle Age,Indigo Damia,Scaley Hardwood,Powdered Quartz
+Thoth,Sp----,As----,To++++|Common Sage,Green Ash Youth,Monterey Pine,Giant Cricklewood,Salts Of Tin
+Thoth,Sp++++,As----,Sw++++|Anaxi,Bramble Hedge,Powdered Turquoise,Tiny Clover,Dikbas Sapling
+Thoth,Sp++++,As----,To++++|Monterey Pine,Silky Oak,Salts Of Magnesium,Powdered Jade,Powdered Ruby
+Thoth,Sw----,As++++,To++++|Windriver Palm,Chakkanut Tree,Khaya,Bluebottle Clover,Bloodbark
+Thoth,Sw----,As++++,To----|Fern Palm,Umbrella Palm,Cinnar,Elephantia,Powdered Quartz
+Thoth,Sa----,Bi----,So++++|Dikbas Sapling,Katsura Sapling,Oranje,Passam,Hazlewort
+Thoth,Sa++++,Bi----,So----|Bottle Tree,Parrotia,Chicory,Autumn Bloodbark,Feather Tree
+Thoth,Sa++++,Bi----,Sp----|Khaya Youth,Parrotia,White Pine Sapling,Chakkanut Tree,Khaya
+Thoth,Sa++++,Bi----,Sw----|Hyssop,Towering Palm,Mimosa Youth,White Pine Sapling,Chakkanut Tree
+Thoth,Sa++++,Bi----,Sw++++|Bottle Tree,Japanese Cherry Sapling,Hawthorn,Parrotia,Bramble Hedge
+Thoth,Sa++++,Bi----,To----|Bottle Tree,Illawara Sapling,Japanese Cherry Sapling,Parrotia,Cricklewood
+Thoth,Sa----,Bi----,So++++|Dikbas Sapling,Katsura Sapling,Oranje,Passam,Hazlewort
+Thoth,Sa----,Bi++++,Sp----|Spindle Tree,Golden Hemlock Sapling,Phoenix Palm,Ash Palm,Peaches 'n Cream Maple
+Thoth,So----,Bi----,Sw++++|Autumn Bloodbark,Japanese Cherry Sapling,Parrotia,Meadowsweet,Pale Dhamasa
+Thoth,So++++,Bi----,Sp++++|Dikbas Sapling,Mimosa  ,Parrotia Sapling,Cricklewood,Katsura Sapling
+Thoth,So++++,Bi----,To----|Dikbas Sapling,Dwarf Safsaf,Jacaranda Youth,Mimosa,Xanosi
+Thoth,Sp++++,Bi----,To----|Cricklewood,Elephantia,Bottle Tree,Mimosa,Passam
+Thoth,Sp----,Bi----,To++++|Green Ash Youth,Illawara,Chakkanut Tree,Coconut Palm,Daggerleaf
+Thoth,So----,Sa++++,Sw----|Summer Maple,River Bich Sapling,Windriver Palm,Dikbas Youth,Hyssop
+Thoth,So----,Sa++++,Sw++++|Japanese Cherry Youth,Meadowsweet,Chicory,Parrotia,Razor Palm
+Thoth,So----,Sa++++,To++++|Chicory,Khaya Youth,Summer Maple,Locust Palm,Tsangto
+Thoth,So----,Sa++++,To----|Japanese Cherry Sapling,Parrotia,Bottle Tree,Oil Palm,Meadowsweet
+Thoth,So++++,Sa----,Sp----|Golden Hemlock Sapling,Katsura Sapling,Monterey Pine Middle Age,Oranje,Phoenix Palm
+Thoth,Sp----,So----,To++++|Fool's Agar,Locust Palm,Chakkanut Tree,Feather Tree  ,Dikbas Youth
+Thoth,Sp----,So++++,Sw----|Monterey Pine Middle Age,Oranje,Mindanao,Hokkaido,Houseleek
+Thoth,Sp++++,So++++,To----|Dikbas Sapling,Elephantia,Jacaranda Youth,Mimosa,Parrotia Sapling
+Thoth,Sw----,Sp----,To++++|Autumn Bloodbark Sapling,Locust Palm,Chakkanut Tree,Illawara,Mini Palmetto
+Thoth,Ar----,Bi++++,As----|River Birch,Silky Oak,Fool's Agar,Feather Tree Sapling,Broadleaf Palm
+Thoth,Ar----,Sa++++,As++++|Arconis,Salts Of Zinc,Umbrella Palm,Hogweed,Hawthorn
+Thoth,Ar----,Sa++++,As----|Broadleaf Palm,Salts Of Aluminum,Wild Lettuce,Tapacae Miralis,Summer Maple
+Thoth,Ar----,Sa++++,Ar++++|Arconis,Salts Of Zinc,Umbrella Palm,Parrotia,Monkey Palm
+Thoth,Ar----,Sp++++,As----|Silky Oak,Salts Of Aluminum,Silvertongue Damia,Montu Maple,Golden Hemlock
+Thoth,Ar----,To++++,As----|Golden Hemlock,Monterey Pine,Salts Of Gold,Fool's Agar,Broadleaf Palm
+Thoth,Ar----,Sp----,As++++|Powdered Quartz,Arconis,Chakkanut Tree,Monkey Palm,Powdered Topaz
+Thoth,Ar----,Sw----,As++++|Bloodbark,Salts Of Zinc,Powdered Amethyst,Hogweed,Cinnar
+Thoth,Ar----,To----,As++++|Salts Of Zinc,Fern Palm,Ranyahn,Japanese Cherry Youth,Monkey Palm
+Thoth,Ar++++,So----,As++++|Acacia Sapling,Feather Tree,Miniature Fern Palm,Windriver Palm,Verdant Squill
+Thoth,Ar++++,Sp----,As++++|Feather Tree,Windriver Palm,Powdered Opal,Miniature Fern Palm,Chakkanut Tree
+Thoth,Ar++++,Bi----,As----|Mountain Mint,Passam,Daggerleaf,Salts Of Iron,Beetlenut
+Thoth,Ar++++,So----,As----|Mimosa Sapling,Royal Palm,Acacia Sapling,Tiny Oil Palm,Mountain Mint
+Thoth,Ar++++,Sw----,As----|Summer Maple Sapling,Mindanao,Mimosa Sapling,Ash Palm,Peaches 'n Cream Youth
+Thoth,Ar++++,Sa----,Bi++++|Golden Hemlock Sapling,Peaches 'n Cream Maple,Spindle Tree,Phoenix Palm,Beetlenut
+Thoth,Ar++++,Sp----,Bi++++|Golden Hemlock Sapling,Peaches 'n Cream Maple,Spindle Tree,Phoenix Palm,Windriver Palm
+Thoth,Ar++++,So----,Bi----|Daggerleaf,Feather Tree,Green Ash Sapling,Mountain Mint,Passam
+Thoth,Ar++++,Sw----,Bi----|Summer Maple Sapling,Cardamom,Cinnamon,Mimosa Youth,Dwarf Safsaf
+Thoth,Ar----,Sa++++,Bi----|Salts Of Platinum,Stickler Hedge,Coconut Palm,Arconis,Autumn Bloodbark
+Thoth,Ar----,Sp++++,Bi----|White Pine,Silvertongue Damia,Cricklewood,Jacaranda Youth,Monkey Palm
+Thoth,Ar++++,Sw----,Sa++++|Summer Maple Sapling,White Pine Sapling,Cardamom,Windriver Palm,Towering Palm
+Thoth,Ar++++,Sp----,Sa----|Golden Hemlock Sapling,Spindle Tree,Peaches 'n Cream Maple,Oranje,Feather Tree
+Thoth,Ar++++,Sp----,So----|Feather Tree,Powdered Opal,Spindle Tree,Mountain Mint,Green Ash Sapling
+Thoth,Ar++++,To++++,So----|Acacia,Autumn Bloodbark Sapling,Feather Tree,Salts Of Magnesium,Daggerleaf
+Thoth,Ar----,Sp----,So++++|Crimson Lettuce,Dark Ochoa,Scaley Hardwood,Monterey Pine Middle Age,Powdered Quartz
+Thoth,Ar----,To----,So++++|Mimosa,Jacaranda Youth,Scaley Hardwood,Salts Of Antimony,Monterey Pine Sapling
+Thoth,Ar----,To++++,So----|Summer Maple,Salts Of Nickel,Black Pepper Plant,Fool's Agar,Silvertongue Damia
+Thoth,Ar++++,Sw----,Sp----|Windriver Palm,Spindle Tree,Powdered Opal,Powdered White Pearl,Autumn Bloodbark Sapling
+Thoth,As----,Sp----,Bi++++|River Birch,Orange Niali,Sorrel,Peaches 'n Cream Maple,Oranje
+Thoth,As----,Sa++++,Bi----|White Pine,Powdered Aqua Pearl,Bottle Tree,Monterey Pine,Royal Palm
+Thoth,As----,Sp++++,Bi----|Passam,White Pine ,Parrotia Sapling,Monterey Pine,Mimosa Sapling
+Thoth,As----,To++++,Bi----|Monterey Pine,Green Ash Youth,Golden Hemlock,Passam,Katsura Sapling
+Thoth,As++++,Sa++++,Bi----|Parrotia,White Pine Sapling,Salts Of Zinc,Powdered Sapphire,Hyssop
+Thoth,As++++,So----,Bi----|Feather Tree,Parrotia,Mimosa Youth,Powdered Sapphire,Green Ash Sapling
+Thoth,As++++,Sw----,Bi----|Dwarf Safsaf,Mimosa Youth,Cricklewood,Cinnar,Hokkaido
+Thoth,As++++,To----,Bi----|Japanese Cherry Youth,Cricklewood,Parrotia,Salts Of Zinc,Bottle Tree
+Thoth,As++++,Sw----,Sa++++|Umbrella Palm,Windriver Palm,Arconis,Cinnar,Towering Palm
+Thoth,As++++,To----,Sa++++|Umbrella Palm,Japanese Cherry Youth,Parrotia,Fern Palm,Hyssop
+Thoth,As++++,Sw----,Sa----|Autumn Bloodbark Sapling,Blaze Maple Sapling,Powdered Black Pearl,Cinnar,Red Nasturtium
+Thoth,As----,So++++,Sa----|Katsura Sapling,Oranje,Peaches 'n Cream Sapling,Tiny Clover,Monterey Pine Sapling
+Thoth,As----,Sp++++,Sa----|Deadwood Tree,Passam,Powdered Jade,Powdered Turquoise,Tiny Clover
+Thoth,As----,Sw++++,Sa----|Peaches 'n Cream Sapling,Powdered Turquoise,Tiny Clover,Razor Palm,Golden Hemlock Sapling
+Thoth,As----,To++++,Sa----|Katsura Sapling,Katsura Tree,Monterey Pine,Salts Of Gold,Strawberry Tree
+Thoth,As----,So----,Sa++++|Chicory,Royal Palm,Pratyeka Tree,Tiny Oil Palm,Summer Maple
+Thoth,As----,Sw----,Sa++++|Pratyeka Tree,Ash Palm,Towering Palm,Summer Maple Sapling,Royal Palm
+Thoth,As----,Sp----,So++++|Green Ash,Oranje,Orange Niali,Monterey Pine Sapling,Giant Cricklewood
+Thoth,As----,Sw----,So++++|Ash Palm,Monterey Pine Sapling,Summer Maple Youth,Towering Palm,Mini Palmetto
+Thoth,As++++,Sp----,So----|Feather Tree,Windriver Palm,Chakkanut Tree,Dikbas Youth,Verdant Squill
+Thoth,As++++,Sw----,So----|Dikbas Youth,Feather Tree,Windriver Palm,Cinnar,Summer Maple
+Thoth,As++++,Sw----,Sp----|Chakkanut Tree,Windriver Palm,Umbrella Palm,Powdered Quartz,Illawara
+Thoth,As++++,To++++,Sp----|Chakkanut Tree,Feather Tree,Khaya,Orrorin,Spiked Fishtree
+Thoth,As++++,To----,Sp----|Japanese Cherry Youth,Monterey Pine Middle Age,Indigo Damia,Scaley Hardwood,Powdered Quartz
+Thoth,As----,To++++,Sp----|Common Sage,Green Ash Youth,Monterey Pine,Giant Cricklewood,Salts Of Tin
+Thoth,As----,Sw++++,Sp++++|Anaxi,Bramble Hedge,Powdered Turquoise,Tiny Clover,Dikbas Sapling
+Thoth,As----,To++++,Sp++++|Monterey Pine,Silky Oak,Salts Of Magnesium,Powdered Jade,Powdered Ruby
+Thoth,As++++,To++++,Sw----|Windriver Palm,Chakkanut Tree,Khaya,Bluebottle Clover,Bloodbark
+Thoth,As++++,To----,Sw----|Fern Palm,Umbrella Palm,Cinnar,Elephantia,Powdered Quartz
+Thoth,Bi----,So++++,Sa----|Dikbas Sapling,Katsura Sapling,Oranje,Passam,Hazlewort
+Thoth,Bi----,So----,Sa++++|Bottle Tree,Parrotia,Chicory,Autumn Bloodbark,Feather Tree
+Thoth,Bi----,Sp----,Sa++++|Khaya Youth,Parrotia,White Pine Sapling,Chakkanut Tree,Khaya
+Thoth,Bi----,Sw----,Sa++++|Hyssop,Towering Palm,Mimosa Youth,White Pine Sapling,Chakkanut Tree
+Thoth,Bi----,Sw++++,Sa++++|Bottle Tree,Japanese Cherry Sapling,Hawthorn,Parrotia,Bramble Hedge
+Thoth,Bi----,To----,Sa++++|Bottle Tree,Illawara Sapling,Japanese Cherry Sapling,Parrotia,Cricklewood
+Thoth,Bi----,So++++,Sa----|Dikbas Sapling,Katsura Sapling,Oranje,Passam,Hazlewort
+Thoth,Bi++++,Sp----,Sa----|Spindle Tree,Golden Hemlock Sapling,Phoenix Palm,Ash Palm,Peaches 'n Cream Maple
+Thoth,Bi----,Sw++++,So----|Autumn Bloodbark,Japanese Cherry Sapling,Parrotia,Meadowsweet,Pale Dhamasa
+Thoth,Bi----,Sp++++,So++++|Dikbas Sapling,Mimosa,Parrotia Sapling,Cricklewood,Katsura Sapling
+Thoth,Bi----,To----,So++++|Dikbas Sapling,Dwarf Safsaf,Jacaranda Youth,Mimosa,Xanosi
+Thoth,Bi----,To----,Sp++++|Cricklewood,Elephantia,Bottle Tree,Mimosa,Passam
+Thoth,Bi----,To++++,Sp----|Green Ash Youth,Illawara,Chakkanut Tree,Coconut Palm,Daggerleaf
+Thoth,Sa++++,Sw----,So----|Summer Maple,River Bich Sapling,Windriver Palm,Dikbas Youth,Hyssop
+Thoth,Sa++++,Sw++++,So----|Japanese Cherry Youth,Meadowsweet,Chicory,Parrotia,Razor Palm
+Thoth,Sa++++,To++++,So----|Chicory,Khaya Youth,Summer Maple,Locust Palm,Tsangto
+Thoth,Sa++++,To----,So----|Japanese Cherry Sapling,Parrotia,Bottle Tree,Oil Palm,Meadowsweet
+Thoth,Sa----,Sp----,So++++|Golden Hemlock Sapling,Katsura Sapling,Monterey Pine Middle Age,Oranje,Phoenix Palm
+Thoth,So----,To++++,Sp----|Fool's Agar,Locust Palm,Chakkanut Tree,Feather Tree  ,Dikbas Youth
+Thoth,So++++,Sw----,Sp----|Monterey Pine Middle Age,Oranje,Mindanao,Hokkaido,Houseleek
+Thoth,So++++,To----,Sp++++|Dikbas Sapling,Elephantia,Jacaranda Youth,Mimosa,Parrotia Sapling
+Thoth,Sp----,To++++,Sw----|Autumn Bloodbark Sapling,Locust Palm,Chakkanut Tree,Illawara,Mini Palmetto
+Osiris,Ar++++,As++++|Miniature Fern Palm,Windriver Palm,Parrotia Youth,White Pine Sapling,Cinnar
+Osiris,Ar++++,As----|Passam,Beetlenut,Acacia Youth,Mimosa Sapling,Peaches 'n Cream Maple
+Osiris,Ar++++,Bi----|Elephantia,Cricklewood,Miniature Fern Palm,Parrotia Youth,White Pine Sapling
+Osiris,Ar++++,Bi++++|Golden Hemlock Sapling,Peaches 'n Cream Maple,Spindle Tree,Phoenix Palm,Beetlenut
+Osiris,Ar++++,Sa++++|Summer Maple Sapling,White Pine Sapling,Royal Palm,Windriver Palm,Cardamom
+Osiris,Ar++++,Sa----|Golden Hemlock Sapling,Peaches 'n Cream Maple,Blaze Maple Youth,Autumn Bloodbark Sapling,Ash Palm
+Osiris,Ar++++,So----|Windriver Palm,Acacia Sapling,Feather Tree,Chicory,Miniature Fern Palm
+Osiris,Ar++++,So++++|Parrotia Youth,Peaches 'n Cream Youth,Golden Hemlock Sapling,Oranje,Green Ash
+Osiris,Ar++++,Sp++++|Peaches 'n Cream Youth,Elephantia,Beetlenut,Mimosa Sapling,Anaxi
+Osiris,Ar++++,Sp----|Feather Tree,Chakkanut Tree,Peaches 'n Cream Maple,Windriver Palm,Golden Hemlock Sapling
+Osiris,Ar++++,Sp++++|Peaches 'n Cream Youth,Mimosa Sapling,Elephantia,Beetlenut,Anaxi
+Osiris,Ar++++,Sw----|Windriver Palm,Elephantia,Autumn Bloodbark Sapling,Summer Maple Sapling,Beetlenut
+Osiris,Ar++++,To----|Golden Hemlock Sapling,Miniature Fern Palm,Beetlenut,Elephantia,Stout Palm
+Osiris,Ar----,As----|Broadleaf Palm,Tapacae Miralis,Bloodbark,Katsura Youth,Silky Oak
+Osiris,Ar----,Bi----|Coconut Palm,Monkey Palm,Folded Birch,Orrorin,White Pine
+Osiris,Ar----,Bi----|Folded Birch,Coconut Palm,Monkey Palm,Autumn Bloodbark,Arconis
+Osiris,Ar----,Sa++++|Arconis,Umbrella Palm,Tapacae Miralis,Broadleaf Palm,Coconut Palm
+Osiris,Ar----,So++++|Scaley Hardwood,Monterey Pine Sapling,Katsura Youth,Mimosa,Umbrella Palm
+Osiris,Ar----,Sp++++|Trilobellia,White Pine,Montu Maple,Mimosa,Broadleaf Palm
+Osiris,Ar----,Sp----|Locust Palm,Orrorin,Arconis,Feather Tree Youth,Scaley Hardwood
+Osiris,Ar----,Sw----|Trilobellia,Umbrella Palm,Mimosa,Bloodbark,Arconis
+Osiris,Ar----,To++++|Monkey Palm,Locust Palm,Orrorin,Bloodbark,Folded Birch
+Osiris,Ar----,To----|Mimosa,Umbrella Palm,Ranyahn,Jacaranda Youth,Arconis
+Osiris,As++++,Bi----|Feather Tree,Cricklewood,Cinnar,Parrotia,Coconut Palm
+Osiris,As++++,Sa++++|Umbrella Palm,Arconis,Parrotia,Chakkanut Tree,Cricklewood
+Osiris,As++++,So----|Windriver Palm,Feather Tree,Cinnar,Dikbas Youth,Young Golden Hemlock
+Osiris,As++++,Sp----|Arconis,Feather Tree,Chakkanut Tree,Windriver Palm,Powdered Quartz
+Osiris,As++++,Sw----|Fern Palm,Cinnar,Windriver Palm,Umbrella Palm,Elephantia
+Osiris,As++++,To++++|Windriver Palm,Chakkanut Tree,Khaya,Feather Tree,Bloodbark
+Osiris,As++++,To----|Umbrella Palm,Stout Palm,Fern Palm,Windriver Palm,Cricklewood
+Osiris,As----,Bi----|Katsura Sapling,Kaeshra,Monterey Pine,Passam,Ash Palm
+Osiris,As----,Bi++++|Anaxi,Feather Tree Sapling,River Birch,Silky Oak,Bloodbark
+Osiris,As----,Sa++++|Ash Palm,Royal Palm,Chicory,Pratyeka Tree,Broadleaf Palm
+Osiris,As----,So++++|Ash Palm,Towering Palm,Green Ash,Monterey Pine Sapling,Anaxi
+Osiris,As----,So----|Royal Palm,Chicory,Cerulean Blue,Tiny Oil Palm,Anaxi
+Osiris,As----,Sp++++|Anaxi,Elephantia,Trilobellia,Silky Oak,Ash Palm
+Osiris,As----,Sw++++|Anaxi,Razor Palm,Hawthorn,Peaches 'n Cream Sapling,Beetlenut
+Osiris,As----,Sw----|Ash Palm,Mini Palmetto,Pratyeka Tree,Bloodbark,Royal Palm
+Osiris,As----,To++++|Green Ash Youth,Monterey Pine,Tiny Oil Palm,River Birch,Folded Birch
+Osiris,Bi++++,Sa++++|Fern Palm,Pratyeka Tree,River Birch Sapling,Summer Maple,Feather Tree Sapling
+Osiris,Bi++++,Sa----|Phoenix Palm,Spindle Tree,Bloodbark,Golden Hemlock Sapling,Deadwood Tree
+Osiris,Bi++++,Sp----|Phoenix Palm,Red Maple,Windriver Palm,Spindle Tree,Peaches 'n Cream Maple
+Osiris,Bi++++,Sw----|Bloodbark,Spindle Tree,Trilobellia,Fern Palm,Oleaceae
+Osiris,Bi++++,To----|Stout Palm,Oil Palm,Fern Palm,Phoenix Palm,Anaxi
+Osiris,Bi----,Sa++++|Arconis,Folded Birch,Bottle Tree,Hawthorn,Kaeshra
+Osiris,Bi----,So++++|Towering Palm,Dikbas Sapling,Katsura Sapling,Kaeshra,Parrotia Sapling
+Osiris,Bi----,So----|Autumn Bloodbark,Feather Tree,Parrotia,Green Ash Sapling,Bottle Tree
+Osiris,Bi----,Sp++++|Mimosa Youth,White Pine,Parrotia Sapling,Montu Maple,Miniature Fern Palm
+Osiris,Bi----,Sp----|Chakkanut Tree,Coconut Palm,Green Ash Youth,Illawara,Bottle Tree
+Osiris,Bi----,Sw++++|Autumn Bloodbark,Japanese Cherry Sapling,Hawthorn,Safsaf Willow,Parrotia  
+Osiris,Bi----,Sw----|Chakkanut Tree,Towering Palm,Dwarf Safsaf,Khaya Sapling,Coconut Palm
+Osiris,Bi----,To++++|Chakkanut Tree,Folded Birch,Coconut Palm,Green Ash Youth,Montery Pine
+Osiris,Bi----,To----|Hawthorn,Cricklewood,Elephantia,Bottle Tree,Illawara Sapling
+Osiris,Sa++++,So----|Japanese Cherry Sapling,River Birch Sapling,Summer Maple,Pratyeka Tree,Butterleaf Tree
+Osiris,Sa++++,So++++|Green Ash,Towering Palm,Umbrella Palm,Illawara Sapling,Mimosa
+Osiris,Sa++++,Sp----|Chakkanut Tree,Pratyeka Tree,Royal Palm,Khaya Youth,Khaya
+Osiris,Sa++++,Sw++++|Japanese Cherry Sapling,Hawthorn,Parrotia,Razor Palm,Bottle Tree
+Osiris,Sa++++,Sw----|Arconis,Towering Palm,Umbrella Palm,Chakkanut Tree,Ash Palm
+Osiris,Sa++++,To----|Fern Palm,Bottle Tree,Hawthorn,Parrotia,Stout Palm
+Osiris,Sa++++,To++++|Summer Maple,Chakkanut Tree,Khaya Youth,Khaya,Hawthorn
+Osiris,Sa----,So++++|Katsura Sapling,Oranje,Peaches 'n Cream Sapling,Dikbas Sapling,Phoenix Palm
+Osiris,Sa----,Sp----|Butterleaf Tree,Oranje,Phoenix Palm,Spindle Tree,Golden Hemlock Sapling
+Osiris,Sa----,To++++|Bloodbark,Katsura Tree,Katsura Sapling,Peaches 'n Cream Maple,Locust Palm
+Osiris,Sa----,To----|Blaze Maple Sapling,Golden Hemlock Sapling,Deadwood Tree,Butterleaf Tree,Elephantia
+Osiris,So++++,Sp++++|Giant Cricklewood,Katsura Sapling,Oranje,Golden Hemlock Sapling,Monterey Pine Middle Age
+Osiris,So++++,Sp----|Ash Palm,Monterey Pine Middle Age,Chakkanut Tree,Oranje,Green Ash
+Osiris,So++++,Sw----|Towering Palm,Ash Palm,Umbrella Palm,Dikbas,Green Ash
+Osiris,So++++,To----|Scaley Hardwood,Jacaranda Youth,Mimosa,Fern Palm,Summer Maple Youth
+Osiris,So----,Sp----|Tiny Oil Palm,Feather Tree Youth,Feather Tree,Locust Palm,Windriver Palm
+Osiris,So----,Sw----|Dikbas Youth,Summer Maple,Cinnar,Acacia Sapling,Pratyeka Tree
+Osiris,So----,To----|Japanese Cherry Sapling,Stout Palm,Oil Palm,River Birch Sapling,Butterleaf Tree
+Osiris,So----,To++++|Tiny Oil Palm,Locust Palm,Cerulean Blue,Black Pepper Plant,Chakkanut Tree
+Osiris,So----,To----|Stout Palm,Butterleaf Tree,Japanese Cherry Sapling,Acacia Sapling,Oil Palm
+Osiris,Sp++++,Sw----|Trilobellia,Cinnar,Elephantia,Peaches 'n Cream Youth,Cricklewood
+Osiris,Sp++++,To----|Anaxi,Elephantia,Cricklewood,Butterleaf Tree,Beetlenut
+Osiris,Sp----,Sw----|Ash Palm,Spindle Tree,Chakkanut Tree,Windriver Palm,Illawara
+Osiris,Sp----,Sw++++|Feather Tree Youth,Giant Cricklewood,Japanese Cherry Youth,Peaches 'n Cream Sapling,Razor Palm
+Osiris,Sp----,To----|Giant Cricklewood,Illawara Sapling,Japanese Cherry Youth,Monterey Pine Middle Age,Golden Hemlock Sapling
+Osiris,Sp----,To++++|Chakkanut Tree,Locust Palm,Green Ash Youth,Chicory,Orrorin
+Osiris,Sw----,To++++|Folded Birch,Bloodbark,Chakkanut Tree,Windriver Palm,Summer Maple
+Osiris,Sw----,To----|Cinnar,Elephantia,Butterleaf Tree,Fern Palm,Towering Palm
+Osiris,As++++,Ar++++|Miniature Fern Palm,Windriver Palm,Parrotia Youth,White Pine Sapling,Cinnar
+Osiris,As----,Ar++++|Passam,Beetlenut,Acacia Youth,Mimosa Sapling,Peaches 'n Cream Maple
+Osiris,Bi----,Ar++++|Elephantia,Cricklewood,Miniature Fern Palm,Parrotia Youth,White Pine Sapling
+Osiris,Bi++++,Ar++++|Golden Hemlock Sapling,Peaches 'n Cream Maple,Spindle Tree,Phoenix Palm,Beetlenut
+Osiris,Sa++++,Ar++++|Summer Maple Sapling,White Pine Sapling,Royal Palm,Windriver Palm,Cardamom
+Osiris,Sa----,Ar++++|Golden Hemlock Sapling,Peaches 'n Cream Maple,Blaze Maple Youth,Autumn Bloodbark Sapling,Ash Palm
+Osiris,So----,Ar++++|Windriver Palm,Acacia Sapling,Feather Tree,Chicory,Miniature Fern Palm
+Osiris,So++++,Ar++++|Parrotia Youth,Peaches 'n Cream Youth,Golden Hemlock Sapling,Oranje,Green Ash
+Osiris,Sp++++,Ar++++|Peaches 'n Cream Youth,Elephantia,Beetlenut,Mimosa Sapling,Anaxi
+Osiris,Sp----,Ar++++|Feather Tree,Chakkanut Tree,Peaches 'n Cream Maple,Windriver Palm,Golden Hemlock Sapling
+Osiris,Sp++++,Ar++++|Peaches 'n Cream Youth,Mimosa Sapling,Elephantia,Beetlenut,Anaxi
+Osiris,Sw----,Ar++++|Windriver Palm,Elephantia,Autumn Bloodbark Sapling,Summer Maple Sapling,Beetlenut
+Osiris,To----,Ar++++|Golden Hemlock Sapling,Miniature Fern Palm,Beetlenut,Elephantia,Stout Palm
+Osiris,As----,Ar----|Broadleaf Palm,Tapacae Miralis,Bloodbark,Katsura Youth,Silky Oak
+Osiris,Bi----,Ar----|Coconut Palm,Monkey Palm,Folded Birch,Orrorin,White Pine
+Osiris,Bi----,Ar----|Folded Birch,Coconut Palm,Monkey Palm,Autumn Bloodbark,Arconis
+Osiris,Sa++++,Ar----|Arconis,Umbrella Palm,Tapacae Miralis,Broadleaf Palm,Coconut Palm
+Osiris,So++++,Ar----|Scaley Hardwood,Monterey Pine Sapling,Katsura Youth,Mimosa,Umbrella Palm
+Osiris,Sp++++,Ar----|Trilobellia,White Pine,Montu Maple,Mimosa,Broadleaf Palm
+Osiris,Sp----,Ar----|Locust Palm,Orrorin,Arconis,Feather Tree Youth,Scaley Hardwood
+Osiris,Sw----,Ar----|Trilobellia,Umbrella Palm,Mimosa,Bloodbark,Arconis
+Osiris,To++++,Ar----|Monkey Palm,Locust Palm,Orrorin,Bloodbark,Folded Birch
+Osiris,To----,Ar----|Mimosa,Umbrella Palm,Ranyahn,Jacaranda Youth,Arconis
+Osiris,Bi----,As++++|Feather Tree,Cricklewood,Cinnar,Parrotia,Coconut Palm
+Osiris,Sa++++,As++++|Umbrella Palm,Arconis,Parrotia,Chakkanut Tree,Cricklewood
+Osiris,So----,As++++|Windriver Palm,Feather Tree,Cinnar,Dikbas Youth,Young Golden Hemlock
+Osiris,Sp----,As++++|Arconis,Feather Tree,Chakkanut Tree,Windriver Palm,Powdered Quartz
+Osiris,Sw----,As++++|Fern Palm,Cinnar,Windriver Palm,Umbrella Palm,Elephantia
+Osiris,To++++,As++++|Windriver Palm,Chakkanut Tree,Khaya,Feather Tree,Bloodbark
+Osiris,To----,As++++|Umbrella Palm,Stout Palm,Fern Palm,Windriver Palm,Cricklewood
+Osiris,Bi----,As----|Katsura Sapling,Kaeshra,Monterey Pine,Passam,Ash Palm
+Osiris,Bi++++,As----|Anaxi,Feather Tree Sapling,River Birch,Silky Oak,Bloodbark
+Osiris,Sa++++,As----|Ash Palm,Royal Palm,Chicory,Pratyeka Tree,Broadleaf Palm
+Osiris,So++++,As----|Ash Palm,Towering Palm,Green Ash,Monterey Pine Sapling,Anaxi
+Osiris,So----,As----|Royal Palm,Chicory,Cerulean Blue,Tiny Oil Palm,Anaxi
+Osiris,Sp++++,As----|Anaxi,Elephantia,Trilobellia,Silky Oak,Ash Palm
+Osiris,Sw++++,As----|Anaxi,Razor Palm,Hawthorn,Peaches 'n Cream Sapling,Beetlenut
+Osiris,Sw----,As----|Ash Palm,Mini Palmetto,Pratyeka Tree,Bloodbark,Royal Palm
+Osiris,To++++,As----|Green Ash Youth,Monterey Pine,Tiny Oil Palm,River Birch,Folded Birch
+Osiris,Sa++++,Bi++++|Fern Palm,Pratyeka Tree,River Birch Sapling,Summer Maple,Feather Tree Sapling
+Osiris,Sa----,Bi++++|Phoenix Palm,Spindle Tree,Bloodbark,Golden Hemlock Sapling,Deadwood Tree
+Osiris,Sp----,Bi++++|Phoenix Palm,Red Maple,Windriver Palm,Spindle Tree,Peaches 'n Cream Maple
+Osiris,Sw----,Bi++++|Bloodbark,Spindle Tree,Trilobellia,Fern Palm,Oleaceae
+Osiris,To----,Bi++++|Stout Palm,Oil Palm,Fern Palm,Phoenix Palm,Anaxi
+Osiris,Sa++++,Bi----|Arconis,Folded Birch,Bottle Tree,Hawthorn,Kaeshra
+Osiris,So++++,Bi----|Towering Palm,Dikbas Sapling,Katsura Sapling,Kaeshra,Parrotia Sapling
+Osiris,So----,Bi----|Autumn Bloodbark,Feather Tree,Parrotia,Green Ash Sapling,Bottle Tree
+Osiris,Sp++++,Bi----|Mimosa Youth,White Pine,Parrotia Sapling,Montu Maple,Miniature Fern Palm
+Osiris,Sp----,Bi----|Chakkanut Tree,Coconut Palm,Green Ash Youth,Illawara,Bottle Tree
+Osiris,Sw++++,Bi----|Autumn Bloodbark,Japanese Cherry Sapling,Hawthorn,Safsaf Willow,Parrotia  
+Osiris,Sw----,Bi----|Chakkanut Tree,Towering Palm,Dwarf Safsaf,Khaya Sapling,Coconut Palm
+Osiris,To++++,Bi----|Chakkanut Tree,Folded Birch,Coconut Palm,Green Ash Youth,Montery Pine
+Osiris,To----,Bi----|Hawthorn,Cricklewood,Elephantia,Bottle Tree,Illawara Sapling
+Osiris,So----,Sa++++|Japanese Cherry Sapling,River Birch Sapling,Summer Maple,Pratyeka Tree,Butterleaf Tree
+Osiris,So++++,Sa++++|Green Ash,Towering Palm,Umbrella Palm,Illawara Sapling,Mimosa
+Osiris,Sp----,Sa++++|Chakkanut Tree,Pratyeka Tree,Royal Palm,Khaya Youth,Khaya
+Osiris,Sw++++,Sa++++|Japanese Cherry Sapling,Hawthorn,Parrotia,Razor Palm,Bottle Tree
+Osiris,Sw----,Sa++++|Arconis,Towering Palm,Umbrella Palm,Chakkanut Tree,Ash Palm
+Osiris,To----,Sa++++|Fern Palm,Bottle Tree,Hawthorn,Parrotia,Stout Palm
+Osiris,To++++,Sa++++|Summer Maple,Chakkanut Tree,Khaya Youth,Khaya,Hawthorn
+Osiris,So++++,Sa----|Katsura Sapling,Oranje,Peaches 'n Cream Sapling,Dikbas Sapling,Phoenix Palm
+Osiris,Sp----,Sa----|Butterleaf Tree,Oranje,Phoenix Palm,Spindle Tree,Golden Hemlock Sapling
+Osiris,To++++,Sa----|Bloodbark,Katsura Tree,Katsura Sapling,Peaches 'n Cream Maple,Locust Palm
+Osiris,To----,Sa----|Blaze Maple Sapling,Golden Hemlock Sapling,Deadwood Tree,Butterleaf Tree,Elephantia
+Osiris,Sp++++,So++++|Giant Cricklewood,Katsura Sapling,Oranje,Golden Hemlock Sapling,Monterey Pine Middle Age
+Osiris,Sp----,So++++|Ash Palm,Monterey Pine Middle Age,Chakkanut Tree,Oranje,Green Ash
+Osiris,Sw----,So++++|Towering Palm,Ash Palm,Umbrella Palm,Dikbas,Green Ash
+Osiris,To----,So++++|Scaley Hardwood,Jacaranda Youth,Mimosa,Fern Palm,Summer Maple Youth
+Osiris,Sp----,So----|Tiny Oil Palm,Feather Tree Youth,Feather Tree,Locust Palm,Windriver Palm
+Osiris,Sw----,So----|Dikbas Youth,Summer Maple,Cinnar,Acacia Sapling,Pratyeka Tree
+Osiris,To----,So----|Japanese Cherry Sapling,Stout Palm,Oil Palm,River Birch Sapling,Butterleaf Tree
+Osiris,To++++,So----|Tiny Oil Palm,Locust Palm,Cerulean Blue,Black Pepper Plant,Chakkanut Tree
+Osiris,To----,So----|Stout Palm,Butterleaf Tree,Japanese Cherry Sapling,Acacia Sapling,Oil Palm
+Osiris,Sw----,Sp++++|Trilobellia,Cinnar,Elephantia,Peaches 'n Cream Youth,Cricklewood
+Osiris,To----,Sp++++|Anaxi,Elephantia,Cricklewood,Butterleaf Tree,Beetlenut
+Osiris,Sw----,Sp----|Ash Palm,Spindle Tree,Chakkanut Tree,Windriver Palm,Illawara
+Osiris,Sw++++,Sp----|Feather Tree Youth,Giant Cricklewood,Japanese Cherry Youth,Peaches 'n Cream Sapling,Razor Palm
+Osiris,To----,Sp----|Giant Cricklewood,Illawara Sapling,Japanese Cherry Youth,Monterey Pine Middle Age,Golden Hemlock Sapling
+Osiris,To++++,Sp----|Chakkanut Tree,Locust Palm,Green Ash Youth,Chicory,Orrorin
+Osiris,To++++,Sw----|Folded Birch,Bloodbark,Chakkanut Tree,Windriver Palm,Summer Maple
+Osiris,To----,Sw----|Cinnar,Elephantia,Butterleaf Tree,Fern Palm,Towering Palm
+Set,Ar+++,As+++,Bi---|Miniature Fern Palm,Chakkanut Tree,Feather Tree,Windriver Palm,Cricklewood
+Set,Ar+++,As+++,So---|Feather Tree,Miniature Fern Palm,Windriver Palm,Cerulean Blue,Hawthorn
+Set,Ar+++,As+++,Sp---|Miniature Fern Palm,Chakkanut Tree,Feather Tree,Spindle Tree,Hawthorn
+Set,Ar+++,As+++,Sw---|Miniature Fern Palm,Elephantia,Chakkanut Tree,Towering Palm,Feather Tree
+Set,Ar+++,As+++,To---|Elephantia,Miniature Fern Palm,Cricklewood,Bottle Tree,Feather Tree
+Set,Ar+++,Bi---,Sa+++|Bottle Tree,Miniature Fern Palm,Windriver Palm,Hawthorn,Beetlenut
+Set,Ar+++,Bi---,So---|Elephantia,Feather Tree,Miniature Fern Palm,Cricklewood,Cerulean Blue
+Set,Ar+++,Bi---,Sp+++|Cricklewood,Elephantia,Beetlenut,Miniature Fern Palm,Passam
+Set,Ar+++,Bi---,Sp---|Chakkanut Tree,Feather Tree,Miniature Fern Palm,Windriver Palm,Bottle Tree
+Set,Ar+++,Bi---,Sw---|Elephantia,Miniature Fern Palm,Windriver Palm,Mini Palmetto,Passam
+Set,Ar+++,Bi---,To---|Elephantia,Miniature Fern Palm,Cricklewood,Hawthorn,Beetlenut
+Set,Ar+++,Sa+++,So---|Feather Tree,Windriver Palm,Royal Palm,Miniature Fern Palm,Pratyeka Tree
+Set,Ar+++,Sa+++,Sw---|Windriver Palm,Elephantia,Towering Palm,Royal Palm,Miniature Fern Palm
+Set,Ar+++,Sa+++,To---|Bottle Tree,Elephantia,Hawthorn,Miniature Fern Palm,Windriver Palm
+Set,Ar+++,So---,Sp---|Feather Tree,Royal Palm,Spindle Tree,Miniature Fern Palm,Locust Palm
+Set,Ar+++,So---,Sw---|Elephantia,Feather Tree,Pratyeka Tree,Royal Palm,Windriver Palm
+Set,Ar+++,So---,To---|Butterleaf Tree,Feather Tree,Miniature Fern Palm,Oil Palm,Beetlenut
+Set,Ar+++,Sp---,Sw---|Windriver Palm,Miniature Fern Palm,Chakkanut Tree,Spindle Tree,Phoenix Palm
+Set,Ar+++,Sw---,To---|Elephantia,Windriver Palm,Miniature Fern Palm,Stout Palm,Ash Palm
+Set,Ar---,As+++,Bi+++|Arconis,Bloodbark,Fern Palm,Stout Palm,Umbrella Palm
+Set,Ar---,As+++,Bi---|Cricklewood,Coconut Palm,Arconis,Monkey Palm,Umbrella Palm
+Set,Ar---,As+++,Sa+++|Arconis,Umbrella Palm,Towering Palm,Fern Palm,Monkey Palm
+Set,Ar---,As+++,Sp---|Arconis,Locust Palm,Orrorin,Chakkanut Tree,Fern Palm
+Set,Ar---,As+++,Sw---|Cinnar,Umbrella Palm,Arconis,Bloodbark,Locust Palm
+Set,Ar---,As+++,To+++|Chakkanut Tree,Orrorin,Arconis,Locust Palm,Cinnar
+Set,Ar---,As+++,To---|Fern Palm,Umbrella Palm,Ranyahn,Monkey Palm,Stout Palm
+Set,Ar---,As---,Sa+++|Broadleaf Palm,Pratyeka Tree,Monkey Palm,Tapacae Miralis,Ash Palm
+Set,Ar---,As---,So---|Broadleaf Palm,Monkey Palm,Tiny Oil Palm,Locust Palm,Pratyeka Tree
+Set,Ar---,As---,Sp+++|Anaxi,Broadleaf Palm,Trilobellia,Bloodbark,Cerulean Blue
+Set,Ar---,As---,Sw---|Broadleaf Palm,Bloodbark,Ash Palm,Mini Palmetto,Coconut Palm
+Set,Ar---,As---,To+++|Broadleaf Palm,Tapacae Miralis,Bloodbark,Locust Palm,Ash Palm
+Set,Ar---,Bi+++,Sa+++|Arconis,Bloodbark,Fern Palm,Red Maple,Umbrella Palm
+Set,Ar---,Bi+++,Sp---|Bloodbark,Fern Palm,Phoenix Palm,Locust Palm,Arconis
+Set,Ar---,Bi+++,Sw---|Bloodbark,Trilobellia,Phoenix Palm,Fern Palm,Broadleaf Palm
+Set,Ar---,Bi+++,To---|Fern Palm,Ranyahn,Stout Palm,Broadleaf Palm,Red Maple
+Set,Ar---,Bi---,Sa+++|Folded Birch,Coconut Palm,Umbrella Palm,Monkey Palm,Hawthorn
+Set,Ar---,Bi---,Sp+++|Broadleaf Palm,Cricklewood,Monkey Palm,Passam,Trilobellia
+Set,Ar---,Bi---,Sp---|Coconut Palm,Monkey Palm,Folded Birch,Locust Palm,Giant Cricklewood
+Set,Ar---,Bi---,To+++|Folded Birch,Monkey Palm,Locust Palm,Coconut Palm,Chakkanut Tree
+Set,Ar---,Bi---,To---|Monkey Palm,Ranyahn,Cricklewood,Coconut Palm,Butterleaf Tree
+Set,Ar---,Sa+++,So---|Chicory,Broadleaf Palm,Monkey Palm,Locust Palm,Hawthorn
+Set,Ar---,Sa+++,Sp---|Locust Palm,Broadleaf Palm,Chakkanut Tree,Arconis,Hawthorn
+Set,Ar---,Sa+++,Sw---|Umbrella Palm,Fern Palm,Broadleaf Palm,Towering Palm,Coconut Palm
+Set,Ar---,Sa+++,To+++|Locust Palm,Tapacae Miralis,Chakkanut Tree,Arconis,Coconut Palm
+Set,Ar---,Sa+++,To---|Umbrella Palm,Fern Palm,Broadleaf Palm,Towering Palm,Ranyahn
+Set,Ar---,So---,To+++|Locust Palm,Orrorin,Cerulean Blue,Tiny Oil Palm,Broadleaf Palm
+Set,Ar---,Sp---,Sw---|Orrorin,Chakkanut Tree,Bloodbark,Locust Palm,Fern Palm
+Set,Ar---,Sp---,To+++|Chakkanut Tree,Broadleaf Palm,Bloodbark,Locust Palm,Coconut Palm
+Set,Ar---,Sw---,To+++|Bloodbark,Chakkanut Tree,Orrorin,Mini Palmetto,Broadleaf Palm
+Set,Ar---,Sw---,To---|Fern Palm,Umbrella Palm,Ash Palm,Coconut Palm,Ranyahn
+Set,As+++,Bi---,Sa+++|Cricklewood,Bottle Tree,Umbrella Palm,Towering Palm,Cinnar
+Set,As+++,Bi---,So---|Cricklewood,Feather Tree,Bottle Tree,Locust Palm,Miniature Fern Palm
+Set,As+++,Bi---,Sp+++|Cinnar,Cricklewood,Elephantia,Miniature Fern Palm,Hawthorn
+Set,As+++,Bi---,Sp---|Chakkanut Tree,Coconut Palm,Feather Tree,Miniature Fern Palm,Locust Palm
+Set,As+++,Bi---,Sw---|Cricklewood,Cinnar,Chakkanut Tree,Towering Palm,Coconut Palm
+Set,As+++,Bi---,To---|Cricklewood,Miniature Fern Palm,Umbrella Palm,Bottle Tree,Monkey Palm
+Set,As+++,Bi---,To+++|Chakkanut Tree,Feather Tree,Folded Birch,Locust Palm,Cricklewood
+Set,As+++,Sa+++,So---|Feather Tree,Chicory,Bottle Tree,Fern Palm,Cinnar
+Set,As+++,Sa+++,Sp---|Hawthorn,Chakkanut Tree,Locust Palm,Feather Tree,Arconis
+Set,As+++,Sa+++,Sw---|Umbrella Palm,Towering Palm,Cricklewood,Chakkanut Tree,Fern Palm
+Set,As+++,Sa+++,To+++|Arconis,Chakkanut Tree,Feather Tree,Towering Palm,Locust Palm
+Set,As+++,Sa+++,To---|Fern Palm,Umbrella Palm,Towering Palm,Miniature Fern Palm,Cricklewood
+Set,As+++,So---,Sp+++|Cerulean Blue,Cinnar,Cricklewood,Elephantia,Feather Tree
+Set,As+++,So---,Sp---|Feather Tree,Stout Palm,Arconis,Chakkanut Tree,Chicory
+Set,As+++,So---,Sw---|Feather Tree,Windriver Palm,Cinnar,Chicory,Fern Palm
+Set,As+++,So---,To+++|Chakkanut Tree,Feather Tree,Locust Palm,Cerulean Blue,Cinnar
+Set,As+++,So---,To---|Feather Tree,Stout Palm,Butterleaf Tree,Cricklewood,Fern Palm
+Set,As+++,Sp+++,Sw---|Cinnar,Cricklewood,Elephantia,Miniature Fern Palm,Fern Palm
+Set,As+++,Sp+++,To---|Cinnar,Cricklewood,Elephantia,Hawthorn,Fern Palm
+Set,As---,Bi+++,Sa+++|Fern Palm,Pratyeka Tree,Red Maple,Royal Palm,Anaxi
+Set,As---,Bi+++,Sp---|Ash Palm,Phoenix Palm,Spindle Tree,Pratyeka Tree,Royal Palm
+Set,As---,Bi+++,Sw---|Ash Palm,Pratyeka Tree,Phoenix Palm,Fern Palm,Royal Palm
+Set,As---,Bi+++,To---|Anaxi,Oil Palm,Fern Palm,Pratyeka Tree,Razor Palm
+Set,As---,Bi---,Sa+++|Royal Palm,Coconut Palm,Bottle Tree,Passam,Pratyeka Tree
+Set,As---,Bi---,Sp+++|Anaxi,Passam,Kaeshra,Cricklewood,Ash Palm
+Set,As---,Bi---,Sw---|Mini Palmetto,Passam,Ash Palm,Towering Palm,Coconut Palm
+Set,As---,Sa+++,So---|Royal Palm,Cerulean Blue,Chicory,Mini Palmetto,Hawthorn
+Set,As---,Sa+++,Sp---|Royal Palm,Ash Palm,Locust Palm,Chakkanut Tree,Pratyeka Tree
+Set,As---,Sa+++,Sw+++|Razor Palm,Hawthorn,Anaxi,Royal Palm,Folded Birch
+Set,As---,Sa+++,Sw---|Towering Palm,Chicory,Mini Palmetto,Ash Palm,Pratyeka Tree
+Set,As---,Sa+++,To---|Royal Palm,Pratyeka Tree,Fern Palm,Oil Palm,Anaxi
+Set,As---,Sa+++,To+++|Locust Palm,Pratyeka Tree,Tapacae Miralis,Folded Birch,Mini Palmetto
+Set,As---,Sa+++,To---|Royal Palm,Oil Palm,Pratyeka Tree,Fern Palm,Anaxi
+Set,As---,So---,Sp+++|Anaxi,Cerulean Blue,Chicory,Elephantia,Royal Palm
+Set,As---,So---,Sp---|Royal Palm,Giant Cricklewood,Pratyeka Tree,Tiny Oil Palm,Locust Palm
+Set,As---,So---,Sw---|Mini Palmetto,Tiny Oil Palm,Cerulean Blue,Trilobellia,Locust Palm
+Set,As---,So---,To+++|Locust Palm,Tiny Oil Palm,Cerulean Blue,Folded Birch,Royal Palm
+Set,As---,So---,To---|Oil Palm,Butterleaf Tree,Royal Palm,Pratyeka Tree,Hawthorn
+Set,As---,Sp+++,Sw---|Trilobellia,Elephantia,Mini Palmetto,Anaxi,Ash Palm
+Set,As---,Sp+++,To---|Anaxi,Oil Palm,Passam,Ash Palm,Elephantia
+Set,As---,Sw---,To---|Beetlenut,Elephantia,Oil Palm,Trilobellia,Ash Palm
+Set,As---,Sw---,To+++|Locust Palm,Mini Palmetto,Royal Palm,Ash Palm,Bloodbark
+Set,Bi+++,Sa---,Sp---|Phoenix Palm,Spindle Tree,Stout Palm,Spiked Fishtree,Butterleaf Tree
+Set,Bi+++,Sa---,Sw---|Bloodbark,Phoenix Palm,Spiked Fishtree,Ash Palm,Spindle Tree
+Set,Bi+++,Sa---,To+++|Bloodbark,Locust Palm,Phoenix Palm,Spiked Fishtree,Spindle Tree
+Set,Bi+++,Sa+++,So---|Chicory,Fern Palm,Oil Palm,Pratyeka Tree,Stout Palm
+Set,Bi+++,Sa+++,Sw---|Fern Palm,Pratyeka Tree,Umbrella Palm,Phoenix Palm,Royal Palm
+Set,Bi+++,Sa+++,To---|Fern Palm,Pratyeka Tree,Umbrella Palm,Stout Palm,Anaxi
+Set,Bi+++,So---,Sp---|Phoenix Palm,Spindle Tree,Chicory,Oil Palm,Locust Palm
+Set,Bi+++,Sp---,To+++|Bloodbark,Phoenix Palm,Spindle Tree,Chakkanut Tree,Cerulean Blue
+Set,Bi+++,Sp---,To---|Fern Palm,Phoenix Palm,Stout Palm,Umbrella Palm,Spindle Tree
+Set,Bi+++,Sw---,To+++|Bloodbark,Locust Palm,Phoenix Palm,Spindle Tree,Mini Palmetto
+Set,Bi+++,Sw---,To---|Stout Palm,Fern Palm,Umbrella Palm,Phoenix Palm,Ash Palm
+Set,Bi---,Sa+++,So---|Bottle Tree,Chicory,Royal Palm,Monkey Palm,Coconut Palm
+Set,Bi---,Sa+++,Sp---|Bottle Tree,Chakkanut Tree,Coconut Palm,Giant Cricklewood,Hawthorn
+Set,Bi---,Sa+++,Sw+++|Bottle Tree,Hawthorn,Razor Palm,Broadleaf Palm,Coconut Palm
+Set,Bi---,Sa+++,Sw---|Umbrella Palm,Towering Palm,Coconut Palm,Chakkanut Tree,Cricklewood
+Set,Bi---,Sa+++,To---|Umbrella Palm,Bottle Tree,Hawthorn,Cricklewood,Ash Palm
+Set,Bi---,So---,Sp+++|Cerulean Blue,Cricklewood,Passam,Chicory,Hawthorn
+Set,Bi---,So---,To---|Cricklewood,Butterleaf Tree,Bottle Tree,Monkey Palm,Royal Palm
+Set,Bi---,Sp+++,Sw---|Elephantia,Cricklewood,Mini Palmetto,Cinnar,Miniature Fern Palm
+Set,Bi---,Sp+++,To---|Passam,Bottle Tree,Elephantia,Cricklewood,Ash Palm
+Set,Bi---,Sp---,Sw---|Ash Palm,Chakkanut Tree,Coconut Palm,Kaeshra,Windriver Palm
+Set,Bi---,Sp---,To+++|Chakkanut Tree,Locust Palm,Coconut Palm,Folded Birch,Mini Palmetto
+Set,Bi---,Sw---,To---|Cricklewood,Elephantia,Umbrella Palm,Towering Palm,Coconut Palm
+Set,Sa+++,So---,Sp---|Royal Palm,Feather Tree,Chicory,Giant Cricklewood,Coconut Palm
+Set,Sa+++,So---,Sw---|Pratyeka Tree,Chicory,Mini Palmetto,Cerulean Blue,Fern Palm
+Set,Sa+++,So---,To+++|Locust Palm,Chakkanut Tree,Royal Palm,Chicory,Coconut Palm
+Set,Sa+++,So---,To---|Stout Palm,Royal Palm,Bottle Tree,Chicory,Fern Palm
+Set,So---,Sp+++,To---|Cerulean Blue,Oil Palm,Butterleaf Tree,Elephantia,Anaxi
+Set,So---,Sp---,Sw---|Windriver Palm,Feather Tree,Pratyeka Tree,Chakkanut Tree,Butterleaf Tree
+Set,So---,Sp---,To+++|Chakkanut Tree,Tiny Oil Palm,Chicory,Feather Tree,Locust Palm
+Set,So---,Sw---,To+++|Mini Palmetto,Tiny Oil Palm,Bloodbark,Cerulean Blue,Chicory
+Set,As+++,Bi---,Ar+++|Miniature Fern Palm,Chakkanut Tree,Feather Tree,Windriver Palm,Cricklewood
+Set,As+++,So---,Ar+++|Feather Tree,Miniature Fern Palm,Windriver Palm,Cerulean Blue,Hawthorn
+Set,As+++,Sp---,Ar+++|Miniature Fern Palm,Chakkanut Tree,Feather Tree,Spindle Tree,Hawthorn
+Set,As+++,Sw---,Ar+++|Miniature Fern Palm,Elephantia,Chakkanut Tree,Towering Palm,Feather Tree
+Set,As+++,To---,Ar+++|Elephantia,Miniature Fern Palm,Cricklewood,Bottle Tree,Feather Tree
+Set,Bi---,Sa+++,Ar+++|Bottle Tree,Miniature Fern Palm,Windriver Palm,Hawthorn,Beetlenut
+Set,Bi---,So---,Ar+++|Elephantia,Feather Tree,Miniature Fern Palm,Cricklewood,Cerulean Blue
+Set,Bi---,Sp+++,Ar+++|Cricklewood,Elephantia,Beetlenut,Miniature Fern Palm,Passam
+Set,Bi---,Sp---,Ar+++|Chakkanut Tree,Feather Tree,Miniature Fern Palm,Windriver Palm,Bottle Tree
+Set,Bi---,Sw---,Ar+++|Elephantia,Miniature Fern Palm,Windriver Palm,Mini Palmetto,Passam
+Set,Bi---,To---,Ar+++|Elephantia,Miniature Fern Palm,Cricklewood,Hawthorn,Beetlenut
+Set,Sa+++,So---,Ar+++|Feather Tree,Windriver Palm,Royal Palm,Miniature Fern Palm,Pratyeka Tree
+Set,Sa+++,Sw---,Ar+++|Windriver Palm,Elephantia,Towering Palm,Royal Palm,Miniature Fern Palm
+Set,Sa+++,To---,Ar+++|Bottle Tree,Elephantia,Hawthorn,Miniature Fern Palm,Windriver Palm
+Set,So---,Sp---,Ar+++|Feather Tree,Royal Palm,Spindle Tree,Miniature Fern Palm,Locust Palm
+Set,So---,Sw---,Ar+++|Elephantia,Feather Tree,Pratyeka Tree,Royal Palm,Windriver Palm
+Set,So---,To---,Ar+++|Butterleaf Tree,Feather Tree,Miniature Fern Palm,Oil Palm,Beetlenut
+Set,Sp---,Sw---,Ar+++|Windriver Palm,Miniature Fern Palm,Chakkanut Tree,Spindle Tree,Phoenix Palm
+Set,Sw---,To---,Ar+++|Elephantia,Windriver Palm,Miniature Fern Palm,Stout Palm,Ash Palm
+Set,As+++,Bi+++,Ar---|Arconis,Bloodbark,Fern Palm,Stout Palm,Umbrella Palm
+Set,As+++,Bi---,Ar---|Cricklewood,Coconut Palm,Arconis,Monkey Palm,Umbrella Palm
+Set,As+++,Sa+++,Ar---|Arconis,Umbrella Palm,Towering Palm,Fern Palm,Monkey Palm
+Set,As+++,Sp---,Ar---|Arconis,Locust Palm,Orrorin,Chakkanut Tree,Fern Palm
+Set,As+++,Sw---,Ar---|Cinnar,Umbrella Palm,Arconis,Bloodbark,Locust Palm
+Set,As+++,To+++,Ar---|Chakkanut Tree,Orrorin,Arconis,Locust Palm,Cinnar
+Set,As+++,To---,Ar---|Fern Palm,Umbrella Palm,Ranyahn,Monkey Palm,Stout Palm
+Set,As---,Sa+++,Ar---|Broadleaf Palm,Pratyeka Tree,Monkey Palm,Tapacae Miralis,Ash Palm
+Set,As---,So---,Ar---|Broadleaf Palm,Monkey Palm,Tiny Oil Palm,Locust Palm,Pratyeka Tree
+Set,As---,Sp+++,Ar---|Anaxi,Broadleaf Palm,Trilobellia,Bloodbark,Cerulean Blue
+Set,As---,Sw---,Ar---|Broadleaf Palm,Bloodbark,Ash Palm,Mini Palmetto,Coconut Palm
+Set,As---,To+++,Ar---|Broadleaf Palm,Tapacae Miralis,Bloodbark,Locust Palm,Ash Palm
+Set,Bi+++,Sa+++,Ar---|Arconis,Bloodbark,Fern Palm,Red Maple,Umbrella Palm
+Set,Bi+++,Sp---,Ar---|Bloodbark,Fern Palm,Phoenix Palm,Locust Palm,Arconis
+Set,Bi+++,Sw---,Ar---|Bloodbark,Trilobellia,Phoenix Palm,Fern Palm,Broadleaf Palm
+Set,Bi+++,To---,Ar---|Fern Palm,Ranyahn,Stout Palm,Broadleaf Palm,Red Maple
+Set,Bi---,Sa+++,Ar---|Folded Birch,Coconut Palm,Umbrella Palm,Monkey Palm,Hawthorn
+Set,Bi---,Sp+++,Ar---|Broadleaf Palm,Cricklewood,Monkey Palm,Passam,Trilobellia
+Set,Bi---,Sp---,Ar---|Coconut Palm,Monkey Palm,Folded Birch,Locust Palm,Giant Cricklewood
+Set,Bi---,To+++,Ar---|Folded Birch,Monkey Palm,Locust Palm,Coconut Palm,Chakkanut Tree
+Set,Bi---,To---,Ar---|Monkey Palm,Ranyahn,Cricklewood,Coconut Palm,Butterleaf Tree
+Set,Sa+++,So---,Ar---|Chicory,Broadleaf Palm,Monkey Palm,Locust Palm,Hawthorn
+Set,Sa+++,Sp---,Ar---|Locust Palm,Broadleaf Palm,Chakkanut Tree,Arconis,Hawthorn
+Set,Sa+++,Sw---,Ar---|Umbrella Palm,Fern Palm,Broadleaf Palm,Towering Palm,Coconut Palm
+Set,Sa+++,To+++,Ar---|Locust Palm,Tapacae Miralis,Chakkanut Tree,Arconis,Coconut Palm
+Set,Sa+++,To---,Ar---|Umbrella Palm,Fern Palm,Broadleaf Palm,Towering Palm,Ranyahn
+Set,So---,To+++,Ar---|Locust Palm,Orrorin,Cerulean Blue,Tiny Oil Palm,Broadleaf Palm
+Set,Sp---,Sw---,Ar---|Orrorin,Chakkanut Tree,Bloodbark,Locust Palm,Fern Palm
+Set,Sp---,To+++,Ar---|Chakkanut Tree,Broadleaf Palm,Bloodbark,Locust Palm,Coconut Palm
+Set,Sw---,To+++,Ar---|Bloodbark,Chakkanut Tree,Orrorin,Mini Palmetto,Broadleaf Palm
+Set,Sw---,To---,Ar---|Fern Palm,Umbrella Palm,Ash Palm,Coconut Palm,Ranyahn
+Set,Bi---,Sa+++,As+++|Cricklewood,Bottle Tree,Umbrella Palm,Towering Palm,Cinnar
+Set,Bi---,So---,As+++|Cricklewood,Feather Tree,Bottle Tree,Locust Palm,Miniature Fern Palm
+Set,Bi---,Sp+++,As+++|Cinnar,Cricklewood,Elephantia,Miniature Fern Palm,Hawthorn
+Set,Bi---,Sp---,As+++|Chakkanut Tree,Coconut Palm,Feather Tree,Miniature Fern Palm,Locust Palm
+Set,Bi---,Sw---,As+++|Cricklewood,Cinnar,Chakkanut Tree,Towering Palm,Coconut Palm
+Set,Bi---,To---,As+++|Cricklewood,Miniature Fern Palm,Umbrella Palm,Bottle Tree,Monkey Palm
+Set,Bi---,To+++,As+++|Chakkanut Tree,Feather Tree,Folded Birch,Locust Palm,Cricklewood
+Set,Sa+++,So---,As+++|Feather Tree,Chicory,Bottle Tree,Fern Palm,Cinnar
+Set,Sa+++,Sp---,As+++|Hawthorn,Chakkanut Tree,Locust Palm,Feather Tree,Arconis
+Set,Sa+++,Sw---,As+++|Umbrella Palm,Towering Palm,Cricklewood,Chakkanut Tree,Fern Palm
+Set,Sa+++,To+++,As+++|Arconis,Chakkanut Tree,Feather Tree,Towering Palm,Locust Palm
+Set,Sa+++,To---,As+++|Fern Palm,Umbrella Palm,Towering Palm,Miniature Fern Palm,Cricklewood
+Set,So---,Sp+++,As+++|Cerulean Blue,Cinnar,Cricklewood,Elephantia,Feather Tree
+Set,So---,Sp---,As+++|Feather Tree,Stout Palm,Arconis,Chakkanut Tree,Chicory
+Set,So---,Sw---,As+++|Feather Tree,Windriver Palm,Cinnar,Chicory,Fern Palm
+Set,So---,To+++,As+++|Chakkanut Tree,Feather Tree,Locust Palm,Cerulean Blue,Cinnar
+Set,So---,To---,As+++|Feather Tree,Stout Palm,Butterleaf Tree,Cricklewood,Fern Palm
+Set,Sp+++,Sw---,As+++|Cinnar,Cricklewood,Elephantia,Miniature Fern Palm,Fern Palm
+Set,Sp+++,To---,As+++|Cinnar,Cricklewood,Elephantia,Hawthorn,Fern Palm
+Set,Bi+++,Sa+++,As---|Fern Palm,Pratyeka Tree,Red Maple,Royal Palm,Anaxi
+Set,Bi+++,Sp---,As---|Ash Palm,Phoenix Palm,Spindle Tree,Pratyeka Tree,Royal Palm
+Set,Bi+++,Sw---,As---|Ash Palm,Pratyeka Tree,Phoenix Palm,Fern Palm,Royal Palm
+Set,Bi+++,To---,As---|Anaxi,Oil Palm,Fern Palm,Pratyeka Tree,Razor Palm
+Set,Bi---,Sa+++,As---|Royal Palm,Coconut Palm,Bottle Tree,Passam,Pratyeka Tree
+Set,Bi---,Sp+++,As---|Anaxi,Passam,Kaeshra,Cricklewood,Ash Palm
+Set,Bi---,Sw---,As---|Mini Palmetto,Passam,Ash Palm,Towering Palm,Coconut Palm
+Set,Sa+++,So---,As---|Royal Palm,Cerulean Blue,Chicory,Mini Palmetto,Hawthorn
+Set,Sa+++,Sp---,As---|Royal Palm,Ash Palm,Locust Palm,Chakkanut Tree,Pratyeka Tree
+Set,Sa+++,Sw+++,As---|Razor Palm,Hawthorn,Anaxi,Royal Palm,Folded Birch
+Set,Sa+++,Sw---,As---|Towering Palm,Chicory,Mini Palmetto,Ash Palm,Pratyeka Tree
+Set,Sa+++,To---,As---|Royal Palm,Pratyeka Tree,Fern Palm,Oil Palm,Anaxi
+Set,Sa+++,To+++,As---|Locust Palm,Pratyeka Tree,Tapacae Miralis,Folded Birch,Mini Palmetto
+Set,Sa+++,To---,As---|Royal Palm,Oil Palm,Pratyeka Tree,Fern Palm,Anaxi
+Set,So---,Sp+++,As---|Anaxi,Cerulean Blue,Chicory,Elephantia,Royal Palm
+Set,So---,Sp---,As---|Royal Palm,Giant Cricklewood,Pratyeka Tree,Tiny Oil Palm,Locust Palm
+Set,So---,Sw---,As---|Mini Palmetto,Tiny Oil Palm,Cerulean Blue,Trilobellia,Locust Palm
+Set,So---,To+++,As---|Locust Palm,Tiny Oil Palm,Cerulean Blue,Folded Birch,Royal Palm
+Set,So---,To---,As---|Oil Palm,Butterleaf Tree,Royal Palm,Pratyeka Tree,Hawthorn
+Set,Sp+++,Sw---,As---|Trilobellia,Elephantia,Mini Palmetto,Anaxi,Ash Palm
+Set,Sp+++,To---,As---|Anaxi,Oil Palm,Passam,Ash Palm,Elephantia
+Set,Sw---,To---,As---|Beetlenut,Elephantia,Oil Palm,Trilobellia,Ash Palm
+Set,Sw---,To+++,As---|Locust Palm,Mini Palmetto,Royal Palm,Ash Palm,Bloodbark
+Set,Sa---,Sp---,Bi+++|Phoenix Palm,Spindle Tree,Stout Palm,Spiked Fishtree,Butterleaf Tree
+Set,Sa---,Sw---,Bi+++|Bloodbark,Phoenix Palm,Spiked Fishtree,Ash Palm,Spindle Tree
+Set,Sa---,To+++,Bi+++|Bloodbark,Locust Palm,Phoenix Palm,Spiked Fishtree,Spindle Tree
+Set,Sa+++,So---,Bi+++|Chicory,Fern Palm,Oil Palm,Pratyeka Tree,Stout Palm
+Set,Sa+++,Sw---,Bi+++|Fern Palm,Pratyeka Tree,Umbrella Palm,Phoenix Palm,Royal Palm
+Set,Sa+++,To---,Bi+++|Fern Palm,Pratyeka Tree,Umbrella Palm,Stout Palm,Anaxi
+Set,So---,Sp---,Bi+++|Phoenix Palm,Spindle Tree,Chicory,Oil Palm,Locust Palm
+Set,Sp---,To+++,Bi+++|Bloodbark,Phoenix Palm,Spindle Tree,Chakkanut Tree,Cerulean Blue
+Set,Sp---,To---,Bi+++|Fern Palm,Phoenix Palm,Stout Palm,Umbrella Palm,Spindle Tree
+Set,Sw---,To+++,Bi+++|Bloodbark,Locust Palm,Phoenix Palm,Spindle Tree,Mini Palmetto
+Set,Sw---,To---,Bi+++|Stout Palm,Fern Palm,Umbrella Palm,Phoenix Palm,Ash Palm
+Set,Sa+++,So---,Bi---|Bottle Tree,Chicory,Royal Palm,Monkey Palm,Coconut Palm
+Set,Sa+++,Sp---,Bi---|Bottle Tree,Chakkanut Tree,Coconut Palm,Giant Cricklewood,Hawthorn
+Set,Sa+++,Sw+++,Bi---|Bottle Tree,Hawthorn,Razor Palm,Broadleaf Palm,Coconut Palm
+Set,Sa+++,Sw---,Bi---|Umbrella Palm,Towering Palm,Coconut Palm,Chakkanut Tree,Cricklewood
+Set,Sa+++,To---,Bi---|Umbrella Palm,Bottle Tree,Hawthorn,Cricklewood,Ash Palm
+Set,So---,Sp+++,Bi---|Cerulean Blue,Cricklewood,Passam,Chicory,Hawthorn
+Set,So---,To---,Bi---|Cricklewood,Butterleaf Tree,Bottle Tree,Monkey Palm,Royal Palm
+Set,Sp+++,Sw---,Bi---|Elephantia,Cricklewood,Mini Palmetto,Cinnar,Miniature Fern Palm
+Set,Sp+++,To---,Bi---|Passam,Bottle Tree,Elephantia,Cricklewood,Ash Palm
+Set,Sp---,Sw---,Bi---|Ash Palm,Chakkanut Tree,Coconut Palm,Kaeshra,Windriver Palm
+Set,Sp---,To+++,Bi---|Chakkanut Tree,Locust Palm,Coconut Palm,Folded Birch,Mini Palmetto
+Set,Sw---,To---,Bi---|Cricklewood,Elephantia,Umbrella Palm,Towering Palm,Coconut Palm
+Set,So---,Sp---,Sa+++|Royal Palm,Feather Tree,Chicory,Giant Cricklewood,Coconut Palm
+Set,So---,Sw---,Sa+++|Pratyeka Tree,Chicory,Mini Palmetto,Cerulean Blue,Fern Palm
+Set,So---,To+++,Sa+++|Locust Palm,Chakkanut Tree,Royal Palm,Chicory,Coconut Palm
+Set,So---,To---,Sa+++|Stout Palm,Royal Palm,Bottle Tree,Chicory,Fern Palm
+Set,Sp+++,To---,So---|Cerulean Blue,Oil Palm,Butterleaf Tree,Elephantia,Anaxi
+Set,Sp---,Sw---,So---|Windriver Palm,Feather Tree,Pratyeka Tree,Chakkanut Tree,Butterleaf Tree
+Set,Sp---,To+++,So---|Chakkanut Tree,Tiny Oil Palm,Chicory,Feather Tree,Locust Palm
+Set,Sw---,To+++,So---|Mini Palmetto,Tiny Oil Palm,Bloodbark,Cerulean Blue,Chicory
+Set,Bi---,Ar+++,As+++|Miniature Fern Palm,Chakkanut Tree,Feather Tree,Windriver Palm,Cricklewood
+Set,So---,Ar+++,As+++|Feather Tree,Miniature Fern Palm,Windriver Palm,Cerulean Blue,Hawthorn
+Set,Sp---,Ar+++,As+++|Miniature Fern Palm,Chakkanut Tree,Feather Tree,Spindle Tree,Hawthorn
+Set,Sw---,Ar+++,As+++|Miniature Fern Palm,Elephantia,Chakkanut Tree,Towering Palm,Feather Tree
+Set,To---,Ar+++,As+++|Elephantia,Miniature Fern Palm,Cricklewood,Bottle Tree,Feather Tree
+Set,Sa+++,Ar+++,Bi---|Bottle Tree,Miniature Fern Palm,Windriver Palm,Hawthorn,Beetlenut
+Set,So---,Ar+++,Bi---|Elephantia,Feather Tree,Miniature Fern Palm,Cricklewood,Cerulean Blue
+Set,Sp+++,Ar+++,Bi---|Cricklewood,Elephantia,Beetlenut,Miniature Fern Palm,Passam
+Set,Sp---,Ar+++,Bi---|Chakkanut Tree,Feather Tree,Miniature Fern Palm,Windriver Palm,Bottle Tree
+Set,Sw---,Ar+++,Bi---|Elephantia,Miniature Fern Palm,Windriver Palm,Mini Palmetto,Passam
+Set,To---,Ar+++,Bi---|Elephantia,Miniature Fern Palm,Cricklewood,Hawthorn,Beetlenut
+Set,So---,Ar+++,Sa+++|Feather Tree,Windriver Palm,Royal Palm,Miniature Fern Palm,Pratyeka Tree
+Set,Sw---,Ar+++,Sa+++|Windriver Palm,Elephantia,Towering Palm,Royal Palm,Miniature Fern Palm
+Set,To---,Ar+++,Sa+++|Bottle Tree,Elephantia,Hawthorn,Miniature Fern Palm,Windriver Palm
+Set,Sp---,Ar+++,So---|Feather Tree,Royal Palm,Spindle Tree,Miniature Fern Palm,Locust Palm
+Set,Sw---,Ar+++,So---|Elephantia,Feather Tree,Pratyeka Tree,Royal Palm,Windriver Palm
+Set,To---,Ar+++,So---|Butterleaf Tree,Feather Tree,Miniature Fern Palm,Oil Palm,Beetlenut
+Set,Sw---,Ar+++,Sp---|Windriver Palm,Miniature Fern Palm,Chakkanut Tree,Spindle Tree,Phoenix Palm
+Set,To---,Ar+++,Sw---|Elephantia,Windriver Palm,Miniature Fern Palm,Stout Palm,Ash Palm
+Set,Bi+++,Ar---,As+++|Arconis,Bloodbark,Fern Palm,Stout Palm,Umbrella Palm
+Set,Bi---,Ar---,As+++|Cricklewood,Coconut Palm,Arconis,Monkey Palm,Umbrella Palm
+Set,Sa+++,Ar---,As+++|Arconis,Umbrella Palm,Towering Palm,Fern Palm,Monkey Palm
+Set,Sp---,Ar---,As+++|Arconis,Locust Palm,Orrorin,Chakkanut Tree,Fern Palm
+Set,Sw---,Ar---,As+++|Cinnar,Umbrella Palm,Arconis,Bloodbark,Locust Palm
+Set,To+++,Ar---,As+++|Chakkanut Tree,Orrorin,Arconis,Locust Palm,Cinnar
+Set,To---,Ar---,As+++|Fern Palm,Umbrella Palm,Ranyahn,Monkey Palm,Stout Palm
+Set,Sa+++,Ar---,As---|Broadleaf Palm,Pratyeka Tree,Monkey Palm,Tapacae Miralis,Ash Palm
+Set,So---,Ar---,As---|Broadleaf Palm,Monkey Palm,Tiny Oil Palm,Locust Palm,Pratyeka Tree
+Set,Sp+++,Ar---,As---|Anaxi,Broadleaf Palm,Trilobellia,Bloodbark,Cerulean Blue
+Set,Sw---,Ar---,As---|Broadleaf Palm,Bloodbark,Ash Palm,Mini Palmetto,Coconut Palm
+Set,To+++,Ar---,As---|Broadleaf Palm,Tapacae Miralis,Bloodbark,Locust Palm,Ash Palm
+Set,Sa+++,Ar---,Bi+++|Arconis,Bloodbark,Fern Palm,Red Maple,Umbrella Palm
+Set,Sp---,Ar---,Bi+++|Bloodbark,Fern Palm,Phoenix Palm,Locust Palm,Arconis
+Set,Sw---,Ar---,Bi+++|Bloodbark,Trilobellia,Phoenix Palm,Fern Palm,Broadleaf Palm
+Set,To---,Ar---,Bi+++|Fern Palm,Ranyahn,Stout Palm,Broadleaf Palm,Red Maple
+Set,Sa+++,Ar---,Bi---|Folded Birch,Coconut Palm,Umbrella Palm,Monkey Palm,Hawthorn
+Set,Sp+++,Ar---,Bi---|Broadleaf Palm,Cricklewood,Monkey Palm,Passam,Trilobellia
+Set,Sp---,Ar---,Bi---|Coconut Palm,Monkey Palm,Folded Birch,Locust Palm,Giant Cricklewood
+Set,To+++,Ar---,Bi---|Folded Birch,Monkey Palm,Locust Palm,Coconut Palm,Chakkanut Tree
+Set,To---,Ar---,Bi---|Monkey Palm,Ranyahn,Cricklewood,Coconut Palm,Butterleaf Tree
+Set,So---,Ar---,Sa+++|Chicory,Broadleaf Palm,Monkey Palm,Locust Palm,Hawthorn
+Set,Sp---,Ar---,Sa+++|Locust Palm,Broadleaf Palm,Chakkanut Tree,Arconis,Hawthorn
+Set,Sw---,Ar---,Sa+++|Umbrella Palm,Fern Palm,Broadleaf Palm,Towering Palm,Coconut Palm
+Set,To+++,Ar---,Sa+++|Locust Palm,Tapacae Miralis,Chakkanut Tree,Arconis,Coconut Palm
+Set,To---,Ar---,Sa+++|Umbrella Palm,Fern Palm,Broadleaf Palm,Towering Palm,Ranyahn
+Set,To+++,Ar---,So---|Locust Palm,Orrorin,Cerulean Blue,Tiny Oil Palm,Broadleaf Palm
+Set,Sw---,Ar---,Sp---|Orrorin,Chakkanut Tree,Bloodbark,Locust Palm,Fern Palm
+Set,To+++,Ar---,Sp---|Chakkanut Tree,Broadleaf Palm,Bloodbark,Locust Palm,Coconut Palm
+Set,To+++,Ar---,Sw---|Bloodbark,Chakkanut Tree,Orrorin,Mini Palmetto,Broadleaf Palm
+Set,To---,Ar---,Sw---|Fern Palm,Umbrella Palm,Ash Palm,Coconut Palm,Ranyahn
+Set,Sa+++,As+++,Bi---|Cricklewood,Bottle Tree,Umbrella Palm,Towering Palm,Cinnar
+Set,So---,As+++,Bi---|Cricklewood,Feather Tree,Bottle Tree,Locust Palm,Miniature Fern Palm
+Set,Sp+++,As+++,Bi---|Cinnar,Cricklewood,Elephantia,Miniature Fern Palm,Hawthorn
+Set,Sp---,As+++,Bi---|Chakkanut Tree,Coconut Palm,Feather Tree,Miniature Fern Palm,Locust Palm
+Set,Sw---,As+++,Bi---|Cricklewood,Cinnar,Chakkanut Tree,Towering Palm,Coconut Palm
+Set,To---,As+++,Bi---|Cricklewood,Miniature Fern Palm,Umbrella Palm,Bottle Tree,Monkey Palm
+Set,To+++,As+++,Bi---|Chakkanut Tree,Feather Tree,Folded Birch,Locust Palm,Cricklewood
+Set,So---,As+++,Sa+++|Feather Tree,Chicory,Bottle Tree,Fern Palm,Cinnar
+Set,Sp---,As+++,Sa+++|Hawthorn,Chakkanut Tree,Locust Palm,Feather Tree,Arconis
+Set,Sw---,As+++,Sa+++|Umbrella Palm,Towering Palm,Cricklewood,Chakkanut Tree,Fern Palm
+Set,To+++,As+++,Sa+++|Arconis,Chakkanut Tree,Feather Tree,Towering Palm,Locust Palm
+Set,To---,As+++,Sa+++|Fern Palm,Umbrella Palm,Towering Palm,Miniature Fern Palm,Cricklewood
+Set,Sp+++,As+++,So---|Cerulean Blue,Cinnar,Cricklewood,Elephantia,Feather Tree
+Set,Sp---,As+++,So---|Feather Tree,Stout Palm,Arconis,Chakkanut Tree,Chicory
+Set,Sw---,As+++,So---|Feather Tree,Windriver Palm,Cinnar,Chicory,Fern Palm
+Set,To+++,As+++,So---|Chakkanut Tree,Feather Tree,Locust Palm,Cerulean Blue,Cinnar
+Set,To---,As+++,So---|Feather Tree,Stout Palm,Butterleaf Tree,Cricklewood,Fern Palm
+Set,Sw---,As+++,Sp+++|Cinnar,Cricklewood,Elephantia,Miniature Fern Palm,Fern Palm
+Set,To---,As+++,Sp+++|Cinnar,Cricklewood,Elephantia,Hawthorn,Fern Palm
+Set,Sa+++,As---,Bi+++|Fern Palm,Pratyeka Tree,Red Maple,Royal Palm,Anaxi
+Set,Sp---,As---,Bi+++|Ash Palm,Phoenix Palm,Spindle Tree,Pratyeka Tree,Royal Palm
+Set,Sw---,As---,Bi+++|Ash Palm,Pratyeka Tree,Phoenix Palm,Fern Palm,Royal Palm
+Set,To---,As---,Bi+++|Anaxi,Oil Palm,Fern Palm,Pratyeka Tree,Razor Palm
+Set,Sa+++,As---,Bi---|Royal Palm,Coconut Palm,Bottle Tree,Passam,Pratyeka Tree
+Set,Sp+++,As---,Bi---|Anaxi,Passam,Kaeshra,Cricklewood,Ash Palm
+Set,Sw---,As---,Bi---|Mini Palmetto,Passam,Ash Palm,Towering Palm,Coconut Palm
+Set,So---,As---,Sa+++|Royal Palm,Cerulean Blue,Chicory,Mini Palmetto,Hawthorn
+Set,Sp---,As---,Sa+++|Royal Palm,Ash Palm,Locust Palm,Chakkanut Tree,Pratyeka Tree
+Set,Sw+++,As---,Sa+++|Razor Palm,Hawthorn,Anaxi,Royal Palm,Folded Birch
+Set,Sw---,As---,Sa+++|Towering Palm,Chicory,Mini Palmetto,Ash Palm,Pratyeka Tree
+Set,To---,As---,Sa+++|Royal Palm,Pratyeka Tree,Fern Palm,Oil Palm,Anaxi
+Set,To+++,As---,Sa+++|Locust Palm,Pratyeka Tree,Tapacae Miralis,Folded Birch,Mini Palmetto
+Set,To---,As---,Sa+++|Royal Palm,Oil Palm,Pratyeka Tree,Fern Palm,Anaxi
+Set,Sp+++,As---,So---|Anaxi,Cerulean Blue,Chicory,Elephantia,Royal Palm
+Set,Sp---,As---,So---|Royal Palm,Giant Cricklewood,Pratyeka Tree,Tiny Oil Palm,Locust Palm
+Set,Sw---,As---,So---|Mini Palmetto,Tiny Oil Palm,Cerulean Blue,Trilobellia,Locust Palm
+Set,To+++,As---,So---|Locust Palm,Tiny Oil Palm,Cerulean Blue,Folded Birch,Royal Palm
+Set,To---,As---,So---|Oil Palm,Butterleaf Tree,Royal Palm,Pratyeka Tree,Hawthorn
+Set,Sw---,As---,Sp+++|Trilobellia,Elephantia,Mini Palmetto,Anaxi,Ash Palm
+Set,To---,As---,Sp+++|Anaxi,Oil Palm,Passam,Ash Palm,Elephantia
+Set,To---,As---,Sw---|Beetlenut,Elephantia,Oil Palm,Trilobellia,Ash Palm
+Set,To+++,As---,Sw---|Locust Palm,Mini Palmetto,Royal Palm,Ash Palm,Bloodbark
+Set,Sp---,Bi+++,Sa---|Phoenix Palm,Spindle Tree,Stout Palm,Spiked Fishtree,Butterleaf Tree
+Set,Sw---,Bi+++,Sa---|Bloodbark,Phoenix Palm,Spiked Fishtree,Ash Palm,Spindle Tree
+Set,To+++,Bi+++,Sa---|Bloodbark,Locust Palm,Phoenix Palm,Spiked Fishtree,Spindle Tree
+Set,So---,Bi+++,Sa+++|Chicory,Fern Palm,Oil Palm,Pratyeka Tree,Stout Palm
+Set,Sw---,Bi+++,Sa+++|Fern Palm,Pratyeka Tree,Umbrella Palm,Phoenix Palm,Royal Palm
+Set,To---,Bi+++,Sa+++|Fern Palm,Pratyeka Tree,Umbrella Palm,Stout Palm,Anaxi
+Set,Sp---,Bi+++,So---|Phoenix Palm,Spindle Tree,Chicory,Oil Palm,Locust Palm
+Set,To+++,Bi+++,Sp---|Bloodbark,Phoenix Palm,Spindle Tree,Chakkanut Tree,Cerulean Blue
+Set,To---,Bi+++,Sp---|Fern Palm,Phoenix Palm,Stout Palm,Umbrella Palm,Spindle Tree
+Set,To+++,Bi+++,Sw---|Bloodbark,Locust Palm,Phoenix Palm,Spindle Tree,Mini Palmetto
+Set,To---,Bi+++,Sw---|Stout Palm,Fern Palm,Umbrella Palm,Phoenix Palm,Ash Palm
+Set,So---,Bi---,Sa+++|Bottle Tree,Chicory,Royal Palm,Monkey Palm,Coconut Palm
+Set,Sp---,Bi---,Sa+++|Bottle Tree,Chakkanut Tree,Coconut Palm,Giant Cricklewood,Hawthorn
+Set,Sw+++,Bi---,Sa+++|Bottle Tree,Hawthorn,Razor Palm,Broadleaf Palm,Coconut Palm
+Set,Sw---,Bi---,Sa+++|Umbrella Palm,Towering Palm,Coconut Palm,Chakkanut Tree,Cricklewood
+Set,To---,Bi---,Sa+++|Umbrella Palm,Bottle Tree,Hawthorn,Cricklewood,Ash Palm
+Set,Sp+++,Bi---,So---|Cerulean Blue,Cricklewood,Passam,Chicory,Hawthorn
+Set,To---,Bi---,So---|Cricklewood,Butterleaf Tree,Bottle Tree,Monkey Palm,Royal Palm
+Set,Sw---,Bi---,Sp+++|Elephantia,Cricklewood,Mini Palmetto,Cinnar,Miniature Fern Palm
+Set,To---,Bi---,Sp+++|Passam,Bottle Tree,Elephantia,Cricklewood,Ash Palm
+Set,Sw---,Bi---,Sp---|Ash Palm,Chakkanut Tree,Coconut Palm,Kaeshra,Windriver Palm
+Set,To+++,Bi---,Sp---|Chakkanut Tree,Locust Palm,Coconut Palm,Folded Birch,Mini Palmetto
+Set,To---,Bi---,Sw---|Cricklewood,Elephantia,Umbrella Palm,Towering Palm,Coconut Palm
+Set,Sp---,Sa+++,So---|Royal Palm,Feather Tree,Chicory,Giant Cricklewood,Coconut Palm
+Set,Sw---,Sa+++,So---|Pratyeka Tree,Chicory,Mini Palmetto,Cerulean Blue,Fern Palm
+Set,To+++,Sa+++,So---|Locust Palm,Chakkanut Tree,Royal Palm,Chicory,Coconut Palm
+Set,To---,Sa+++,So---|Stout Palm,Royal Palm,Bottle Tree,Chicory,Fern Palm
+Set,To---,So---,Sp+++|Cerulean Blue,Oil Palm,Butterleaf Tree,Elephantia,Anaxi
+Set,Sw---,So---,Sp---|Windriver Palm,Feather Tree,Pratyeka Tree,Chakkanut Tree,Butterleaf Tree
+Set,To+++,So---,Sp---|Chakkanut Tree,Tiny Oil Palm,Chicory,Feather Tree,Locust Palm
+Set,To+++,So---,Sw---|Mini Palmetto,Tiny Oil Palm,Bloodbark,Cerulean Blue,Chicory
+Set,Bi---,As+++,Ar+++|Miniature Fern Palm,Chakkanut Tree,Feather Tree,Windriver Palm,Cricklewood
+Set,So---,As+++,Ar+++|Feather Tree,Miniature Fern Palm,Windriver Palm,Cerulean Blue,Hawthorn
+Set,Sp---,As+++,Ar+++|Miniature Fern Palm,Chakkanut Tree,Feather Tree,Spindle Tree,Hawthorn
+Set,Sw---,As+++,Ar+++|Miniature Fern Palm,Elephantia,Chakkanut Tree,Towering Palm,Feather Tree
+Set,To---,As+++,Ar+++|Elephantia,Miniature Fern Palm,Cricklewood,Bottle Tree,Feather Tree
+Set,Sa+++,Bi---,Ar+++|Bottle Tree,Miniature Fern Palm,Windriver Palm,Hawthorn,Beetlenut
+Set,So---,Bi---,Ar+++|Elephantia,Feather Tree,Miniature Fern Palm,Cricklewood,Cerulean Blue
+Set,Sp+++,Bi---,Ar+++|Cricklewood,Elephantia,Beetlenut,Miniature Fern Palm,Passam
+Set,Sp---,Bi---,Ar+++|Chakkanut Tree,Feather Tree,Miniature Fern Palm,Windriver Palm,Bottle Tree
+Set,Sw---,Bi---,Ar+++|Elephantia,Miniature Fern Palm,Windriver Palm,Mini Palmetto,Passam
+Set,To---,Bi---,Ar+++|Elephantia,Miniature Fern Palm,Cricklewood,Hawthorn,Beetlenut
+Set,So---,Sa+++,Ar+++|Feather Tree,Windriver Palm,Royal Palm,Miniature Fern Palm,Pratyeka Tree
+Set,Sw---,Sa+++,Ar+++|Windriver Palm,Elephantia,Towering Palm,Royal Palm,Miniature Fern Palm
+Set,To---,Sa+++,Ar+++|Bottle Tree,Elephantia,Hawthorn,Miniature Fern Palm,Windriver Palm
+Set,Sp---,So---,Ar+++|Feather Tree,Royal Palm,Spindle Tree,Miniature Fern Palm,Locust Palm
+Set,Sw---,So---,Ar+++|Elephantia,Feather Tree,Pratyeka Tree,Royal Palm,Windriver Palm
+Set,To---,So---,Ar+++|Butterleaf Tree,Feather Tree,Miniature Fern Palm,Oil Palm,Beetlenut
+Set,Sw---,Sp---,Ar+++|Windriver Palm,Miniature Fern Palm,Chakkanut Tree,Spindle Tree,Phoenix Palm
+Set,To---,Sw---,Ar+++|Elephantia,Windriver Palm,Miniature Fern Palm,Stout Palm,Ash Palm
+Set,Bi+++,As+++,Ar---|Arconis,Bloodbark,Fern Palm,Stout Palm,Umbrella Palm
+Set,Bi---,As+++,Ar---|Cricklewood,Coconut Palm,Arconis,Monkey Palm,Umbrella Palm
+Set,Sa+++,As+++,Ar---|Arconis,Umbrella Palm,Towering Palm,Fern Palm,Monkey Palm
+Set,Sp---,As+++,Ar---|Arconis,Locust Palm,Orrorin,Chakkanut Tree,Fern Palm
+Set,Sw---,As+++,Ar---|Cinnar,Umbrella Palm,Arconis,Bloodbark,Locust Palm
+Set,To+++,As+++,Ar---|Chakkanut Tree,Orrorin,Arconis,Locust Palm,Cinnar
+Set,To---,As+++,Ar---|Fern Palm,Umbrella Palm,Ranyahn,Monkey Palm,Stout Palm
+Set,Sa+++,As---,Ar---|Broadleaf Palm,Pratyeka Tree,Monkey Palm,Tapacae Miralis,Ash Palm
+Set,So---,As---,Ar---|Broadleaf Palm,Monkey Palm,Tiny Oil Palm,Locust Palm,Pratyeka Tree
+Set,Sp+++,As---,Ar---|Anaxi,Broadleaf Palm,Trilobellia,Bloodbark,Cerulean Blue
+Set,Sw---,As---,Ar---|Broadleaf Palm,Bloodbark,Ash Palm,Mini Palmetto,Coconut Palm
+Set,To+++,As---,Ar---|Broadleaf Palm,Tapacae Miralis,Bloodbark,Locust Palm,Ash Palm
+Set,Sa+++,Bi+++,Ar---|Arconis,Bloodbark,Fern Palm,Red Maple,Umbrella Palm
+Set,Sp---,Bi+++,Ar---|Bloodbark,Fern Palm,Phoenix Palm,Locust Palm,Arconis
+Set,Sw---,Bi+++,Ar---|Bloodbark,Trilobellia,Phoenix Palm,Fern Palm,Broadleaf Palm
+Set,To---,Bi+++,Ar---|Fern Palm,Ranyahn,Stout Palm,Broadleaf Palm,Red Maple
+Set,Sa+++,Bi---,Ar---|Folded Birch,Coconut Palm,Umbrella Palm,Monkey Palm,Hawthorn
+Set,Sp+++,Bi---,Ar---|Broadleaf Palm,Cricklewood,Monkey Palm,Passam,Trilobellia
+Set,Sp---,Bi---,Ar---|Coconut Palm,Monkey Palm,Folded Birch,Locust Palm,Giant Cricklewood
+Set,To+++,Bi---,Ar---|Folded Birch,Monkey Palm,Locust Palm,Coconut Palm,Chakkanut Tree
+Set,To---,Bi---,Ar---|Monkey Palm,Ranyahn,Cricklewood,Coconut Palm,Butterleaf Tree
+Set,So---,Sa+++,Ar---|Chicory,Broadleaf Palm,Monkey Palm,Locust Palm,Hawthorn
+Set,Sp---,Sa+++,Ar---|Locust Palm,Broadleaf Palm,Chakkanut Tree,Arconis,Hawthorn
+Set,Sw---,Sa+++,Ar---|Umbrella Palm,Fern Palm,Broadleaf Palm,Towering Palm,Coconut Palm
+Set,To+++,Sa+++,Ar---|Locust Palm,Tapacae Miralis,Chakkanut Tree,Arconis,Coconut Palm
+Set,To---,Sa+++,Ar---|Umbrella Palm,Fern Palm,Broadleaf Palm,Towering Palm,Ranyahn
+Set,To+++,So---,Ar---|Locust Palm,Orrorin,Cerulean Blue,Tiny Oil Palm,Broadleaf Palm
+Set,Sw---,Sp---,Ar---|Orrorin,Chakkanut Tree,Bloodbark,Locust Palm,Fern Palm
+Set,To+++,Sp---,Ar---|Chakkanut Tree,Broadleaf Palm,Bloodbark,Locust Palm,Coconut Palm
+Set,To+++,Sw---,Ar---|Bloodbark,Chakkanut Tree,Orrorin,Mini Palmetto,Broadleaf Palm
+Set,To---,Sw---,Ar---|Fern Palm,Umbrella Palm,Ash Palm,Coconut Palm,Ranyahn
+Set,Sa+++,Bi---,As+++|Cricklewood,Bottle Tree,Umbrella Palm,Towering Palm,Cinnar
+Set,So---,Bi---,As+++|Cricklewood,Feather Tree,Bottle Tree,Locust Palm,Miniature Fern Palm
+Set,Sp+++,Bi---,As+++|Cinnar,Cricklewood,Elephantia,Miniature Fern Palm,Hawthorn
+Set,Sp---,Bi---,As+++|Chakkanut Tree,Coconut Palm,Feather Tree,Miniature Fern Palm,Locust Palm
+Set,Sw---,Bi---,As+++|Cricklewood,Cinnar,Chakkanut Tree,Towering Palm,Coconut Palm
+Set,To---,Bi---,As+++|Cricklewood,Miniature Fern Palm,Umbrella Palm,Bottle Tree,Monkey Palm
+Set,To+++,Bi---,As+++|Chakkanut Tree,Feather Tree,Folded Birch,Locust Palm,Cricklewood
+Set,So---,Sa+++,As+++|Feather Tree,Chicory,Bottle Tree,Fern Palm,Cinnar
+Set,Sp---,Sa+++,As+++|Hawthorn,Chakkanut Tree,Locust Palm,Feather Tree,Arconis
+Set,Sw---,Sa+++,As+++|Umbrella Palm,Towering Palm,Cricklewood,Chakkanut Tree,Fern Palm
+Set,To+++,Sa+++,As+++|Arconis,Chakkanut Tree,Feather Tree,Towering Palm,Locust Palm
+Set,To---,Sa+++,As+++|Fern Palm,Umbrella Palm,Towering Palm,Miniature Fern Palm,Cricklewood
+Set,Sp+++,So---,As+++|Cerulean Blue,Cinnar,Cricklewood,Elephantia,Feather Tree
+Set,Sp---,So---,As+++|Feather Tree,Stout Palm,Arconis,Chakkanut Tree,Chicory
+Set,Sw---,So---,As+++|Feather Tree,Windriver Palm,Cinnar,Chicory,Fern Palm
+Set,To+++,So---,As+++|Chakkanut Tree,Feather Tree,Locust Palm,Cerulean Blue,Cinnar
+Set,To---,So---,As+++|Feather Tree,Stout Palm,Butterleaf Tree,Cricklewood,Fern Palm
+Set,Sw---,Sp+++,As+++|Cinnar,Cricklewood,Elephantia,Miniature Fern Palm,Fern Palm
+Set,To---,Sp+++,As+++|Cinnar,Cricklewood,Elephantia,Hawthorn,Fern Palm
+Set,Sa+++,Bi+++,As---|Fern Palm,Pratyeka Tree,Red Maple,Royal Palm,Anaxi
+Set,Sp---,Bi+++,As---|Ash Palm,Phoenix Palm,Spindle Tree,Pratyeka Tree,Royal Palm
+Set,Sw---,Bi+++,As---|Ash Palm,Pratyeka Tree,Phoenix Palm,Fern Palm,Royal Palm
+Set,To---,Bi+++,As---|Anaxi,Oil Palm,Fern Palm,Pratyeka Tree,Razor Palm
+Set,Sa+++,Bi---,As---|Royal Palm,Coconut Palm,Bottle Tree,Passam,Pratyeka Tree
+Set,Sp+++,Bi---,As---|Anaxi,Passam,Kaeshra,Cricklewood,Ash Palm
+Set,Sw---,Bi---,As---|Mini Palmetto,Passam,Ash Palm,Towering Palm,Coconut Palm
+Set,So---,Sa+++,As---|Royal Palm,Cerulean Blue,Chicory,Mini Palmetto,Hawthorn
+Set,Sp---,Sa+++,As---|Royal Palm,Ash Palm,Locust Palm,Chakkanut Tree,Pratyeka Tree
+Set,Sw+++,Sa+++,As---|Razor Palm,Hawthorn,Anaxi,Royal Palm,Folded Birch
+Set,Sw---,Sa+++,As---|Towering Palm,Chicory,Mini Palmetto,Ash Palm,Pratyeka Tree
+Set,To---,Sa+++,As---|Royal Palm,Pratyeka Tree,Fern Palm,Oil Palm,Anaxi
+Set,To+++,Sa+++,As---|Locust Palm,Pratyeka Tree,Tapacae Miralis,Folded Birch,Mini Palmetto
+Set,To---,Sa+++,As---|Royal Palm,Oil Palm,Pratyeka Tree,Fern Palm,Anaxi
+Set,Sp+++,So---,As---|Anaxi,Cerulean Blue,Chicory,Elephantia,Royal Palm
+Set,Sp---,So---,As---|Royal Palm,Giant Cricklewood,Pratyeka Tree,Tiny Oil Palm,Locust Palm
+Set,Sw---,So---,As---|Mini Palmetto,Tiny Oil Palm,Cerulean Blue,Trilobellia,Locust Palm
+Set,To+++,So---,As---|Locust Palm,Tiny Oil Palm,Cerulean Blue,Folded Birch,Royal Palm
+Set,To---,So---,As---|Oil Palm,Butterleaf Tree,Royal Palm,Pratyeka Tree,Hawthorn
+Set,Sw---,Sp+++,As---|Trilobellia,Elephantia,Mini Palmetto,Anaxi,Ash Palm
+Set,To---,Sp+++,As---|Anaxi,Oil Palm,Passam,Ash Palm,Elephantia
+Set,To---,Sw---,As---|Beetlenut,Elephantia,Oil Palm,Trilobellia,Ash Palm
+Set,To+++,Sw---,As---|Locust Palm,Mini Palmetto,Royal Palm,Ash Palm,Bloodbark
+Set,Sp---,Sa---,Bi+++|Phoenix Palm,Spindle Tree,Stout Palm,Spiked Fishtree,Butterleaf Tree
+Set,Sw---,Sa---,Bi+++|Bloodbark,Phoenix Palm,Spiked Fishtree,Ash Palm,Spindle Tree
+Set,To+++,Sa---,Bi+++|Bloodbark,Locust Palm,Phoenix Palm,Spiked Fishtree,Spindle Tree
+Set,So---,Sa+++,Bi+++|Chicory,Fern Palm,Oil Palm,Pratyeka Tree,Stout Palm
+Set,Sw---,Sa+++,Bi+++|Fern Palm,Pratyeka Tree,Umbrella Palm,Phoenix Palm,Royal Palm
+Set,To---,Sa+++,Bi+++|Fern Palm,Pratyeka Tree,Umbrella Palm,Stout Palm,Anaxi
+Set,Sp---,So---,Bi+++|Phoenix Palm,Spindle Tree,Chicory,Oil Palm,Locust Palm
+Set,To+++,Sp---,Bi+++|Bloodbark,Phoenix Palm,Spindle Tree,Chakkanut Tree,Cerulean Blue
+Set,To---,Sp---,Bi+++|Fern Palm,Phoenix Palm,Stout Palm,Umbrella Palm,Spindle Tree
+Set,To+++,Sw---,Bi+++|Bloodbark,Locust Palm,Phoenix Palm,Spindle Tree,Mini Palmetto
+Set,To---,Sw---,Bi+++|Stout Palm,Fern Palm,Umbrella Palm,Phoenix Palm,Ash Palm
+Set,So---,Sa+++,Bi---|Bottle Tree,Chicory,Royal Palm,Monkey Palm,Coconut Palm
+Set,Sp---,Sa+++,Bi---|Bottle Tree,Chakkanut Tree,Coconut Palm,Giant Cricklewood,Hawthorn
+Set,Sw+++,Sa+++,Bi---|Bottle Tree,Hawthorn,Razor Palm,Broadleaf Palm,Coconut Palm
+Set,Sw---,Sa+++,Bi---|Umbrella Palm,Towering Palm,Coconut Palm,Chakkanut Tree,Cricklewood
+Set,To---,Sa+++,Bi---|Umbrella Palm,Bottle Tree,Hawthorn,Cricklewood,Ash Palm
+Set,Sp+++,So---,Bi---|Cerulean Blue,Cricklewood,Passam,Chicory,Hawthorn
+Set,To---,So---,Bi---|Cricklewood,Butterleaf Tree,Bottle Tree,Monkey Palm,Royal Palm
+Set,Sw---,Sp+++,Bi---|Elephantia,Cricklewood,Mini Palmetto,Cinnar,Miniature Fern Palm
+Set,To---,Sp+++,Bi---|Passam,Bottle Tree,Elephantia,Cricklewood,Ash Palm
+Set,Sw---,Sp---,Bi---|Ash Palm,Chakkanut Tree,Coconut Palm,Kaeshra,Windriver Palm
+Set,To+++,Sp---,Bi---|Chakkanut Tree,Locust Palm,Coconut Palm,Folded Birch,Mini Palmetto
+Set,To---,Sw---,Bi---|Cricklewood,Elephantia,Umbrella Palm,Towering Palm,Coconut Palm
+Set,Sp---,So---,Sa+++|Royal Palm,Feather Tree,Chicory,Giant Cricklewood,Coconut Palm
+Set,Sw---,So---,Sa+++|Pratyeka Tree,Chicory,Mini Palmetto,Cerulean Blue,Fern Palm
+Set,To+++,So---,Sa+++|Locust Palm,Chakkanut Tree,Royal Palm,Chicory,Coconut Palm
+Set,To---,So---,Sa+++|Stout Palm,Royal Palm,Bottle Tree,Chicory,Fern Palm
+Set,To---,Sp+++,So---|Cerulean Blue,Oil Palm,Butterleaf Tree,Elephantia,Anaxi
+Set,Sw---,Sp---,So---|Windriver Palm,Feather Tree,Pratyeka Tree,Chakkanut Tree,Butterleaf Tree
+Set,To+++,Sp---,So---|Chakkanut Tree,Tiny Oil Palm,Chicory,Feather Tree,Locust Palm
+Set,To+++,Sw---,So---|Mini Palmetto,Tiny Oil Palm,Bloodbark,Cerulean Blue,Chicory
+Set,As+++,Ar+++,Bi---|Miniature Fern Palm,Chakkanut Tree,Feather Tree,Windriver Palm,Cricklewood
+Set,As+++,Ar+++,So---|Feather Tree,Miniature Fern Palm,Windriver Palm,Cerulean Blue,Hawthorn
+Set,As+++,Ar+++,Sp---|Miniature Fern Palm,Chakkanut Tree,Feather Tree,Spindle Tree,Hawthorn
+Set,As+++,Ar+++,Sw---|Miniature Fern Palm,Elephantia,Chakkanut Tree,Towering Palm,Feather Tree
+Set,As+++,Ar+++,To---|Elephantia,Miniature Fern Palm,Cricklewood,Bottle Tree,Feather Tree
+Set,Bi---,Ar+++,Sa+++|Bottle Tree,Miniature Fern Palm,Windriver Palm,Hawthorn,Beetlenut
+Set,Bi---,Ar+++,So---|Elephantia,Feather Tree,Miniature Fern Palm,Cricklewood,Cerulean Blue
+Set,Bi---,Ar+++,Sp+++|Cricklewood,Elephantia,Beetlenut,Miniature Fern Palm,Passam
+Set,Bi---,Ar+++,Sp---|Chakkanut Tree,Feather Tree,Miniature Fern Palm,Windriver Palm,Bottle Tree
+Set,Bi---,Ar+++,Sw---|Elephantia,Miniature Fern Palm,Windriver Palm,Mini Palmetto,Passam
+Set,Bi---,Ar+++,To---|Elephantia,Miniature Fern Palm,Cricklewood,Hawthorn,Beetlenut
+Set,Sa+++,Ar+++,So---|Feather Tree,Windriver Palm,Royal Palm,Miniature Fern Palm,Pratyeka Tree
+Set,Sa+++,Ar+++,Sw---|Windriver Palm,Elephantia,Towering Palm,Royal Palm,Miniature Fern Palm
+Set,Sa+++,Ar+++,To---|Bottle Tree,Elephantia,Hawthorn,Miniature Fern Palm,Windriver Palm
+Set,So---,Ar+++,Sp---|Feather Tree,Royal Palm,Spindle Tree,Miniature Fern Palm,Locust Palm
+Set,So---,Ar+++,Sw---|Elephantia,Feather Tree,Pratyeka Tree,Royal Palm,Windriver Palm
+Set,So---,Ar+++,To---|Butterleaf Tree,Feather Tree,Miniature Fern Palm,Oil Palm,Beetlenut
+Set,Sp---,Ar+++,Sw---|Windriver Palm,Miniature Fern Palm,Chakkanut Tree,Spindle Tree,Phoenix Palm
+Set,Sw---,Ar+++,To---|Elephantia,Windriver Palm,Miniature Fern Palm,Stout Palm,Ash Palm
+Set,As+++,Ar---,Bi+++|Arconis,Bloodbark,Fern Palm,Stout Palm,Umbrella Palm
+Set,As+++,Ar---,Bi---|Cricklewood,Coconut Palm,Arconis,Monkey Palm,Umbrella Palm
+Set,As+++,Ar---,Sa+++|Arconis,Umbrella Palm,Towering Palm,Fern Palm,Monkey Palm
+Set,As+++,Ar---,Sp---|Arconis,Locust Palm,Orrorin,Chakkanut Tree,Fern Palm
+Set,As+++,Ar---,Sw---|Cinnar,Umbrella Palm,Arconis,Bloodbark,Locust Palm
+Set,As+++,Ar---,To+++|Chakkanut Tree,Orrorin,Arconis,Locust Palm,Cinnar
+Set,As+++,Ar---,To---|Fern Palm,Umbrella Palm,Ranyahn,Monkey Palm,Stout Palm
+Set,As---,Ar---,Sa+++|Broadleaf Palm,Pratyeka Tree,Monkey Palm,Tapacae Miralis,Ash Palm
+Set,As---,Ar---,So---|Broadleaf Palm,Monkey Palm,Tiny Oil Palm,Locust Palm,Pratyeka Tree
+Set,As---,Ar---,Sp+++|Anaxi,Broadleaf Palm,Trilobellia,Bloodbark,Cerulean Blue
+Set,As---,Ar---,Sw---|Broadleaf Palm,Bloodbark,Ash Palm,Mini Palmetto,Coconut Palm
+Set,As---,Ar---,To+++|Broadleaf Palm,Tapacae Miralis,Bloodbark,Locust Palm,Ash Palm
+Set,Bi+++,Ar---,Sa+++|Arconis,Bloodbark,Fern Palm,Red Maple,Umbrella Palm
+Set,Bi+++,Ar---,Sp---|Bloodbark,Fern Palm,Phoenix Palm,Locust Palm,Arconis
+Set,Bi+++,Ar---,Sw---|Bloodbark,Trilobellia,Phoenix Palm,Fern Palm,Broadleaf Palm
+Set,Bi+++,Ar---,To---|Fern Palm,Ranyahn,Stout Palm,Broadleaf Palm,Red Maple
+Set,Bi---,Ar---,Sa+++|Folded Birch,Coconut Palm,Umbrella Palm,Monkey Palm,Hawthorn
+Set,Bi---,Ar---,Sp+++|Broadleaf Palm,Cricklewood,Monkey Palm,Passam,Trilobellia
+Set,Bi---,Ar---,Sp---|Coconut Palm,Monkey Palm,Folded Birch,Locust Palm,Giant Cricklewood
+Set,Bi---,Ar---,To+++|Folded Birch,Monkey Palm,Locust Palm,Coconut Palm,Chakkanut Tree
+Set,Bi---,Ar---,To---|Monkey Palm,Ranyahn,Cricklewood,Coconut Palm,Butterleaf Tree
+Set,Sa+++,Ar---,So---|Chicory,Broadleaf Palm,Monkey Palm,Locust Palm,Hawthorn
+Set,Sa+++,Ar---,Sp---|Locust Palm,Broadleaf Palm,Chakkanut Tree,Arconis,Hawthorn
+Set,Sa+++,Ar---,Sw---|Umbrella Palm,Fern Palm,Broadleaf Palm,Towering Palm,Coconut Palm
+Set,Sa+++,Ar---,To+++|Locust Palm,Tapacae Miralis,Chakkanut Tree,Arconis,Coconut Palm
+Set,Sa+++,Ar---,To---|Umbrella Palm,Fern Palm,Broadleaf Palm,Towering Palm,Ranyahn
+Set,So---,Ar---,To+++|Locust Palm,Orrorin,Cerulean Blue,Tiny Oil Palm,Broadleaf Palm
+Set,Sp---,Ar---,Sw---|Orrorin,Chakkanut Tree,Bloodbark,Locust Palm,Fern Palm
+Set,Sp---,Ar---,To+++|Chakkanut Tree,Broadleaf Palm,Bloodbark,Locust Palm,Coconut Palm
+Set,Sw---,Ar---,To+++|Bloodbark,Chakkanut Tree,Orrorin,Mini Palmetto,Broadleaf Palm
+Set,Sw---,Ar---,To---|Fern Palm,Umbrella Palm,Ash Palm,Coconut Palm,Ranyahn
+Set,Bi---,As+++,Sa+++|Cricklewood,Bottle Tree,Umbrella Palm,Towering Palm,Cinnar
+Set,Bi---,As+++,So---|Cricklewood,Feather Tree,Bottle Tree,Locust Palm,Miniature Fern Palm
+Set,Bi---,As+++,Sp+++|Cinnar,Cricklewood,Elephantia,Miniature Fern Palm,Hawthorn
+Set,Bi---,As+++,Sp---|Chakkanut Tree,Coconut Palm,Feather Tree,Miniature Fern Palm,Locust Palm
+Set,Bi---,As+++,Sw---|Cricklewood,Cinnar,Chakkanut Tree,Towering Palm,Coconut Palm
+Set,Bi---,As+++,To---|Cricklewood,Miniature Fern Palm,Umbrella Palm,Bottle Tree,Monkey Palm
+Set,Bi---,As+++,To+++|Chakkanut Tree,Feather Tree,Folded Birch,Locust Palm,Cricklewood
+Set,Sa+++,As+++,So---|Feather Tree,Chicory,Bottle Tree,Fern Palm,Cinnar
+Set,Sa+++,As+++,Sp---|Hawthorn,Chakkanut Tree,Locust Palm,Feather Tree,Arconis
+Set,Sa+++,As+++,Sw---|Umbrella Palm,Towering Palm,Cricklewood,Chakkanut Tree,Fern Palm
+Set,Sa+++,As+++,To+++|Arconis,Chakkanut Tree,Feather Tree,Towering Palm,Locust Palm
+Set,Sa+++,As+++,To---|Fern Palm,Umbrella Palm,Towering Palm,Miniature Fern Palm,Cricklewood
+Set,So---,As+++,Sp+++|Cerulean Blue,Cinnar,Cricklewood,Elephantia,Feather Tree
+Set,So---,As+++,Sp---|Feather Tree,Stout Palm,Arconis,Chakkanut Tree,Chicory
+Set,So---,As+++,Sw---|Feather Tree,Windriver Palm,Cinnar,Chicory,Fern Palm
+Set,So---,As+++,To+++|Chakkanut Tree,Feather Tree,Locust Palm,Cerulean Blue,Cinnar
+Set,So---,As+++,To---|Feather Tree,Stout Palm,Butterleaf Tree,Cricklewood,Fern Palm
+Set,Sp+++,As+++,Sw---|Cinnar,Cricklewood,Elephantia,Miniature Fern Palm,Fern Palm
+Set,Sp+++,As+++,To---|Cinnar,Cricklewood,Elephantia,Hawthorn,Fern Palm
+Set,Bi+++,As---,Sa+++|Fern Palm,Pratyeka Tree,Red Maple,Royal Palm,Anaxi
+Set,Bi+++,As---,Sp---|Ash Palm,Phoenix Palm,Spindle Tree,Pratyeka Tree,Royal Palm
+Set,Bi+++,As---,Sw---|Ash Palm,Pratyeka Tree,Phoenix Palm,Fern Palm,Royal Palm
+Set,Bi+++,As---,To---|Anaxi,Oil Palm,Fern Palm,Pratyeka Tree,Razor Palm
+Set,Bi---,As---,Sa+++|Royal Palm,Coconut Palm,Bottle Tree,Passam,Pratyeka Tree
+Set,Bi---,As---,Sp+++|Anaxi,Passam,Kaeshra,Cricklewood,Ash Palm
+Set,Bi---,As---,Sw---|Mini Palmetto,Passam,Ash Palm,Towering Palm,Coconut Palm
+Set,Sa+++,As---,So---|Royal Palm,Cerulean Blue,Chicory,Mini Palmetto,Hawthorn
+Set,Sa+++,As---,Sp---|Royal Palm,Ash Palm,Locust Palm,Chakkanut Tree,Pratyeka Tree
+Set,Sa+++,As---,Sw+++|Razor Palm,Hawthorn,Anaxi,Royal Palm,Folded Birch
+Set,Sa+++,As---,Sw---|Towering Palm,Chicory,Mini Palmetto,Ash Palm,Pratyeka Tree
+Set,Sa+++,As---,To---|Royal Palm,Pratyeka Tree,Fern Palm,Oil Palm,Anaxi
+Set,Sa+++,As---,To+++|Locust Palm,Pratyeka Tree,Tapacae Miralis,Folded Birch,Mini Palmetto
+Set,Sa+++,As---,To---|Royal Palm,Oil Palm,Pratyeka Tree,Fern Palm,Anaxi
+Set,So---,As---,Sp+++|Anaxi,Cerulean Blue,Chicory,Elephantia,Royal Palm
+Set,So---,As---,Sp---|Royal Palm,Giant Cricklewood,Pratyeka Tree,Tiny Oil Palm,Locust Palm
+Set,So---,As---,Sw---|Mini Palmetto,Tiny Oil Palm,Cerulean Blue,Trilobellia,Locust Palm
+Set,So---,As---,To+++|Locust Palm,Tiny Oil Palm,Cerulean Blue,Folded Birch,Royal Palm
+Set,So---,As---,To---|Oil Palm,Butterleaf Tree,Royal Palm,Pratyeka Tree,Hawthorn
+Set,Sp+++,As---,Sw---|Trilobellia,Elephantia,Mini Palmetto,Anaxi,Ash Palm
+Set,Sp+++,As---,To---|Anaxi,Oil Palm,Passam,Ash Palm,Elephantia
+Set,Sw---,As---,To---|Beetlenut,Elephantia,Oil Palm,Trilobellia,Ash Palm
+Set,Sw---,As---,To+++|Locust Palm,Mini Palmetto,Royal Palm,Ash Palm,Bloodbark
+Set,Sa---,Bi+++,Sp---|Phoenix Palm,Spindle Tree,Stout Palm,Spiked Fishtree,Butterleaf Tree
+Set,Sa---,Bi+++,Sw---|Bloodbark,Phoenix Palm,Spiked Fishtree,Ash Palm,Spindle Tree
+Set,Sa---,Bi+++,To+++|Bloodbark,Locust Palm,Phoenix Palm,Spiked Fishtree,Spindle Tree
+Set,Sa+++,Bi+++,So---|Chicory,Fern Palm,Oil Palm,Pratyeka Tree,Stout Palm
+Set,Sa+++,Bi+++,Sw---|Fern Palm,Pratyeka Tree,Umbrella Palm,Phoenix Palm,Royal Palm
+Set,Sa+++,Bi+++,To---|Fern Palm,Pratyeka Tree,Umbrella Palm,Stout Palm,Anaxi
+Set,So---,Bi+++,Sp---|Phoenix Palm,Spindle Tree,Chicory,Oil Palm,Locust Palm
+Set,Sp---,Bi+++,To+++|Bloodbark,Phoenix Palm,Spindle Tree,Chakkanut Tree,Cerulean Blue
+Set,Sp---,Bi+++,To---|Fern Palm,Phoenix Palm,Stout Palm,Umbrella Palm,Spindle Tree
+Set,Sw---,Bi+++,To+++|Bloodbark,Locust Palm,Phoenix Palm,Spindle Tree,Mini Palmetto
+Set,Sw---,Bi+++,To---|Stout Palm,Fern Palm,Umbrella Palm,Phoenix Palm,Ash Palm
+Set,Sa+++,Bi---,So---|Bottle Tree,Chicory,Royal Palm,Monkey Palm,Coconut Palm
+Set,Sa+++,Bi---,Sp---|Bottle Tree,Chakkanut Tree,Coconut Palm,Giant Cricklewood,Hawthorn
+Set,Sa+++,Bi---,Sw+++|Bottle Tree,Hawthorn,Razor Palm,Broadleaf Palm,Coconut Palm
+Set,Sa+++,Bi---,Sw---|Umbrella Palm,Towering Palm,Coconut Palm,Chakkanut Tree,Cricklewood
+Set,Sa+++,Bi---,To---|Umbrella Palm,Bottle Tree,Hawthorn,Cricklewood,Ash Palm
+Set,So---,Bi---,Sp+++|Cerulean Blue,Cricklewood,Passam,Chicory,Hawthorn
+Set,So---,Bi---,To---|Cricklewood,Butterleaf Tree,Bottle Tree,Monkey Palm,Royal Palm
+Set,Sp+++,Bi---,Sw---|Elephantia,Cricklewood,Mini Palmetto,Cinnar,Miniature Fern Palm
+Set,Sp+++,Bi---,To---|Passam,Bottle Tree,Elephantia,Cricklewood,Ash Palm
+Set,Sp---,Bi---,Sw---|Ash Palm,Chakkanut Tree,Coconut Palm,Kaeshra,Windriver Palm
+Set,Sp---,Bi---,To+++|Chakkanut Tree,Locust Palm,Coconut Palm,Folded Birch,Mini Palmetto
+Set,Sw---,Bi---,To---|Cricklewood,Elephantia,Umbrella Palm,Towering Palm,Coconut Palm
+Set,So---,Sa+++,Sp---|Royal Palm,Feather Tree,Chicory,Giant Cricklewood,Coconut Palm
+Set,So---,Sa+++,Sw---|Pratyeka Tree,Chicory,Mini Palmetto,Cerulean Blue,Fern Palm
+Set,So---,Sa+++,To+++|Locust Palm,Chakkanut Tree,Royal Palm,Chicory,Coconut Palm
+Set,So---,Sa+++,To---|Stout Palm,Royal Palm,Bottle Tree,Chicory,Fern Palm
+Set,Sp+++,So---,To---|Cerulean Blue,Oil Palm,Butterleaf Tree,Elephantia,Anaxi
+Set,Sp---,So---,Sw---|Windriver Palm,Feather Tree,Pratyeka Tree,Chakkanut Tree,Butterleaf Tree
+Set,Sp---,So---,To+++|Chakkanut Tree,Tiny Oil Palm,Chicory,Feather Tree,Locust Palm
+Set,Sw---,So---,To+++|Mini Palmetto,Tiny Oil Palm,Bloodbark,Cerulean Blue,Chicory
+Set,Ar+++,Bi---,As+++|Miniature Fern Palm,Chakkanut Tree,Feather Tree,Windriver Palm,Cricklewood
+Set,Ar+++,So---,As+++|Feather Tree,Miniature Fern Palm,Windriver Palm,Cerulean Blue,Hawthorn
+Set,Ar+++,Sp---,As+++|Miniature Fern Palm,Chakkanut Tree,Feather Tree,Spindle Tree,Hawthorn
+Set,Ar+++,Sw---,As+++|Miniature Fern Palm,Elephantia,Chakkanut Tree,Towering Palm,Feather Tree
+Set,Ar+++,To---,As+++|Elephantia,Miniature Fern Palm,Cricklewood,Bottle Tree,Feather Tree
+Set,Ar+++,Sa+++,Bi---|Bottle Tree,Miniature Fern Palm,Windriver Palm,Hawthorn,Beetlenut
+Set,Ar+++,So---,Bi---|Elephantia,Feather Tree,Miniature Fern Palm,Cricklewood,Cerulean Blue
+Set,Ar+++,Sp+++,Bi---|Cricklewood,Elephantia,Beetlenut,Miniature Fern Palm,Passam
+Set,Ar+++,Sp---,Bi---|Chakkanut Tree,Feather Tree,Miniature Fern Palm,Windriver Palm,Bottle Tree
+Set,Ar+++,Sw---,Bi---|Elephantia,Miniature Fern Palm,Windriver Palm,Mini Palmetto,Passam
+Set,Ar+++,To---,Bi---|Elephantia,Miniature Fern Palm,Cricklewood,Hawthorn,Beetlenut
+Set,Ar+++,So---,Sa+++|Feather Tree,Windriver Palm,Royal Palm,Miniature Fern Palm,Pratyeka Tree
+Set,Ar+++,Sw---,Sa+++|Windriver Palm,Elephantia,Towering Palm,Royal Palm,Miniature Fern Palm
+Set,Ar+++,To---,Sa+++|Bottle Tree,Elephantia,Hawthorn,Miniature Fern Palm,Windriver Palm
+Set,Ar+++,Sp---,So---|Feather Tree,Royal Palm,Spindle Tree,Miniature Fern Palm,Locust Palm
+Set,Ar+++,Sw---,So---|Elephantia,Feather Tree,Pratyeka Tree,Royal Palm,Windriver Palm
+Set,Ar+++,To---,So---|Butterleaf Tree,Feather Tree,Miniature Fern Palm,Oil Palm,Beetlenut
+Set,Ar+++,Sw---,Sp---|Windriver Palm,Miniature Fern Palm,Chakkanut Tree,Spindle Tree,Phoenix Palm
+Set,Ar+++,To---,Sw---|Elephantia,Windriver Palm,Miniature Fern Palm,Stout Palm,Ash Palm
+Set,Ar---,Bi+++,As+++|Arconis,Bloodbark,Fern Palm,Stout Palm,Umbrella Palm
+Set,Ar---,Bi---,As+++|Cricklewood,Coconut Palm,Arconis,Monkey Palm,Umbrella Palm
+Set,Ar---,Sa+++,As+++|Arconis,Umbrella Palm,Towering Palm,Fern Palm,Monkey Palm
+Set,Ar---,Sp---,As+++|Arconis,Locust Palm,Orrorin,Chakkanut Tree,Fern Palm
+Set,Ar---,Sw---,As+++|Cinnar,Umbrella Palm,Arconis,Bloodbark,Locust Palm
+Set,Ar---,To+++,As+++|Chakkanut Tree,Orrorin,Arconis,Locust Palm,Cinnar
+Set,Ar---,To---,As+++|Fern Palm,Umbrella Palm,Ranyahn,Monkey Palm,Stout Palm
+Set,Ar---,Sa+++,As---|Broadleaf Palm,Pratyeka Tree,Monkey Palm,Tapacae Miralis,Ash Palm
+Set,Ar---,So---,As---|Broadleaf Palm,Monkey Palm,Tiny Oil Palm,Locust Palm,Pratyeka Tree
+Set,Ar---,Sp+++,As---|Anaxi,Broadleaf Palm,Trilobellia,Bloodbark,Cerulean Blue
+Set,Ar---,Sw---,As---|Broadleaf Palm,Bloodbark,Ash Palm,Mini Palmetto,Coconut Palm
+Set,Ar---,To+++,As---|Broadleaf Palm,Tapacae Miralis,Bloodbark,Locust Palm,Ash Palm
+Set,Ar---,Sa+++,Bi+++|Arconis,Bloodbark,Fern Palm,Red Maple,Umbrella Palm
+Set,Ar---,Sp---,Bi+++|Bloodbark,Fern Palm,Phoenix Palm,Locust Palm,Arconis
+Set,Ar---,Sw---,Bi+++|Bloodbark,Trilobellia,Phoenix Palm,Fern Palm,Broadleaf Palm
+Set,Ar---,To---,Bi+++|Fern Palm,Ranyahn,Stout Palm,Broadleaf Palm,Red Maple
+Set,Ar---,Sa+++,Bi---|Folded Birch,Coconut Palm,Umbrella Palm,Monkey Palm,Hawthorn
+Set,Ar---,Sp+++,Bi---|Broadleaf Palm,Cricklewood,Monkey Palm,Passam,Trilobellia
+Set,Ar---,Sp---,Bi---|Coconut Palm,Monkey Palm,Folded Birch,Locust Palm,Giant Cricklewood
+Set,Ar---,To+++,Bi---|Folded Birch,Monkey Palm,Locust Palm,Coconut Palm,Chakkanut Tree
+Set,Ar---,To---,Bi---|Monkey Palm,Ranyahn,Cricklewood,Coconut Palm,Butterleaf Tree
+Set,Ar---,So---,Sa+++|Chicory,Broadleaf Palm,Monkey Palm,Locust Palm,Hawthorn
+Set,Ar---,Sp---,Sa+++|Locust Palm,Broadleaf Palm,Chakkanut Tree,Arconis,Hawthorn
+Set,Ar---,Sw---,Sa+++|Umbrella Palm,Fern Palm,Broadleaf Palm,Towering Palm,Coconut Palm
+Set,Ar---,To+++,Sa+++|Locust Palm,Tapacae Miralis,Chakkanut Tree,Arconis,Coconut Palm
+Set,Ar---,To---,Sa+++|Umbrella Palm,Fern Palm,Broadleaf Palm,Towering Palm,Ranyahn
+Set,Ar---,To+++,So---|Locust Palm,Orrorin,Cerulean Blue,Tiny Oil Palm,Broadleaf Palm
+Set,Ar---,Sw---,Sp---|Orrorin,Chakkanut Tree,Bloodbark,Locust Palm,Fern Palm
+Set,Ar---,To+++,Sp---|Chakkanut Tree,Broadleaf Palm,Bloodbark,Locust Palm,Coconut Palm
+Set,Ar---,To+++,Sw---|Bloodbark,Chakkanut Tree,Orrorin,Mini Palmetto,Broadleaf Palm
+Set,Ar---,To---,Sw---|Fern Palm,Umbrella Palm,Ash Palm,Coconut Palm,Ranyahn
+Set,As+++,Sa+++,Bi---|Cricklewood,Bottle Tree,Umbrella Palm,Towering Palm,Cinnar
+Set,As+++,So---,Bi---|Cricklewood,Feather Tree,Bottle Tree,Locust Palm,Miniature Fern Palm
+Set,As+++,Sp+++,Bi---|Cinnar,Cricklewood,Elephantia,Miniature Fern Palm,Hawthorn
+Set,As+++,Sp---,Bi---|Chakkanut Tree,Coconut Palm,Feather Tree,Miniature Fern Palm,Locust Palm
+Set,As+++,Sw---,Bi---|Cricklewood,Cinnar,Chakkanut Tree,Towering Palm,Coconut Palm
+Set,As+++,To---,Bi---|Cricklewood,Miniature Fern Palm,Umbrella Palm,Bottle Tree,Monkey Palm
+Set,As+++,To+++,Bi---|Chakkanut Tree,Feather Tree,Folded Birch,Locust Palm,Cricklewood
+Set,As+++,So---,Sa+++|Feather Tree,Chicory,Bottle Tree,Fern Palm,Cinnar
+Set,As+++,Sp---,Sa+++|Hawthorn,Chakkanut Tree,Locust Palm,Feather Tree,Arconis
+Set,As+++,Sw---,Sa+++|Umbrella Palm,Towering Palm,Cricklewood,Chakkanut Tree,Fern Palm
+Set,As+++,To+++,Sa+++|Arconis,Chakkanut Tree,Feather Tree,Towering Palm,Locust Palm
+Set,As+++,To---,Sa+++|Fern Palm,Umbrella Palm,Towering Palm,Miniature Fern Palm,Cricklewood
+Set,As+++,Sp+++,So---|Cerulean Blue,Cinnar,Cricklewood,Elephantia,Feather Tree
+Set,As+++,Sp---,So---|Feather Tree,Stout Palm,Arconis,Chakkanut Tree,Chicory
+Set,As+++,Sw---,So---|Feather Tree,Windriver Palm,Cinnar,Chicory,Fern Palm
+Set,As+++,To+++,So---|Chakkanut Tree,Feather Tree,Locust Palm,Cerulean Blue,Cinnar
+Set,As+++,To---,So---|Feather Tree,Stout Palm,Butterleaf Tree,Cricklewood,Fern Palm
+Set,As+++,Sw---,Sp+++|Cinnar,Cricklewood,Elephantia,Miniature Fern Palm,Fern Palm
+Set,As+++,To---,Sp+++|Cinnar,Cricklewood,Elephantia,Hawthorn,Fern Palm
+Set,As---,Sa+++,Bi+++|Fern Palm,Pratyeka Tree,Red Maple,Royal Palm,Anaxi
+Set,As---,Sp---,Bi+++|Ash Palm,Phoenix Palm,Spindle Tree,Pratyeka Tree,Royal Palm
+Set,As---,Sw---,Bi+++|Ash Palm,Pratyeka Tree,Phoenix Palm,Fern Palm,Royal Palm
+Set,As---,To---,Bi+++|Anaxi,Oil Palm,Fern Palm,Pratyeka Tree,Razor Palm
+Set,As---,Sa+++,Bi---|Royal Palm,Coconut Palm,Bottle Tree,Passam,Pratyeka Tree
+Set,As---,Sp+++,Bi---|Anaxi,Passam,Kaeshra,Cricklewood,Ash Palm
+Set,As---,Sw---,Bi---|Mini Palmetto,Passam,Ash Palm,Towering Palm,Coconut Palm
+Set,As---,So---,Sa+++|Royal Palm,Cerulean Blue,Chicory,Mini Palmetto,Hawthorn
+Set,As---,Sp---,Sa+++|Royal Palm,Ash Palm,Locust Palm,Chakkanut Tree,Pratyeka Tree
+Set,As---,Sw+++,Sa+++|Razor Palm,Hawthorn,Anaxi,Royal Palm,Folded Birch
+Set,As---,Sw---,Sa+++|Towering Palm,Chicory,Mini Palmetto,Ash Palm,Pratyeka Tree
+Set,As---,To---,Sa+++|Royal Palm,Pratyeka Tree,Fern Palm,Oil Palm,Anaxi
+Set,As---,To+++,Sa+++|Locust Palm,Pratyeka Tree,Tapacae Miralis,Folded Birch,Mini Palmetto
+Set,As---,To---,Sa+++|Royal Palm,Oil Palm,Pratyeka Tree,Fern Palm,Anaxi
+Set,As---,Sp+++,So---|Anaxi,Cerulean Blue,Chicory,Elephantia,Royal Palm
+Set,As---,Sp---,So---|Royal Palm,Giant Cricklewood,Pratyeka Tree,Tiny Oil Palm,Locust Palm
+Set,As---,Sw---,So---|Mini Palmetto,Tiny Oil Palm,Cerulean Blue,Trilobellia,Locust Palm
+Set,As---,To+++,So---|Locust Palm,Tiny Oil Palm,Cerulean Blue,Folded Birch,Royal Palm
+Set,As---,To---,So---|Oil Palm,Butterleaf Tree,Royal Palm,Pratyeka Tree,Hawthorn
+Set,As---,Sw---,Sp+++|Trilobellia,Elephantia,Mini Palmetto,Anaxi,Ash Palm
+Set,As---,To---,Sp+++|Anaxi,Oil Palm,Passam,Ash Palm,Elephantia
+Set,As---,To---,Sw---|Beetlenut,Elephantia,Oil Palm,Trilobellia,Ash Palm
+Set,As---,To+++,Sw---|Locust Palm,Mini Palmetto,Royal Palm,Ash Palm,Bloodbark
+Set,Bi+++,Sp---,Sa---|Phoenix Palm,Spindle Tree,Stout Palm,Spiked Fishtree,Butterleaf Tree
+Set,Bi+++,Sw---,Sa---|Bloodbark,Phoenix Palm,Spiked Fishtree,Ash Palm,Spindle Tree
+Set,Bi+++,To+++,Sa---|Bloodbark,Locust Palm,Phoenix Palm,Spiked Fishtree,Spindle Tree
+Set,Bi+++,So---,Sa+++|Chicory,Fern Palm,Oil Palm,Pratyeka Tree,Stout Palm
+Set,Bi+++,Sw---,Sa+++|Fern Palm,Pratyeka Tree,Umbrella Palm,Phoenix Palm,Royal Palm
+Set,Bi+++,To---,Sa+++|Fern Palm,Pratyeka Tree,Umbrella Palm,Stout Palm,Anaxi
+Set,Bi+++,Sp---,So---|Phoenix Palm,Spindle Tree,Chicory,Oil Palm,Locust Palm
+Set,Bi+++,To+++,Sp---|Bloodbark,Phoenix Palm,Spindle Tree,Chakkanut Tree,Cerulean Blue
+Set,Bi+++,To---,Sp---|Fern Palm,Phoenix Palm,Stout Palm,Umbrella Palm,Spindle Tree
+Set,Bi+++,To+++,Sw---|Bloodbark,Locust Palm,Phoenix Palm,Spindle Tree,Mini Palmetto
+Set,Bi+++,To---,Sw---|Stout Palm,Fern Palm,Umbrella Palm,Phoenix Palm,Ash Palm
+Set,Bi---,So---,Sa+++|Bottle Tree,Chicory,Royal Palm,Monkey Palm,Coconut Palm
+Set,Bi---,Sp---,Sa+++|Bottle Tree,Chakkanut Tree,Coconut Palm,Giant Cricklewood,Hawthorn
+Set,Bi---,Sw+++,Sa+++|Bottle Tree,Hawthorn,Razor Palm,Broadleaf Palm,Coconut Palm
+Set,Bi---,Sw---,Sa+++|Umbrella Palm,Towering Palm,Coconut Palm,Chakkanut Tree,Cricklewood
+Set,Bi---,To---,Sa+++|Umbrella Palm,Bottle Tree,Hawthorn,Cricklewood,Ash Palm
+Set,Bi---,Sp+++,So---|Cerulean Blue,Cricklewood,Passam,Chicory,Hawthorn
+Set,Bi---,To---,So---|Cricklewood,Butterleaf Tree,Bottle Tree,Monkey Palm,Royal Palm
+Set,Bi---,Sw---,Sp+++|Elephantia,Cricklewood,Mini Palmetto,Cinnar,Miniature Fern Palm
+Set,Bi---,To---,Sp+++|Passam,Bottle Tree,Elephantia,Cricklewood,Ash Palm
+Set,Bi---,Sw---,Sp---|Ash Palm,Chakkanut Tree,Coconut Palm,Kaeshra,Windriver Palm
+Set,Bi---,To+++,Sp---|Chakkanut Tree,Locust Palm,Coconut Palm,Folded Birch,Mini Palmetto
+Set,Bi---,To---,Sw---|Cricklewood,Elephantia,Umbrella Palm,Towering Palm,Coconut Palm
+Set,Sa+++,Sp---,So---|Royal Palm,Feather Tree,Chicory,Giant Cricklewood,Coconut Palm
+Set,Sa+++,Sw---,So---|Pratyeka Tree,Chicory,Mini Palmetto,Cerulean Blue,Fern Palm
+Set,Sa+++,To+++,So---|Locust Palm,Chakkanut Tree,Royal Palm,Chicory,Coconut Palm
+Set,Sa+++,To---,So---|Stout Palm,Royal Palm,Bottle Tree,Chicory,Fern Palm
+Set,So---,To---,Sp+++|Cerulean Blue,Oil Palm,Butterleaf Tree,Elephantia,Anaxi
+Set,So---,Sw---,Sp---|Windriver Palm,Feather Tree,Pratyeka Tree,Chakkanut Tree,Butterleaf Tree
+Set,So---,To+++,Sp---|Chakkanut Tree,Tiny Oil Palm,Chicory,Feather Tree,Locust Palm
+Set,So---,To+++,Sw---|Mini Palmetto,Tiny Oil Palm,Bloodbark,Cerulean Blue,Chicory
+Maat,Ar+++,Sp---|Chakkanut Tree,Butterleaf Tree,Miniature Fern Palm,Feather Tree,Elephantia
+Maat,Ar+++,As---|Beetlenut,Miniature Fern Palm,Oleaceae,Royal Palm,Passam
+Maat,Ar+++,Bi---|Ash Palm,Elephantia,Kaeshra,Miniature Fern Palm,Feather Tree
+Maat,Ar+++,So---|Giant Cricklewood,Windriver Palm,Feather Tree,Chicory,Miniature Fern Palm
+Maat,Ar+++,Sp+++|Elephantia,Beetlenut,Butterleaf Tree,Miniature Fern Palm,Cricklewood
+Maat,Ar+++,Sp---|Beetlenut,Feather Tree,Phoenix Palm,Spindle Tree,Miniature Fern Palm
+Maat,Ar+++,Sw---|Ash Palm,Butterleaf Tree,Windriver Palm,Miniature Fern Palm,Elephantia
+Maat,Ar+++,To---|Cricklewood,Feather Tree,Stout Palm,Miniature Fern Palm,Elephantia
+Maat,Ar---,As+++|Arconis,Broadleaf Palm,Feather Tree,Orrorin,Cinnar
+Maat,Ar---,As---|Anaxi,Ash Palm,Folded Birch,Ranyahn,Broadleaf Palm
+Maat,Ar---,Bi+++|Anaxi,Bloodbark,Fern Palm,Ranyahn,Trilobellia
+Maat,Ar---,Bi---|Arconis,Bloodbark,Coconut Palm,Kaeshra,Bottle Tree
+Maat,Ar---,Sa+++|Beetlenut,Hawthorn,Monkey Palm,Arconis,Broadleaf Palm
+Maat,Ar---,So---|Arconis,Butterleaf Tree,Monkey Palm,Tiny Oil Palm,Locust Palm
+Maat,Ar---,Sp+++|Trilobellia,Cerulean Blue,Broadleaf Palm,Bloodbark,Anaxi
+Maat,Ar---,Sp---|Coconut Palm,Feather Tree,Orrorin,Spiked Fishtree,Broadleaf Palm
+Maat,Ar---,Sw---|Arconis,Bottle Tree,Bloodbark,Chakkanut Tree,Trilobellia
+Maat,Ar---,To+++|Coconut Palm,Chicory,Bloodbark,Broadleaf Palm,Locust Palm
+Maat,Ar---,To---|Giant Cricklewood,Stout Palm,Ranyahn,Fern Palm,Broadleaf Palm
+Maat,As+++,Bi+++|Bloodbark,Feather Tree,Cinnar,Fern Palm,Phoenix Palm
+Maat,As+++,Bi---|Broadleaf Palm,Chakkanut Tree,Cricklewood,Miniature Fern Palm,Feather Tree
+Maat,As+++,Sa+++|Arconis,Coconut Palm,Hawthorn,Umbrella Palm,Cinnar
+Maat,As+++,So---|Chakkanut Tree,Elephantia,Windriver Palm,Chicory,Feather Tree
+Maat,As+++,Sp+++|Cinnar,Cricklewood,Elephantia,Fern Palm,Folded Birch
+Maat,As+++,Sp---|Bloodbark,Feather Tree,Coconut Palm,Arconis,Chakkanut Tree
+Maat,As+++,Sw---|Butterleaf Tree,Feather Tree,Towering Palm,Umbrella Palm,Cinnar
+Maat,As+++,To+++|Chakkanut Tree,Coconut Palm,Folded Birch,Spiked Fishtree,Feather Tree
+Maat,As+++,To---|Arconis,Coconut Palm,Umbrella Palm,Stout Palm,Fern Palm
+Maat,As---,Bi+++|Ash Palm,Broadleaf Palm,Pratyeka Tree,Spindle Tree,Phoenix Palm
+Maat,As---,Bi---|Anaxi,Bottle Tree,Chicory,Passam,Kaeshra
+Maat,As---,Sa+++|Anaxi,Bottle Tree,Cerulean Blue,Pratyeka Tree,Coconut Palm
+Maat,As---,So---|Chakkanut Tree,Razor Palm,Royal Palm,Cerulean Blue,Tiny Oil Palm
+Maat,As---,Sp+++|Ash Palm,Broadleaf Palm,Elephantia,Cerulean Blue,Anaxi
+Maat,As---,Sp---|Bottle Tree,Tiny Oil Palm,Royal Palm,Spindle Tree,Giant Cricklewood
+Maat,As---,Sw+++|Razor Palm,Beetlenut,Butterleaf Tree,Hawthorn,Anaxi
+Maat,As---,Sw---|Ash Palm,Bottle Tree,Mini Palmetto,Oil Palm,Trilobellia
+Maat,As---,To+++|Chakkanut Tree,Mini Palmetto,Tiny Oil Palm,Cerulean Blue,Tapacae Mialis
+Maat,As---,To---|Butterleaf Tree,Elephantia,Passam,Red Maple,Anaxi
+Maat,Bi+++,Sa---|Phoenix Palm,Spindle Tree,Elephantia,Bloodbark,Spiked Fishtree
+Maat,Bi+++,So---|Butterleaf Tree,Fern Palm,Phoenix Palm,Chicory,Oil Palm
+Maat,Bi+++,Sp+++|Anaxi,Bloodbark,Cerulean Blue,Fern Palm,Trilobellia
+Maat,Bi+++,Sw---|Ash Palm,Butterleaf Tree,Stout Palm,Fern Palm,Bloodbark
+Maat,Bi+++,To+++|Bloodbark,Chicory,Locust Palm,Phoenix Palm,Red Maple
+Maat,Bi+++,To---|Ash Palm,Cinnar,Oil Palm,Fern Palm,Phoenix Palm
+Maat,Bi---,So---|Bottle Tree,Chakkanut Tree,Locust Palm,Feather Tree,Monkey Palm
+Maat,Bi---,Sp+++|Bottle Tree,Chicory,Passam,Cricklewood,Anaxi
+Maat,Bi---,Sp---|Chicory,Locust Palm,Coconut Palm,Bottle Tree,Chakkanut Tree
+Maat,Bi---,Sw+++|Bottle Tree,Hawthorn,Razor Palm,Cricklewood,Broadleaf Palm
+Maat,Bi---,Sw---|Feather Tree,Kaeshra,Mini Palmetto,Elephantia,Chakkanut Tree
+Maat,Bi---,To+++|Cerulean Blue,Locust Palm,Passam,Coconut Palm,Chakkanut Tree
+Maat,Bi---,To---|Broadleaf Palm,Cricklewood,Giant Cricklewood,Elephantia,Bottle Tree
+Maat,Sa+++,So---|Beetlenut,Coconut Palm,Tiny Oil Palm,Chicory,Royal Palm
+Maat,Sa---,Sp---|Butterleaf Tree,Ash Palm,Spindle Tree,Phoenix Palm,Spiked Fishtree
+Maat,Sa---,Sw---|Bloodbark,Phoenix Palm,Spiked Fishtree,Spindle Tree,Cinnar
+Maat,Sa---,To+++|Bloodbark,Locust Palm,Phoenix Palm,Spiked Fishtree,Spindle Tree
+Maat,So---,Sp+++|Cinnar,Trilobellia,Chicory,Cricklewood,Cerulean Blue
+Maat,So---,Sp---|Cerulean Blue,Phoenix Palm,Feather Tree,Giant Cricklewood,Royal Palm
+Maat,So---,Sw---|Feather Tree,Chicory,Fern Palm,Windriver Palm,Elephantia
+Maat,So---,To+++|Chakkanut Tree,Feather Tree,Folded Birch,Royal Palm,Tiny Oil Palm
+Maat,So---,To---|Cinnar,Elephantia,Oil Palm,Cerulean Blue,Butterleaf Tree
+Maat,Sp+++,Sw+++|Anaxi,Cricklewood,Hawthorn,Razor Palm,Passam
+Maat,Sp+++,Sw---|Chicory,Towering Palm,Elephantia,Cricklewood,Trilobellia
+Maat,Sp+++,To---|Oil Palm,Miniature Fern Palm,Trilobellia,Passam,Elephantia
+Maat,Sp---,Sw+++|Giant Cricklewood,Hawthorn,Razor Palm,Locust Palm,Bottle Tree
+Maat,Sp---,Sw---|Chakkanut Tree,Broadleaf Palm,Cinnar,Locust Palm,Windriver Palm
+Maat,Sp---,To+++|Chakkanut Tree,Ash Palm,Orrorin,Locust Palm,Feather Tree
+Maat,Sw+++,To---|Anaxi,Hawthorn,Razor Palm,Ranyahn,Oil Palm
+Maat,Sw---,To+++|Bottle Tree,Towering Palm,Locust Palm,Chakkanut Tree,Bloodbark
+Maat,Sw---,To---|Chicory,Elephantia,Butterleaf Tree,Fern Palm,Mini Palmetto
+Maat,As+++,Ar+++|Chakkanut Tree,Butterleaf Tree,Feather Tree,Miniature Fern Palm,Elephantia
+Maat,As---,Ar+++|Beetlenut,Miniature Fern Palm,Oleaceae,Royal Palm,Passam
+Maat,Bi---,Ar+++|Ash Palm,Elephantia,Kaeshra,Miniature Fern Palm,Feather Tree
+Maat,So---,Ar+++|Giant Cricklewood,Windriver Palm,Feather Tree,Chicory,Miniature Fern Palm
+Maat,Sp+++,Ar+++|Elephantia,Beetlenut,Butterleaf Tree,Miniature Fern Palm,Cricklewood
+Maat,Sp---,Ar+++|Beetlenut,Feather Tree,Phoenix Palm,Spindle Tree,Miniature Fern Palm
+Maat,Sw---,Ar+++|Ash Palm,Butterleaf Tree,Windriver Palm,Miniature Fern Palm,Elephantia
+Maat,To---,Ar+++|To---,Cricklewood,Feather Tree,Stout Palm,Miniature Fern Palm
+Maat,As+++,Ar---|Arconis,Broadleaf Palm,Feather Tree,Orrorin,Cinnar
+Maat,As---,Ar---|Anaxi,Ash Palm,Folded Birch,Ranyahn,Broadleaf Palm
+Maat,Bi+++,Ar---|Anaxi,Bloodbark,Fern Palm,Ranyahn,Trilobellia
+Maat,Bi---,Ar---|Arconis,Bloodbark,Coconut Palm,Kaeshra,Bottle Tree
+Maat,Sa+++,Ar---|Beetlenut,Hawthorn,Monkey Palm,Arconis,Broadleaf Palm
+Maat,So---,Ar---|Arconis,Butterleaf Tree,Monkey Palm,Tiny Oil Palm,Locust Palm
+Maat,Sp+++,Ar---|Trilobellia,Cerulean Blue,Broadleaf Palm,Bloodbark,Anaxi
+Maat,Sp---,Ar---|Coconut Palm,Feather Tree,Orrorin,Spiked Fishtree,Broadleaf Palm
+Maat,Sw---,Ar---|Arconis,Bottle Tree,Bloodbark,Chakkanut Tree,Trilobellia
+Maat,To+++,Ar---|Coconut Palm,Chicory,Bloodbark,Broadleaf Palm,Locust Palm
+Maat,To---,Ar---|Giant Cricklewood,Stout Palm,Ranyahn,Fern Palm,Broadleaf Palm
+Maat,Bi+++,As+++|Bloodbark,Feather Tree,Cinnar,Fern Palm,Phoenix Palm
+Maat,Bi---,As+++|Broadleaf Palm,Chakkanut Tree,Cricklewood,Miniature Fern Palm,Feather Tree
+Maat,Sa+++,As+++|Arconis,Coconut Palm,Hawthorn,Umbrella Palm,Cinnar
+Maat,So---,As+++|Chakkanut Tree,Elephantia,Windriver Palm,Chicory,Feather Tree
+Maat,Sp+++,As+++|Cinnar,Cricklewood,Elephantia,Fern Palm,Folded Birch
+Maat,Sp---,As+++|Bloodbark,Feather Tree,Coconut Palm,Arconis,Chakkanut Tree
+Maat,Sw---,As+++|Butterleaf Tree,Feather Tree,Towering Palm,Umbrella Palm,Cinnar
+Maat,To+++,As+++|Chakkanut Tree,Coconut Palm,Folded Birch,Spiked Fishtree,Feather Tree
+Maat,To---,As+++|Arconis,Coconut Palm,Umbrella Palm,Stout Palm,Fern Palm
+Maat,Bi+++,As---|Ash Palm,Broadleaf Palm,Pratyeka Tree,Spindle Tree,Phoenix Palm
+Maat,Bi---,As---|Anaxi,Bottle Tree,Chicory,Passam,Kaeshra
+Maat,Sa+++,As---|Anaxi,Bottle Tree,Cerulean Blue,Pratyeka Tree,Coconut Palm
+Maat,So---,As---|Chakkanut Tree,Razor Palm,Royal Palm,Cerulean Blue,Tiny Oil Palm
+Maat,Sp+++,As---|Ash Palm,Broadleaf Palm,Elephantia,Cerulean Blue,Anaxi
+Maat,Sp---,As---|Bottle Tree,Tiny Oil Palm,Royal Palm,Spindle Tree,Giant Cricklewood
+Maat,Sw+++,As---|Razor Palm,Beetlenut,Butterleaf Tree,Hawthorn,Anaxi
+Maat,Sw---,As---|Ash Palm,Bottle Tree,Mini Palmetto,Oil Palm,Trilobellia
+Maat,To+++,As---|Chakkanut Tree,Mini Palmetto,Tiny Oil Palm,Cerulean Blue,Tapacae Mialis
+Maat,To---,As---|Butterleaf Tree,Elephantia,Passam,Red Maple,Anaxi
+Maat,Sa---,Bi+++|Phoenix Palm,Spindle Tree,Elephantia,Bloodbark,Spiked Fishtree
+Maat,So---,Bi+++|Butterleaf Tree,Fern Palm,Phoenix Palm,Chicory,Oil Palm
+Maat,Sp+++,Bi+++|Anaxi,Bloodbark,Cerulean Blue,Fern Palm,Trilobellia
+Maat,Sw---,Bi+++|Ash Palm,Butterleaf Tree,Stout Palm,Fern Palm,Bloodbark
+Maat,To+++,Bi+++|Bloodbark,Chicory,Locust Palm,Phoenix Palm,Red Maple
+Maat,To---,Bi+++|Ash Palm,Cinnar,Oil Palm,Fern Palm,Phoenix Palm
+Maat,So---,Bi---|Bottle Tree,Chakkanut Tree,Locust Palm,Feather Tree,Monkey Palm
+Maat,Sp+++,Bi---|Bottle Tree,Chicory,Passam,Cricklewood,Anaxi
+Maat,Sp---,Bi---|Chicory,Locust Palm,Coconut Palm,Bottle Tree,Chakkanut Tree
+Maat,Sw+++,Bi---|Bottle Tree,Hawthorn,Razor Palm,Cricklewood,Broadleaf Palm
+Maat,Sw---,Bi---|Feather Tree,Kaeshra,Mini Palmetto,Elephantia,Chakkanut Tree
+Maat,To+++,Bi---|Cerulean Blue,Locust Palm,Passam,Coconut Palm,Chakkanut Tree
+Maat,To---,Bi---|Broadleaf Palm,Cricklewood,Giant Cricklewood,Elephantia,Bottle Tree
+Maat,So---,Sa+++|Beetlenut,Coconut Palm,Tiny Oil Palm,Chicory,Royal Palm
+Maat,Sp---,Sa---|Butterleaf Tree,Ash Palm,Spindle Tree,Phoenix Palm,Spiked Fishtree
+Maat,Sw---,Sa---|Bloodbark,Phoenix Palm,Spiked Fishtree,Spindle Tree,Cinnar
+Maat,To+++,Sa---|Bloodbark,Locust Palm,Phoenix Palm,Spiked Fishtree,Spindle Tree
+Maat,Sp+++,So---|Cinnar,Trilobellia,Chicory,Cricklewood,Cerulean Blue
+Maat,Sp---,So---|Cerulean Blue,Phoenix Palm,Feather Tree,Giant Cricklewood,Royal Palm
+Maat,Sw---,So---|Feather Tree,Chicory,Fern Palm,Windriver Palm,Elephantia
+Maat,To+++,So---|Chakkanut Tree,Feather Tree,Folded Birch,Royal Palm,Tiny Oil Palm
+Maat,To---,So---|Cinnar,Elephantia,Oil Palm,Cerulean Blue,Butterleaf Tree
+Maat,Sw+++,Sp+++|Anaxi,Cricklewood,Hawthorn,Razor Palm,Passam
+Maat,Sw---,Sp+++|Chicory,Towering Palm,Elephantia,Cricklewood,Trilobellia
+Maat,To---,Sp+++|Oil Palm,Miniature Fern Palm,Trilobellia,Passam,Elephantia
+Maat,Sw+++,Sp---|Giant Cricklewood,Hawthorn,Razor Palm,Locust Palm,Bottle Tree
+Maat,Sw---,Sp---|Chakkanut Tree,Broadleaf Palm,Cinnar,Locust Palm,Windriver Palm
+Maat,To+++,Sp---|Chakkanut Tree,Ash Palm,Orrorin,Locust Palm,Feather Tree
+Maat,To---,Sw+++|Anaxi,Hawthorn,Razor Palm,Ranyahn,Oil Palm
+Maat,To+++,Sw---|Bottle Tree,Towering Palm,Locust Palm,Chakkanut Tree,Bloodbark
+Maat,To---,Sw---|Chicory,Elephantia,Butterleaf Tree,Fern Palm,Mini Palmetto
+Geb,As++,Ar++|Anaxi,Arconis,Elephantia,Feather Tree,Miniature Fern Palm
+Geb,As--,Ar++|Ash Palm,Beetlenut,Bottle Tree,Spindle Tree,Anaxi
+Geb,Bi++,Ar++|Miniature Fern Palm,Spindle Tree,Fern Palm,Anaxi,Ash Palm
+Geb,Bi--,Ar++|Beetlenut,Bottle Tree,Feather Tree,Anaxi,Towering Palm
+Geb,Sa++,Ar++|Miniature Fern Palm,Beetlenut,Chakkanut Tree,Anaxi,Bottle Tree
+Geb,Sa--,Ar++|Anaxi,Cerulean Blue,Phoenix Palm,Miniature Fern Palm,Spindle Tree
+Geb,So++,Ar++|Ash Palm,Fern Palm,Spindle Tree,Towering Palm,Miniature Fern Palm
+Geb,So--,Ar++|Anaxi,Beetlenut,Butterleaf Tree,Elephantia,Royal Palm
+Geb,Sp++,Ar++|Anaxi,Beetlenut,Butterleaf Tree,Folded Birch,Miniature Fern Palm
+Geb,Sp--,Ar++|Monkey Palm,Royal Palm,Windriver Palm,Miniature Fern Palm,Feather Tree
+Geb,Sw++,Ar++|Royal Palm,Phoenix Palm,Hawthorn,Razor Palm,Miniature Fern Palm
+Geb,Sw--,Ar++|Red Maple,Feather Tree,Miniature Fern Palm,Windriver Palm,Cricklewood
+Geb,To++,Ar++|Coconut Palm,Chakkanut Tree,Feather Tree,Windriver Palm,Spindle Tree
+Geb,To--,Ar++|Locust Palm,Kaeshra,Stout Palm,Miniature Fern Palm,Elephantia
+Geb,As++,Ar--|Arconis,Bloodbark,Butterleaf Tree,Cricklewood,Locust Palm
+Geb,As--,Ar--|Cerulean Blue,Beetlenut,Arconis,Chicory,Broadleaf Palm
+Geb,Bi++,Ar--|Ash Palm,Arconis,Cerulean Blue,Trilobellia,Fern Palm
+Geb,Bi--,Ar--|Feather Tree,Ash Palm,Hawthorn,Ranyahn,Monkey Palm
+Geb,Sa++,Ar--|Kaeshra,Cricklewood,Coconut Palm,Chakkanut Tree,Arconis
+Geb,Sa--,Ar--|Chakkanut Tree,Oleaceae,Phoenix Palm,Ranyahn,Spiked Fishtree
+Geb,So++,Ar--|Chakkanut Tree,Towering Palm,Orrorin,Fern Palm,Ash Palm
+Geb,So--,Ar--|Spindle Tree,Tapacae Miralis,Tiny Oil Palm,Monkey Palm,Broadleaf Palm
+Geb,Sp++,Ar--|Butterleaf Tree,Bottle Tree,Monkey Palm,Cricklewood,Trilobellia
+Geb,Sp--,Ar--|Kaeshra,Fern Palm,Folded Birch,Orrorin,Locust Palm
+Geb,Sw++,Ar--|Chicory,Feather Tree,Oil Palm,Anaxi,Razor Palm
+Geb,Sw--,Ar--|Chakkanut Tree,Broadleaf Palm,Ash Palm,Fern Palm,Locust Palm
+Geb,To++,Ar--|Elephantia,Oleaceae,Locust Palm,Orrorin,Bloodbark
+Geb,To--,Ar--|Fern Palm,Cerulean Blue,Bottle Tree,Broadleaf Palm,Towering Palm
+Geb,Bi++,As++|Bottle Tree,Fern Palm,Bloodbark,Feather Tree,Spindle Tree
+Geb,Bi--,As++|Oil Palm,Monkey Palm,Orrorin,Windriver Palm,Cricklewood
+Geb,Sa++,As++|Stout Palm,Royal Palm,Spiked Fishtree,Umbrella Palm,Fern Palm
+Geb,Sa--,As++|Windriver Palm,Spindle Tree,Passam,Orrorin,Spiked Fishtree
+Geb,So++,As++|Umbrella Palm,Windriver Palm,Ash Palm,Towering Palm,Chakkanut Tree
+Geb,So--,As++|Fern Palm,Elephantia,Chicory,Coconut Palm,Feather Tree
+Geb,Sp++,As++|Orrorin,Cricklewood,Elephantia,Folded Birch,Ranyahn
+Geb,Sp--,As++|Phoenix Palm,Fern Palm,Butterleaf Tree,Bottle Tree,Chakkanut Tree
+Geb,Sw++,As++|Giant Cricklewood,Spiked Fishtree,Bottle Tree,Feather Tree,Hawthorn
+Geb,Sw--,As++|Miniature Fern Palm,Kaeshra,Feather Tree,Mini Palmetto,Windriver Palm
+Geb,To++,As++|Miniature Fern Palm,Kaeshra,Locust Palm,Folded Birch,Feather Tree
+Geb,To--,As++|Fern Palm,Elephantia,Chicory,Feather Tree,Cricklewood
+Geb,Bi++,As--|Beetlenut,Cerulean Blue,Oleaceae,Chicory,Phoenix Palm
+Geb,Bi--,As--|Phoenix Palm,Pratyeka Tree,Kaeshra,Hawthorn,Bottle Tree
+Geb,Sa++,As--|Hawthorn,Oil Palm,Fern Palm,Mini Palmetto,Tiny Oil Palm
+Geb,Sa--,As--|Giant Cricklewood,Cerulean Blue,Bloodbark,Phoenix Palm,Passam
+Geb,So++,As--|Hawthorn,Towering Palm,Kaeshra,Ash Palm,Coconut Palm
+Geb,So--,As--|Phoenix Palm,Monkey Palm,Giant Cricklewood,Cerulean Blue,Tapacae Miralis
+Geb,Sp++,As--|Monkey Palm,Oleaceae,Miniature Fern Palm,Passam,Anaxi
+Geb,Sp--,As--|Giant Cricklewood,Trilobellia,Tiny Oil Palm,Spindle Tree,Ash Palm
+Geb,Sw++,As--|Folded Birch,Hawthorn,Coconut Palm,Oil Palm,Anaxi
+Geb,Sw--,As--|Tapacae Miralis,Stout Palm,Ranyahn,Towering Palm,Pratyeka Tree
+Geb,To++,As--|Passam,Monkey Palm,Giant Cricklewood,Bloodbark,Mini Palmetto
+Geb,To--,As--|Spindle Tree,Royal Palm,Towering Palm,Anaxi,Stout Palm
+Geb,Sa++,Bi++|Fern Palm,Kaeshra,Spindle Tree,Tapacae Miralis,Pratyeka Tree
+Geb,Sa--,Bi++|Hawthorn,Spiked Fishtree,Phoenix Palm,Bloodbark,Spindle Tree
+Geb,So++,Bi++|Chakkanut Tree,Towering Palm,Phoenix Palm,Fern Palm,Ash Palm
+Geb,So--,Bi++|Miniature Fern Palm,Spindle Tree,Oleaceae,Stout Palm,Cerulean Blue
+Geb,Sp++,Bi++|Kaeshra,Stout Palm,Fern Palm,Anaxi,Trilobellia
+Geb,Sp--,Bi++|Royal Palm,Razor Palm,Passam,Spindle Tree,Phoenix Palm
+Geb,Sw++,Bi++|Hawthorn,Oleaceae,Spindle Tree,Razor Palm,Anaxi
+Geb,Sw--,Bi++|Windriver Palm,Towering Palm,Royal Palm,Stout Palm,Spindle Tree
+Geb,To++,Bi++|Umbrella Palm,Towering Palm,Locust Palm,Phoenix Palm,Bloodbark
+Geb,To--,Bi++|Kaeshra,Orrorin,Phoenix Palm,Fern Palm,Oil Palm
+Geb,Sa++,Bi--|Phoenix Palm,Passam,Chicory,Folded Birch,Hawthorn
+Geb,Sa--,Bi--|Monkey Palm,Folded Birch,Phoenix Palm,Passam,Spiked Fishtree
+Geb,So++,Bi--|Oleaceae,Towering Palm,Mini Palmetto,Passam,Ash Palm
+Geb,So--,Bi--|Chicory,Cinnar,Feather Tree,Giant Cricklewood,Kaeshra
+Geb,Sp++,Bi--|Mini Palmetto,Hawthorn,Fern Palm,Elephantia,Cricklewood
+Geb,Sp--,Bi--|Elephantia,Kaeshra,Orrorin,Giant Cricklewood,Spiked Fishtree
+Geb,Sw++,Bi--|Chakkanut Tree,Folded Birch,Giant Cricklewood,Razor Palm,Hawthorn
+Geb,Sw--,Bi--|Cricklewood,Broadleaf Palm,Bloodbark,Bottle Tree,Mini Palmetto
+Geb,To++,Bi--|Cinnar,Cerulean Blue,Coconut Palm,Chakkanut Tree,Folded Birch
+Geb,To--,Bi--|Passam,Oleaceae,Oil Palm,Folded Birch,Elephantia
+Geb,So++,Sa++|Cricklewood,Cinnar,Towering Palm,Ash Palm,Umbrella Palm
+Geb,So--,Sa++|Anaxi,Ash Palm,Broadleaf Palm,Oil Palm,Chicory
+Geb,Sp++,Sa++|Chakkanut Tree,Cinnar,Cricklewood,Anaxi,Chicory
+Geb,Sp--,Sa++|Cinnar,Chicory,Broadleaf Palm,Chakkanut Tree,Locust Palm
+Geb,Sw++,Sa++|Cinnar,Royal Palm,Hawthorn,Anaxi,Razor Palm
+Geb,Sw--,Sa++|Butterleaf Tree,Beetlenut,Arconis,Chakkanut Tree,Fern Palm
+Geb,To++,Sa++|Passam,Orrorin,Kaeshra,Chicory,Tapacae Miralis
+Geb,To--,Sa++|Hawthorn,Anaxi,Ash Palm,Arconis,Stout Palm
+Geb,So--,Sa--|Butterleaf Tree,Chakkanut Tree,Spindle Tree,Locust Palm,Spiked Fishtree
+Geb,Sp++,Sa--|Passam,Elephantia,Cerulean Blue,Butterleaf Tree,Phoenix Palm
+Geb,Sp--,Sa--|Giant Cricklewood,Folded Birch,Phoenix Palm,Passam,Spindle Tree
+Geb,Sw++,Sa--|Razor Palm,Locust Palm,Phoenix Palm,Spiked Fishtree,Anaxi
+Geb,Sw--,Sa--|Bloodbark,Butterleaf Tree,Ash Palm,Passam,Phoenix Palm
+Geb,To++,Sa--|Anaxi,Cerulean Blue,Locust Palm,Phoenix Palm,Spiked Fishtree
+Geb,To--,Sa--|Butterleaf Tree,Bloodbark,Spindle Tree,Miniature Fern Palm,Oil Palm
+Geb,Sp++,So++|Elephantia,Ash Palm,Beetlenut,Towering Palm,Passam
+Geb,Sp--,So++|Chakkanut Tree,Kaeshra,Towering Palm,Giant Cricklewood,Ash Palm
+Geb,Sw--,So++|Beetlenut,Hawthorn,Towering Palm,Chakkanut Tree,Ash Palm
+Geb,To++,So++|Ash Palm,Chakkanut Tree,Coconut Palm,Towering Palm,Folded Birch
+Geb,To--,So++|Ash Palm,Fern Palm,Ranyahn,Elephantia,Towering Palm
+Geb,Sp++,So--|Anaxi,Ash Palm,Broadleaf Palm,Oil Palm,Cerulean Blue
+Geb,Sp--,So--|Miniature Fern Palm,Elephantia,Phoenix Palm,Locust Palm,Royal Palm
+Geb,Sw++,So--|Cricklewood,Miniature Fern Palm,Locust Palm,Razor Palm,Bottle Tree
+Geb,Sw--,So--|Arconis,Anaxi,Cerulean Blue,Trilobellia,Windriver Palm
+Geb,To++,So--|Coconut Palm,Arconis,Broadleaf Palm,Chakkanut Tree,Feather Tree
+Geb,To--,So--|Ranyahn,Passam,Oil Palm,Mini Palmetto,Butterleaf Tree
+Geb,Sw++,Sp++|Cricklewood,Elephantia,Giant Cricklewood,Razor Palm,Anaxi
+Geb,Sw--,Sp++|Kaeshra,Folded Birch,Coconut Palm,Trilobellia,Elephantia
+Geb,To++,Sp++|Cinnar,Tiny Oil Palm,Passam,Bloodbark,Cerulean Blue
+Geb,To--,Sp++|Arconis,Ash Palm,Broadleaf Palm,Elephantia,Anaxi
+Geb,Sw++,Sp--|Chicory,Butterleaf Tree,Locust Palm,Razor Palm,Giant Cricklewood
+Geb,Sw--,Sp--|Cerulean Blue,Chakkanut Tree,Beetlenut,Ash Palm,Phoenix Palm
+Geb,To++,Sp--|Folded Birch,Elephantia,Phoenix Palm,Orrorin,Chakkanut Tree
+Geb,To--,Sp--|Butterleaf Tree,Ash Palm,Stout Palm,Giant Cricklewood,Hawthorn
+Geb,To++,Sw++|Chakkanut Tree,Razor Palm,Hawthorn,Broadleaf Palm,Folded Birch
+Geb,To--,Sw++|Razor Palm,Spiked Fishtree,Stout Palm,Ranyahn,Hawthorn
+Geb,To++,Sw--|Red Maple,Umbrella Palm,Towering Palm,Chakkanut Tree,Locust Palm
+Geb,To--,Sw--|Red Maple,Phoenix Palm,Orrorin,Stout Palm,Fern Palm
+Geb,Ar++,As++|Anaxi,Arconis,Elephantia,Feather Tree,Miniature Fern Palm
+Geb,Ar++,As--|Ash Palm,Beetlenut,Bottle Tree,Spindle Tree,Anaxi
+Geb,Ar++,Bi++|Miniature Fern Palm,Spindle Tree,Fern Palm,Anaxi,Ash Palm
+Geb,Ar++,Bi--|Beetlenut,Bottle Tree,Feather Tree,Anaxi,Towering Palm
+Geb,Ar++,Sa++|Miniature Fern Palm,Beetlenut,Chakkanut Tree,Anaxi,Bottle Tree
+Geb,Ar++,Sa--|Anaxi,Cerulean Blue,Phoenix Palm,Miniature Fern Palm,Spindle Tree
+Geb,Ar++,So++|Ash Palm,Fern Palm,Spindle Tree,Towering Palm,Miniature Fern Palm
+Geb,Ar++,So--|Anaxi,Beetlenut,Butterleaf Tree,Elephantia,Royal Palm
+Geb,Ar++,Sp++|Anaxi,Beetlenut,Butterleaf Tree,Folded Birch,Miniature Fern Palm
+Geb,Ar++,Sp--|Monkey Palm,Royal Palm,Windriver Palm,Miniature Fern Palm,Feather Tree
+Geb,Ar++,Sw++|Royal Palm,Phoenix Palm,Hawthorn,Razor Palm,Miniature Fern Palm
+Geb,Ar++,Sw--|Red Maple,Feather Tree,Miniature Fern Palm,Windriver Palm,Cricklewood
+Geb,Ar++,To++|Coconut Palm,Chakkanut Tree,Feather Tree,Windriver Palm,Spindle Tree
+Geb,Ar++,To--|Locust Palm,Kaeshra,Stout Palm,Miniature Fern Palm,Elephantia
+Geb,Ar--,As++|Arconis,Bloodbark,Butterleaf Tree,Cricklewood,Locust Palm
+Geb,Ar--,As--|Cerulean Blue,Beetlenut,Arconis,Chicory,Broadleaf Palm
+Geb,Ar--,Bi++|Ash Palm,Arconis,Cerulean Blue,Trilobellia,Fern Palm
+Geb,Ar--,Bi--|Feather Tree,Ash Palm,Hawthorn,Ranyahn,Monkey Palm
+Geb,Ar--,Sa++|Kaeshra,Cricklewood,Coconut Palm,Chakkanut Tree,Arconis
+Geb,Ar--,Sa--|Chakkanut Tree,Oleaceae,Phoenix Palm,Ranyahn,Spiked Fishtree
+Geb,Ar--,So++|Chakkanut Tree,Towering Palm,Orrorin,Fern Palm,Ash Palm
+Geb,Ar--,So--|Spindle Tree,Tapacae Miralis,Tiny Oil Palm,Monkey Palm,Broadleaf Palm
+Geb,Ar--,Sp++|Butterleaf Tree,Bottle Tree,Monkey Palm,Cricklewood,Trilobellia
+Geb,Ar--,Sp--|Kaeshra,Fern Palm,Folded Birch,Orrorin,Locust Palm
+Geb,Ar--,Sw++|Chicory,Feather Tree,Oil Palm,Anaxi,Razor Palm
+Geb,Ar--,Sw--|Chakkanut Tree,Broadleaf Palm,Ash Palm,Fern Palm,Locust Palm
+Geb,Ar--,To++|Elephantia,Oleaceae,Locust Palm,Orrorin,Bloodbark
+Geb,Ar--,To--|Fern Palm,Cerulean Blue,Bottle Tree,Broadleaf Palm,Towering Palm
+Geb,As++,Bi++|Bottle Tree,Fern Palm,Bloodbark,Feather Tree,Spindle Tree
+Geb,As++,Bi--|Oil Palm,Monkey Palm,Orrorin,Windriver Palm,Cricklewood
+Geb,As++,Sa++|Stout Palm,Royal Palm,Spiked Fishtree,Umbrella Palm,Fern Palm
+Geb,As++,Sa--|Windriver Palm,Spindle Tree,Passam,Orrorin,Spiked Fishtree
+Geb,As++,So++|Umbrella Palm,Windriver Palm,Ash Palm,Towering Palm,Chakkanut Tree
+Geb,As++,So--|Fern Palm,Elephantia,Chicory,Coconut Palm,Feather Tree
+Geb,As++,Sp++|Orrorin,Cricklewood,Elephantia,Folded Birch,Ranyahn
+Geb,As++,Sp--|Phoenix Palm,Fern Palm,Butterleaf Tree,Bottle Tree,Chakkanut Tree
+Geb,As++,Sw++|Giant Cricklewood,Spiked Fishtree,Bottle Tree,Feather Tree,Hawthorn
+Geb,As++,Sw--|Miniature Fern Palm,Kaeshra,Feather Tree,Mini Palmetto,Windriver Palm
+Geb,As++,To++|Miniature Fern Palm,Kaeshra,Locust Palm,Folded Birch,Feather Tree
+Geb,As++,To--|Fern Palm,Elephantia,Chicory,Feather Tree,Cricklewood
+Geb,As--,Bi++|Beetlenut,Cerulean Blue,Oleaceae,Chicory,Phoenix Palm
+Geb,As--,Bi--|Phoenix Palm,Pratyeka Tree,Kaeshra,Hawthorn,Bottle Tree
+Geb,As--,Sa++|Hawthorn,Oil Palm,Fern Palm,Mini Palmetto,Tiny Oil Palm
+Geb,As--,Sa--|Giant Cricklewood,Cerulean Blue,Bloodbark,Phoenix Palm,Passam
+Geb,As--,So++|Hawthorn,Towering Palm,Kaeshra,Ash Palm,Coconut Palm
+Geb,As--,So--|Phoenix Palm,Monkey Palm,Giant Cricklewood,Cerulean Blue,Tapacae Miralis
+Geb,As--,Sp++|Monkey Palm,Oleaceae,Miniature Fern Palm,Passam,Anaxi
+Geb,As--,Sp--|Giant Cricklewood,Trilobellia,Tiny Oil Palm,Spindle Tree,Ash Palm
+Geb,As--,Sw++|Folded Birch,Hawthorn,Coconut Palm,Oil Palm,Anaxi
+Geb,As--,Sw--|Tapacae Miralis,Stout Palm,Ranyahn,Towering Palm,Pratyeka Tree
+Geb,As--,To++|Passam,Monkey Palm,Giant Cricklewood,Bloodbark,Mini Palmetto
+Geb,As--,To--|Spindle Tree,Royal Palm,Towering Palm,Anaxi,Stout Palm
+Geb,Bi++,Sa++|Fern Palm,Kaeshra,Spindle Tree,Tapacae Miralis,Pratyeka Tree
+Geb,Bi++,Sa--|Hawthorn,Spiked Fishtree,Phoenix Palm,Bloodbark,Spindle Tree
+Geb,Bi++,So++|Chakkanut Tree,Towering Palm,Phoenix Palm,Fern Palm,Ash Palm
+Geb,Bi++,So--|Miniature Fern Palm,Spindle Tree,Oleaceae,Stout Palm,Cerulean Blue
+Geb,Bi++,Sp++|Kaeshra,Stout Palm,Fern Palm,Anaxi,Trilobellia
+Geb,Bi++,Sp--|Royal Palm,Razor Palm,Passam,Spindle Tree,Phoenix Palm
+Geb,Bi++,Sw++|Hawthorn,Oleaceae,Spindle Tree,Razor Palm,Anaxi
+Geb,Bi++,Sw--|Windriver Palm,Towering Palm,Royal Palm,Stout Palm,Spindle Tree
+Geb,Bi++,To++|Umbrella Palm,Towering Palm,Locust Palm,Phoenix Palm,Bloodbark
+Geb,Bi++,To--|Kaeshra,Orrorin,Phoenix Palm,Fern Palm,Oil Palm
+Geb,Bi--,Sa++|Phoenix Palm,Passam,Chicory,Folded Birch,Hawthorn
+Geb,Bi--,Sa--|Monkey Palm,Folded Birch,Phoenix Palm,Passam,Spiked Fishtree
+Geb,Bi--,So++|Oleaceae,Towering Palm,Mini Palmetto,Passam,Ash Palm
+Geb,Bi--,So--|Chicory,Cinnar,Feather Tree,Giant Cricklewood,Kaeshra
+Geb,Bi--,Sp++|Mini Palmetto,Hawthorn,Fern Palm,Elephantia,Cricklewood
+Geb,Bi--,Sp--|Elephantia,Kaeshra,Orrorin,Giant Cricklewood,Spiked Fishtree
+Geb,Bi--,Sw++|Chakkanut Tree,Folded Birch,Giant Cricklewood,Razor Palm,Hawthorn
+Geb,Bi--,Sw--|Cricklewood,Broadleaf Palm,Bloodbark,Bottle Tree,Mini Palmetto
+Geb,Bi--,To++|Cinnar,Cerulean Blue,Coconut Palm,Chakkanut Tree,Folded Birch
+Geb,Bi--,To--|Passam,Oleaceae,Oil Palm,Folded Birch,Elephantia
+Geb,Sa++,So++|Cricklewood,Cinnar,Towering Palm,Ash Palm,Umbrella Palm
+Geb,Sa++,So--|Anaxi,Ash Palm,Broadleaf Palm,Oil Palm,Chicory
+Geb,Sa++,Sp++|Chakkanut Tree,Cinnar,Cricklewood,Anaxi,Chicory
+Geb,Sa++,Sp--|Cinnar,Chicory,Broadleaf Palm,Chakkanut Tree,Locust Palm
+Geb,Sa++,Sw++|Cinnar,Royal Palm,Hawthorn,Anaxi,Razor Palm
+Geb,Sa++,Sw--|Butterleaf Tree,Beetlenut,Arconis,Chakkanut Tree,Fern Palm
+Geb,Sa++,To++|Passam,Orrorin,Kaeshra,Chicory,Tapacae Miralis
+Geb,Sa++,To--|Hawthorn,Anaxi,Ash Palm,Arconis,Stout Palm
+Geb,Sa--,So--|Butterleaf Tree,Chakkanut Tree,Spindle Tree,Locust Palm,Spiked Fishtree
+Geb,Sa--,Sp++|Passam,Elephantia,Cerulean Blue,Butterleaf Tree,Phoenix Palm
+Geb,Sa--,Sp--|Giant Cricklewood,Folded Birch,Phoenix Palm,Passam,Spindle Tree
+Geb,Sa--,Sw++|Razor Palm,Locust Palm,Phoenix Palm,Spiked Fishtree,Anaxi
+Geb,Sa--,Sw--|Bloodbark,Butterleaf Tree,Ash Palm,Passam,Phoenix Palm
+Geb,Sa--,To++|Anaxi,Cerulean Blue,Locust Palm,Phoenix Palm,Spiked Fishtree
+Geb,Sa--,To--|Butterleaf Tree,Bloodbark,Spindle Tree,Miniature Fern Palm,Oil Palm
+Geb,So++,Sp++|Elephantia,Ash Palm,Beetlenut,Towering Palm,Passam
+Geb,So++,Sp--|Chakkanut Tree,Kaeshra,Towering Palm,Giant Cricklewood,Ash Palm
+Geb,So++,Sw--|Beetlenut,Hawthorn,Towering Palm,Chakkanut Tree,Ash Palm
+Geb,So++,To++|Ash Palm,Chakkanut Tree,Coconut Palm,Towering Palm,Folded Birch
+Geb,So++,To--|Ash Palm,Fern Palm,Ranyahn,Elephantia,Towering Palm
+Geb,So--,Sp++|Anaxi,Ash Palm,Broadleaf Palm,Oil Palm,Cerulean Blue
+Geb,So--,Sp--|Miniature Fern Palm,Elephantia,Phoenix Palm,Locust Palm,Royal Palm
+Geb,So--,Sw++|Cricklewood,Miniature Fern Palm,Locust Palm,Razor Palm,Bottle Tree
+Geb,So--,Sw--|Arconis,Anaxi,Cerulean Blue,Trilobellia,Windriver Palm
+Geb,So--,To++|Coconut Palm,Arconis,Broadleaf Palm,Chakkanut Tree,Feather Tree
+Geb,So--,To--|Ranyahn,Passam,Oil Palm,Mini Palmetto,Butterleaf Tree
+Geb,Sp++,Sw++|Cricklewood,Elephantia,Giant Cricklewood,Razor Palm,Anaxi
+Geb,Sp++,Sw--|Kaeshra,Folded Birch,Coconut Palm,Trilobellia,Elephantia
+Geb,Sp++,To++|Cinnar,Tiny Oil Palm,Passam,Bloodbark,Cerulean Blue
+Geb,Sp++,To--|Arconis,Ash Palm,Broadleaf Palm,Elephantia,Anaxi
+Geb,Sp--,Sw++|Chicory,Butterleaf Tree,Locust Palm,Razor Palm,Giant Cricklewood
+Geb,Sp--,Sw--|Cerulean Blue,Chakkanut Tree,Beetlenut,Ash Palm,Phoenix Palm
+Geb,Sp--,To++|Folded Birch,Elephantia,Phoenix Palm,Orrorin,Chakkanut Tree
+Geb,Sp--,To--|Butterleaf Tree,Ash Palm,Stout Palm,Giant Cricklewood,Hawthorn
+Geb,Sw++,To++|Chakkanut Tree,Razor Palm,Hawthorn,Broadleaf Palm,Folded Birch
+Geb,Sw++,To--|Razor Palm,Spiked Fishtree,Stout Palm,Ranyahn,Hawthorn
+Geb,Sw--,To++|Red Maple,Umbrella Palm,Towering Palm,Chakkanut Tree,Locust Palm
+Geb,Sw--,To--|Red Maple,Phoenix Palm,Orrorin,Stout Palm,Fern Palm
