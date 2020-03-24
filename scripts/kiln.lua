@@ -170,23 +170,22 @@ end
 function start()
 	for i=1, passCount do
 		refreshWindows();
-		lsSleep(500);
-
+		checkRepair();
 		srReadScreen();
 		kilnRegions = findAllText("This is ", nil, REGION)
 
 		for i = 1, #kilnRegions do
 			checkBreak()
 			local loadWood = waitForText("Wood", nil, nil, kilnRegions[i])
-			sleepWithStatus(click_delay, "Loading wood into the kiln\n\nButton at: " .. loadWood[0] .. ", " .. loadWood[1]);
+			sleepWithStatus(500, "Loading wood into the kiln\n\nButton at: " .. loadWood[0] .. ", " .. loadWood[1]);
 			clickText(loadWood)
 			lsSleep(refresh_time)
 			local loadProduct = waitForText(product, nil, nil, kilnRegions[i])
-			sleepWithStatus(click_delay, "Loading the kiln with Wet " .. product .. "\n\nButton at: " .. loadProduct[0] .. ", " .. loadProduct[1]);
+			sleepWithStatus(500, "Loading the kiln with Wet " .. product .. "\n\nButton at: " .. loadProduct[0] .. ", " .. loadProduct[1]);
 			clickText(loadProduct)
 			lsSleep(refresh_time)
 			local fireKiln = waitForText("Fire", nil, nil, kilnRegions[i])
-			sleepWithStatus(click_delay, "Firing the kiln\n\nButton at: " .. fireKiln[0] .. ", " .. fireKiln[1]);
+			sleepWithStatus(500, "Firing the kiln\n\nButton at: " .. fireKiln[0] .. ", " .. fireKiln[1]);
 			clickText(fireKiln)
 			lsSleep(refresh_time)
 		end
@@ -208,7 +207,15 @@ function refreshWindows()
     for i = 1, #this do
         clickText(this[i]);
     end
-    lsSleep(100);
+    lsSleep(500);
+end
+
+function checkRepair()
+	lsSleep(500);
+	closePopUp();
+	srReadScreen();
+	clickAllText("Repair");
+	lsSleep(500);
 end
 
 function checkFiring()
