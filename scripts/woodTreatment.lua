@@ -4,8 +4,8 @@ dofile("settings.inc");
 BOARD_RECIPE = {};
 
 INGREDIENT_NAMES = {
-"Ash","Potash","Oil","Beeswax","Sulfur","Lead","Lime",
-"Water","Saltpeter","Petroleum","Charcoal","Bonemeal"};
+"Cabbage","Carrot","Clay","DeadTongue","ToadSkin","FalconBait","RedSand",
+"Lead","Silver","Iron","Copper","Sulfur","Potash","Lime","Saltpeter"};
 
 TREAT_INDEX = {
 ["Ash"]=1,["Potash"]=2,["Oil"]=3,["Beeswax"]=4,["Sulfur"]=5,["Lead"]=6,["Lime"]=7,
@@ -102,11 +102,10 @@ function makeBoardsBatch(config, num_batches, remainder)
                 checkProcessing(recipes[config.board_index].ingredient[iidx]);   
             end
             srReadScreen();
-            lsSleep(100);
+            lsSleep(250);
             clickAllText("Take Everything");
-            lsSleep(100);
-            lsPlaySound("Complete.wav");
     end
+    lsPlaySound("Complete.wav");
 end
 
 function refreshWindows()
