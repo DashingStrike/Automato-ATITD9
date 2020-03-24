@@ -2,6 +2,8 @@
 dofile("screen_reader_common.inc");
 dofile("ui_utils.inc");
 
+askText = "Due to the vast number of possible combinations that now exist with the new list of Resins, chem_helper has been broken into two scripts.\n\nchem_helper_cheap = Geb & Maat Soltions\n\nchem_helper = Set, Osiris, Thoth & Ra Solutions"
+
 -- Initial values
 compound_type = 6;
 attrib_reqs = {
@@ -307,6 +309,7 @@ function solve()
 end
 
 function doit()
+	askForWindow(askText);
 	local selected = {};
 	local chem_cache = nil;
 	local scale = 25/16.0;
