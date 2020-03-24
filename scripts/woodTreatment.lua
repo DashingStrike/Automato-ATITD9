@@ -102,11 +102,10 @@ function makeBoardsBatch(config, num_batches, remainder)
                 checkProcessing(recipes[config.board_index].ingredient[iidx]);   
             end
             srReadScreen();
-            lsSleep(100);
-            clickAllText("Take Everything");
-            lsSleep(100);
-            lsPlaySound("Complete.wav");
+            lsSleep(250);
+            clickAllText("Take Everything");          
     end
+    lsPlaySound("Complete.wav");
 end
 
 function refreshWindows()

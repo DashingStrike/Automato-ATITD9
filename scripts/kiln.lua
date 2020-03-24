@@ -18,6 +18,7 @@ function doit()
 		if(arrangeWindows) then
 			arrangeInGrid(nil, nil, nil, nil,nil, 10, 25);
 		end
+	sleepWithStatus(1200, "Preparing to Start ...\n\nHands off the mouse!"); 
 	unpinOnExit(start);
 end
 
@@ -139,10 +140,10 @@ function config()
     product = "Clay Pot";
   elseif cistern then
     product = "Cistern";
-	elseif clayDome then
-		product = "Clay Dome";
-	elseif pipeSegment then
-		product = "Pipe Segment";
+  elseif clayDome then
+	product = "Clay Dome";
+  elseif pipeSegment then
+	product = "Pipe Segment";
   end
 
 	if clayBricks or clayMortars or firebricks or jugs or clayPot then
@@ -168,37 +169,29 @@ end
 
 function start()
 	for i=1, passCount do
-		-- refresh windows
 		refreshWindows();
 		checkRepair();
-		lsSleep(500);
-
 		srReadScreen();
 		kilnRegions = findAllText("This is ", nil, REGION)
-		this = findAllText("This is")
-    loadProduct = findAllText(product);
-		loadWood = findAllText("Wood")
-		fireKiln = findAllText("Fire")
 
-    for i = 1, #kilnRegions do
+		for i = 1, #kilnRegions do
 			checkBreak()
-	    local loadWood = waitForText("Wood", nil, nil, kilnRegions[i])
-	    lsPrintln("Loading wood into the kiln\n\nButton at: " .. loadWood[0] .. ", " .. loadWood[1])
-	    clickText(loadWood)
+			local loadWood = waitForText("Wood", nil, nil, kilnRegions[i])
+			sleepWithStatus(500, "Loading wood into the kiln\n\nButton at: " .. loadWood[0] .. ", " .. loadWood[1]);
+			clickText(loadWood)
 			lsSleep(refresh_time)
 			local loadProduct = waitForText(product, nil, nil, kilnRegions[i])
-	    lsPrintln("Loading the kiln with Wet " .. product .. "\n\nButton at: " .. loadProduct[0] .. ", " .. loadProduct[1])
-	    clickText(loadProduct)
-	    lsSleep(refresh_time)
+			sleepWithStatus(500, "Loading the kiln with Wet " .. product .. "\n\nButton at: " .. loadProduct[0] .. ", " .. loadProduct[1]);
+			clickText(loadProduct)
+			lsSleep(refresh_time)
 			local fireKiln = waitForText("Fire", nil, nil, kilnRegions[i])
-	    lsPrintln("Firing the kiln\n\nButton at: " .. fireKiln[0] .. ", " .. fireKiln[1])
-	    clickText(fireKiln)
-	    lsSleep(refresh_time)
-    end
+			sleepWithStatus(500, "Firing the kiln\n\nButton at: " .. fireKiln[0] .. ", " .. fireKiln[1]);
+			clickText(fireKiln)
+			lsSleep(refresh_time)
+		end
 
-		closePopUp();  --If you don't have enough cuttable stones in inventory, then a popup will occur. We don't want these, so check.
+		closePopUp();
 		checkFiring();
-
 		refreshWindows();
 
 		clickAllText("Take...");
@@ -214,10 +207,11 @@ function refreshWindows()
     for i = 1, #this do
         clickText(this[i]);
     end
-    lsSleep(100);
+    lsSleep(500);
 end
 
 function checkRepair()
+	lsSleep(500);
 	closePopUp();
 	srReadScreen();
 	clickAllText("Repair");
