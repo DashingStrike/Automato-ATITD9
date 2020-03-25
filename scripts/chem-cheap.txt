@@ -725,7 +725,7 @@ Set,As+++,Sa+++,Sw---|Umbrella Palm,Towering Palm,Cricklewood,Chakkanut Tree,Fer
 Set,As+++,Sa+++,To+++|Arconis,Chakkanut Tree,Feather Tree,Towering Palm,Locust Palm
 Set,As+++,Sa+++,To---|Fern Palm,Umbrella Palm,Towering Palm,Miniature Fern Palm,Cricklewood
 Set,As+++,So---,Sp+++|Cerulean Blue,Cinnar,Cricklewood,Elephantia,Feather Tree
-Set,As+++,So---,Sp---|Feather Tree,Stout Palm,Arconis,Chakkanut Tree,Chicory
+Set,As+++,So---,Sp---|Feather Tree,Stout Palm,Arconis,Locust Palm,Windriver Palm
 Set,As+++,So---,Sw---|Feather Tree,Windriver Palm,Cinnar,Chicory,Fern Palm
 Set,As+++,So---,To+++|Chakkanut Tree,Feather Tree,Locust Palm,Cerulean Blue,Cinnar
 Set,As+++,So---,To---|Feather Tree,Stout Palm,Butterleaf Tree,Cricklewood,Fern Palm
@@ -762,7 +762,6 @@ Set,Bi+++,Sa+++,Sw---|Fern Palm,Pratyeka Tree,Umbrella Palm,Phoenix Palm,Royal P
 Set,Bi+++,Sa+++,To---|Fern Palm,Pratyeka Tree,Umbrella Palm,Stout Palm,Anaxi
 Set,Bi+++,So---,Sp---|Phoenix Palm,Spindle Tree,Chicory,Oil Palm,Locust Palm
 Set,Bi+++,Sp---,To+++|Bloodbark,Phoenix Palm,Spindle Tree,Chakkanut Tree,Cerulean Blue
-Set,Bi+++,Sp---,To---|Fern Palm,Phoenix Palm,Stout Palm,Umbrella Palm,Spindle Tree
 Set,Bi+++,Sw---,To+++|Bloodbark,Locust Palm,Phoenix Palm,Spindle Tree,Mini Palmetto
 Set,Bi+++,Sw---,To---|Stout Palm,Fern Palm,Umbrella Palm,Phoenix Palm,Ash Palm
 Set,Bi---,Sa+++,So---|Bottle Tree,Chicory,Royal Palm,Monkey Palm,Coconut Palm
@@ -848,7 +847,7 @@ Set,Sa+++,Sw---,As+++|Umbrella Palm,Towering Palm,Cricklewood,Chakkanut Tree,Fer
 Set,Sa+++,To+++,As+++|Arconis,Chakkanut Tree,Feather Tree,Towering Palm,Locust Palm
 Set,Sa+++,To---,As+++|Fern Palm,Umbrella Palm,Towering Palm,Miniature Fern Palm,Cricklewood
 Set,So---,Sp+++,As+++|Cerulean Blue,Cinnar,Cricklewood,Elephantia,Feather Tree
-Set,So---,Sp---,As+++|Feather Tree,Stout Palm,Arconis,Chakkanut Tree,Chicory
+Set,So---,Sp---,As+++|Feather Tree,Stout Palm,Arconis,Locust Palm,Windriver Palm
 Set,So---,Sw---,As+++|Feather Tree,Windriver Palm,Cinnar,Chicory,Fern Palm
 Set,So---,To+++,As+++|Chakkanut Tree,Feather Tree,Locust Palm,Cerulean Blue,Cinnar
 Set,So---,To---,As+++|Feather Tree,Stout Palm,Butterleaf Tree,Cricklewood,Fern Palm
@@ -885,7 +884,6 @@ Set,Sa+++,Sw---,Bi+++|Fern Palm,Pratyeka Tree,Umbrella Palm,Phoenix Palm,Royal P
 Set,Sa+++,To---,Bi+++|Fern Palm,Pratyeka Tree,Umbrella Palm,Stout Palm,Anaxi
 Set,So---,Sp---,Bi+++|Phoenix Palm,Spindle Tree,Chicory,Oil Palm,Locust Palm
 Set,Sp---,To+++,Bi+++|Bloodbark,Phoenix Palm,Spindle Tree,Chakkanut Tree,Cerulean Blue
-Set,Sp---,To---,Bi+++|Fern Palm,Phoenix Palm,Stout Palm,Umbrella Palm,Spindle Tree
 Set,Sw---,To+++,Bi+++|Bloodbark,Locust Palm,Phoenix Palm,Spindle Tree,Mini Palmetto
 Set,Sw---,To---,Bi+++|Stout Palm,Fern Palm,Umbrella Palm,Phoenix Palm,Ash Palm
 Set,Sa+++,So---,Bi---|Bottle Tree,Chicory,Royal Palm,Monkey Palm,Coconut Palm
@@ -971,7 +969,7 @@ Set,Sw---,As+++,Sa+++|Umbrella Palm,Towering Palm,Cricklewood,Chakkanut Tree,Fer
 Set,To+++,As+++,Sa+++|Arconis,Chakkanut Tree,Feather Tree,Towering Palm,Locust Palm
 Set,To---,As+++,Sa+++|Fern Palm,Umbrella Palm,Towering Palm,Miniature Fern Palm,Cricklewood
 Set,Sp+++,As+++,So---|Cerulean Blue,Cinnar,Cricklewood,Elephantia,Feather Tree
-Set,Sp---,As+++,So---|Feather Tree,Stout Palm,Arconis,Chakkanut Tree,Chicory
+Set,Sp---,As+++,So---|Feather Tree,Stout Palm,Arconis,Locust Palm,Windriver Palm
 Set,Sw---,As+++,So---|Feather Tree,Windriver Palm,Cinnar,Chicory,Fern Palm
 Set,To+++,As+++,So---|Chakkanut Tree,Feather Tree,Locust Palm,Cerulean Blue,Cinnar
 Set,To---,As+++,So---|Feather Tree,Stout Palm,Butterleaf Tree,Cricklewood,Fern Palm
@@ -1008,7 +1006,6 @@ Set,Sw---,Bi+++,Sa+++|Fern Palm,Pratyeka Tree,Umbrella Palm,Phoenix Palm,Royal P
 Set,To---,Bi+++,Sa+++|Fern Palm,Pratyeka Tree,Umbrella Palm,Stout Palm,Anaxi
 Set,Sp---,Bi+++,So---|Phoenix Palm,Spindle Tree,Chicory,Oil Palm,Locust Palm
 Set,To+++,Bi+++,Sp---|Bloodbark,Phoenix Palm,Spindle Tree,Chakkanut Tree,Cerulean Blue
-Set,To---,Bi+++,Sp---|Fern Palm,Phoenix Palm,Stout Palm,Umbrella Palm,Spindle Tree
 Set,To+++,Bi+++,Sw---|Bloodbark,Locust Palm,Phoenix Palm,Spindle Tree,Mini Palmetto
 Set,To---,Bi+++,Sw---|Stout Palm,Fern Palm,Umbrella Palm,Phoenix Palm,Ash Palm
 Set,So---,Bi---,Sa+++|Bottle Tree,Chicory,Royal Palm,Monkey Palm,Coconut Palm
@@ -1094,7 +1091,7 @@ Set,Sw---,Sa+++,As+++|Umbrella Palm,Towering Palm,Cricklewood,Chakkanut Tree,Fer
 Set,To+++,Sa+++,As+++|Arconis,Chakkanut Tree,Feather Tree,Towering Palm,Locust Palm
 Set,To---,Sa+++,As+++|Fern Palm,Umbrella Palm,Towering Palm,Miniature Fern Palm,Cricklewood
 Set,Sp+++,So---,As+++|Cerulean Blue,Cinnar,Cricklewood,Elephantia,Feather Tree
-Set,Sp---,So---,As+++|Feather Tree,Stout Palm,Arconis,Chakkanut Tree,Chicory
+Set,Sp---,So---,As+++|Feather Tree,Stout Palm,Arconis,Locust Palm,Windriver Palm
 Set,Sw---,So---,As+++|Feather Tree,Windriver Palm,Cinnar,Chicory,Fern Palm
 Set,To+++,So---,As+++|Chakkanut Tree,Feather Tree,Locust Palm,Cerulean Blue,Cinnar
 Set,To---,So---,As+++|Feather Tree,Stout Palm,Butterleaf Tree,Cricklewood,Fern Palm
@@ -1131,7 +1128,6 @@ Set,Sw---,Sa+++,Bi+++|Fern Palm,Pratyeka Tree,Umbrella Palm,Phoenix Palm,Royal P
 Set,To---,Sa+++,Bi+++|Fern Palm,Pratyeka Tree,Umbrella Palm,Stout Palm,Anaxi
 Set,Sp---,So---,Bi+++|Phoenix Palm,Spindle Tree,Chicory,Oil Palm,Locust Palm
 Set,To+++,Sp---,Bi+++|Bloodbark,Phoenix Palm,Spindle Tree,Chakkanut Tree,Cerulean Blue
-Set,To---,Sp---,Bi+++|Fern Palm,Phoenix Palm,Stout Palm,Umbrella Palm,Spindle Tree
 Set,To+++,Sw---,Bi+++|Bloodbark,Locust Palm,Phoenix Palm,Spindle Tree,Mini Palmetto
 Set,To---,Sw---,Bi+++|Stout Palm,Fern Palm,Umbrella Palm,Phoenix Palm,Ash Palm
 Set,So---,Sa+++,Bi---|Bottle Tree,Chicory,Royal Palm,Monkey Palm,Coconut Palm
@@ -1217,7 +1213,7 @@ Set,Sa+++,As+++,Sw---|Umbrella Palm,Towering Palm,Cricklewood,Chakkanut Tree,Fer
 Set,Sa+++,As+++,To+++|Arconis,Chakkanut Tree,Feather Tree,Towering Palm,Locust Palm
 Set,Sa+++,As+++,To---|Fern Palm,Umbrella Palm,Towering Palm,Miniature Fern Palm,Cricklewood
 Set,So---,As+++,Sp+++|Cerulean Blue,Cinnar,Cricklewood,Elephantia,Feather Tree
-Set,So---,As+++,Sp---|Feather Tree,Stout Palm,Arconis,Chakkanut Tree,Chicory
+Set,So---,As+++,Sp---|Feather Tree,Stout Palm,Arconis,Locust Palm,Windriver Palm
 Set,So---,As+++,Sw---|Feather Tree,Windriver Palm,Cinnar,Chicory,Fern Palm
 Set,So---,As+++,To+++|Chakkanut Tree,Feather Tree,Locust Palm,Cerulean Blue,Cinnar
 Set,So---,As+++,To---|Feather Tree,Stout Palm,Butterleaf Tree,Cricklewood,Fern Palm
@@ -1254,7 +1250,6 @@ Set,Sa+++,Bi+++,Sw---|Fern Palm,Pratyeka Tree,Umbrella Palm,Phoenix Palm,Royal P
 Set,Sa+++,Bi+++,To---|Fern Palm,Pratyeka Tree,Umbrella Palm,Stout Palm,Anaxi
 Set,So---,Bi+++,Sp---|Phoenix Palm,Spindle Tree,Chicory,Oil Palm,Locust Palm
 Set,Sp---,Bi+++,To+++|Bloodbark,Phoenix Palm,Spindle Tree,Chakkanut Tree,Cerulean Blue
-Set,Sp---,Bi+++,To---|Fern Palm,Phoenix Palm,Stout Palm,Umbrella Palm,Spindle Tree
 Set,Sw---,Bi+++,To+++|Bloodbark,Locust Palm,Phoenix Palm,Spindle Tree,Mini Palmetto
 Set,Sw---,Bi+++,To---|Stout Palm,Fern Palm,Umbrella Palm,Phoenix Palm,Ash Palm
 Set,Sa+++,Bi---,So---|Bottle Tree,Chicory,Royal Palm,Monkey Palm,Coconut Palm
@@ -1340,7 +1335,7 @@ Set,As+++,Sw---,Sa+++|Umbrella Palm,Towering Palm,Cricklewood,Chakkanut Tree,Fer
 Set,As+++,To+++,Sa+++|Arconis,Chakkanut Tree,Feather Tree,Towering Palm,Locust Palm
 Set,As+++,To---,Sa+++|Fern Palm,Umbrella Palm,Towering Palm,Miniature Fern Palm,Cricklewood
 Set,As+++,Sp+++,So---|Cerulean Blue,Cinnar,Cricklewood,Elephantia,Feather Tree
-Set,As+++,Sp---,So---|Feather Tree,Stout Palm,Arconis,Chakkanut Tree,Chicory
+Set,As+++,Sp---,So---|Feather Tree,Stout Palm,Arconis,Locust Palm,Windriver Palm
 Set,As+++,Sw---,So---|Feather Tree,Windriver Palm,Cinnar,Chicory,Fern Palm
 Set,As+++,To+++,So---|Chakkanut Tree,Feather Tree,Locust Palm,Cerulean Blue,Cinnar
 Set,As+++,To---,So---|Feather Tree,Stout Palm,Butterleaf Tree,Cricklewood,Fern Palm
@@ -1377,7 +1372,6 @@ Set,Bi+++,Sw---,Sa+++|Fern Palm,Pratyeka Tree,Umbrella Palm,Phoenix Palm,Royal P
 Set,Bi+++,To---,Sa+++|Fern Palm,Pratyeka Tree,Umbrella Palm,Stout Palm,Anaxi
 Set,Bi+++,Sp---,So---|Phoenix Palm,Spindle Tree,Chicory,Oil Palm,Locust Palm
 Set,Bi+++,To+++,Sp---|Bloodbark,Phoenix Palm,Spindle Tree,Chakkanut Tree,Cerulean Blue
-Set,Bi+++,To---,Sp---|Fern Palm,Phoenix Palm,Stout Palm,Umbrella Palm,Spindle Tree
 Set,Bi+++,To+++,Sw---|Bloodbark,Locust Palm,Phoenix Palm,Spindle Tree,Mini Palmetto
 Set,Bi+++,To---,Sw---|Stout Palm,Fern Palm,Umbrella Palm,Phoenix Palm,Ash Palm
 Set,Bi---,So---,Sa+++|Bottle Tree,Chicory,Royal Palm,Monkey Palm,Coconut Palm
@@ -1436,7 +1430,7 @@ Maat,As---,Sp+++|Ash Palm,Broadleaf Palm,Elephantia,Cerulean Blue,Anaxi
 Maat,As---,Sp---|Bottle Tree,Tiny Oil Palm,Royal Palm,Spindle Tree,Giant Cricklewood
 Maat,As---,Sw+++|Razor Palm,Beetlenut,Butterleaf Tree,Hawthorn,Anaxi
 Maat,As---,Sw---|Ash Palm,Bottle Tree,Mini Palmetto,Oil Palm,Trilobellia
-Maat,As---,To+++|Chakkanut Tree,Mini Palmetto,Tiny Oil Palm,Cerulean Blue,Tapacae Mialis
+Maat,As---,To+++|Chakkanut Tree,Mini Palmetto,Tiny Oil Palm,Cerulean Blue,Tapacae Miralis
 Maat,As---,To---|Butterleaf Tree,Elephantia,Passam,Red Maple,Anaxi
 Maat,Bi+++,Sa---|Phoenix Palm,Spindle Tree,Elephantia,Bloodbark,Spiked Fishtree
 Maat,Bi+++,So---|Butterleaf Tree,Fern Palm,Phoenix Palm,Chicory,Oil Palm
@@ -1505,7 +1499,7 @@ Maat,Sp+++,As---|Ash Palm,Broadleaf Palm,Elephantia,Cerulean Blue,Anaxi
 Maat,Sp---,As---|Bottle Tree,Tiny Oil Palm,Royal Palm,Spindle Tree,Giant Cricklewood
 Maat,Sw+++,As---|Razor Palm,Beetlenut,Butterleaf Tree,Hawthorn,Anaxi
 Maat,Sw---,As---|Ash Palm,Bottle Tree,Mini Palmetto,Oil Palm,Trilobellia
-Maat,To+++,As---|Chakkanut Tree,Mini Palmetto,Tiny Oil Palm,Cerulean Blue,Tapacae Mialis
+Maat,To+++,As---|Chakkanut Tree,Mini Palmetto,Tiny Oil Palm,Cerulean Blue,Tapacae Miralis
 Maat,To---,As---|Butterleaf Tree,Elephantia,Passam,Red Maple,Anaxi
 Maat,Sa---,Bi+++|Phoenix Palm,Spindle Tree,Elephantia,Bloodbark,Spiked Fishtree
 Maat,So---,Bi+++|Butterleaf Tree,Fern Palm,Phoenix Palm,Chicory,Oil Palm
