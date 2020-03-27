@@ -17,7 +17,7 @@ WHITE = 0xFFFFFFff;
 
 recipes = {};
 filename = "treat_boards.txt"
-exampleRecipes = "Rigid, Rotproof, Blonde : Lime 16 Beeswax 5 - #example\nPliable, Rotproof, Nontoxic, White : Bonemeal 16 Beeswax 4 Bonemeal 1 Beeswax 4 - #example"
+exampleRecipes = "Rigid, Rotproof, Blonde : Lime 160 Beeswax 50 - #example\nPliable, Rotproof, Nontoxic, White : Bonemeal 160 Beeswax 40 Bonemeal 10 Beeswax 40 - #example"
 
 function doit()
     recipes = loadRecipes(filename);
