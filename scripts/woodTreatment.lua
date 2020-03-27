@@ -96,7 +96,7 @@ function makeBoardsBatch(config, num_batches, remainder)
                 local buttonNo = TREAT_INDEX[recipes[config.board_index].ingredient[iidx]];
                 srClickMouseNoMove(treat_buttons[buttonNo][0]+2,treat_buttons[buttonNo][1]+2, right_click);
                 waitForText("How many");
-                srKeyEvent(recipes[config.board_index].amount[iidx]*10) -- Add the treatment value
+                srKeyEvent(recipes[config.board_index].amount[iidx]) -- Add the treatment value
                 srKeyEvent(string.char(13));  -- Send Enter Key to close the window
                 waitForNoText("How many");
                 checkProcessing(recipes[config.board_index].ingredient[iidx]);   
@@ -105,7 +105,6 @@ function makeBoardsBatch(config, num_batches, remainder)
             lsSleep(250);
             clickAllText("Take Everything");          
     end
-    lsPlaySound("Complete.wav");
 end
 
 function refreshWindows()
@@ -121,7 +120,7 @@ function checkProcessing(ingredient)
     while 1 do
         refreshWindows();
         srReadScreen();
-        process = findAllImages("woodTreatment/processComplete.png")
+        process = findAllImages("processComplete.png")
             if #process == 0 then
                 sleepWithStatus(999, "Waiting for boards to finish being treated.", nil, 0.7, "Monitoring Pinned Window(s)");
             else
@@ -165,9 +164,9 @@ function getUserParams()
                 drawWrappedText("Wood Treatment Recipe : (Per 500 Boards)", 0x00FF00FF, X_PADDING, current_y-10);
                 current_y = current_y + 15;
                 for i=1, #recipes[config.board_index].ingredient do
-                    drawWrappedText(math.ceil(recipes[config.board_index].amount[i]) .. " " .. recipes[config.board_index].ingredient[i], 0xD0D0D0ff, X_PADDING, current_y);
+                    drawWrappedText(math.ceil(recipes[config.board_index].amount[i] / 10) .. " " .. recipes[config.board_index].ingredient[i], 0xD0D0D0ff, X_PADDING, current_y);
                     drawWrappedText(" : ", 0xFF0000ff, X_PADDING + 85, current_y);
-                    drawWrappedText(math.ceil(recipes[config.board_index].amount[i] * 10) .. " Seconds " .. "", 0xFFFF40FF, X_PADDING + 105, current_y);
+                    drawWrappedText(math.ceil(recipes[config.board_index].amount[i]) .. " Seconds " .. "", 0xFFFF40FF, X_PADDING + 105, current_y);
                     current_y = current_y + 15;
                 end
             end
