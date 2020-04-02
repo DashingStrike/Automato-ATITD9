@@ -28,6 +28,7 @@ function find_button_index(ingred_name)
 end
 
 function click_ingredient(ingredient_name)
+    srReadScreen();
       while lsMouseIsDown() do
         sleepWithStatus(16, "Release Mouse to continue ...", nil, 0.7, "Preparing to Click");
       end
