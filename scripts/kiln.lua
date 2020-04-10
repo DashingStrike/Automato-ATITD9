@@ -35,16 +35,16 @@ function config()
 		"Global Settings\n-------------------------------------------");
 	y = y + 35;
 
-	passCount = readSetting("passCount",tonumber(passCount));
+	kilnPasses = readSetting("kilnPasses",tonumber(kilnPasses));
     lsPrint(15, y, z, scale, scale, 0xffffffff, "Passes :");
-    is_done, passCount = lsEditBox("passes", 110, y-2, z, 50, 30, scale, scale,
-                                   0x000000ff, passCount);
-    if not tonumber(passCount) then
+    is_done, kilnPasses = lsEditBox("kilnPasses", 110, y-2, z, 50, 30, scale, scale,
+                                   0x000000ff, kilnPasses);
+    if not tonumber(kilnPasses) then
       is_done = false;
       lsPrint(10, y+30, z+10, 0.7, 0.7, 0xFF2020ff, "MUST BE A NUMBER");
-      passCount = 1;
+      kilnPasses = 1;
     end
-    writeSetting("passCount",tonumber(passCount));
+    writeSetting("kilnPasses",tonumber(kilnPasses));
   y = y + 32;
 
 	lsPrint(15, y, 0, scale, scale, 0xffffffff, "Kiln Type:");
@@ -168,7 +168,7 @@ function config()
 end
 
 function start()
-	for i=1, passCount do
+	for i=1, kilnPasses do
 		refreshWindows();
 		checkRepair();
 		srReadScreen();
@@ -226,7 +226,7 @@ function checkFiring()
 				if #firing == 0 then
 					break; --We break this while statement because Making is not detect, hence we're done with this round
 				end
-			sleepWithStatus(999, "Waiting for " .. product .. " to finish", nil, 0.7);
+			sleepWithStatus(30000, "Waiting for " .. product .. " to finish", nil, 0.7);
 		end
 end
 

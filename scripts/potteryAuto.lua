@@ -24,7 +24,7 @@ function doit()
 end
 
 function start()
-	for i=1, passCount do
+	for i=1, potteryPasses do
 		-- refresh windows
 		clickAllText("This is");
 		lsSleep(500);
@@ -55,18 +55,18 @@ function config()
 		lsPrint(10, 10, z, scale, scale, 0xFFFFFFff, "Configure Pottery Wheel");
 		local y = 40;
 
-		passCount = readSetting("passCount",passCount);
+		potteryPasses = readSetting("potteryPasses",potteryPasses);
 		lsPrint(10, y, z, scale, scale, 0xffffffff, "Passes:");
-		is_done, passCount = lsEditBox("passes", 100, y, z, 50, 30, scale, scale,
-									   0x000000ff, passCount);
-		if not tonumber(passCount) then
+		is_done, potteryPasses = lsEditBox("potteryPasses", 100, y, z, 50, 30, scale, scale,
+									   0x000000ff, potteryPasses);
+		if not tonumber(potteryPasses) then
 		  is_done = nil;
 		  lsPrint(10, y+30, z+10, 0.7, 0.7, 0xFF2020ff, "MUST BE A NUMBER");
-		  passCount = 1;
+		  potteryPasses = 1;
 		end
 		
-		passCount = tonumber(passCount);
-		writeSetting("passCount",passCount);
+		potteryPasses = tonumber(potteryPasses);
+		writeSetting("potteryPasses",potteryPasses);
 		y = y + 35;
 		
 		arrangeWindows = readSetting("arrangeWindows",arrangeWindows);

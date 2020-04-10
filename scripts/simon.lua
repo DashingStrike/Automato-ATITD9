@@ -77,7 +77,7 @@ function promptRun()
     local y = 60;
     lsPrint(5, y, 0, scale, scale, 0xffffffff, "Passes:");
     count = readSetting("count",count);
-    is_done, count = lsEditBox("passes", 140, y-5, 0, 50, 30, scale, scale,
+    is_done, count = lsEditBox("count", 140, y-5, 0, 50, 30, scale, scale,
                                0x000000ff, count);
     count = tonumber(count);
     if not count then

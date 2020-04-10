@@ -64,7 +64,7 @@ load_leeks = true;
 load_limestone = true;
 
 currentPass = 1;
-passCount = 5;
+cremPasses = 5;
 
 windows = nil;
 
@@ -84,7 +84,7 @@ end
 function runCrematories()
   promptLoad();
   askForFocus();
-  for i=1,passCount do
+  for i=1,cremPasses do
     currentPass = i;
     local iter = 0;
     srReadScreen();
@@ -510,16 +510,16 @@ function promptLoad()
     lsPrint(10, 10, z, scale, scale, 0xFFFFFFff, "Configure Crematory");
     local y = 60;
 
-    passCount = readSetting("passCount",passCount);
+    cremPasses = readSetting("cremPasses",cremPasses);
     lsPrint(15, y, z, scale, scale, 0xffffffff, "Passes:");
-    is_done, passCount = lsEditBox("passes", 80, y, z, 50, 0, scale, scale,
-                                   0x000000ff, passCount);
-    if not tonumber(passCount) then
+    is_done, cremPasses = lsEditBox("cremPasses", 80, y, z, 50, 0, scale, scale,
+                                   0x000000ff, cremPasses);
+    if not tonumber(cremPasses) then
       is_done = false;
       lsPrint(10, y+20, z+10, 0.7, 0.7, 0xFF2020ff, "MUST BE A NUMBER");
-      passCount = 1;
+      cremPasses = 1;
     end
-    writeSetting("passCount",passCount);
+    writeSetting("cremPasses",cremPasses);
     y = y + 48;
 
     if load_flax then
@@ -660,7 +660,7 @@ end
 -------------------------------------------------------------------------------
 
 function updateMessage(message)
-  local result = "Pass " .. currentPass .. " / " .. passCount .. "\n";
+  local result = "Pass " .. currentPass .. " / " .. cremPasses .. "\n";
   result = result .. message .. "\n\n";
   if message == "Tending Crematory" then
     for i=1,#windows do
@@ -740,7 +740,7 @@ function sleepWithStatus(delay_time, message, color, scale)
       finish_up_text = "Finish Up";
     end
 
-    if tonumber(currentPass) < tonumber(passCount) then
+    if tonumber(currentPass) < tonumber(cremPasses) then
      if lsButtonText(lsScreenX - 110, lsScreenY - 60, z, 100, finish_up_color,
                     finish_up_text) then
 
