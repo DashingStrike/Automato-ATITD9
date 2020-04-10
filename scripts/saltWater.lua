@@ -116,7 +116,7 @@ end
 function clickSequence()
 	sleepWithStatus(500, "Starting... Don\'t move mouse!");
 	startTime = lsGetTimer();
-  for l=1, passCount do
+  for l=1, saltPasses do
     if gatherSaltwater then
       drawWater();	
     end
@@ -173,17 +173,17 @@ function promptDelays()
 	lsSetCamera(0,0,lsScreenX*1.0,lsScreenY*1.0);
 	y = y + 30;
 	
-	passCount = readSetting("passCount",passCount);
-    lsPrint(10, y-5, z, scale, scale, 0xffffffff, "Passes:");
-    is_done, passCount = lsEditBox("passes", 100, y-5, z, 50, 30, scale, scale,
-                                   0x000000ff, passCount);
-    if not tonumber(passCount) then
+	saltPasses = readSetting("saltPasses",saltPasses);
+  lsPrint(10, y-5, z, scale, scale, 0xffffffff, "Passes:");
+  is_done, saltPasses = lsEditBox("saltPasses", 100, y-5, z, 50, 30, scale, scale,
+                                   0x000000ff, saltPasses);
+    if not tonumber(saltPasses) then
       is_done = false;
       lsPrint(10, y+20, z+10, 0.7, 0.7, 0xFF2020ff, "MUST BE A NUMBER");
-      passCount = 1;
+      saltPasses = 1;
     end
 	y = y + 50;
-    writeSetting("passCount",passCount);
+    writeSetting("saltPasses",saltPasses);
   
   if gatherSaltwater then
     gatherSaltwaterColor = 0x80ff80ff;
