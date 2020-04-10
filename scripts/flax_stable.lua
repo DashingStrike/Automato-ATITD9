@@ -220,7 +220,7 @@ function promptFlaxNumbers()
     num_loops = readSetting("num_loops", num_loops)
     lsPrint(10, y, z, scale, scale, 0xFFFFFFff, "Passes:")
 
-    is_done, num_loops = lsEditBox("passes", 120, y, z, 50, 0, scale, scale, 0x000000ff, num_loops)
+    is_done, num_loops = lsEditBox("num_loops", 120, y, z, 50, 0, scale, scale, 0x000000ff, num_loops)
     if not tonumber(num_loops) then
       is_done = nil
       lsPrint(10, y + 18, z + 10, 0.7, 0.7, 0xFF2020ff, "MUST BE A NUMBER")

@@ -34,7 +34,7 @@ function config()
 
 	passCount = readSetting("passCount",tonumber(passCount));
     lsPrint(15, y, z, scale, scale, 0xffffffff, "Passes :");
-    is_done, passCount = lsEditBox("passes", 110, y-2, z, 50, 30, scale, scale,
+    is_done, passCount = lsEditBox("passCount", 110, y-2, z, 50, 30, scale, scale,
                                    0x000000ff, passCount);
     if not tonumber(passCount) then
       is_done = false;
