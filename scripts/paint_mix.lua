@@ -19,17 +19,25 @@ recipes = {};
 filename = "paint_recipes.txt"
 exampleRecipes = "Barn Red : Clay 3 RedSand 9 Silver 4 - #example\nBeet : Cabbage 8 Clay 2 - #example\nBoysenberry : Cabbage 4 Clay 6 - #example\nBrown : Carrot 2 RedSand 8 - #example\nBurgundy Red : RedSand 8 Silver 2 - #example\nBurnt Umber : Clay 3 RedSand 7 - #example"
 
-take_paint = true; -- Useful to turn this option off when making Ribbons in Pigment Lab
-
 function doit()
     recipes = loadRecipes(filename);
     askForWindow("Open the paint window. Take any paint away so to start with 'Black'.");
+    srReadScreen();
+        lastIngredient = srFindImage("paint/noIngredient.png")
+            if (not lastIngredient) then
+                error "The pigment laboratory currently has ingredients added, please reset the lab and start again";
+            end
     while 1 do
         checkBreak();
         local config = getUserParams();
-        checkBreak();
+        checkBreak();     
         mixPaint(config);
     end
+end
+
+function round(num, numDecimalPlaces)
+    local mult = 10^(numDecimalPlaces or 0)
+    return math.floor(num * mult + 0.5) / mult
 end
 
 function clickBatchText(text)
@@ -58,7 +66,7 @@ function setBatchSize(size)
     lsSleep(200);
 end
 
-function makePaintBatch(config, num_batches)
+function makePaintBatch(config, num_batches, size)
     srReadScreen();
     local paint_buttons = findAllImages("plus.png");
     if (#paint_buttons == 0) then
@@ -72,12 +80,14 @@ function makePaintBatch(config, num_batches)
                 checkBreak();
                 local buttonNo = BUTTON_INDEX[recipes[config.color_index].ingredient[iidx]];
                 srClickMouseNoMove(paint_buttons[buttonNo][0]+2,paint_buttons[buttonNo][1]+2, right_click);
-                sleepWithStatus(click_delay, "Making paint " .. i .. " of " .. config.paint_amount);
+                sleepWithStatus(click_delay, "Making paint batch " .. i .. " of " .. math.floor(num_batches));
             end
         end
         srReadScreen();
         lsSleep(100);
-        clickAllText("Take the Paint");
+        if take_paint then
+            clickAllText("Take the Paint");
+        end
         lsSleep(100);
     end
 end
@@ -88,7 +98,7 @@ function makePaint(config, paint_amount)
         remainder = paint_amount % 100;
         hundreds = paint_amount - remainder;
         hundred_batches = hundreds / 100;
-        makePaintBatch(config, hundred_batches);
+        makePaintBatch(config, math.floor(hundred_batches));
         makePaint(config, remainder);
     else
         if paint_amount >= 10 then
@@ -96,11 +106,15 @@ function makePaint(config, paint_amount)
             remainder = paint_amount % 10;
             tens = paint_amount - remainder;
             ten_batches = tens / 10;
-            makePaintBatch(config, ten_batches);
+            makePaintBatch(config, math.floor(ten_batches));
             makePaint(config, remainder)
         else
-            setBatchSize("Small");
-            makePaintBatch(config, paint_amount)
+            if take_paint then
+                setBatchSize("Small");
+                makePaintBatch(config, math.floor(paint_amount))
+            else
+                makePaintBatch(config, math.floor(paint_amount))
+            end
         end
     end
 end
@@ -145,48 +159,52 @@ X_PADDING = 5
 
 function getUserParams()
     local is_done = false;
-    local got_user_params = false;
     local config = {paint_amount=10};
     config.color_name = "";
     config.color_index = 1;
     while not is_done do
         current_y = 10;
 
-        if not got_user_params then
-          lsSetCamera(0,0,lsScreenX*1.4,lsScreenY*1.4);
-            lsScrollAreaBegin("scroll_area", X_PADDING, current_y, X_PADDING, lsScreenX - X_PADDING+115, 180);
-            config.color_index = readSetting("color_name",config.color_index);
-            config.color_index         = lsDropdown("color_name", X_PADDING, current_y, X_PADDING, lsScreenX - 50, config.color_index, COLOR_NAMES);
-            writeSetting("color_name",config.color_index);
-            lsScrollAreaEnd(#COLOR_NAMES * 25);
-          lsSetCamera(0,0,lsScreenX*1.0,lsScreenY*1.0);
-            config.color_name = COLOR_NAMES[config.color_index];
-            current_y = 160;
-            config.paint_amount = drawNumberEditBox("paint_amount", "                 Mix how much paint?", 10);
-            take_paint = readSetting("take_paint",take_paint);
-            take_paint = CheckBox(65, current_y-35, 0, 0xffffffff, " Take Paint after batch?", take_paint, 0.67, 0.67);
-            writeSetting("take_paint",take_paint);
-            current_y = current_y - 5;
-            got_user_params = true;
-            for k,v in pairs(config) do
-                got_user_params = got_user_params and v;
-            end
+        lsPrintWrapped(8, current_y, 10, lsScreenX - 20, 0.65, 0.65, 0xD0D0D0ff,
+      "Updated for T9 - Automatic batch size detection based on the volume of paint.\n-----------------------------------------------------------");
+
+            lsSetCamera(0,0,lsScreenX*1.4,lsScreenY*1.4);
+                config.color_index = readSetting("color_name",config.color_index);
+                lsPrint(13, current_y+73, z, 0.95, 0.95, 0xffff40ff, "Paint Recipe:");
+                config.color_index = lsDropdown("color_name", 13, current_y+103, X_PADDING, 350, config.color_index, COLOR_NAMES);
+                writeSetting("color_name",config.color_index);
+                config.color_name = COLOR_NAMES[config.color_index];
+                current_y = 160;
+                lsPrint(13, current_y, z, 0.95, 0.95, 0xffff40ff, "Volume of paint to mix:");
+            lsSetCamera(0,0,lsScreenX*1.0,lsScreenY*1.0);
+                config.paint_amount = drawNumberEditBox("paint_amount", " ",100);
+                take_paint = readSetting("take_paint",take_paint);
+                take_paint = CheckBox(90, current_y-81, 0, 0xffffffff, " Take Paint after batch?", take_paint, 0.67, 0.67);
+                writeSetting("take_paint",take_paint);
+                if (not take_paint) then
+                    lsPrintWrapped(90, current_y-60, 10, lsScreenX - 20, 0.65, 0.65, 0xFF0000ff,
+                    "'Take Paint' is false, you must \nmake an exact paint quantity!");
+                end
+                current_y = current_y - 5;
             if config.paint_amount then
                 drawWrappedText("Mix " .. config.paint_amount .. " debens of " ..
-                         config.color_name .. " paint.\nTotal Cost:", 0xD0D0D0ff, X_PADDING, current_y-10);
-                current_y = current_y + 25;
+                         config.color_name .. " paint.", 0x00ffffff, X_PADDING, current_y-20);
+                drawWrappedText("Total Cost:", 0x00ffffff, X_PADDING, current_y);
+                current_y = current_y + 20;
                 for i=1, #recipes[config.color_index].ingredient do
                     drawWrappedText(math.ceil(recipes[config.color_index].amount[i] * config.paint_amount / 10) .. " " ..
                              recipes[config.color_index].ingredient[i], 0xD0D0D0ff, X_PADDING, current_y);
                     current_y = current_y + 15;
                 end
             end
-            got_user_params = got_user_params and drawBottomButton(lsScreenX - 5, "Start Script");
-            is_done = got_user_params;
-        end
 
-        if drawBottomButton(110, "Exit Script") then
-            error "Script exited by user";
+        if lsButtonText(8, lsScreenY - 30, z, 100, 0x00ff00ff, "Process") then
+			is_done = 1;
+		end
+ 
+        if lsButtonText(lsScreenX - 110, lsScreenY - 30, z, 100, 0xFF0000ff,
+                    "End script") then
+        error "Script exited by user";
         end
 
         lsDoFrame();
@@ -205,7 +223,7 @@ function drawEditBox(key, text, default, validateNumber)
     drawTextUsingCurrent(text, WHITE);
     local width = validateNumber and 50 or 200;
     local height = 22;
-    local done, result = lsEditBox(key, X_PADDING, current_y-22, 0, width, height, 1.0, 1.0, BLACK, default);
+    local done, result = lsEditBox(key, X_PADDING+5, current_y-46, 0, 65, height, 1.0, 1.0, BLACK, default);
     if validateNumber then
         result = tonumber(result);
     elseif result == "" then
@@ -229,7 +247,7 @@ function drawText(text, colour, x, y)
 end
 
 function drawWrappedText(text, colour, x, y)
-    lsPrintWrapped(x, y, X_PADDING, lsScreenX-X_PADDING, 0.6, 0.6, colour, text);
+    lsPrintWrapped(8, y, X_PADDING, lsScreenX-X_PADDING, 0.6, 0.6, colour, text);
 end
 
 function drawBottomButton(xOffset, text)
