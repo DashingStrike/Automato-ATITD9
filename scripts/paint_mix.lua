@@ -25,7 +25,7 @@ function doit()
     srReadScreen();
         lastIngredient = srFindImage("paint/noIngredient.png")
             if (not lastIngredient) then
-                error "The pigment laboratory currently has ingredients added, please reset the lab and start again";
+                error "A pigment laboratory was either not found or already has ingredients being processed, please either pin or reset the lab and start again";
             end
     while 1 do
         checkBreak();
@@ -166,7 +166,7 @@ function getUserParams()
         current_y = 10;
 
         lsPrintWrapped(8, current_y, 10, lsScreenX - 20, 0.65, 0.65, 0xD0D0D0ff,
-      "Updated for T9 - Automatic batch size detection based on the volume of paint.\n-----------------------------------------------------------");
+      "Automatic batch size detection based on the volume of paint.\n-----------------------------------------------------------");
 
             lsSetCamera(0,0,lsScreenX*1.4,lsScreenY*1.4);
                 config.color_index = readSetting("color_name",config.color_index);
@@ -179,10 +179,10 @@ function getUserParams()
             lsSetCamera(0,0,lsScreenX*1.0,lsScreenY*1.0);
                 config.paint_amount = drawNumberEditBox("paint_amount", " ",100);
                 take_paint = readSetting("take_paint",take_paint);
-                take_paint = CheckBox(90, current_y-81, 0, 0xffffffff, " Take Paint after batch?", take_paint, 0.67, 0.67);
+                take_paint = CheckBox(90, current_y-81, 0, 0xffffffff, " Take Paint after batch", take_paint, 0.67, 0.67);
                 writeSetting("take_paint",take_paint);
                 if (not take_paint) then
-                    lsPrintWrapped(90, current_y-60, 10, lsScreenX - 20, 0.65, 0.65, 0xFF0000ff,
+                    lsPrintWrapped(90, current_y-62, 10, lsScreenX - 20, 0.65, 0.65, 0xFF0000ff,
                     "'Take Paint' is false, you must \nmake an exact paint quantity!");
                 end
                 current_y = current_y - 5;
@@ -247,7 +247,7 @@ function drawText(text, colour, x, y)
 end
 
 function drawWrappedText(text, colour, x, y)
-    lsPrintWrapped(8, y, X_PADDING, lsScreenX-X_PADDING, 0.6, 0.6, colour, text);
+    lsPrintWrapped(10, y, X_PADDING, lsScreenX-X_PADDING, 0.6, 0.6, colour, text);
 end
 
 function drawBottomButton(xOffset, text)

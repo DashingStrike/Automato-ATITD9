@@ -3,7 +3,7 @@ dofile("settings.inc");
 
 METAL_RECIPE = {};
 
-metalList = {"Aluminum","Antimony","Copper","Cobalt","Gold","Iron","Lead","Magnesium","Nickel","Platinum","Silver","SunSteel","Steel","Tin","Zinc"};
+metalList = {"Aluminum","Antimony","Brass","Bronze","Cobalt","Copper","Gold","Iron","Lead","Magnesium","Metal Blue","Moon Steel","Nickel","Octec's Alloy","Pewter","Platinum","Silver","Steel","Sun Steel","Thoth's Metal","Tin","Zinc","Water Metal"};
 
 TREAT_INDEX = {
 ["Arsenic"]=1,["Cabbage"]=2,["Cactus"]=3,["Coal"]=4,["Gravel"]=5,
@@ -27,12 +27,12 @@ function doit()
     askForWindow("Open the chemical bath. Take any metal away so we start with an empty tank.");
     while 1 do
         checkBreak();
-        local config = getUserParams();
         srReadScreen();
         window_pos = findText("This is [a-z]+ Chemical Bath", nil, REGEX);
             if (not window_pos) then
-                error "Did not find any Chemical Bath window";
+                error "Did not find a pinned Chemical Bath window";
             end
+        local config = getUserParams();
         checkBreak();
         sleepWithStatus(1200, "Preparing to Start ...\n\nHands off the mouse!"); 
         treatMetal(config);
@@ -72,15 +72,75 @@ function makeMetalBatch(config, num_batches, remainder)
             lsSleep(500);        
         else
             error("Could not find a 'Load...' option")
-        end       
+        end
+        
+        if config.metal_type == 1 then
+            metalType = "Aluminum"
+        elseif config.metal_type == 20 then
+            metalType = "Thoth"
+        end
+
+        if config.metal_type == 1 then
+            metalType = "Aluminum"
+        elseif config.metal_type == 2 then
+            metalType = "Antimony"
+        elseif config.metal_type == 3 then
+            metalType = "Brass"
+        elseif config.metal_type == 4 then
+            metalType = "Bronze"
+        elseif config.metal_type == 5 then
+            metalType = "Cobalt"
+        elseif config.metal_type == 6 then
+            metalType = "Copper"
+        elseif config.metal_type == 7 then
+            metalType = "Gold"
+        elseif config.metal_type == 8 then
+            metalType = "Iron"
+        elseif config.metal_type == 9 then
+            metalType = "Lead"
+        elseif config.metal_type == 10 then
+            metalType = "Magnesium"
+        elseif config.metal_type == 11 then
+            metalType = "Metal Blue"
+        elseif config.metal_type == 12 then
+            metalType = "Moon Steel"
+        elseif config.metal_type == 13 then
+            metalType = "Nickel"
+        elseif config.metal_type == 14 then
+            metalType = "Octec"
+        elseif config.metal_type == 15 then
+            metalType = "Pewter"
+        elseif config.metal_type == 16 then
+            metalType = "Platinum"
+        elseif config.metal_type == 17 then
+            metalType = "Silver"
+        elseif config.metal_type == 18 then
+            metalType = "Steel"
+        elseif config.metal_type == 19 then
+            metalType = "Sun Steel"
+        elseif config.metal_type == 20 then
+            metalType = "Thoth"
+        elseif config.metal_type == 21 then
+            metalType = "Tin"
+        elseif config.metal_type == 21 then
+            metalType = "Zinc"
+        elseif config.metal_type == 21 then
+            metalType = "Water Metal"
+        end
 
         srReadScreen();
-        metalType = findText(config.metal_type);
-        if metalType then 
+        metalToTreat = findText(metalType);
+        if metalToTreat then 
             lsSleep(500);
-            clickText(waitForText(config.metal_type));
+            clickText(waitForText(metalType));
         else
-            error("Could not find metal type: " .. config.metal_type)
+            if metalType == "Thoth" then
+                error("Could not find metal type: " .. metalType .. "'s Metal")
+            elseif metalType == "Octec" then
+                error("Could not find metal type: " .. metalType .. "'s Alloy")
+            else
+                error("Could not find metal type: " .. metalType)
+            end
         end
 
         waitForText("Load how much");
@@ -182,28 +242,28 @@ function getUserParams()
     while not is_done do
         current_y = 10;
 
-        if not got_user_params then
-          lsSetCamera(0,0,lsScreenX*1.4,lsScreenY*1.4);
-            lsScrollAreaBegin("scroll_area", X_PADDING, current_y, X_PADDING, lsScreenX - X_PADDING+115, 115);
-            config.metal_index = readSetting("metal_name",config.metal_index);
-            config.metal_index = lsDropdown("metal_name", X_PADDING, current_y, X_PADDING, lsScreenX + 50, config.metal_index, METAL_RECIPE);
-            writeSetting("metal_name",config.metal_index);
-            lsScrollAreaEnd(#METAL_RECIPE * 25);
+        lsPrintWrapped(8, current_y, 10, lsScreenX - 20, 0.65, 0.65, 0xD0D0D0ff,
+        "Automatically process treated metal from a given recipe.\n-----------------------------------------------------------");
+
+            lsSetCamera(0,0,lsScreenX*1.4,lsScreenY*1.4);
+                config.metal_index = readSetting("metal_name",config.metal_index);
+                lsPrint(10, current_y+70, z, 0.95, 0.95, 0xffff40ff, "Treatment Recipe:");
+                config.metal_index = lsDropdown("metal_name", 10, current_y+98, X_PADDING, 375, config.metal_index, METAL_RECIPE);
+                writeSetting("metal_name",config.metal_index);
+                config.metal_name = METAL_RECIPE[config.metal_index];
+                lsPrint(233, current_y+135, z, 0.95, 0.95, 0xffff40ff, "Metal to treat:");
+                config.metal_type = lsDropdown("metal_type", 233, current_y+163, X_PADDING, 150, config.metal_type, metalList);
+                lsPrint(10, current_y+135, z, 0.95, 0.95, 0xffff40ff, "Volume of metal:");
+                current_y = 105;
             lsSetCamera(0,0,lsScreenX*1.0,lsScreenY*1.0);
-            config.metal_name = METAL_RECIPE[config.metal_index];
-            current_y = 105;
-            config.metal_type = drawNumberEditBox("metal_type", "                                    Which metal to treat?", nil, false, 115);
             current_y = current_y - 25;
-            config.metal_amount = drawNumberEditBox("metal_amount", "                      Treat how much metal?", 500, true, 65);
+            config.metal_amount = drawNumberEditBox("metal_amount", "                      Treat how much metal?", 100, true, 65);
             current_y = current_y - 5;
             got_user_params = true;
-            for k,v in pairs(config) do
-                got_user_params = got_user_params and v;
-            end
 
             if config.metal_amount then
-                drawWrappedText("Metal Treatment Recipe : (Per 100 Metal)", 0x00FF00FF, X_PADDING, current_y-10);
-                current_y = current_y + 15;
+                drawWrappedText("Metal Treatment Recipe : (Per 100 Metal)", 0x00FF00FF, X_PADDING, current_y+30);
+                current_y = current_y + 55;
                 for i=1, #recipes[config.metal_index].ingredient do
                     if recipes[config.metal_index].ingredient[i] == "AluminumSalts" then
                         drawWrappedText(math.ceil(recipes[config.metal_index].amount[i] / 10) .. " " .. "Salts Of Aluminum", 0xD0D0D0ff, X_PADDING, current_y);
@@ -238,11 +298,12 @@ function getUserParams()
                     drawWrappedText(math.ceil(recipes[config.metal_index].amount[i]) .. " Seconds " .. "", 0xFFFF40FF, X_PADDING + 105, current_y);
                     current_y = current_y + 15;
                 end
-            end
-            got_user_params = got_user_params and drawBottomButton(lsScreenX - 5, "Process");
-            is_done = got_user_params;
         end
 
+        if lsButtonText(8, lsScreenY - 30, z, 100, 0x00ff00ff, "Process") then
+			is_done = 1;
+		end
+ 
         if lsButtonText(lsScreenX - 110, lsScreenY - 30, z, 100, 0xFF0000ff,
                     "End script") then
         error "Script exited by user";
@@ -264,7 +325,7 @@ function drawEditBox(key, text, default, validateNumber, size)
     drawTextUsingCurrent(text, WHITE);
     local width = validateNumber and 50 or 200;
     local height = 22;
-    local done, result = lsEditBox(key, X_PADDING, current_y-22, 0, size, height, 1.0, 1.0, BLACK, default);
+    local done, result = lsEditBox(key, X_PADDING+3, current_y+22, 0, size, height, 1.0, 1.0, BLACK, default);
     if validateNumber then
         result = tonumber(result);
     elseif result == "" then

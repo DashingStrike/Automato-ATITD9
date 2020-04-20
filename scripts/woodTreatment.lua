@@ -24,12 +24,12 @@ function doit()
     askForWindow("Open the wood treatment tank. Take any boards away so we start with an empty tank.");
     while 1 do
         checkBreak();
-        local config = getUserParams();
         srReadScreen();
-        window_pos = findText("This is [a-z]+ Wood Treatment Tank", nil, REGEX);
+        local window_pos = findText("This is [a-z]+ Wood Treatment Tank", nil, REGEX);
             if (not window_pos) then
-                error "Did not find any Wood Treatment Tank window";
+                error "Did not find a pinned Wood Treatment Tank window";
             end
+        local config = getUserParams();    
         checkBreak();
         sleepWithStatus(1200, "Preparing to Start ...\n\nHands off the mouse!"); 
         treatBoards(config);
@@ -136,7 +136,7 @@ current_y = 0
 X_PADDING = 5
 
 function getUserParams()
-    local is_done = false;
+    local is_done = nil;
     local got_user_params = false;
     local config = {boards_amount=500};
     config.board_name = "";
@@ -144,36 +144,39 @@ function getUserParams()
     while not is_done do
         current_y = 10;
 
-        if not got_user_params then
-          lsSetCamera(0,0,lsScreenX*1.4,lsScreenY*1.4);
-            lsScrollAreaBegin("scroll_area", X_PADDING, current_y, X_PADDING, lsScreenX - X_PADDING+115, 115);
+        lsPrintWrapped(8, current_y, 10, lsScreenX - 20, 0.65, 0.65, 0xD0D0D0ff,
+        "Automatically process treated boards from a given recipe.\n-----------------------------------------------------------");
+
+        lsSetCamera(0,0,lsScreenX*1.4,lsScreenY*1.4);
             config.board_index = readSetting("board_name",config.board_index);
-            config.board_index = lsDropdown("board_name", X_PADDING, current_y, X_PADDING, lsScreenX + 50, config.board_index, BOARD_RECIPE);
+            lsPrint(10, current_y+70, z, 0.95, 0.95, 0xffff40ff, "Treatment Recipe:");
+            config.board_index = lsDropdown("board_name", 10, current_y+100, X_PADDING, 375, config.board_index, BOARD_RECIPE);
             writeSetting("board_name",config.board_index);
-            lsScrollAreaEnd(#BOARD_RECIPE * 25);
-            lsSetCamera(0,0,lsScreenX*1.0,lsScreenY*1.0);
             config.board_name = BOARD_RECIPE[config.board_index];
             current_y = 105;
-            config.boards_amount = drawNumberEditBox("boards_amount", "                      Treat how many boards?", 500);
-            current_y = current_y - 5;
-            got_user_params = true;
-            for k,v in pairs(config) do
-                got_user_params = got_user_params and v;
-            end
-            if config.boards_amount then
-                drawWrappedText("Wood Treatment Recipe : (Per 500 Boards)", 0x00FF00FF, X_PADDING, current_y-10);
+            lsPrint(10, current_y+40, z, 0.95, 0.95, 0xffff40ff, "Volume of boards to treat:");
+        lsSetCamera(0,0,lsScreenX*1.0,lsScreenY*1.0);
+        config.boards_amount = drawNumberEditBox("boards_amount", " ", 500);
+        current_y = current_y - 5;
+        got_user_params = true;
+        for k,v in pairs(config) do
+            got_user_params = got_user_params and v;
+        end
+        if config.boards_amount then
+            drawWrappedText("Wood Treatment Recipe : (Per 500 Boards)", 0x00FF00FF, X_PADDING, current_y+5);
+            current_y = current_y + 15;
+            for i=1, #recipes[config.board_index].ingredient do
+                drawWrappedText(math.ceil(recipes[config.board_index].amount[i] / 10) .. " " .. recipes[config.board_index].ingredient[i], 0xD0D0D0ff, X_PADDING, current_y+10);
+                drawWrappedText(" : ", 0xFF0000ff, X_PADDING + 85, current_y+10);
+                drawWrappedText(math.ceil(recipes[config.board_index].amount[i]) .. " Seconds " .. "", 0xFFFF40FF, X_PADDING + 105, current_y+10);
                 current_y = current_y + 15;
-                for i=1, #recipes[config.board_index].ingredient do
-                    drawWrappedText(math.ceil(recipes[config.board_index].amount[i] / 10) .. " " .. recipes[config.board_index].ingredient[i], 0xD0D0D0ff, X_PADDING, current_y);
-                    drawWrappedText(" : ", 0xFF0000ff, X_PADDING + 85, current_y);
-                    drawWrappedText(math.ceil(recipes[config.board_index].amount[i]) .. " Seconds " .. "", 0xFFFF40FF, X_PADDING + 105, current_y);
-                    current_y = current_y + 15;
-                end
             end
-            got_user_params = got_user_params and drawBottomButton(lsScreenX - 5, "Process");
-            is_done = got_user_params;
         end
 
+        if lsButtonText(8, lsScreenY - 30, z, 100, 0x00ff00ff, "Process") then
+			is_done = 1;
+		end
+ 
         if lsButtonText(lsScreenX - 110, lsScreenY - 30, z, 100, 0xFF0000ff,
                     "End script") then
         error "Script exited by user";
@@ -195,7 +198,7 @@ function drawEditBox(key, text, default, validateNumber)
     drawTextUsingCurrent(text, WHITE);
     local width = validateNumber and 50 or 200;
     local height = 22;
-    local done, result = lsEditBox(key, X_PADDING, current_y-22, 0, 65, height, 1.0, 1.0, BLACK, default);
+    local done, result = lsEditBox(key, X_PADDING+3, current_y, 0, 65, height, 1.0, 1.0, BLACK, default);
     if validateNumber then
         result = tonumber(result);
     elseif result == "" then
