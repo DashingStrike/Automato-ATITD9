@@ -192,8 +192,17 @@ function getUserParams()
                 drawWrappedText("Total Cost:", 0x00ffffff, X_PADDING, current_y);
                 current_y = current_y + 20;
                 for i=1, #recipes[config.color_index].ingredient do
-                    drawWrappedText(math.ceil(recipes[config.color_index].amount[i] * config.paint_amount / 10) .. " " ..
-                             recipes[config.color_index].ingredient[i], 0xD0D0D0ff, X_PADDING, current_y);
+                    if recipes[config.color_index].ingredient[i] == "Cabbage" then
+                        drawWrappedText(math.ceil(recipes[config.color_index].amount[i] * config.paint_amount / 10) .. " " ..
+                            recipes[config.color_index].ingredient[i] .. " Juice", 0xD0D0D0ff, X_PADDING, current_y);
+                    elseif recipes[config.color_index].ingredient[i] == "Silver" then
+                        drawWrappedText(math.ceil(recipes[config.color_index].amount[i] * config.paint_amount / 10) .. " " ..
+                            recipes[config.color_index].ingredient[i] .. " Powder", 0xD0D0D0ff, X_PADDING, current_y);
+                    else
+                        drawWrappedText(math.ceil(recipes[config.color_index].amount[i] * config.paint_amount / 10) .. " " ..
+                            recipes[config.color_index].ingredient[i], 0xD0D0D0ff, X_PADDING, current_y);
+                    end
+                    
                     current_y = current_y + 15;
                 end
             end
