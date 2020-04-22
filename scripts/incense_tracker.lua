@@ -400,18 +400,51 @@ herbs = {
 	"Zanthoxylum",
 };
 
-petals = {
-	"Bloodheart",
-	"Dawn's Blush",
-	"Goldenleaves",
-	"Hatch's Bud",
-	"Heart of Darkness",
-	"Night Bloom",
-	"Onion Skin",
-	"Pantomime",
-	"Pink Giant",
-	"Red Dwarf",
-	"White Giant",
+mushrooms = {
+	"Acorn's Cap Mushrooms",
+	"Badger Badger Mushrooms",
+	"Barley Bowl Mushrooms",
+	"Bleeding Hand Mushrooms",
+	"Brain Mushrooms",
+	"Camels Mane Mushrooms",
+	"Campanella Mushrooms",
+	"Carrion Mushrooms",
+	"Cat Nip Mushrooms",
+	"Cobra Hood Mushrooms",
+	"Crows Beak Mushrooms",
+	"Dead Tongue Mushrooms",
+	"Dueling Serpents Mushrooms",
+	"Dung Rot Mushrooms",
+	"Earth Light Mushrooms",
+	"Falcon's Bait Mushrooms",
+	"Fish Hook Mushrooms",
+	"Flat Mushrooms",
+	"Fruit of Horus Mushrooms",
+	"Golden Sun Mushrooms",
+	"Hairy Tooth Mushrooms",
+	"Heart of Ash Mushrooms",
+	"Heaven's Torrent Mushrooms",
+	"Iron Knot Mushrooms",
+	"Limphonus Mushrooms",
+	"Marasmius Mushrooms",
+	"Morel Mushrooms",
+	"Moses Basket Mushrooms",
+	"Nature's Jug Mushrooms",
+	"Nefertari's Crown Mushrooms",
+	"Nile Fire Mushrooms",
+	"Orange Campanella Mushrooms",
+	"Pool Of Tranquility Mushrooms",
+	"Ptah's Pimple Mushrooms",
+	"Ra's Awakening Mushrooms",
+	"Razor's Edge Mushrooms",
+	"Salt Water Fungus",
+	"Sand Spore Mushrooms",
+	"Schizophyllum Mushrooms",
+	"Scorpions Brood Mushrooms",
+	"Slave's Bread Mushrooms",
+	"Spiderling Mushrooms",
+	"Toad Skin Mushrooms",
+	"Twirls Mushrooms",
 };
 
 posstats = {
@@ -701,10 +734,10 @@ function displayStatus()
 		add_resin = lsButtonText(220, y, 0, 35, 0x00FF00ff, "+");
 		y = y + 35;
 
-		lsPrint(10, y, 0, 0.7, 0.7, 0xB0B0B0ff, "Add Petals: ");
+		lsPrint(10, y, 0, 0.7, 0.7, 0xB0B0B0ff, "Add Mushroom: ");
 		y = y + 16;
-		dd_petal_value = lsDropdown("thisPetal", 10, y, 0, 200, dd_petal_value, petals);
-		add_petal = lsButtonText(220, y, 0, 35, 0x00FF00ff, "+");
+		dd_mushroom_value = lsDropdown("thismushroom", 10, y, 0, 200, dd_mushroom_value, mushrooms);
+		add_mushroom = lsButtonText(220, y, 0, 35, 0x00FF00ff, "+");
 		y = y + 35;
 
 		if lsButtonText(lsScreenX - 110, lsScreenY - 60, z, 100, 0xFFFFFFff, "Take Batch") then
@@ -728,8 +761,8 @@ function displayStatus()
 		addIngredient("Resin", resins[dd_resin_value]);
 	end
 
-	if (add_petal) then
-		addIngredient("Petals", petals[dd_petal_value]);
+	if (add_mushroom) then
+		addIngredient("Mushroom", mushrooms[dd_mushroom_value]);
 	end
 
 	checkBreak();
@@ -777,7 +810,7 @@ end
 function doit()
 	last_time = lsGetTimer() + 5000;
 	
-	askForWindow("Pin Scent Lab and Add Resin/Herb/Petals menus and press SHIFT over the ATITD window.");
+	askForWindow("Pin Scent Lab and Add Resin/Herb/Mushroom menus and press SHIFT over the ATITD window.");
 	
 	srReadScreen();
 	labWindow = findText("This is [a-z]+ Scent Lab", nil, REGEX);
