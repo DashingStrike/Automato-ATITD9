@@ -838,6 +838,7 @@ end
 
 
 function threeStoneCombo()
+  local skipWork = nil;
     for i=1,#clickList do
         for j=i+1,#clickList do
             for k=j+1,#clickList do
@@ -945,6 +946,7 @@ end
 
 
 function fourStoneCombo()
+  local skipWork = nil;
     for a=1,#oreNodes4 do
                 findClosePopUpOld(); --Extra precaution to check for remaining popup before working the nodes
 
