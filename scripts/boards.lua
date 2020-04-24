@@ -121,69 +121,62 @@ end
 function planeBoards()
   srReadScreen();
 
-  if not carpShop then
-    clickplane = findAllText("Plane a piece");
-    woodplane = findAllText("Wood Plane")
-    if(#woodplane < 1) then
-      error("Could not any Wood Planes.");
-    end
-    statusScreen("Found " .. #woodplane .. " Wood Planes.\nPlaning  " ..
-    #clickplane .. " Boards\nRepaired " .. #clickrepair .. " Wood Planes.");
-  else
-    local click_delay = 200;
-while 1 do
-  -- Click pin ups to refresh the window
-  clickAllImages("ThisIs.png");
-  sleepWithStatus(500, "Refreshing");
+    while 1 do
+      -- Click pin ups to refresh the window
+      clickAllImages("ThisIs.png");
+      sleepWithStatus(500, "Refreshing");
 
-srReadScreen();
-local clickCount = 0;
-local ThisIsList = findAllImages("ThisIs.png");
-for i=1,#ThisIsList do
-  local x = ThisIsList[i][0];
-  local y = ThisIsList[i][1];
-  local width = 285;
-  local height = 250;
-  local p = srFindImageInRange("boards/planeWood.png", x, y, width, height, 5000);
-    if(p) then
-      closePopUp();
-      waitForStats();
-      safeClick(p[0]+4,p[1]+4);
-      clickCount = clickCount + 1;
-      srReadScreen();
-    else
-      p = srFindImageInRange("boards/upgrade.png", x, y, width, height, 5000);
-      if(p) then
-        safeClick(p[0]+4,p[1]+4);
-        lsSleep(click_delay);
-        srReadScreen();
-          if bladeName == "Slate Blade" then
-            p = srFindImage("boards/installASlateBlade.png", 5000);
-          elseif bladeName == "Flint Blade" then
-            p = srFindImage("boards/installAFlintBlade.png", 5000);
-          elseif bladeName == "Bone Blade" then
-            p = srFindImage("boards/installABoneBlade.png", 5000);
-          elseif bladeName == "Carpentry Blade" then
-            p = srFindImage("boards/installACarpentryBlade.png", 5000);
-          end
+    srReadScreen();
+    local clickCount = 0;
+    local ThisIsList = findAllImages("ThisIs.png");
+    for i=1,#ThisIsList do
+      local x = ThisIsList[i][0];
+      local y = ThisIsList[i][1];
+      local width = 285;
+      local height = 250;
+        if not carpShop then
+          p = srFindImageInRange("boards/planeWood.png", x, y, width, height, 5000);
+        else
+          p = srFindImageInRange("boards/carpWood.png", x, y, width, height, 5000);
+        end
           if(p) then
-            safeClick(p[0]+10,p[1]+10);
-            lsSleep(click_delay);
-            if bladeName == "Carpentry Blade" then
+            closePopUp();
+            waitForStats();
+            safeClick(p[0]+4,p[1]+4);
+            clickCount = clickCount + 1;
+            srReadScreen();
+          else
+            p = srFindImageInRange("boards/upgrade.png", x, y, width, height, 5000);
+            if(p) then
+              safeClick(p[0]+4,p[1]+4);
+              lsSleep(click_delay);
               srReadScreen();
-              p = srFindImage("boards/quality.png", 5000);
-              if(p) then
-                safeClick(p[0]+4,p[1]+4);
-                lsSleep(click_delay);
-                srReadScreen();
+                if bladeName == "Slate Blade" then
+                  p = srFindImage("boards/installASlateBlade.png", 5000);
+                elseif bladeName == "Flint Blade" then
+                  p = srFindImage("boards/installAFlintBlade.png", 5000);
+                elseif bladeName == "Bone Blade" then
+                  p = srFindImage("boards/installABoneBlade.png", 5000);
+                elseif bladeName == "Carpentry Blade" then
+                  p = srFindImage("boards/installACarpentryBlade.png", 5000);
+                end
+                if(p) then
+                  safeClick(p[0]+10,p[1]+10);
+                  lsSleep(click_delay);
+                  if bladeName == "Carpentry Blade" then
+                    srReadScreen();
+                    p = srFindImage("boards/quality.png", 5000);
+                    if(p) then
+                      safeClick(p[0]+4,p[1]+4);
+                      lsSleep(click_delay);
+                      srReadScreen();
+                    end
+                end
               end
+            end
           end
         end
-      end
     end
-  end
-end
-end
 end
 
 function waitForStats()
