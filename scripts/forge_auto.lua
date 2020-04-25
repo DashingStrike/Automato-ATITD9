@@ -210,6 +210,9 @@ local function makeItem(currentItem, window)
      elseif parents[2] == "Small Gear x1" or parents[2] == "Small Gear x10" then
         t = findText("Gearwork" .. "...", window);
         clickText(t);
+     elseif parents[2] == "Medium Gear x1" or parents[2] == "Medium Gear x10" then
+         t = findText("Gearwork" .. "...", window);
+         clickText(t);
      else
         t = findText(parents[2] .. "...", window);
      end
@@ -241,6 +244,16 @@ local function makeItem(currentItem, window)
      clickText(t);
    elseif lastParent == "Small Gear x10" then
       local t = waitForText("Small Gear");
+      clickText(t);
+      local t = waitForText("Make 10...");
+      clickText(t);
+   elseif lastParent == "Medium Gear x1" then
+      local t = waitForText("Medium Gear");
+      clickText(t);
+      local t = waitForText("Make 10...");
+      clickText(t);
+   elseif lastParent == "Medium Gear x10" then
+      local t = waitForText("Medium Gear");
       clickText(t);
       local t = waitForText("Make 10...");
       clickText(t);
