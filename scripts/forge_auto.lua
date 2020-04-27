@@ -238,31 +238,31 @@ local function makeItem(currentItem, window)
    local lastParent = parents[#parents];
 
    if lastParent == "Small Gear x1" then
-     local t = waitForText("Small Gear");
-     clickText(t);
+     local t = waitForText("Small Gear...");
+     safeClick(t[0]+20,t[1]+4);
      local t = waitForText("Make 1...");
-     clickText(t);
+     safeClick(t[0]+20,t[1]+4);
    elseif lastParent == "Small Gear x10" then
-      local t = waitForText("Small Gear");
-      clickText(t);
+      local t = waitForText("Small Gear...");
+      safeClick(t[0]+20,t[1]+4);
       local t = waitForText("Make 10...");
-      clickText(t);
+      safeClick(t[0]+20,t[1]+4);
    elseif lastParent == "Medium Gear x1" then
-      local t = waitForText("Medium Gear");
-      clickText(t);
+      local t = waitForText("Medium Gear...");
+      safeClick(t[0]+20,t[1]+4);
       local t = waitForText("Make 10...");
-      clickText(t);
+      safeClick(t[0]+20,t[1]+4);
    elseif lastParent == "Medium Gear x10" then
-      local t = waitForText("Medium Gear");
-      clickText(t);
+      local t = waitForText("Medium Gear...");
+      safeClick(t[0]+20,t[1]+4);
       local t = waitForText("Make 10...");
-      clickText(t);
+      safeClick(t[0]+20,t[1]+4);
    elseif lastParent == "Bars x5" then
       local t = waitForText("Make 5 sets");
-      clickText(t);
+      safeClick(t[0]+20,t[1]+4);
    elseif lastParent == "Bars x1" then
       local t = waitForText("Make 1 set");
-      clickText(t);
+      safeClick(t[0]+20,t[1]+4);
    end
       lsSleep(100);
 
@@ -308,7 +308,15 @@ local function makeItem(currentItem, window)
    if #parents == 1 then
       t = waitForText(text, 1000, nil, window);
    elseif lastParent == "Bars x1" or lastParent == "Bars x5" then
-      t = waitForText(text, 1000, nil, nil, EXACT);
+      srReadScreen();
+      pin = srFindImage("unpinnedPin.png");
+      thisRange = makeBox(pin[0]-165, pin[1]-2, 165, 450);
+      t = waitForText(text, 1000, nil, thisRange);
+   elseif lastParent == "Pots" then
+      srReadScreen();
+      pin = srFindImage("unpinnedPin.png");
+      thisRange = makeBox(pin[0]-200, pin[1]-5, 200, 87);
+      t = waitForText(text, 1000, nil, thisRange);
    else
       t = waitForText(text, 1000);
    end
@@ -316,7 +324,7 @@ local function makeItem(currentItem, window)
    if t == nil then
       return false;
    end
-   clickText(t);
+   safeClick(t[0]+20,t[1]);
    if #parents ~= 1 then
       waitForNoText(text, 1000);
    end
