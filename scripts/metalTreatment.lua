@@ -59,73 +59,76 @@ function makeMetal(config, metal_amount)
 end
 
 function makeMetalBatch(config, num_batches, remainder)
-    srReadScreen();
-    for i=1, num_batches do
-        checkBreak();    
-        srReadScreen();
-        refreshWindows();
-        
-        srReadScreen();
-        Load = findText("Load...");  
-        if Load then
-            clickText(Load);
-            lsSleep(500);        
-        else
-            error("Could not find a 'Load...' option")
-        end
-        
-        if config.metal_type == 1 then
-            metalType = "Aluminum"
-        elseif config.metal_type == 20 then
-            metalType = "Thoth"
-        end
 
-        if config.metal_type == 1 then
-            metalType = "Aluminum"
-        elseif config.metal_type == 2 then
-            metalType = "Antimony"
-        elseif config.metal_type == 3 then
-            metalType = "Brass"
-        elseif config.metal_type == 4 then
-            metalType = "Bronze"
-        elseif config.metal_type == 5 then
-            metalType = "Cobalt"
-        elseif config.metal_type == 6 then
-            metalType = "Copper"
-        elseif config.metal_type == 7 then
-            metalType = "Gold"
-        elseif config.metal_type == 8 then
-            metalType = "Iron"
-        elseif config.metal_type == 9 then
-            metalType = "Lead"
-        elseif config.metal_type == 10 then
-            metalType = "Magnesium"
-        elseif config.metal_type == 11 then
-            metalType = "Metal Blue"
-        elseif config.metal_type == 12 then
-            metalType = "Moon Steel"
-        elseif config.metal_type == 13 then
-            metalType = "Nickel"
-        elseif config.metal_type == 14 then
-            metalType = "Octec"
-        elseif config.metal_type == 15 then
-            metalType = "Pewter"
-        elseif config.metal_type == 16 then
-            metalType = "Platinum"
-        elseif config.metal_type == 17 then
-            metalType = "Silver"
-        elseif config.metal_type == 18 then
-            metalType = "Steel"
-        elseif config.metal_type == 19 then
-            metalType = "Sun Steel"
-        elseif config.metal_type == 20 then
-            metalType = "Thoth"
-        elseif config.metal_type == 21 then
-            metalType = "Tin"
-        elseif config.metal_type == 21 then
-            metalType = "Zinc"
-        elseif config.metal_type == 21 then
-            metalType = "Water Metal"
+    if config.metal_type == 1 then
+        metalType = "Aluminum"
+    elseif config.metal_type == 2 then
+        metalType = "Antimony"
+    elseif config.metal_type == 3 then
+        metalType = "Brass"
+    elseif config.metal_type == 4 then
+        metalType = "Bronze"
+    elseif config.metal_type == 5 then
+        metalType = "Cobalt"
+    elseif config.metal_type == 6 then
+        metalType = "Copper"
+    elseif config.metal_type == 7 then
+        metalType = "Gold"
+    elseif config.metal_type == 8 then
+        metalType = "Iron"
+    elseif config.metal_type == 9 then
+        metalType = "Lead"
+    elseif config.metal_type == 10 then
+        metalType = "Magnesium"
+    elseif config.metal_type == 11 then
+        metalType = "Metal Blue"
+    elseif config.metal_type == 12 then
+        metalType = "Moon Steel"
+    elseif config.metal_type == 13 then
+        metalType = "Nickel"
+    elseif config.metal_type == 14 then
+        metalType = "Octec"
+    elseif config.metal_type == 15 then
+        metalType = "Pewter"
+    elseif config.metal_type == 16 then
+        metalType = "Platinum"
+    elseif config.metal_type == 17 then
+        metalType = "Silver"
+    elseif config.metal_type == 18 then
+        metalType = "Steel"
+    elseif config.metal_type == 19 then
+        metalType = "Sun Steel"
+    elseif config.metal_type == 20 then
+        metalType = "Thoth"
+    elseif config.metal_type == 21 then
+        metalType = "Tin"
+    elseif config.metal_type == 22 then
+        metalType = "Zinc"
+    elseif config.metal_type == 23 then
+        metalType = "Water Metal"
+    end
+
+    for i=1, num_batches do
+        checkBreak();   
+        refreshWindows();
+        lsSleep(750); 
+
+        srReadScreen();
+        bathEmpty = findText("Metal in Bath: ")
+        if bathEmpty then
+            metalInBath = string.match(bathEmpty[2], "Metal in Bath: (%a+)")
+            if metalInBath == "None" then
+                srReadScreen();
+                Load = findText("Load...");  
+                    if Load then
+                        clickText(Load);
+                        lsSleep(750);        
+                    else
+                        error("Could not find a 'Load...' option")
+                    end
+                else
+                    error("The chemical bath is not empty, it currently contains " .. metalInBath)
+            end
         end
 
         srReadScreen();
@@ -201,7 +204,7 @@ function makeMetalBatch(config, num_batches, remainder)
             srReadScreen();
             lsSleep(250);
             clickAllText("Take Everything");
-            sleepWithStatus(2500, "Short pause to allow the Chemical Bath values to reset before loading the next set of metal.", nil, 0.7); 
+            sleepWithStatus(3500, "Short pause to allow the Chemical Bath values to reset before loading the next set of metal.", nil, 0.7); 
     end
 end
 
@@ -236,7 +239,7 @@ X_PADDING = 5
 function getUserParams()
     local is_done = false;
     local got_user_params = false;
-    local config = {metal_amount=500};
+    local config = {metal_amount=100};
     config.metal_name = "";
     config.metal_index = 1;
     while not is_done do
@@ -251,8 +254,10 @@ function getUserParams()
                 config.metal_index = lsDropdown("metal_name", 10, current_y+98, X_PADDING, 375, config.metal_index, METAL_RECIPE);
                 writeSetting("metal_name",config.metal_index);
                 config.metal_name = METAL_RECIPE[config.metal_index];
+                config.metal_type = readSetting("metal_type",config.metal_type);
                 lsPrint(233, current_y+135, z, 0.95, 0.95, 0xffff40ff, "Metal to treat:");
                 config.metal_type = lsDropdown("metal_type", 233, current_y+163, X_PADDING, 150, config.metal_type, metalList);
+                writeSetting("metal_type",config.metal_type);
                 lsPrint(10, current_y+135, z, 0.95, 0.95, 0xffff40ff, "Volume of metal:");
                 current_y = 105;
             lsSetCamera(0,0,lsScreenX*1.0,lsScreenY*1.0);
