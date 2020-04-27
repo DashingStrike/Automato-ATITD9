@@ -871,6 +871,9 @@ if not skipWork then
                 lsSleep(clickDelay);
                 clickAllText("[A]", 20, 2, 1); -- offsetX, offsetY, rightClick (1 = true)
 
+                srReadScreen();
+                clickAllText("Ore Stone", 20, 2, 1)
+
                 -- 2nd Node
                 checkBreak();
                 checkAbort();
@@ -878,12 +881,18 @@ if not skipWork then
                 lsSleep(clickDelay);
                 clickAllText("[A]", 20, 2, 1); -- offsetX, offsetY, rightClick (1 = true)
 
+                srReadScreen();
+                clickAllText("Ore Stone", 20, 2, 1)
+
                 -- 3rd Node
                 checkBreak();
                 checkAbort();
                 srClickMouseNoMove(clickList[k][1], clickList[k][2], 1);
                 lsSleep(clickDelay);
                 clickAllText("[S]", 20, 2, 1); -- offsetX, offsetY, rightClick (1 = true)
+
+                srReadScreen();
+                clickAllText("Ore Stone", 20, 2, 1)
 
                 else -- noMouseMove is false
 
