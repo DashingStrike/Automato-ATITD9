@@ -4,8 +4,7 @@
 -- at once as long as they use different attributes.
 --
 dofile("common.inc");
-
-stirMaster = false; -- TODO: Make this an optional selection when choosing the Stir Cement option
+dofile("settings.inc");
 
 items = {
         --strength
@@ -93,6 +92,12 @@ function getClickActions()
             y = y + 24;
             tasks[i] = lsDropdown(statNames[i], 5, y, 0, 200, tasks[i], items[i]);
             y = y + 32;
+            if items[i][tasks[i]] == "Stir Cement" then
+                y = y + 35;
+                stirMaster = readSetting("stirMaster",stirMaster);
+                stirMaster = lsCheckBox(5, y-30, z, 0xFFFFFFff, " Automatically fill the Clinker Vat", stirMaster);
+                writeSetting("stirMaster",stirMaster);
+            end
         end
         lsDoFrame();
         lsSleep(tick_delay);
@@ -421,31 +426,40 @@ function pyramidPush()
 end
 
 function stirCement()
-    t = waitForText("Stir the cement", 1000);
+    t = waitForText("Stir the cement", 2000);
     if t then
-        clickText(t);
+        safeClick(t[0]+20,t[1]);
     else
         clickText(findText("This is [a-z]+ Clinker Vat", nil, REGEX));
+        lsSleep(500);
         if stirMaster then
-            clickText(waitForText("Take..."));
-            clickText(waitForText("Everything"));
+            take = findText("Take...")
+            if take then
+                clickText(waitForText("Take..."));
+                clickText(waitForText("Everything"));
+            end
+            sleepWithStatus(1750, "Adding Bauxite to the Clinker Vat")
             clickText(waitForText("Load the vat with Bauxite"));
             waitForText("how much");
             srCharEvent("10\n");
             waitForNoText("how much");
+            sleepWithStatus(1750, "Adding Gypsum to the Clinker Vat")
             clickText(waitForText("Load the vat with Gypsum"));
             waitForText("how much");
             srCharEvent("10\n");
             waitForNoText("how much");
+            sleepWithStatus(1750, "Adding Clinker to the Clinker Vat")
             clickText(waitForText("Load the vat with Clinker"));
             waitForText("how much");
             srCharEvent("800\n");
             waitForNoText("how much");
+            sleepWithStatus(1750, "Adding Petroleum to the Clinker Vat")
             clickText(waitForText("Load the vat with Petroleum"));
             waitForText("much fuel");
             srCharEvent("40\n");
             waitForNoText("how much");
-            clickText(waitForText("Make a batch of Cement"));
+            sleepWithStatus(1750, "Mixing a batch of Cement")
+            clickText(waitForText("Make a batch of Cement"));      
         end
     end
 end
@@ -616,17 +630,16 @@ function checkStatsPane()
 end
 
 function closePopUp()
-    lsSleep(100);
-    while 1 do
-        checkBreak();
-        srReadScreen()
-        local ok = srFindImage("OK.png")
-        if ok then
-            srClickMouseNoMove(ok[0] + 5, ok[1], 1);
-            lsSleep(100);
-        else
-            break;
-        end
+    while 1 do -- Perform a loop in case there are multiple pop-ups behind each other;
+      checkBreak();
+      srReadScreen();
+      OK = srFindImage("OK.png");
+      if OK then
+        safeClick(OK[0]+2,OK[1]+2, true);
+        lsSleep(200);
+      else
+        break;
+      end
     end
 end
 
