@@ -311,7 +311,12 @@ local function makeItem(currentItem, window)
       srReadScreen();
       pin = srFindImage("unpinnedPin.png");
       thisRange = makeBox(pin[0]-165, pin[1]-2, 165, 450);
-      t = waitForText(text, 1000, nil, thisRange);
+      t = waitForText(text, 1000, nil, thisRange, EXACT);
+   elseif lastParent == "Small Gear x1" or lastParent == "Small Gear x10" or lastParent == "Medium Gear x1" or lastParent == "Medium Gear x10" then
+      srReadScreen();
+      pin = srFindImage("unpinnedPin.png");
+      thisRange = makeBox(pin[0]-205, pin[1]-2, 205, 450);
+      t = waitForText(text, 1000, nil, thisRange); 
    elseif lastParent == "Pots" then
       srReadScreen();
       pin = srFindImage("unpinnedPin.png");
