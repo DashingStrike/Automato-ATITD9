@@ -447,6 +447,20 @@ mushrooms = {
 	"Twirls Mushrooms",
 };
 
+petals = {
+	"Blood Heart",
+	"Dawn's Blush",
+	"GoldenLeaves",
+	"Hatch's Bud",
+	"Heart of Darkness",
+	"Night Bloom",
+	"Onion Skin",
+	"Pantomime",
+	"Pink Giant",
+	"Red Dwarf",
+	"White Giant",
+};
+
 posstats = {
 	["dexterity"] = "+Dex",
 	["perception"] = "+Per",
@@ -535,7 +549,7 @@ end
 
 function saveIncenseChange(ingred)
 	old = formatCSV(incQuality, incScent, incFeeling, incPositive, incNegative);
-	new = formatCSV(newQuality, incScent, newFeeling, newPositive, newNegative);
+	new = formatCSV(newQuality, newScent, newFeeling, newPositive, newNegative);
 	entry = old .. "," .. ingred .. "," .. new;
 
 	fh = io.open("incenseadds.txt", "a+");
@@ -739,6 +753,12 @@ function displayStatus()
 		dd_mushroom_value = lsDropdown("thismushroom", 10, y, 0, 200, dd_mushroom_value, mushrooms);
 		add_mushroom = lsButtonText(220, y, 0, 35, 0x00FF00ff, "+");
 		y = y + 35;
+		
+		lsPrint(10, y, 0, 0.7, 0.7, 0xB0B0B0ff, "Add Petals of Ra: ");
+		y = y + 16;
+		dd_petal_value = lsDropdown("thispetal", 10, y, 0, 200, dd_petal_value, petals);
+		add_petal = lsButtonText(220, y, 0, 35, 0x00FF00ff, "+");
+		y = y + 35;
 
 		if lsButtonText(lsScreenX - 110, lsScreenY - 60, z, 100, 0xFFFFFFff, "Take Batch") then
 			takeBatch();
@@ -764,7 +784,9 @@ function displayStatus()
 	if (add_mushroom) then
 		addIngredient("Mushroom", mushrooms[dd_mushroom_value]);
 	end
-
+	if (add_petal) then
+		addIngredient("Petals of Ra", petals[dd_petal_value]);
+	end
 	checkBreak();
 	lsDoFrame();
 end
@@ -810,7 +832,7 @@ end
 function doit()
 	last_time = lsGetTimer() + 5000;
 	
-	askForWindow("Pin Scent Lab and Add Resin/Herb/Mushroom menus and press SHIFT over the ATITD window.");
+	askForWindow("Pin Scent Lab and Add Resin/Herb/Mushroom/Petal menus and press SHIFT over the ATITD window.");
 	
 	srReadScreen();
 	labWindow = findText("This is [a-z]+ Scent Lab", nil, REGEX);
