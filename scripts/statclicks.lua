@@ -41,6 +41,7 @@ items = {
             "Large Crude Handle",
             "Personal Chit",
             "Sharpened Stick",
+            "Search Rotten Wood",
             "Tap Rods",
             "Tinder",
             "Wooden Peg",
@@ -213,36 +214,16 @@ function digHole()
     end
 end
 
-function waterInsects()
-  centerMouse()
-  drawWater()
-  local escape = "\27"
-  local pos = nil
-    while (not pos) do
-      lsSleep(100)
-      srKeyEvent(escape)
-      lsSleep(100)
-      srReadScreen()
-      pos = findText("Skills...")
+function searchRottenWood()
+    woodForBugs = findText("Wood for Bugs");
+
+    if woodForBugs ~= nil then
+        clickText(woodForBugs);
+        lsSleep(per_tick);
+        srReadScreen();
+        closePopUp();
+        lsSleep(per_tick);
     end
-    clickText(pos)
-    lsSleep(100)
-    srReadScreen()
-    pos = findText("Empty Containers")
-      if pos then
-        clickText(pos)
-        lsSleep(100)
-        srReadScreen()
-        pos = findText("Jugs of Water")
-          if pos then
-            clickText(pos)
-            lsSleep(100)
-            srReadScreen()
-            if not clickMax() then
-              fatalError("Unable to find the Max button.")
-            end
-          end
-      end
 end
 
 function combFlax()
@@ -589,8 +570,8 @@ function doTasks()
                     carve(curTask);
                 elseif curTask == "Dig Hole" then
                     digHole();
-                elseif curTask == "Water Insects" then
-                    waterInsects();
+                elseif curTask == "Search Rotten Wood" then
+                    searchRottenWood();
                 else
                     clickText(findText(textLookup[curTask]));
                 end
