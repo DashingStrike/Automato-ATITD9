@@ -68,27 +68,38 @@ end
 
 function makePaintBatch(config, num_batches, size)
     srReadScreen();
-    local paint_buttons = findAllImages("plus.png");
-    if (#paint_buttons == 0) then
-        error "No buttons found";
-    end
+    local pigmentLab = findAllText("Pigment Laboratory");
+    
+    for i=1,#pigmentLab do
+        
+        local x = pigmentLab[i][0];
+        local y = pigmentLab[i][1];
+        local width = 320;
+        local height = 540;
 
-    for i=1, num_batches do
-        checkBreak();
-        for iidx=1, #recipes[config.color_index].ingredient do
-            for aidx=1, recipes[config.color_index].amount[iidx] do
-                checkBreak();
-                local buttonNo = BUTTON_INDEX[recipes[config.color_index].ingredient[iidx]];
-                srClickMouseNoMove(paint_buttons[buttonNo][0]+2,paint_buttons[buttonNo][1]+2, right_click);
-                sleepWithStatus(click_delay, "Making paint batch " .. i .. " of " .. math.floor(num_batches));
+        srReadScreen();  
+        local paint_buttons = findAllImagesInRange("plus.png", x, y, width, height);
+        if (#paint_buttons == 0) then
+            error "No buttons found";
+        end
+
+        for i=1, num_batches do
+            checkBreak();
+            for iidx=1, #recipes[config.color_index].ingredient do
+                for aidx=1, recipes[config.color_index].amount[iidx] do
+                    checkBreak();
+                    local buttonNo = BUTTON_INDEX[recipes[config.color_index].ingredient[iidx]];
+                    srClickMouseNoMove(paint_buttons[buttonNo][0]+2,paint_buttons[buttonNo][1]+2, right_click);
+                    sleepWithStatus(click_delay, "Making paint batch " .. i .. " of " .. math.floor(num_batches));
+                end
             end
+            srReadScreen();
+            lsSleep(100);
+            if take_paint then
+                clickAllText("Take the Paint");
+            end
+            lsSleep(100);
         end
-        srReadScreen();
-        lsSleep(100);
-        if take_paint then
-            clickAllText("Take the Paint");
-        end
-        lsSleep(100);
     end
 end
 
