@@ -23,13 +23,15 @@ items = {
             "Stir Cement",
             "Weave Canvas",
             "Weave Linen",
+            "Weave Papy Basket",
             "Weave Silk",
-            "Weave Wool Cloth",
+            "Weave Wool Cloth",         
             "Water Insects",
         },
         --con
         {"",
             "Gun Powder",
+            "Ink",
         },
         --foc
         {"",
@@ -60,6 +62,7 @@ takeAllWhenCombingFlax = false;
 local textLookup = {};
 textLookup["Coconuts"] = "Harvest the Coconut Meat";
 textLookup["Gun Powder"] = "Gunpowder";
+textLookup["Ink"] = "Ink";
 textLookup["Pump Aqueduct"] = "Pump the Aqueduct";
 
 statNames = {"strength", "endurance", "constitution", "focus"};
@@ -115,6 +118,9 @@ function weave(clothType)
     elseif clothType == "Linen" then
         srcType = "Thread";
         srcQty = "400";
+    elseif clothType == "Basket" then
+        srcType = "Dried Papyrus";
+        srcQty = "200";
     elseif clothType == "Wool" then
         srcType = "Yarn";
         srcQty = "60";
@@ -532,6 +538,8 @@ function doTasks()
                     weave("Canvas");
                 elseif curTask == "Weave Linen" then
                     weave("Linen");
+                elseif curTask == "Weave Papy Basket" then
+                    weave("Basket");
                 elseif curTask == "Weave Wool Cloth" then
                     weave("Wool");
                 elseif curTask == "Weave Silk" then
