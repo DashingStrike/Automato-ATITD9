@@ -440,11 +440,17 @@ function stirCement()
             waitForText("how much");
             srCharEvent("800\n");
             waitForNoText("how much");
-            sleepWithStatus(1750, "Adding Petroleum to the Clinker Vat")
-            clickText(waitForText("Load the vat with Petroleum"));
-            waitForText("much fuel");
-            srCharEvent("40\n");
-            waitForNoText("how much");
+
+            lsSleep(250);
+            clickText(findText("This is [a-z]+ Clinker Vat", nil, REGEX));
+            fuel = findText("Fuel level")
+            if not fuel then
+                sleepWithStatus(1750, "Adding Petroleum to the Clinker Vat")
+                clickText(waitForText("Load the vat with Petroleum"));
+                waitForText("much fuel");
+                srCharEvent("40\n");
+                waitForNoText("how much");
+            end
             sleepWithStatus(1750, "Mixing a batch of Cement")
             clickText(waitForText("Make a batch of Cement"));      
         end
@@ -625,7 +631,7 @@ function closePopUp()
       OK = srFindImage("OK.png");
       if OK then
         safeClick(OK[0]+2,OK[1]+2, true);
-        lsSleep(200);
+        lsSleep(750);
       else
         break;
       end
