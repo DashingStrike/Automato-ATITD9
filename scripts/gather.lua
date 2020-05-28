@@ -90,7 +90,7 @@ SummerMaple = 73;
 WhitePine = 74;
 Safsaf = 75;
 SweetPine = 76;
-
+Papyrus = 77;
 
 WaypointOrder = {};
 WaypointOrder[#WaypointOrder+1] = Waypoint;
@@ -169,7 +169,7 @@ WaypointOrder[#WaypointOrder+1] = SummerMaple;
 WaypointOrder[#WaypointOrder+1] = WhitePine;
 WaypointOrder[#WaypointOrder+1] = Safsaf;
 WaypointOrder[#WaypointOrder+1] = SweetPine;
-
+WaypointOrder[#WaypointOrder+1] = Papyrus;
 
 WaypointTypes = {};
 WaypointTypes[Waypoint] = "Waypoint";
@@ -249,7 +249,7 @@ WaypointTypes[SummerMaple] = "Summer Maple";
 WaypointTypes[WhitePine] = "White Pine";
 WaypointTypes[Safsaf] = "Safsaf";
 WaypointTypes[SweetPine] = "Sweet Pine";
-
+WaypointTypes[Papyrus] = "Papyrus";
 
 WaypointColors = {};
 WaypointColors[Bonfire] = 0x3F3325FF;
@@ -327,7 +327,6 @@ WaypointColors[WhitePine] = 0x0A830AFF;
 WaypointColors[Safsaf] = 0x076501FF;
 WaypointColors[SweetPine] = 0x97BE7DFF;
 
-
 keyDelay = 30;
 minDelta = 45;
 
@@ -335,8 +334,7 @@ wood = false;
 slate = false;
 grass = false;
 clay = false;
-numJugs = 200;
-emptyJugs = 0;
+papy = false;
 repeatForever = true;
 juglessGather = false;
 
@@ -418,35 +416,28 @@ function queryRoute()
         clay = readSetting("clay",clay);
         clay = lsCheckBox(10, y, z, 0xFFFFFFff, " Gather clay and flint", clay);
         writeSetting("clay",clay);
-		if(clay) then
+        y = y + 36;
+        papy = readSetting("papy",papy);
+        papy = lsCheckBox(10, y, z, 0xFFFFFFff, " Plant Papyrus", papy);
+        writeSetting("papy",papy);
+        if(papy) then
 			y = y + 32;
-			juglessGather = readSetting("juglessGather",juglessGather);
-			juglessGather = lsCheckBox(35, y, z, 0xFFFFFFff, " Jugless clay gathering (Potter Talent)", juglessGather);
-			writeSetting("juglessGather",juglessGather);
-			if(not juglessGather) then
-				y = y + 32;
-				lsPrint(35, y+5, z, 1, 1, 0xFFFFFFff, "Number of jugs:");
-				numJugs = readSetting("numJugs",numJugs);
-				nada, numJugs = lsEditBox("jugCount",
-					200, y+7, z, 70, 0, 1.0, 1.0, 0x000000ff, numJugs);
-				writeSetting("numJugs",numJugs);
-				if (clay and (not tonumber(numJugs))) then
+				lsPrint(35, y+5, z, 1, 1, 0xFFFFFFff, "Pass Delay (ms)");
+				papyDelay = readSetting("papyDelay",papyDelay);
+				nada, papyDelay = lsEditBox("papyDelay",
+					200, y+7, z, 70, 0, 1.0, 1.0, 0x000000ff, papyDelay);
+				writeSetting("papyDelay",papyDelay);
+				if (papy and (not tonumber(papyDelay))) then
 					lsPrint(35, y+32, z+10, 0.9, 0.9, 0xFF2020ff, "MUST BE A NUMBER");
 				end
-			end
 		end
-        y = y + 32;
-        y = y + 32;
+        y = y + 36;
         repeatForever = readSetting("repeatForever",repeatForever);
-        repeatForever = lsCheckBox(10, y, z, 0xFFFFFFff, "Repeat forever", repeatForever);
+        repeatForever = lsCheckBox(10, y, z, 0xFFFFFFff, " Repeat forever", repeatForever);
         writeSetting("repeatForever",repeatForever);
         lsSetCamera(0,0,lsScreenX,lsScreenY);
         if lsButtonText(10, 320, z, 90, 0xFFFFFFff, "GO!") then
-            if (clay and (not tonumber(numJugs))) then
-                done = false;
-            else
-                followRoute(route);
-            end
+            followRoute(route);
         end
         if lsButtonText(200, 320, z, 90, 0xFFFFFFff, "Exit") then
             done = true;
@@ -860,22 +851,11 @@ function routeTo(waypoint,thisRoute)
     prepareForWalking();
     local x = tonumber(thisRoute[1][waypoint][1]);
     local y = tonumber(thisRoute[1][waypoint][2]);
-    moveTo(x, y, true);
+    walkTo(x, y, true);
 end
 
-
-
-
-
-
-
-
-
-
-
-
 function followRoute(route)
-    if(slate or clay or grass or wood) then
+    if(slate or clay or grass or wood or papy) then
         local haveWarehouse = false;
         local i;
         for i = 1, #routes[route][1] do
@@ -884,12 +864,16 @@ function followRoute(route)
             end
         end
         if(not haveWarehouse) then
-            if(not promptOkay("This route does not include a warehouse.  If you add a warehouse's coords to this route, resources will be stashed there every time you reach those coordinates.")) then
-                return;
+            if papy then 
+                haveWarehouse = false;
+            else
+                if(not promptOkay("This route does not include a warehouse.  If you add a warehouse's coords to this route, resources will be stashed there every time you reach those coordinates.")) then
+                    return;
+                end
             end
         end
     else
-        if(not wood or slate or clay or grass) then
+        if(not wood or slate or clay or grass or papy) then
             if(not promptOkay("You have not specified any resources to gather.  Are you sure that's what you want?")) then
                 return;
             end
@@ -912,7 +896,7 @@ function followRoute(route)
             lastPos = pos;
         end
         setStatus("Moving to " .. WaypointTypes[r[curr][3]] .. "\n(" .. r[curr][1] .. ", " .. r[curr][2] .. ")");
-        if(not moveTo(r[curr][1],r[curr][2])) then
+        if(not walkTo(r[curr][1],r[curr][2])) then
             return;
         end
         if(r[curr][3] == MenuClick) then
@@ -925,13 +909,17 @@ function followRoute(route)
                 stashWood();
             end
         elseif(r[curr][3] == Warehouse) then
-            if(ensureClickWaypoint(r,curr)) then
+            srReadScreen()
+            local stash = findText("Stash...")
+            if stash then
                 stashAllButWood();
             end
+        elseif(papy and r[curr][3] ~= Waypoint) then
+            plantPapy();
         elseif(r[curr][3] == Water) then
             while(not fillJugs()) do
-                moveTo(r[curr][1]+math.random(-1,1),r[curr][2]+math.random(-1,1),false,false);
-                if(not moveTo(r[curr][1],r[curr][2])) then
+                walkTo(r[curr][1]+math.random(-1,1),r[curr][2]+math.random(-1,1),false,false);
+                if(not walkTo(r[curr][1],r[curr][2])) then
                     return false;
                 end
             end
@@ -958,6 +946,9 @@ function followRoute(route)
         curr = curr + 1;
         if(curr > #r) then
             curr = 1;
+            if papyDelay then
+                sleepWithStatus(tonumber(papyDelay), "Waiting before starting next round")
+            end
             if(not repeatForever) then
                 routeStartTime = 0;
                 walkingRoute = false;
@@ -1029,19 +1020,19 @@ function ensureClickWaypoint(route,waypoint)
         pos = findCoords();
         if(pos) then
             if(direction == 1) then
-                moveTo(route[waypoint][1]-1,route[waypoint][2]-1,false,false);
-                moveTo(route[waypoint][1]+1,route[waypoint][2]+1,false,false);
+                walkTo(route[waypoint][1]-1,route[waypoint][2]-1,false,false);
+                walkTo(route[waypoint][1]+1,route[waypoint][2]+1,false,false);
             elseif (direction == 2) then
-                moveTo(route[waypoint][1]-1,route[waypoint][2]+1,false,false);
-                moveTo(route[waypoint][1]+1,route[waypoint][2]-1,false,false);
+                walkTo(route[waypoint][1]-1,route[waypoint][2]+1,false,false);
+                walkTo(route[waypoint][1]+1,route[waypoint][2]-1,false,false);
             elseif (direction == 3) then
-                moveTo(route[waypoint][1]+1,route[waypoint][2]-1,false,false);
-                moveTo(route[waypoint][1]-1,route[waypoint][2]+1,false,false);
+                walkTo(route[waypoint][1]+1,route[waypoint][2]-1,false,false);
+                walkTo(route[waypoint][1]-1,route[waypoint][2]+1,false,false);
             else
-                moveTo(route[waypoint][1]+1,route[waypoint][2]+1,false,false);
-                moveTo(route[waypoint][1]-1,route[waypoint][2]-1,false,false);
+                walkTo(route[waypoint][1]+1,route[waypoint][2]+1,false,false);
+                walkTo(route[waypoint][1]-1,route[waypoint][2]-1,false,false);
             end
-            if(not moveTo(route[waypoint][1],route[waypoint][2])) then
+            if(not walkTo(route[waypoint][1],route[waypoint][2])) then
                 return false;
             end
             direction = direction + 1
@@ -1238,7 +1229,7 @@ function stopMoving()
     movingDown = false;
 end
 
-function moveTo(x, y, showStatus, promptIfNotMoving)
+function walkTo(x, y, showStatus, promptIfNotMoving)
     if(promptIfNotMoving == nil) then
         promptIfNotMoving = true;
     end
@@ -1273,7 +1264,7 @@ function moveTo(x, y, showStatus, promptIfNotMoving)
         pos = findCoords();
         if (pos) then
             if(#pos < 1) then
-                fatalError("#pos < 2 in moveTo() ... (" .. #pos .. ")");
+                fatalError("#pos < 2 in walkTo() ... (" .. #pos .. ")");
             end
             if(pos[0] == lastPos[0] and pos[1] == lastPos[1]) then
                 moving = false;
@@ -1438,20 +1429,11 @@ function checkClay()
     end
     local xyWindowSize = srGetWindowSize();
     local midX = xyWindowSize[0] / 2;
-	if(not juglessGather) then
-		if((emptyJugs > (numJugs / 2)) or (emptyJugs > 50)) then
-			--fillJugs();
-		end
-	end
-    if(emptyJugs == numJugs) then
-        return false;
-    end
     local xyWindowSize = srGetWindowSize();
     local midX = xyWindowSize[0] / 2;
     local pos = srFindImage("clay.png");
     if(pos) then
         safeClick(pos[0] + 3, pos[1] + 3);
-        emptyJugs = emptyJugs + 1;
         sleepWithBreak(1250);
         return true;
     end
@@ -1533,6 +1515,22 @@ function stashWood()
         fatalError("Unable to find the Add some Wood menu item.");
     end
     setStatus("Wood stashed");
+end
+
+function plantPapy()
+    if(not papy) then
+        return false;
+    end
+    srReadScreen();
+    local pos = findText("Papyrus");
+    if(pos) then
+        safeClick(pos[0]+20, pos[1]+5);
+        sleepWithBreak(500);
+        return true;
+    else
+        fatalError("Unable to find the Papyrus option.");
+    end
+    return false;
 end
 
 function stashAllButWood()
@@ -1763,7 +1761,6 @@ function insertMenuTextAfter(where,thisRoute)
     end
     return thisRoute;
 end
-
 
 function deleteMenuText(where,thisRoute)
     if(#thisRoute[2] == 1) then
