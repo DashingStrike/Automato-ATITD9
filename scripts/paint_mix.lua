@@ -104,27 +104,33 @@ function makePaintBatch(config, num_batches, size)
 end
 
 function makePaint(config, paint_amount)
-    if paint_amount >= 100 then
+    if silkRibbon then
+        setBatchSize("Small");
+        makePaintBatch(config, math.floor(paint_amount))
+        clickAllText("Ribbons")
+    else
+        if paint_amount >= 100 then
         setBatchSize("Large");
         remainder = paint_amount % 100;
         hundreds = paint_amount - remainder;
         hundred_batches = hundreds / 100;
         makePaintBatch(config, math.floor(hundred_batches));
         makePaint(config, remainder);
-    else
-        if paint_amount >= 10 then
-            setBatchSize("Medium");
-            remainder = paint_amount % 10;
-            tens = paint_amount - remainder;
-            ten_batches = tens / 10;
-            makePaintBatch(config, math.floor(ten_batches));
-            makePaint(config, remainder)
         else
-            if take_paint then
-                setBatchSize("Small");
-                makePaintBatch(config, math.floor(paint_amount))
+            if paint_amount >= 10 then
+                setBatchSize("Medium");
+                remainder = paint_amount % 10;
+                tens = paint_amount - remainder;
+                ten_batches = tens / 10;
+                makePaintBatch(config, math.floor(ten_batches));
+                makePaint(config, remainder)
             else
-                makePaintBatch(config, math.floor(paint_amount))
+                if take_paint then
+                    setBatchSize("Small");
+                    makePaintBatch(config, math.floor(paint_amount))
+                else
+                    makePaintBatch(config, math.floor(paint_amount))
+                end
             end
         end
     end
@@ -181,42 +187,53 @@ function getUserParams()
 
             lsSetCamera(0,0,lsScreenX*1.4,lsScreenY*1.4);
                 config.color_index = readSetting("color_name",config.color_index);
-                lsPrint(13, current_y+73, z, 0.95, 0.95, 0xffff40ff, "Paint Recipe:");
-                config.color_index = lsDropdown("color_name", 13, current_y+103, X_PADDING, 350, config.color_index, COLOR_NAMES);
+                lsPrint(13, current_y+63, z, 0.95, 0.95, 0xffff40ff, "Paint Recipe:");
+                config.color_index = lsDropdown("color_name", 13, current_y+93, X_PADDING, 350, config.color_index, COLOR_NAMES);
                 writeSetting("color_name",config.color_index);
                 config.color_name = COLOR_NAMES[config.color_index];
+                silkRibbon = readSetting("silkRibbon",silkRibbon);
+                silkRibbon = CheckBox(11, current_y+88, 0, 0xffffffff, " Make Coloured Ribbon", silkRibbon, 0.67, 0.67);
+                writeSetting("silkRibbon",silkRibbon);
                 current_y = 160;
-                lsPrint(13, current_y, z, 0.95, 0.95, 0xffff40ff, "Volume of paint to mix:");
-            lsSetCamera(0,0,lsScreenX*1.0,lsScreenY*1.0);
-                config.paint_amount = drawNumberEditBox("paint_amount", " ",100);
-                take_paint = readSetting("take_paint",take_paint);
-                take_paint = CheckBox(90, current_y-81, 0, 0xffffffff, " Take Paint after batch", take_paint, 0.67, 0.67);
-                writeSetting("take_paint",take_paint);
-                if (not take_paint) then
-                    lsPrintWrapped(90, current_y-62, 10, lsScreenX - 20, 0.65, 0.65, 0xFF0000ff,
-                    "'Take Paint' is false, you must \nmake an exact paint quantity!");
-                end
+                    if not silkRibbon then
+                        lsPrint(10, current_y-40, z, 0.67, 0.67, 0xffff40ff, "Volume of paint to mix:");
+                    lsSetCamera(0,0,lsScreenX*1.0,lsScreenY*1.0);
+                        config.paint_amount = drawNumberEditBox("paint_amount", " ",100);
+                        take_paint = readSetting("take_paint",take_paint);
+                        take_paint = CheckBox(90, current_y-77, 0, 0xffffffff, " Take Paint after batch", take_paint, 0.67, 0.67);
+                        writeSetting("take_paint",take_paint);
+                        if (not take_paint) then
+                            lsPrintWrapped(90, current_y-58, 10, lsScreenX - 20, 0.65, 0.65, 0xFF0000ff,
+                            "'Take Paint' is false, you must \nmake an exact paint quantity!");
+                        end
+                    end    
                 current_y = current_y - 5;
-            if config.paint_amount then
-                drawWrappedText("Mix " .. config.paint_amount .. " debens of " ..
-                         config.color_name .. " paint.", 0x00ffffff, X_PADDING, current_y-20);
-                drawWrappedText("Total Cost:", 0x00ffffff, X_PADDING, current_y);
-                current_y = current_y + 20;
-                for i=1, #recipes[config.color_index].ingredient do
-                    if recipes[config.color_index].ingredient[i] == "Cabbage" then
-                        drawWrappedText(math.ceil(recipes[config.color_index].amount[i] * config.paint_amount / 10) .. " " ..
-                            recipes[config.color_index].ingredient[i] .. " Juice", 0xD0D0D0ff, X_PADDING, current_y);
-                    elseif recipes[config.color_index].ingredient[i] == "Silver" then
-                        drawWrappedText(math.ceil(recipes[config.color_index].amount[i] * config.paint_amount / 10) .. " " ..
-                            recipes[config.color_index].ingredient[i] .. " Powder", 0xD0D0D0ff, X_PADDING, current_y);
-                    else
-                        drawWrappedText(math.ceil(recipes[config.color_index].amount[i] * config.paint_amount / 10) .. " " ..
-                            recipes[config.color_index].ingredient[i], 0xD0D0D0ff, X_PADDING, current_y);
+
+                if silkRibbon then
+                    config.paint_amount = 5;
+                    take_paint = false;
+                end    
+
+                if config.paint_amount then
+                    drawWrappedText("Mix " .. config.paint_amount .. " debens of " ..
+                            config.color_name .. " paint.", 0x00ffffff, X_PADDING, current_y-20);
+                    drawWrappedText("Total Cost:", 0x00ffffff, X_PADDING, current_y);
+                    current_y = current_y + 20;
+                    for i=1, #recipes[config.color_index].ingredient do
+                        if recipes[config.color_index].ingredient[i] == "Cabbage" then
+                            drawWrappedText(math.ceil(recipes[config.color_index].amount[i] * config.paint_amount / 10) .. " " ..
+                                recipes[config.color_index].ingredient[i] .. " Juice", 0xD0D0D0ff, X_PADDING, current_y);
+                        elseif recipes[config.color_index].ingredient[i] == "Silver" then
+                            drawWrappedText(math.ceil(recipes[config.color_index].amount[i] * config.paint_amount / 10) .. " " ..
+                                recipes[config.color_index].ingredient[i] .. " Powder", 0xD0D0D0ff, X_PADDING, current_y);
+                        else
+                            drawWrappedText(math.ceil(recipes[config.color_index].amount[i] * config.paint_amount / 10) .. " " ..
+                                recipes[config.color_index].ingredient[i], 0xD0D0D0ff, X_PADDING, current_y);
+                        end
+                        
+                        current_y = current_y + 15;
                     end
-                    
-                    current_y = current_y + 15;
                 end
-            end
 
         if lsButtonText(8, lsScreenY - 30, z, 100, 0x00ff00ff, "Process") then
 			is_done = 1;
@@ -243,7 +260,7 @@ function drawEditBox(key, text, default, validateNumber)
     drawTextUsingCurrent(text, WHITE);
     local width = validateNumber and 50 or 200;
     local height = 22;
-    local done, result = lsEditBox(key, X_PADDING+5, current_y-46, 0, 65, height, 1.0, 1.0, BLACK, default);
+    local done, result = lsEditBox(key, X_PADDING+5, current_y-42, 0, 65, height, 1.0, 1.0, BLACK, default);
     if validateNumber then
         result = tonumber(result);
     elseif result == "" then
