@@ -136,30 +136,8 @@ function makePaint(config, paint_amount)
     end
 end
 
-function close_map()
-    srReadScreen();
-    map_close = findAllImages("map_close.png");
-
-    if map_close then
-        for i=1, #map_close do
-            -- click near each 'x' in turn to see if that brings the map into focus
-            srClickMouse(map_close[i][0]-10,map_close[i][1]);
-            lsSleep(200);
-            srReadScreen();
-            map_text = findText("Map of Egypt");
-            if map_text then
-                print("Map found, closing");
-                srClickMouse(map_close[i][0]+5,map_close[i][1]+5);
-                break;
-            end
-        end
-    end
-end
-
 function mixPaint(config)
-    close_map();
     srReadScreen();
-
     batch_picker = findText("Batch Size...");
     if batch_picker then
         makePaint(config, config.paint_amount);
