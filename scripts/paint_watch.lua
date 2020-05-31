@@ -59,7 +59,6 @@ function doit()
         y = 10;
         
         if lsButtonText(lsScreenX - 10, 50, 0, 100, 0xff6251ff, "Reset") then
-            sleepWithStatus(6000,"What is paint_count >> " .. paint_count)
             reset(paint_count);  
             paint_sum = {0,0,0};
             paint_count = 0;
