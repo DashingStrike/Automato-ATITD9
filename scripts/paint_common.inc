@@ -112,7 +112,7 @@ function reset(already_added)
         sleepWithStatus(16, "Release Mouse to continue ...", nil, 0.7, "Preparing to Click");
       end
     print("Finishing paint with Red Sand");
-    for i= 1, 10 - already_added do
+    for i= 1, 10 - already_added + 1 do
         -- finish the paint recipe with red sand
         click_ingredient("Red Sand");
     end
