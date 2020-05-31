@@ -43,13 +43,9 @@ function doit()
     local y = 0;
     local button_push = 0;
 
-    lsSetCaptureWindow();
-
     askForWindow("Pin your Pigment Laboratory window, anywhere (but don\'t move it once you start macro).\n\nNote: You will want to keep a supply of Red Sand for the Reset button (100 to test all reactions should be fine).\n\nClicking the 'Reset' button will set your Pigment Lab 'back to Black' color, again, but it requires Red Sand to do so. It\'s Magic!\n\nIf you have an Upgraded Pigment Laboratory, be sure to set Batch = 1x so you use LEAST amount of resources while testing reactions!");
 
-    close_map();
     srReadScreen();
-    xyWindowSize = srGetWindowSize();
     findBigColorBar();
 
     local paint_buttons = findAllImages("plus.png");
@@ -57,14 +53,13 @@ function doit()
         error "No buttons found";
     end
 
-
     while 1 do
         lsSetCamera(0,0,lsScreenX*1.5,lsScreenY*1.5);
         -- Where to start putting buttons/text on the screen.
         y = 10;
         
         if lsButtonText(lsScreenX - 10, 50, 0, 100, 0xff6251ff, "Reset") then
-            reset(paint_count);
+            reset(paint_count);  
             paint_sum = {0,0,0};
             paint_count = 0;
             bar_colour = {0,0,0};
@@ -75,7 +70,7 @@ function doit()
             px_G = nil;
             px_B = nil;
             px_A = nil;
-            update_now = 1;
+            update_now = 0;
             added = {}; -- Erase the array
         end
 
@@ -108,17 +103,7 @@ function doit()
             --{
                 -- click the appropriate button to add paint.
                 paint_value, paint_count = click_ingredient(button_names[button_push]);
-            
-                if(button_push < catalyst1) then
-                    -- add the paint estimate 
-                    paint_sum[1] =     paint_sum[1] + paint_value[1];
-                    paint_sum[2] =     paint_sum[2] + paint_value[2];
-                    paint_sum[3] =     paint_sum[3] + paint_value[3];
-                    paint_count = paint_count + 1.0;
-                end
-
                 table.insert(added, button_names[button_push]);
-
             --}
             end
 

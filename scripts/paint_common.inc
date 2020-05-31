@@ -124,6 +124,8 @@ end
 
 -- the map causes problems with paint scripts because the zoom buttons are the same as the paint add buttons
 -- this causes off-by-one errors if the map is open when making paint, so we close it before any paint scripts start
+
+-- May 31st 2020: Fixed this issue by adding a boundary for where to scan, this function is now redundant - Rhaom
 function close_map()
     srReadScreen();
     map_close = findAllImages("map_close.png");
