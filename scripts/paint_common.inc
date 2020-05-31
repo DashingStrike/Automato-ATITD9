@@ -27,6 +27,7 @@ function find_button_index(ingred_name)
     end
 end
 
+
 function click_ingredient(ingredient_name)
     srReadScreen();
       while lsMouseIsDown() do
@@ -34,19 +35,33 @@ function click_ingredient(ingredient_name)
       end
     paint_count = 0;
     paint_values = {0, 0, 0};
-    paint_buttons = findAllImages("plus.png");
-    if (#paint_buttons == 0) then
-        error "No buttons found";
-    end
 
-    button_index = find_button_index(ingredient_name)
-    srClickMouse(paint_buttons[button_index][0]+2,paint_buttons[button_index][1]+2, right_click);
-    lsSleep(per_click_delay);
-    if(button_index < catalyst1) then
-        paint_values[1] = paint_colourR[button_index];
-        paint_values[2] = paint_colourG[button_index];
-        paint_values[3] = paint_colourB[button_index];
-        paint_count = paint_count + 1.0;
+    srReadScreen();
+    local pigmentLab = findAllText("Pigment Laboratory");
+
+    for i=1,#pigmentLab do
+
+        local x = pigmentLab[i][0];
+        local y = pigmentLab[i][1];
+        local width = 320;
+        local height = 540;
+
+        srReadScreen();  
+        local paint_buttons = findAllImagesInRange("plus.png", x, y, width, height);
+
+            if (#paint_buttons == 0) then
+                error "No buttons found";
+            end
+    
+        button_index = find_button_index(ingredient_name)
+        srClickMouse(paint_buttons[button_index][0]+2,paint_buttons[button_index][1]+2, right_click);
+        lsSleep(per_click_delay);
+        if(button_index < catalyst1) then
+            paint_values[1] = paint_colourR[button_index];
+            paint_values[2] = paint_colourG[button_index];
+            paint_values[3] = paint_colourB[button_index];
+            paint_count = paint_count + 1.0;
+        end
     end
     return paint_values, paint_count
 end
