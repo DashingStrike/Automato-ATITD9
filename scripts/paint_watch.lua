@@ -48,11 +48,10 @@ function doit()
     srReadScreen();
     findBigColorBar();
 
-    local paint_buttons = findAllImages("plus.png");
-    if (#paint_buttons == 0) then
-        error "No buttons found";
-    end
-
+    window_pos = findText("This is [a-z]+ Pigment Laboratory", nil, REGEX);
+        if (not window_pos) then
+            error "Did not find a pinned Pigment Laboratory window";
+        end
 
     while 1 do
         lsSetCamera(0,0,lsScreenX*1.5,lsScreenY*1.5);
