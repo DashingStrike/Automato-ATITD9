@@ -101,7 +101,7 @@ Thoth,Sa++++,So----,Sw++++|Japanese Cherry Youth,Meadowsweet,Chicory,Parrotia,Ra
 Thoth,Sa++++,So----,To++++|Chicory,Khaya Youth,Summer Maple,Locust Palm,Tsangto
 Thoth,Sa++++,So----,To----|Japanese Cherry Sapling,Parrotia,Bottle Tree,Oil Palm,Meadowsweet
 Thoth,Sa----,So++++,Sp----|Golden Hemlock Sapling,Katsura Sapling,Monterey Pine Middle Age,Oranje,Phoenix Palm
-Thoth,So----,Sp----,To++++|Fool's Agar,Locust Palm,Chakkanut Tree,Feather Tree,Dikbas Youth
+Thoth,So----,Sp----,To++++|Fool's Agar,Locust Palm,Common Sage,Black Pepper Plant,Feather Tree Youth
 Thoth,So++++,Sp----,Sw----|Monterey Pine Middle Age,Oranje,Mindanao,Hokkaido,Houseleek
 Thoth,So++++,Sp++++,To----|Dikbas Sapling,Elephantia,Jacaranda Youth,Mimosa,Parrotia Sapling
 Thoth,Sp----,Sw----,To++++|Autumn Bloodbark Sapling,Locust Palm,Chakkanut Tree,Illawara,Mini Palmetto
@@ -180,7 +180,7 @@ Thoth,So----,Sw++++,Sa++++|Japanese Cherry Youth,Meadowsweet,Chicory,Parrotia,Ra
 Thoth,So----,To++++,Sa++++|Chicory,Khaya Youth,Summer Maple,Locust Palm,Tsangto
 Thoth,So----,To----,Sa++++|Japanese Cherry Sapling,Parrotia,Bottle Tree,Oil Palm,Meadowsweet
 Thoth,So++++,Sp----,Sa----|Golden Hemlock Sapling,Katsura Sapling,Monterey Pine Middle Age,Oranje,Phoenix Palm
-Thoth,Sp----,To++++,So----|Fool's Agar,Locust Palm,Chakkanut Tree,Feather Tree,Dikbas Youth
+Thoth,Sp----,To++++,So----|Fool's Agar,Locust Palm,Common Sage,Black Pepper Plant,Feather Tree Youth
 Thoth,Sp----,Sw----,So++++|Monterey Pine Middle Age,Oranje,Mindanao,Hokkaido,Houseleek
 Thoth,Sp++++,To----,So++++|Dikbas Sapling,Elephantia,Jacaranda Youth,Mimosa,Parrotia Sapling
 Thoth,Sw----,To++++,Sp----|Autumn Bloodbark Sapling,Locust Palm,Chakkanut Tree,Illawara,Mini Palmetto
@@ -259,7 +259,7 @@ Thoth,Sw++++,Sa++++,So----|Japanese Cherry Youth,Meadowsweet,Chicory,Parrotia,Ra
 Thoth,To++++,Sa++++,So----|Chicory,Khaya Youth,Summer Maple,Locust Palm,Tsangto
 Thoth,To----,Sa++++,So----|Japanese Cherry Sapling,Parrotia,Bottle Tree,Oil Palm,Meadowsweet
 Thoth,Sp----,Sa----,So++++|Golden Hemlock Sapling,Katsura Sapling,Monterey Pine Middle Age,Oranje,Phoenix Palm
-Thoth,To++++,So----,Sp----|Fool's Agar,Locust Palm,Chakkanut Tree,Feather Tree,Dikbas Youth
+Thoth,To++++,So----,Sp----|Fool's Agar,Locust Palm,Common Sage,Black Pepper Plant,Feather Tree Youth
 Thoth,Sw----,So++++,Sp----|Monterey Pine Middle Age,Oranje,Mindanao,Hokkaido,Houseleek
 Thoth,To----,So++++,Sp++++|Dikbas Sapling,Elephantia,Jacaranda Youth,Mimosa,Parrotia Sapling
 Thoth,To++++,Sp----,Sw----|Autumn Bloodbark Sapling,Locust Palm,Chakkanut Tree,Illawara,Mini Palmetto
@@ -338,7 +338,7 @@ Thoth,Sw++++,So----,Sa++++|Japanese Cherry Youth,Meadowsweet,Chicory,Parrotia,Ra
 Thoth,To++++,So----,Sa++++|Chicory,Khaya Youth,Summer Maple,Locust Palm,Tsangto
 Thoth,To----,So----,Sa++++|Japanese Cherry Sapling,Parrotia,Bottle Tree,Oil Palm,Meadowsweet
 Thoth,Sp----,So++++,Sa----|Golden Hemlock Sapling,Katsura Sapling,Monterey Pine Middle Age,Oranje,Phoenix Palm
-Thoth,To++++,Sp----,So----|Fool's Agar,Locust Palm,Chakkanut Tree,Feather Tree,Dikbas Youth
+Thoth,To++++,Sp----,So----|Fool's Agar,Locust Palm,Common Sage,Black Pepper Plant,Feather Tree Youth
 Thoth,Sw----,Sp----,So++++|Monterey Pine Middle Age,Oranje,Mindanao,Hokkaido,Houseleek
 Thoth,To----,Sp++++,So++++|Dikbas Sapling,Elephantia,Jacaranda Youth,Mimosa,Parrotia Sapling
 Thoth,To++++,Sw----,Sp----|Autumn Bloodbark Sapling,Locust Palm,Chakkanut Tree,Illawara,Mini Palmetto
@@ -417,7 +417,7 @@ Thoth,So----,Sa++++,Sw++++|Japanese Cherry Youth,Meadowsweet,Chicory,Parrotia,Ra
 Thoth,So----,Sa++++,To++++|Chicory,Khaya Youth,Summer Maple,Locust Palm,Tsangto
 Thoth,So----,Sa++++,To----|Japanese Cherry Sapling,Parrotia,Bottle Tree,Oil Palm,Meadowsweet
 Thoth,So++++,Sa----,Sp----|Golden Hemlock Sapling,Katsura Sapling,Monterey Pine Middle Age,Oranje,Phoenix Palm
-Thoth,Sp----,So----,To++++|Fool's Agar,Locust Palm,Chakkanut Tree,Feather Tree,Dikbas Youth
+Thoth,Sp----,So----,To++++|Fool's Agar,Locust Palm,Common Sage,Black Pepper Plant,Feather Tree Youth
 Thoth,Sp----,So++++,Sw----|Monterey Pine Middle Age,Oranje,Mindanao,Hokkaido,Houseleek
 Thoth,Sp++++,So++++,To----|Dikbas Sapling,Elephantia,Jacaranda Youth,Mimosa,Parrotia Sapling
 Thoth,Sw----,Sp----,To++++|Autumn Bloodbark Sapling,Locust Palm,Chakkanut Tree,Illawara,Mini Palmetto
@@ -496,7 +496,7 @@ Thoth,Sa++++,Sw++++,So----|Japanese Cherry Youth,Meadowsweet,Chicory,Parrotia,Ra
 Thoth,Sa++++,To++++,So----|Chicory,Khaya Youth,Summer Maple,Locust Palm,Tsangto
 Thoth,Sa++++,To----,So----|Japanese Cherry Sapling,Parrotia,Bottle Tree,Oil Palm,Meadowsweet
 Thoth,Sa----,Sp----,So++++|Golden Hemlock Sapling,Katsura Sapling,Monterey Pine Middle Age,Oranje,Phoenix Palm
-Thoth,So----,To++++,Sp----|Fool's Agar,Locust Palm,Chakkanut Tree,Feather Tree,Dikbas Youth
+Thoth,So----,To++++,Sp----|Fool's Agar,Locust Palm,Common Sage,Black Pepper Plant,Feather Tree Youth
 Thoth,So++++,Sw----,Sp----|Monterey Pine Middle Age,Oranje,Mindanao,Hokkaido,Houseleek
 Thoth,So++++,To----,Sp++++|Dikbas Sapling,Elephantia,Jacaranda Youth,Mimosa,Parrotia Sapling
 Thoth,Sp----,To++++,Sw----|Autumn Bloodbark Sapling,Locust Palm,Chakkanut Tree,Illawara,Mini Palmetto
@@ -551,7 +551,7 @@ Osiris,Bi----,Sp++++|Mimosa Youth,White Pine,Parrotia Sapling,Montu Maple,Miniat
 Osiris,Bi----,Sp----|Chakkanut Tree,Coconut Palm,Green Ash Youth,Illawara,Bottle Tree
 Osiris,Bi----,Sw++++|Autumn Bloodbark,Japanese Cherry Sapling,Hawthorn,Safsaf Willow,Parrotia
 Osiris,Bi----,Sw----|Chakkanut Tree,Towering Palm,Dwarf Safsaf,Khaya Sapling,Coconut Palm
-Osiris,Bi----,To++++|Chakkanut Tree,Folded Birch,Coconut Palm,Green Ash Youth,Montery Pine
+Osiris,Bi----,To++++|Chakkanut Tree,Folded Birch,Coconut Palm,Green Ash Youth,Monterey Pine
 Osiris,Bi----,To----|Hawthorn,Cricklewood,Elephantia,Bottle Tree,Illawara Sapling
 Osiris,Sa++++,So----|Japanese Cherry Sapling,River Birch Sapling,Chicory,Pratyeka Tree,Butterleaf Tree
 Osiris,Sa++++,So++++|Green Ash,Towering Palm,Umbrella Palm,Illawara Sapling,Mimosa
@@ -632,7 +632,7 @@ Osiris,Sp++++,Bi----|Mimosa Youth,White Pine,Parrotia Sapling,Montu Maple,Miniat
 Osiris,Sp----,Bi----|Chakkanut Tree,Coconut Palm,Green Ash Youth,Illawara,Bottle Tree
 Osiris,Sw++++,Bi----|Autumn Bloodbark,Japanese Cherry Sapling,Hawthorn,Safsaf Willow,Parrotia
 Osiris,Sw----,Bi----|Chakkanut Tree,Towering Palm,Dwarf Safsaf,Khaya Sapling,Coconut Palm
-Osiris,To++++,Bi----|Chakkanut Tree,Folded Birch,Coconut Palm,Green Ash Youth,Montery Pine
+Osiris,To++++,Bi----|Chakkanut Tree,Folded Birch,Coconut Palm,Green Ash Youth,Monterey Pine
 Osiris,To----,Bi----|Hawthorn,Cricklewood,Elephantia,Bottle Tree,Illawara Sapling
 Osiris,So----,Sa++++|Japanese Cherry Sapling,River Birch Sapling,Chicory,Pratyeka Tree,Butterleaf Tree
 Osiris,So++++,Sa++++|Green Ash,Towering Palm,Umbrella Palm,Illawara Sapling,Mimosa
