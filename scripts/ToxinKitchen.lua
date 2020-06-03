@@ -591,20 +591,39 @@ function makeToxin(tid)
 
 	resetqty();
 
+	srReadScreen();
+	window_pos = findText("This is [a-z]+ Toxin Kitchen", nil, REGEX);
+
+	if (not window_pos) then
+		error "Did not find any Toxin Kitchen window";
+	end
+
 	for passno=1,qtyrequested do
+
 		waitForCon();
 		if (stop_cooking) then
 			return;
 		end
 
 		srReadScreen();
-		window_pos = findText("This is [a-z]+ Toxin Kitchen", nil, REGEX);
+		toxinKitchenWindow = findAllText("Toxin Kitchen");
 
-		if (not window_pos) then
-			error "Did not find any Toxin Kitchen window";
-		end
+		for i=1,#toxinKitchenWindow do
+	
+			local x = toxinKitchenWindow[i][0];
+			local y = toxinKitchenWindow[i][1];
+			local width = 370;
+			local height = 285;
+			
+			if PRODUCTS[tid] == "" then
+				srReadScreen();  
+				downArrow = findAllImagesInRange("downArrow.png", x, y, width, height);
+				safeClick(downArrow[#downArrow][0]+5,downArrow[#downArrow][1]+5, right);
+				lsSleep(250);
+			end			
+		end  
 
-		srReadScreen();
+		srReadScreen();		
 		clickloc = findWinText("Start a batch of " .. PRODUCTS[tid], window_pos);
 
 		if not clickloc then
