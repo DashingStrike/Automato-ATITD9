@@ -615,7 +615,7 @@ function makeToxin(tid)
 			local width = 370;
 			local height = 285;
 			
-			if PRODUCTS[tid] == "" then
+			if PRODUCTS[tid] == "Revelation Solvent (Renenutet's)" then
 				srReadScreen();  
 				downArrow = findAllImagesInRange("downArrow.png", x, y, width, height);
 				safeClick(downArrow[#downArrow][0]+5,downArrow[#downArrow][1]+5, right);
