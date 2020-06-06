@@ -31,11 +31,11 @@ glazierBenchSpec = false;
 --   sheet glass before rods (on soda it'll fail to find sheet)
 item_priority = {"GlassMakeSheet.png", "GlassMakeRod.png", "GlassMakeWine.png", 
                  "GlassMakePipe.png", "GlassMakeJar.png","GlassMakeTorch.png",
-                 "GlassMakeBlade.png", "GlassMakeFineRod.png", "GlassMakeFinePipe.png"};
+                 "GlassMakeBlade.png", "GlassMakeFineRod.png", "GlassMakeFinePipe.png", "GlassMakeGoldenSigil.png"};
 
 item_name = {["GlassMakeSheet.png"] = "Sheet", ["GlassMakeRod.png"] = "Rod", ["GlassMakeWine.png"] = "Wine",
 		["GlassMakePipe.png"] = "Pipe", ["GlassMakeJar.png"] = "Jar", ["GlassMakeTorch.png"] = "Torch",
-		["GlassMakeBlade.png"] = "Blade", ["GlassMakeFineRod.png"] = "Fine Rod", ["GlassMakeFinePipe.png"] = "Fine Pipe"};		
+		["GlassMakeBlade.png"] = "Blade", ["GlassMakeFineRod.png"] = "Fine Rod", ["GlassMakeFinePipe.png"] = "Fine Pipe", ["GlassMakeGoldenSigil.png"] = "Golden Sigil"};		
   
 -- max temperature in which we will contine heating it, wait until it gets below this before adding
 -- No longer used after ticks are verified, macro replaces this value with (2399 - state.HV).
