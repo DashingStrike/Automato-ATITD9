@@ -59,8 +59,8 @@ refresh_time = 100 -- Time to wait for windows to update
 walk_time = 750 -- Reduce to 300 if you're fast.
 
 -- Don't touch. These are set according to Jimbly's black magic.
-walk_px_x = 380
-walk_px_y = 340
+walk_px_x = 355
+walk_px_y = 315
 
 -- Declare an array
 xyCenter = {}
