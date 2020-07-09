@@ -59,6 +59,10 @@ lagBound["Survey (Uncover)"] = true;
 -- otherwise false.   Usually only true when using flax comb.
 takeAllWhenCombingFlax = false;
 
+-- Due to a window refresh bug (T9) rods can be lost when auto retrieve is enabled
+-- disabling it and manually refreshing the rod window bypasses this bug.
+retrieveRods = true;
+
 local textLookup = {};
 textLookup["Coconuts"] = "Harvest the Coconut Meat";
 textLookup["Gun Powder"] = "Gunpowder";
@@ -101,6 +105,12 @@ function getClickActions()
                 stirMaster = readSetting("stirMaster",stirMaster);
                 stirMaster = lsCheckBox(5, y-30, z, 0xFFFFFFff, " Automatically fill the Clinker Vat", stirMaster);
                 writeSetting("stirMaster",stirMaster);
+            end
+            if items[i][tasks[i]] == "Tap Rods" then
+                y = y + 35;
+                retrieveRods = readSetting("retrieveRods",retrieveRods);
+                retrieveRods = lsCheckBox(5, y-30, z, 0xFFFFFFff, " Automatically retrieve rods", retrieveRods);
+                writeSetting("retrieveRods",retrieveRods);
             end
         end
         lsDoFrame();
@@ -473,7 +483,7 @@ local function tapRods()
         clickText(t);
         foundOne = true;
     end
-    if foundOne == false then
+    if foundOne == false and retrieveRods == true then
         t = findText("Retrieve the bore", window);
         if t then
             clickText(t);
