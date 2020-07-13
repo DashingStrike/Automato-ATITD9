@@ -207,10 +207,10 @@ local function makeItem(currentItem, window)
      if parents[2] == "Bars x1" or parents[2] == "Bars x5" then
         t = findText("Bars" .. "...", window);
         clickText(t);
-     elseif parents[2] == "Small Gear x1" or parents[2] == "Small Gear x10" then
+     elseif parents[2] == "Small Gear x1" or parents[2] == "Small Gear x10" or parents[2] == "Small Gear x20" then
         t = findText("Gearwork" .. "...", window);
         clickText(t);
-     elseif parents[2] == "Medium Gear x1" or parents[2] == "Medium Gear x10" then
+     elseif parents[2] == "Medium Gear x1" or parents[2] == "Medium Gear x10" or parents[2] == "Medium Gear x20" then
          t = findText("Gearwork" .. "...", window);
          clickText(t);
      else
@@ -247,6 +247,11 @@ local function makeItem(currentItem, window)
       safeClick(t[0]+20,t[1]+4);
       local t = waitForText("Make 10...");
       safeClick(t[0]+20,t[1]+4);
+   elseif lastParent == "Small Gear x20" then
+      local t = waitForText("Small Gear...");
+      safeClick(t[0]+20,t[1]+4);
+      local t = waitForText("Make 20...");
+      safeClick(t[0]+20,t[1]+4);
    elseif lastParent == "Medium Gear x1" then
       local t = waitForText("Medium Gear...");
       safeClick(t[0]+20,t[1]+4);
@@ -256,6 +261,11 @@ local function makeItem(currentItem, window)
       local t = waitForText("Medium Gear...");
       safeClick(t[0]+20,t[1]+4);
       local t = waitForText("Make 10...");
+      safeClick(t[0]+20,t[1]+4);
+   elseif lastParent == "Medium Gear x20" then
+      local t = waitForText("Medium Gear...");
+      safeClick(t[0]+20,t[1]+4);
+      local t = waitForText("Make 20...");
       safeClick(t[0]+20,t[1]+4);
    elseif lastParent == "Bars x5" then
       local t = waitForText("Make 5 sets");
@@ -317,7 +327,7 @@ local function makeItem(currentItem, window)
       pin = srFindImage("unpinnedPin.png");
       smallGearRange = makeBox(pin[0]-203, pin[1]-3, 205, 450);
       t = waitForText(text, 1000, nil, smallGearRange); 
-   elseif lastParent == "Medium Gear x1" or lastParent == "Medium Gear x10" then
+   elseif lastParent == "Medium Gear x1" or lastParent == "Medium Gear x10" or lastParent == "Medium Gear x20" then
       srReadScreen();
       pin = srFindImage("unpinnedPin.png");
       mediumGearRange = makeBox(pin[0]-217, pin[1]-3, 220, 450);
