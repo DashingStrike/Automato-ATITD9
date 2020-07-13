@@ -271,8 +271,12 @@ function stepTo(dir, dest, compass)
   if compass == "North" then
     offsetY = 50;  -- Postive offset need to prevent clicking on ATITD Clock
   elseif compass == "South" then
-    offsetY = -50; -- Negative offset needed to prevent clicking on Icon Tray
+    offsetY = -65; -- Negative offset needed to prevent clicking on Icon Tray
   end
+      sleepWithStatus(6000, "About to move the mouse, see where it goes", nil, 0.7);
+    srSetMousePos(gpsCenter[0] + dir[0] * gpsStep[0],
+	    (gpsCenter[1] + dir[1] * gpsStep[1]) + offsetY);
+    sleepWithStatus(5000, "Long sleep to see where the mouse is!")
   safeClick(gpsCenter[0] + dir[0] * gpsStep[0],
 	    (gpsCenter[1] + dir[1] * gpsStep[1]) + offsetY);
   sleepWithStatus(500, dest[0] .. ", " .. dest[1] .. "\n\n" .. coord2region(dest[0], dest[1]), nil, 0.7, "Walking to");
