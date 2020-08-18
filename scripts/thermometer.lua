@@ -103,12 +103,18 @@ function doit()
 
 		end
 
-		srKeyEvent("u");
-		lsSleep(keyDelay);
-		clickAll("Ok.png");
-		lsSleep(keyDelay);
-		clickAll("WindowEmpty.png");
-		lsSleep(keyDelay);
+    srKeyEvent("u");
+    lsSleep(1000);
+    srReadScreen();
+    local max = srFindImage("max.png");
+    if max then
+      safeClick(max[0]+5,max[1]+5,1);
+      sleepWithStatus(100, "Clicking Max button");
+    end
+    clickAll("Ok.png");
+    lsSleep(keyDelay);
+    clickAll("WindowEmpty.png");
+    lsSleep(keyDelay);
 
 	end
 lsPlaySound("Complete.wav");
