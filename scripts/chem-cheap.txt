@@ -238,7 +238,7 @@ Thoth,To++++,As++++,Sp----|Chakkanut Tree,Feather Tree,Khaya,Orrorin,Spiked Fish
 Thoth,To----,As++++,Sp----|Japanese Cherry Youth,Monterey Pine Middle Age,Indigo Damia,Scaley Hardwood,Powdered Quartz
 Thoth,To++++,As----,Sp----|Common Sage,Green Ash Youth,Monterey Pine,Giant Cricklewood,Salts Of Tin
 Thoth,Sw++++,As----,Sp++++|Anaxi,Bramble Hedge,Powdered Turquoise,Tiny Clover,Dikbas Sapling
-Thoth,To++++,As----,Sp++++|Monterey Pine,Silky Oak,Salts Of Magnesium,Powdered Jade,Powdered Ruby 
+Thoth,To++++,As----,Sp++++|Monterey Pine,Silky Oak,Salts Of Magnesium,Powdered Jade,Powdered Ruby
 Thoth,To++++,As++++,Sw----|Windriver Palm,Chakkanut Tree,Khaya,Bluebottle Clover,Bloodbark
 Thoth,To----,As++++,Sw----|Fern Palm,Umbrella Palm,Cinnar,Elephantia,Powdered Quartz
 Thoth,So++++,Bi----,Sa----|Dikbas Sapling,Katsura Sapling,Oranje,Passam,Hazlewort
@@ -1694,6 +1694,365 @@ Set,So---,To---,Sp+++|Cerulean Blue,Oil Palm,Butterleaf Tree,Elephantia,Anaxi
 Set,So---,Sw---,Sp---|Windriver Palm,Feather Tree,Pratyeka Tree,Chakkanut Tree,Butterleaf Tree
 Set,So---,To+++,Sp---|Chakkanut Tree,Tiny Oil Palm,Chicory,Feather Tree,Locust Palm
 Set,So---,To+++,Sw---|Mini Palmetto,Tiny Oil Palm,Bloodbark,Cerulean Blue,Chicory
+Set,Ar+++,As+++,Bi+++|Feather Tree,Peaches 'n Cream Maple,Spindle Tree,Windriver Palm,Salts of Cobalt
+Set,Ar+++,As+++,Sa+++|Royal Palm,Windriver Palm,Feather Tree,Miniature Fern Palm,Parrotia
+Set,Ar+++,As+++,Sp+++|Mimosa Sapling,Feather Tree,Powdered Coral Pearl,Cricklewood,Mimosa Youth
+Set,Ar+++,As+++,To+++|Feather Tree,Mimosa Sapling,Chakkanut Tree,Khaya,Windriver Palm
+Set,Ar+++,As+++,Bi---|Miniature Fern Palm,Feather Tree,Mimosa Youth,Passam,Cricklewood
+Set,Ar+++,As+++,Sa---|Peaches 'n Cream Maple,Golden Hemlock Sapling,Windriver Palm,Blaze Maple Sapling,Feather Tree
+Set,Ar+++,As+++,So---|Feather Tree,Acacia,Windriver Palm,Miniature Fern Palm,Powdered Opal
+Set,Ar+++,As+++,Sp---|Mimosa Sapling,Feather Tree,Windriver Palm,Chakkanut Tree,Khaya
+Set,Ar+++,As+++,Sw---|Summer Maple Sapling,Windriver Palm,Cinnar,Autumn Bloodbark Sapling,Feather Tree
+Set,Ar+++,Bi+++,Sa---|Golden Hemlock Sapling,Peaches 'n Cream Maple,Spindle Tree,Phoenix Palm,Summer Maple Sapling
+Set,Ar+++,Bi+++,So---|Acacia,Peaches 'n Cream Maple,River Birch Sapling,Spindle Tree,Salts of Cobalt
+Set,Ar+++,Bi+++,Sp---|Spindle Tree,Peaches 'n Cream Maple,Golden Hemlock Sapling,Phoenix Palm,Powdered Opal
+Set,Ar+++,Bi+++,Sw---|Spindle Tree,Autumn Bloodbark Sapling,Golden Hemlock Sapling,Peaches 'n Cream Maple,Windriver Palm
+Set,Ar+++,Bi+++,To---|Golden Hemlock Sapling,Elephantia,Jacaranda Sapling,Peaches 'n Cream Maple,Spindle Tree
+Set,Ar+++,Sa+++,To+++|Autumn Bloodbark Sapling,Summer Maple Sapling,Powdered Emerald,Khaya Youth,White Pine Sapling
+Set,Ar+++,Sa+++,As---|Peaches 'n Cream Maple,Royal Palm,Summer Maple Sapling,Pratyeka Tree,White Pine Sapling
+Set,Ar+++,Sa+++,Bi---|Golden Hemlock Sapling,White Pine Sapling,Bottle Tree,Parrotia,Summer Maple Sapling
+Set,Ar+++,Sa+++,Sp---|White Pine Sapling,Powdered Opal,Khaya Youth,Parrotia Youth,Royal Palm
+Set,Ar+++,Sa+++,Sw---|Summer Maple Sapling,Autumn Bloodbark Sapling,Towering Palm,Windriver Palm,Hawthorn
+Set,Ar+++,Sa+++,To---|Golden Hemlock Sapling,Summer Maple Sapling,Bottle Tree,Illawara Sapling,White Pine Sapling
+Set,Ar+++,So+++,Sp+++|Parrotia Youth,Mimosa Sapling,Peaches 'n Cream Youth,Dikbas Sapling,Parrotia Sapling
+Set,Ar+++,So+++,Sp---|Oranje,Parrotia Youth,Mimosa Sapling,Monterey Pine Middle Age,Golden Hemlock Sapling
+Set,Ar+++,So+++,Sw---|Summer Maple Sapling,Autumn Bloodbark Sapling,Parrotia Youth,Safsaf Willow,Towering Palm
+Set,Ar+++,So+++,To---|Golden Hemlock Sapling,Elephantia,Monterey Pine Middle Age,Parrotia Youth,Peaches 'n Cream Youth
+Set,Ar+++,Sp+++,To+++|Autumn Bloodbark Sapling,Peaches 'n Cream Youth,Salts of Magnesium,Powdered Ruby,Mimosa Sapling
+Set,Ar+++,As---,Sa+++|Peaches 'n Cream Maple,Royal Palm,Summer Maple Sapling,Pratyeka Tree,White Pine Sapling
+Set,Ar+++,As---,So+++|Mimosa Sapling,Green Ash,Parrotia Youth,Summer Maple Youth,Oranje
+Set,Ar+++,As---,Sp+++|Mimosa Sapling,Anaxi,Parrotia Youth,Beetlenut,Elephantia
+Set,Ar+++,As---,To+++|Mimosa Sapling,Summer Maple Sapling,Autumn Bloodbark Sapling,Salts of Magnesium,Powdered Emerald
+Set,Ar+++,Bi+++,Sa---|Golden Hemlock Sapling,Peaches 'n Cream Maple,White Pine Sapling,Spindle Tree,Phoenix Palm
+Set,Ar+++,Bi+++,So---|Feather Tree,Golden Hemlock Sapling,Acacia,Spindle Tree,Salts of Cobalt
+Set,Ar+++,Bi+++,Sp---|Spindle Tree,Peaches 'n Cream Maple,Golden Hemlock Sapling,Parrotia Youth,Phoenix Palm
+Set,Ar+++,Bi+++,Sw---|Spindle Tree,Summer Maple Sapling,Golden Hemlock Sapling,Peaches 'n Cream Maple,Windriver Palm
+Set,Ar+++,Bi+++,To---|Golden Hemlock Sapling,Elephantia,Jacaranda Sapling,Peaches 'n Cream Maple,Spindle Tree
+Set,Ar+++,Bi---,Sa+++|Golden Hemlock Sapling,White Pine Sapling,Bottle Tree,Parrotia,Summer Maple Sapling
+Set,Ar+++,Bi---,Sa---|Golden Hemlock Sapling,Dikbas Sapling,Katsura Sapling,Miniature Fern Palm,Passam
+Set,Ar+++,Bi---,So+++|Dikbas Sapling,Golden Hemlock Sapling,Parrotia Youth,Dwarf Safsaf,Mimosa Youth
+Set,Ar+++,Bi---,So---|Feather Tree,Parrotia Youth,Acacia,Mimosa Youth,Parrotia
+Set,Ar+++,Bi---,Sp+++|Peaches 'n Cream Maple,Cricklewood,Elephantia,Mimosa Youth,Passam
+Set,Ar+++,Bi---,Sp---|Mimosa Youth,Parrotia Youth,Powdered Opal,Feather Tree,Green Ash Youth
+Set,Ar+++,Bi---,Sw---|Powdered White Pearl,Mimosa Youth,Spindle Tree,Dwarf Safsaf,Miniature Fern Palm
+Set,Ar+++,Bi---,To+++|Miniature Fern Palm,Autumn Bloodbark Sapling,Green Ash Youth,Khaya Youth,White Pine Sapling
+Set,Ar+++,Bi---,To---|Golden Hemlock Sapling,Elephantia,Miniature Fern Palm,Bottle Tree,White Pine Sapling
+Set,Ar+++,Sa+++,Sp---|White Pine Sapling,Powdered Opal,Khaya Youth,Parrotia Youth,Royal Palm
+Set,Ar+++,Sa+++,Sw---|Summer Maple Sapling,Autumn Bloodbark Sapling,Towering Palm,Windriver Palm,Hawthorn
+Set,Ar+++,Sa+++,To+++|Autumn Bloodbark Sapling,Summer Maple Sapling,Powdered Emerald,Khaya Youth,White Pine Sapling
+Set,Ar+++,Sa+++,To---|Golden Hemlock Sapling,Summer Maple Sapling,Bottle Tree,Illawara Sapling,White Pine Sapling
+Set,Ar+++,Sa---,So+++|Golden Hemlock Sapling,Katsura Sapling,Oranje,Peaches 'n Cream Maple,Dikbas Sapling
+Set,Ar+++,Sa---,So---|Golden Hemlock Sapling,Acacia,Blaze Maple Youth,Deadwood Tree,Feather Tree
+Set,Ar+++,Sa---,Sp---|Peaches 'n Cream Maple,Golden Hemlock Sapling,Spindle Tree,Oranje,White Pine Sapling
+Set,Ar+++,Sa---,Sw---|Summer Maple Sapling,Autumn Bloodbark Sapling,Golden Hemlock Sapling,Peaches 'n Cream Maple,Spindle Tree
+Set,Ar+++,Sa---,To+++|Autumn Bloodbark Sapling,Peaches 'n Cream Maple,Katsura Sapling,Katsura Tree,White Pine Sapling
+Set,Ar+++,Sa---,To---|Golden Hemlock Sapling,Peaches 'n Cream Maple,Blaze Maple Sapling,Elephantia,Japanese Cherry Sapling
+Set,Ar+++,So+++,Sp+++|Parrotia Youth,Mimosa Sapling,Peaches 'n Cream Youth,Dikbas Sapling,Parrotia Sapling
+Set,Ar+++,So+++,Sp---|Oranje,Parrotia Youth,Monterey Pine Middle Age,Golden Hemlock Sapling,Peaches 'n Cream Maple
+Set,Ar+++,So+++,Sw---|Peaches 'n Cream Youth,Summer Maple Sapling,Autumn Bloodbark Sapling,Monterey Pine Middle Age,Oranje
+Set,Ar+++,So+++,To+++|Autumn Bloodbark Sapling,Katsura Sapling,Parrotia Youth,Oranje,Powdered Emerald
+Set,Ar+++,So+++,To---|Golden Hemlock Sapling,Elephantia,Monterey Pine Middle Age,Parrotia Youth,Peaches 'n Cream Youth
+Set,Ar+++,So---,Sp+++|Acacia,Elephantia,Deadwood Tree,Mimosa Youth,Blaze Maple Youth
+Set,Ar+++,So---,Sp---|Powdered Opal,Feather Tree,Acacia,Peaches 'n Cream Maple,Spindle Tree
+Set,Ar+++,So---,Sw+++|Mountain Mint,Japanese Cherry Sapling,Mimosa Sapling,Safsaf Sapling,Bramble Hedge
+Set,Ar+++,So---,Sw---|Summer Maple Sapling,Windriver Palm,Feather Tree,Black Pepper Plant,Mimosa Sapling
+Set,Ar+++,So---,To+++|Acacia,Feather Tree,Autumn Bloodbark Sapling,Blaze Maple Youth,Chakkanut Tree
+Set,Ar+++,So---,To---|Powdered Opal,Oil Palm,Mimosa Sapling,Stout Palm,Blaze Maple Youth
+Set,Ar+++,Sp+++,Sw+++|Powdered Sunstone,Anaxi,Mimosa Sapling,Powdered Ruby,Japanese Cherry Sapling
+Set,Ar+++,Sp+++,Sw---|Elephantia,Peaches 'n Cream Youth,Summer Maple Sapling,Mimosa Sapling,Mimosa Youth
+Set,Ar+++,Sp+++,To+++|Salts of Magnesium,Powdered Ruby,Mimosa Sapling,Blaze Maple Youth,Katsura Tree
+Set,Ar+++,Sp+++,To---|Elephantia,Peaches 'n Cream Youth,Cricklewood,Mimosa Sapling,Anaxi
+Set,Ar+++,Sw+++,To---|Japanese Cherry Sapling,Powdered Sunstone,Golden Hemlock Sapling,Powdered Opal,Hawthorn
+Set,Ar+++,Sw---,To+++|Autumn Bloodbark Sapling,Salts of Magnesium,Chakkanut Tree,Windriver Palm,Powdered White Pearl
+Set,Ar+++,Sw---,To---|Elephantia,Summer Maple Sapling,Peaches 'n Cream Youth,Golden Hemlock Sapling,Windriver Palm
+Set,Ar---,As+++,Bi+++|Powdered Diamond,Feather Tree Sapling,Fern Palm,Salts of Zinc,Arconis
+Set,Ar---,As+++,Bi---|Monkey Palm,Salts of Zinc,Arconis,Autumn Bloodbark,Cricklewood
+Set,Ar---,As+++,Sa+++|Arconis,Salts of Zinc,Umbrella Palm,Parrotia,Fern Palm
+Set,Ar---,As+++,Sa---|Blaze Maple Sapling,Ranyahn,Spiked Fishtree,Powdered Quartz,Bloodbark
+Set,Ar---,As+++,So+++|Powdered Quartz,Arconis,Mimosa,Scaley Hardwood,Monterey Pine Middle Age
+Set,Ar---,As+++,So---|Salts of Zinc,Arconis,Monkey Palm,Dikbas Youth,Parrotia
+Set,Ar---,As+++,Sp+++|Salts of Zinc,Cricklewood,Powdered Diamond,Cinnar,Mimosa
+Set,Ar---,As+++,Sp---|Powdered Quartz,Arconis,Spiked Fishtree,Chakkanut Tree,Orrorin
+Set,Ar---,As+++,Sw+++|Salts of Zinc,Powdered Quartz,Autumn Bloodbark,Japanese Cherry Sapling,Safsaf Willow
+Set,Ar---,As+++,Sw---|Cinnar,Umbrella Palm,Salts of Zinc,Arconis,Bloodbark
+Set,Ar---,As+++,To+++|Orrorin,Arconis,Bloodbark,Chakkanut Tree,Khaya
+Set,Ar---,As+++,To---|Salts of Zinc,Fern Palm,Ranyahn,Arconis,Jacaranda Youth
+Set,Ar---,As---,Bi+++|River Birch,Feather Tree Sapling,Silky Oak,Broadleaf Palm,Katsura Youth
+Set,Ar---,As---,Bi---|Golden Hemlock,Monterey Pine,River Birch Youth,White Pine,Autumn Bloodbark
+Set,Ar---,As---,Sa+++|Tapacae Miralis,Broadleaf Palm,Pratyeka Tree,Golden Hemlock,Katsura Youth
+Set,Ar---,As---,Sa---|Golden Hemlock,Katsura Youth,Deadwood Tree,Katsura Sapling,Salts of Nickel
+Set,Ar---,As---,So+++|Monterey Pine Sapling,Green Ash,Katsura Youth,Summer Maple Youth,Golden Hemlock
+Set,Ar---,As---,So---|Broadleaf Palm,Salts of Aluminum,Golden Hemlock,Tiny Oil Palm,Cerulean Blue
+Set,Ar---,As---,Sp+++|Salts of Aluminum,Silky Oak,Anaxi,Montu Maple,White Pine
+Set,Ar---,As---,Sp---|Broadleaf Palm,Golden Hemlock,Ash Palm,Feather Tree Youth,Locust Palm
+Set,Ar---,As---,Sw+++|Broadleaf Palm,Peaches 'n Cream Sapling,Anaxi,Golden Hemlock,Autumn Bloodbark
+Set,Ar---,As---,Sw---|Katsura Youth,Monterey Pine Sapling,River Birch,Trilobellia,Ash Palm
+Set,Ar---,As---,To+++|Golden Hemlock,Monterey Pine,River Birch,Bloodbark,Broadleaf Palm
+Set,Ar---,As---,To---|Broadleaf Palm,Jacaranda Youth,Katsura Youth,Mimosa,Anaxi
+Set,As+++,Bi+++,Sa+++|Fern Palm,Arconis,Umbrella Palm,Dikbas,Stout Palm
+Set,As+++,Bi+++,Sa---|Blaze Maple Sapling,Phoenix Palm,Salts of Cobalt,Spiked Fishtree,Stout Palm
+Set,As+++,Bi+++,So---|Salts of Cobalt,Powdered Diamond,Fern Palm,Dikbas Youth,Stout Palm
+Set,As+++,Bi+++,Sp+++|Powdered Diamond,Fern Palm,Powdered Coral Pearl,Delta Palm,Blaze Maple Sapling
+Set,As+++,Bi+++,Sp---|Salts of Cobalt,Phoenix Palm,Spindle Tree,Fern Palm,Windriver Palm
+Set,As+++,Bi+++,Sw---|Fern Palm,Cinnar,Windriver Palm,Bloodbark,Dikbas
+Set,As+++,Bi+++,To+++|Bloodbark,Salts of Cobalt,Powdered Diamond,Bluebottle Clover,Fool's Agar
+Set,As+++,Bi+++,To---|Fern Palm,Jacaranda Sapling,Stout Palm,Blaze Maple Sapling,Umbrella Palm
+Set,As+++,Bi---,Sa+++|Parrotia,White Pine Sapling,Bottle Tree,Arconis,Cricklewood
+Set,As+++,Bi---,Sa---|Blaze Maple Sapling,Cricklewood,Dikbas Sapling,Mimosa Youth,Spiked Fishtree
+Set,As+++,Bi---,So+++|Dikbas Sapling,Dwarf Safsaf,Safsaf Willow,Miniature Fern Palm,Powdered Quartz
+Set,As+++,Bi---,So---|Feather Tree,Parrotia,Cricklewood,Mimosa Youth,Powdered Sapphire
+Set,As+++,Bi---,Sp+++|Cricklewood,Mimosa Youth,Powdered Sapphire,Dikbas Sapling,Parrotia
+Set,As+++,Bi---,Sp---|Chakkanut Tree,Feather Tree,Khaya,Khaya Youth,Parrotia
+Set,As+++,Bi---,Sw+++|Autumn Bloodbark,Powdered Sapphire,Feather Tree,Japanese Cherry Sapling,Safsaf Willow
+Set,As+++,Bi---,Sw---|Mimosa Youth,Cinnar,Dwarf Safsaf,Windriver Palm,Chakkanut Tree
+Set,As+++,Bi---,To+++|Chakkanut Tree,Khaya,Feather Tree,Khaya Youth,Mimosa Youth
+Set,As+++,Bi---,To---|Cricklewood,Parrotia,Salts of Lead,Bottle Tree,Mimosa Youth
+Set,As+++,Sa+++,So+++|Umbrella Palm,Arconis,Towering Palm,Monterey Pine Middle Age,Powdered Quartz
+Set,As+++,Sa+++,So---|Parrotia,Feather Tree,Summer Maple,Salts of Zinc,Arconis
+Set,As+++,Sa+++,Sp+++|Cricklewood,Parrotia,Umbrella Palm,Powdered Beige Pearl,Mimosa Youth
+Set,As+++,Sa+++,Sp---|Arconis,Chakkanut Tree,Khaya,Windriver Palm,Khaya Youth
+Set,As+++,Sa+++,Sw+++|Hawthorn,Japanese Cherry Sapling,Salts of Zinc,Feather Tree,Safsaf Willow
+Set,As+++,Sa+++,Sw---|Umbrella Palm,Windriver Palm,Cinnar,Towering Palm,Arconis
+Set,As+++,Sa+++,To+++|Chakkanut Tree,Khaya,Arconis,Khaya Youth,Feather Tree
+Set,As+++,Sa+++,To---|Umbrella Palm,Salts of Zinc,Fern Palm,Parrotia,Arconis
+Set,As+++,Sa---,So+++|Dikbas Sapling,Red Nasturtium,Golden Hemlock Sapling,Monterey Pine Middle Age,Powdered Quartz
+Set,As+++,Sa---,So---|Blaze Maple Sapling,Feather Tree,Dikbas Youth,Katsura Tree,Spiked Fishtree
+Set,As+++,Sa---,Sp+++|Blaze Maple Sapling,Cricklewood,Cinnar,Dikbas Sapling,Katsura Tree
+Set,As+++,Sa---,Sp---|Spiked Fishtree,Powdered Quartz,Feather Tree,Phoenix Palm,Golden Hemlock Sapling
+Set,As+++,Sa---,Sw+++|Indigo Damia,Blaze Maple Sapling,Spiked Fishtree,Safsaf Willow,Buckler-leaf
+Set,As+++,Sa---,Sw---|Cinnar,Autumn Bloodbark Sapling,Blaze Maple Sapling,Bloodbark,Spiked Fishtree
+Set,As+++,Sa---,To+++|Autumn Bloodbark Sapling,Katsura Tree,Spiked Fishtree,Feather Tree,Mimosa Youth
+Set,As+++,Sa---,To---|Blaze Maple Sapling,Golden Hemlock Sapling,Butterleaf Tree,Cricklewood,Powdered Quartz
+Set,As+++,So+++,Sp+++|Dikbas Sapling,Mimosa,Powdered Coral Pearl,Cinnar,Safsaf Willow
+Set,As+++,So+++,Sp---|Monterey Pine Middle Age,Powdered Quartz,Chakkanut Tree,Khaya,Safsaf Willow
+Set,As+++,So+++,Sw+++|Safsaf Willow,Indigo Damia,Powdered Quartz,Buckler-leaf,Scaley Hardwood
+Set,As+++,So+++,Sw---|Cinnar,Umbrella Palm,Dwarf Safsaf,Monterey Pine Middle Age,Towering Palm
+Set,As+++,So+++,To+++|Chakkanut Tree,Bluebottle Clover,Safsaf Willow,Covage,Jacaranda
+Set,As+++,So+++,To---|Mimosa,Monterey Pine Middle Age,Fern Palm,Umbrella Palm,Powdered Quartz
+Set,As+++,So---,Sp+++|Cricklewood,Mimosa Youth,Powdered Sapphire,Blaze Maple Sapling,Salts of Copper
+Set,As+++,So---,Sp---|Feather Tree,Salts of Cobalt,Windriver Palm,Chakkanut Tree,Dikbas Youth
+Set,As+++,So---,Sw+++|Feather Tree,Meadowsweet,Verdant Squill,Parrotia,Indigo Damia
+Set,As+++,So---,Sw---|Windriver Palm,Cinnar,Dikbas Youth,Feather Tree,Mimosa Youth
+Set,As+++,So---,To+++|Feather Tree,Chakkanut Tree,Khaya,Locust Palm,Summer Maple
+Set,As+++,So---,To---|Salts of Zinc,Blaze Maple Sapling,Butterleaf Tree,Cricklewood,Japanese Cherry Sapling
+Set,As+++,Sp+++,Sw---|Cinnar,Mimosa Youth,Cricklewood,Elephantia,Umbrella Palm
+Set,As+++,Sp+++,To+++|Delta Palm,Bluebottle Clover,Mimosa Youth,Salts of Nickel,Powdered Sapphire
+Set,As+++,Sp+++,To---|Cricklewood,Elephantia,Blaze Maple Sapling,Cinnar,Fern Palm
+Set,As+++,Sp---,Sw+++|Powdered Quartz,Feather Tree,Feather Tree Youth,Japanese Cherry Sapling,Safsaf Willow
+Set,As+++,Sp---,Sw---|Windriver Palm,Chakkanut Tree,Salts of Cobalt,Powdered Quartz,Illawara
+Set,As+++,Sp---,To+++|Chakkanut Tree,Khaya,Feather Tree,Khaya Youth,Locust Palm
+Set,As+++,Sp---,To---|Powdered Quartz,Monterey Pine Middle Age,Fern Palm,Windriver Palm,Illawara Sapling
+Set,As+++,Sw+++,To---|Indigo Damia,Japanese Cherry Youth,Japanese Cherry Sapling,Salts of Zinc,Meadowsweet
+Set,As+++,Sw---,To+++|Chakkanut Tree,Autumn Bloodbark Sapling,Bloodbark,Windriver Palm,Khaya
+Set,As+++,Sw---,To---|Cinnar,Fern Palm,Umbrella Palm,Windriver Palm,Elephantia
+Set,As---,Bi+++,Sa+++|Pratyeka Tree,River Birch,River Birch Sapling,Royal Palm,Feather Tree Sapling
+Set,As---,Bi+++,Sa---|Peaches 'n Cream Maple,River Birch,Feather Tree Sapling,Golden Hemlock Sapling,Peaches 'n Cream Sapling
+Set,As---,Bi+++,So+++|Green Ash,Monterey Pine Sapling,River Birch,Dikbas,Feather Tree Sapling
+Set,As---,Bi+++,So---|River Birch,River Birch Sapling,Feather Tree Sapling,Pratyeka Tree,Acacia
+Set,As---,Bi+++,Sp+++|Silky Oak,Anaxi,River Birch,Feather Tree Sapling,Mimosa Sapling
+Set,As---,Bi+++,Sp---|Phoenix Palm,River Birch,Spindle Tree,Feather Tree Sapling,Acacia Youth
+Set,As---,Bi+++,Sw+++|Anaxi,Peaches 'n Cream Sapling,Razor Palm,Feather Tree Sapling,Silky Oak
+Set,As---,Bi+++,Sw---|River Birch,Pratyeka Tree,Ash Palm,Bloodbark,Dikbas
+Set,As---,Bi+++,To+++|River Birch,Feather Tree Sapling,Silky Oak,Bloodbark,Dikbas
+Set,As---,Bi+++,To---|Jacaranda Sapling,Anaxi,Oil Palm,Golden Hemlock Sapling,Pratyeka Tree
+Set,As---,Bi---,Sa+++|Bottle Tree,Royal Palm,Tapacae Miralis,Hawthorn,Monterey Pine
+Set,As---,Bi---,Sa---|Katsura Sapling,Passam,Powdered Turquoise,Dikbas Sapling,Monterey Pine
+Set,As---,Bi---,So+++|Dikbas Sapling,Green Ash,Katsura Sapling,Monterey Pine Sapling,Kaeshra
+Set,As---,Bi---,So---|Monterey Pine,Passam,Acacia,Autumn Bloodbark,Cerulean Blue
+Set,As---,Bi---,Sp+++|Passam,White Pine,Parrotia Sapling,Powdered Turquoise,Dikbas Sapling
+Set,As---,Bi---,Sp---|Green Ash Youth,Salts of Tin,Khaya Youth,Monterey Pine,Acacia Youth
+Set,As---,Bi---,Sw+++|Peaches 'n Cream Sapling,Autumn Bloodbark,Monterey Pine,Passam,Hawthorn
+Set,As---,Bi---,To+++|Monterey Pine,Salts of Tin,Golden Hemlock,Green Ash Youth,Katsura Sapling
+Set,As---,Bi---,To---|Illawara Sapling,Passam,Elephantia,River Birch Youth,Summer Maple Youth
+Set,As---,Sa+++,So+++|Green Ash,Monterey Pine Sapling,Summer Maple Youth,Tapacae Miralis,Towering Palm
+Set,As---,Sa+++,So---|Royal Palm,Chicory,Pratyeka Tree,River Birch Sapling,Summer Maple
+Set,As---,Sa+++,Sp+++|Anaxi,Pratyeka Tree,Silky Oak,Tapacae Miralis,Parrotia Sapling
+Set,As---,Sa+++,Sp---|Royal Palm,Green Ash,Pratyeka Tree,Khaya Youth,Giant Cricklewood
+Set,As---,Sa+++,Sw+++|Powdered Lapis,Royal Palm,Tapacae Miralis,Anaxi,Hawthorn
+Set,As---,Sa+++,Sw---|Pratyeka Tree,Summer Maple Sapling,Royal Palm,Tapacae Miralis,Towering Palm
+Set,As---,Sa+++,To+++|Tapacae Miralis,Powdered Emerald,Monterey Pine,Pratyeka Tree,Chicory
+Set,As---,Sa+++,To---|Pratyeka Tree,Royal Palm,Bottle Tree,Illawara Sapling,Oil Palm
+Set,As---,Sa---,So+++|Katsura Sapling,Monterey Pine Sapling,Oranje,Peaches 'n Cream Sapling,Summer Maple Youth
+Set,As---,Sa---,So---|Deadwood Tree,Tiny Oil Palm,Powdered Turquoise,Acacia,Katsura Tree
+Set,As---,Sa---,Sp+++|Powdered Turquoise,Anaxi,Deadwood Tree,Silky Oak,Dikbas Sapling
+Set,As---,Sa---,Sp---|Oranje,Peaches 'n Cream Maple,Peaches 'n Cream Sapling,Phoenix Palm,Acacia Youth
+Set,As---,Sa---,Sw+++|Peaches 'n Cream Sapling,Powdered Turquoise,Anaxi,Razor Palm,Deadwood Tree
+Set,As---,Sa---,Sw---|Sweet Pine,Ash Palm,Autumn Bloodbark Sapling,Deadwood Tree,Katsura Sapling
+Set,As---,Sa---,To+++|Katsura Sapling,Monterey Pine,Autumn Bloodbark Sapling,Golden Hemlock,Katsura Tree
+Set,As---,Sa---,To---|Golden Hemlock Sapling,Peaches 'n Cream Sapling,Powdered Turquoise,Butterleaf Tree,Oil Palm
+Set,As---,So+++,Sp+++|Summer Maple Youth,Anaxi,Monterey Pine Sapling,Montu Maple,Parrotia Sapling
+Set,As---,So+++,Sp---|Green Ash,Oranje,Ash Palm,Monterey Pine Sapling,Giant Cricklewood
+Set,As---,So+++,Sw+++|Peaches 'n Cream Sapling,Green Ash,Anaxi,Razor Palm,Dikbas Sapling
+Set,As---,So+++,Sw---|Ash Palm,Monterey Pine Sapling,Summer Maple Youth,Green Ash,Mini Palmetto
+Set,As---,So+++,To+++|Green Ash,Katsura Sapling,Monterey Pine,Monterey Pine Sapling,Golden Hemlock
+Set,As---,So+++,To---|Summer Maple Youth,Green Ash,Mimosa,Monterey Pine Sapling,Jacaranda Youth
+Set,As---,So---,Sp+++|Anaxi,Cerulean Blue,Mimosa Sapling,Silky Oak,Salts of Magnesium
+Set,As---,So---,Sp---|Royal Palm,Feather Tree Youth,Locust Palm,Tiny Oil Palm,Acacia
+Set,As---,So---,Sw+++|Anaxi,Japanese Cherry Sapling,Razor Palm,Royal Palm,Acacia
+Set,As---,So---,Sw---|Pratyeka Tree,Tiny Oil Palm,Salts of Magnesium,Mini Palmetto,Royal Palm
+Set,As---,So---,To+++|Salts of Magnesium,Monterey Pine,Tiny Oil Palm,Acacia,Cerulean Blue
+Set,As---,So---,To---|Oil Palm,Butterleaf Tree,Japanese Cherry Sapling,Royal Palm,Anaxi
+Set,As---,Sp+++,Sw+++|Anaxi,Tiny Clover,Bramble Hedge,Silky Oak,Mimosa Sapling
+Set,As---,Sp+++,Sw---|Silky Oak,Trilobellia,Elephantia,Khaya Sapling,Mimosa Sapling
+Set,As---,Sp+++,To+++|Silky Oak,Monterey Pine,Salts of Magnesium,Powdered Ruby,Golden Hemlock
+Set,As---,Sp+++,To---|Anaxi,Elephantia,Mimosa,Mimosa Sapling,Montu Maple
+Set,As---,Sp---,Sw+++|Peaches 'n Cream Sapling,Razor Palm,Powdered Lapis,Feather Tree Youth,Giant Cricklewood
+Set,As---,Sp---,Sw---|Ash Palm,Illawara,Mini Palmetto,Pratyeka Tree,Powdered Garnet
+Set,As---,Sp---,To+++|Green Ash Youth,Khaya Youth,Locust Palm,Monterey Pine,Golden Hemlock
+Set,As---,Sp---,To---|Morpha,Orange Niali,Sorrel,Illawara Sapling,Salts of Antimony
+Set,As---,Sw+++,To---|Anaxi,Japanese Cherry Sapling,Peaches 'n Cream Sapling,Razor Palm,Oil Palm
+Set,As---,Sw---,To+++|Autumn Bloodbark Sapling,Bloodbark,Mini Palmetto,Monterey Pine,Ash Palm
+Set,As---,Sw---,To---|Summer Maple Sapling,Ash Palm,Elephantia,Pratyeka Tree,Jacaranda Sapling
+Set,Bi+++,Sa+++,So---|River Birch Sapling,Summer Maple,Chicory,Pratyeka Tree,Fern Palm
+Set,Bi+++,Sa+++,Sp+++|River Birch Sapling,Silky Oak,Pratyeka Tree,Salts of Aluminum,Powdered Diamond
+Set,Bi+++,Sa+++,Sp---|Salts of Cobalt,River Birch Sapling,Arconis,Feather Tree Youth,Fern Palm
+Set,Bi+++,Sa+++,Sw+++|Powdered Lapis,River Birch Sapling,Meadowsweet,Razor Palm,Fool's Agar
+Set,Bi+++,Sa+++,Sw---|Fern Palm,Pratyeka Tree,Summer Maple,Umbrella Palm,Dikbas
+Set,Bi+++,Sa+++,To+++|Summer Maple,Powdered Emerald,Chicory,Dikbas,Feather Tree Sapling
+Set,Bi+++,Sa+++,To---|Fern Palm,Jacaranda Sapling,River Birch Sapling,Stout Palm,Umbrella Palm
+Set,Bi+++,Sa---,So+++|Golden Hemlock Sapling,Dikbas,Oranje,Peaches 'n Cream Maple,Japanese Cherry
+Set,Bi+++,Sa---,So---|Deadwood Tree,Peaches 'n Cream Maple,Phoenix Palm,Salts of Cobalt,Acacia
+Set,Bi+++,Sa---,Sp+++|Deadwood Tree,Silky Oak,Blaze Maple Sapling,Powdered Diamond,Bloodbark
+Set,Bi+++,Sa---,Sp---|Phoenix Palm,Spindle Tree,Peaches 'n Cream Maple,Golden Hemlock Sapling,Oranje
+Set,Bi+++,Sa---,Sw+++|Tiny Clover,Golden Hemlock Sapling,Peaches 'n Cream Maple,Peaches 'n Cream Sapling,Fool's Agar
+Set,Bi+++,Sa---,Sw---|Bloodbark,Phoenix Palm,Spindle Tree,Autumn Bloodbark Sapling,Dikbas
+Set,Bi+++,Sa---,To+++|Bloodbark,Autumn Bloodbark Sapling,Katsura Tree,Peaches 'n Cream Maple,Phoenix Palm
+Set,Bi+++,Sa---,To---|Golden Hemlock Sapling,Jacaranda Sapling,Blaze Maple Sapling,Peaches 'n Cream Maple,Phoenix Palm
+Set,Bi+++,So+++,Sp+++|Dikbas,Mimosa,Silky Oak,Anaxi,Japanese Cherry
+Set,Bi+++,So+++,Sp---|Monterey Pine Middle Age,Oranje,Phoenix Palm,Spindle Tree,Dikbas
+Set,Bi+++,So+++,Sw---|Dikbas,Bloodbark,Fern Palm,Ash Palm,Mimosa
+Set,Bi+++,So+++,To---|Fern Palm,Jacaranda Sapling,Mimosa,Golden Hemlock Sapling,Monterey Pine Middle Age
+Set,Bi+++,So---,Sp+++|Cerulean Blue,River Birch Sapling,Silky Oak,Powdered Diamond,Anaxi
+Set,Bi+++,So---,Sp---|Salts of Cobalt,Feather Tree Youth,Phoenix Palm,Spindle Tree,River Birch Sapling
+Set,Bi+++,So---,Sw+++|Feather Tree Youth,River Birch Sapling,Razor Palm,Powdered Sunstone,Feather Tree Sapling
+Set,Bi+++,So---,Sw---|Summer Maple,Salts of Cobalt,Black Pepper Plant,Bloodbark,Dikbas Youth
+Set,Bi+++,So---,To+++|Summer Maple,Salts of Magnesium,Bloodbark,River Birch Sapling,Feather Tree Sapling
+Set,Bi+++,So---,To---|Fern Palm,Jacaranda Sapling,Oil Palm,Butterleaf Tree,River Birch Sapling
+Set,Bi+++,Sp+++,Sw+++|Anaxi,Tiny Clover,Powdered Diamond,Feather Tree Sapling,Powdered Sunstone
+Set,Bi+++,Sp+++,Sw---|Trilobellia,Bloodbark,Dikbas,Silky Oak,Peaches 'n Cream Youth
+Set,Bi+++,Sp+++,To+++|Silky Oak,Bloodbark,Salts of Magnesium,Powdered Ruby,Dikbas
+Set,Bi+++,Sp+++,To---|Fern Palm,Jacaranda Sapling,Anaxi,Mimosa,Montu Maple
+Set,Bi+++,Sp---,Sw+++|Feather Tree Youth,Razor Palm,Powdered Lapis,Peaches 'n Cream Maple,Feather Tree Sapling
+Set,Bi+++,Sp---,Sw---|Phoenix Palm,Spindle Tree,Salts of Cobalt,Bloodbark,Dikbas
+Set,Bi+++,Sp---,To+++|Locust Palm,Phoenix Palm,Spindle Tree,Bloodbark,Autumn Bloodbark Sapling
+Set,Bi+++,Sp---,To---|Fern Palm,Jacaranda Sapling,Phoenix Palm,Spindle Tree,Golden Hemlock Sapling
+Set,Bi+++,Sw+++,To---|Indigo Damia,Stout Palm,Anaxi,Razor Palm,Powdered Diamond
+Set,Bi+++,Sw---,To+++|Bloodbark,Autumn Bloodbark Sapling,Dikbas,River Birch,Summer Maple
+Set,Bi+++,Sw---,To---|Fern Palm,Jacaranda Sapling,Stout Palm,Umbrella Palm,Cinnar
+Set,Bi---,Sa+++,So+++|Towering Palm,White Pine Sapling,Dwarf Safsaf,Green Ash,Hawthorn
+Set,Bi---,Sa+++,So---|Parrotia,Bottle Tree,Chicory,White Pine Sapling,Autumn Bloodbark
+Set,Bi---,Sa+++,Sp+++|White Pine,Bottle Tree,Cricklewood,Parrotia,Parrotia Sapling
+Set,Bi---,Sa+++,Sp---|Khaya Youth,White Pine Sapling,Bottle Tree,Parrotia,Chakkanut Tree
+Set,Bi---,Sa+++,Sw+++|Bottle Tree,Hawthorn,Parrotia,Autumn Bloodbark,Japanese Cherry Sapling
+Set,Bi---,Sa+++,Sw---|Towering Palm,Umbrella Palm,White Pine Sapling,Dwarf Safsaf,Jacaranda
+Set,Bi---,Sa+++,To+++|Khaya Youth,White Pine Sapling,Chakkanut Tree,Folded Birch,Green Ash Youth
+Set,Bi---,Sa+++,To---|Bottle Tree,Illawara Sapling,Parrotia,Hawthorn,Japanese Cherry Sapling
+Set,Bi---,Sa---,So+++|Dikbas Sapling,Katsura Sapling,Dwarf Safsaf,Oranje,Kaeshra
+Set,Bi---,Sa---,So---|Deadwood Tree,Blaze Maple Sapling,Cricklewood,Feather Tree,Passam
+Set,Bi---,Sa---,Sp+++|Dikbas Sapling,Cricklewood,Passam,Deadwood Tree,Katsura Sapling
+Set,Bi---,Sa---,Sp---|Green Ash Youth,Katsura Sapling,Oranje,Spiked Fishtree,Dwarf Safsaf
+Set,Bi---,Sa---,Sw+++|Dikbas Sapling,Katsura Sapling,Peaches 'n Cream Sapling,Powdered Turquoise,Safsaf Willow
+Set,Bi---,Sa---,Sw---|Autumn Bloodbark Sapling,Dwarf Safsaf,Jacaranda,Katsura Sapling,Blaze Maple Sapling
+Set,Bi---,Sa---,To+++|Katsura Sapling,Salts of Nickel,Autumn Bloodbark Sapling,Green Ash Youth,Passam
+Set,Bi---,Sa---,To---|Dikbas Sapling,Blaze Maple Sapling,Cricklewood,Butterleaf Tree,Passam
+Set,Bi---,So+++,Sp+++|Dikbas Sapling,Parrotia Sapling,White Pine,Dwarf Safsaf,Katsura Sapling
+Set,Bi---,So+++,Sp---|Monterey Pine Middle Age,Oranje,Dwarf Safsaf,Green Ash Youth,Katsura Sapling
+Set,Bi---,So+++,Sw+++|Dikbas Sapling,Safsaf Willow,Katsura Sapling,Hawthorn,Peaches 'n Cream Sapling
+Set,Bi---,So+++,Sw---|Dwarf Safsaf,Jacaranda,Towering Palm,Katsura Sapling,Khaya Sapling
+Set,Bi---,So+++,To+++|Katsura Sapling,Green Ash Youth,Jacaranda,Khaya Youth,Safsaf Willow
+Set,Bi---,So+++,To---|Dikbas Sapling,Dwarf Safsaf,Illawara Sapling,Jacaranda Youth,Mimosa
+Set,Bi---,So---,Sp+++|Cricklewood,Mimosa Youth,White Pine,Cerulean Blue,Parrotia
+Set,Bi---,So---,Sp---|Feather Tree,Green Ash Youth,Khaya Youth,Locust Palm,Parrotia
+Set,Bi---,So---,Sw+++|Autumn Bloodbark,Japanese Cherry Sapling,Parrotia,Bottle Tree,Cricklewood
+Set,Bi---,So---,Sw---|Mimosa Youth,Dikbas Youth,Khaya Sapling,Cricklewood,Feather Tree
+Set,Bi---,So---,To+++|Salts of Magnesium,Feather Tree,Green Ash Youth,Khaya Youth,Autumn Bloodbark
+Set,Bi---,So---,To---|Bottle Tree,Cricklewood,Japanese Cherry Sapling,Parrotia,Butterleaf Tree
+Set,Bi---,Sp+++,Sw+++|Cricklewood,Dikbas Sapling,Autumn Bloodbark,Japanese Cherry Sapling,Powdered Turquoise
+Set,Bi---,Sp+++,Sw---|Mimosa Youth,Cricklewood,Elephantia,Khaya Sapling,White Pine
+Set,Bi---,Sp+++,To+++|White Pine,Salts of Nickel,Mimosa Youth,Monterey Pine,Powdered Ruby
+Set,Bi---,Sp+++,To---|Cricklewood,Elephantia,Dikbas Sapling,White Pine,Bottle Tree
+Set,Bi---,Sp---,Sw+++|Autumn Bloodbark,Green Ash Youth,Bottle Tree,Giant Cricklewood,Peaches 'n Cream Sapling
+Set,Bi---,Sp---,Sw---|Chakkanut Tree,Illawara,Jacaranda,Khaya Youth,Dwarf Safsaf
+Set,Bi---,Sp---,To+++|Green Ash Youth,Khaya Youth,Chakkanut Tree,Khaya,Illawara
+Set,Bi---,Sp---,To---|Illawara Sapling,Bottle Tree,Monterey Pine Middle Age,Coconut Palm,Powdered Quartz
+Set,Bi---,Sw+++,To---|Japanese Cherry Sapling,Bottle Tree,Autumn Bloodbark,Cricklewood,Dikbas Sapling
+Set,Bi---,Sw---,To+++|Jacaranda,Autumn Bloodbark Sapling,Chakkanut Tree,Khaya Youth,Green Ash Youth
+Set,Bi---,Sw---,To---|Dwarf Safsaf,Elephantia,Cricklewood,Illawara Sapling,Khaya Sapling
+Set,Sa+++,So+++,Sp+++|Parrotia Sapling,Mimosa,Towering Palm,Montu Maple,Umbrella Palm
+Set,Sa+++,So+++,Sp---|Green Ash,Monterey Pine Middle Age,Khaya Youth,Towering Palm,Arconis
+Set,Sa+++,So+++,Sw+++|Green Ash,Hawthorn,Safsaf Willow,Powdered Lapis,Illawara Sapling
+Set,Sa+++,So+++,Sw---|Towering Palm,Umbrella Palm,Green Ash,Summer Maple Sapling,Ash Palm
+Set,Sa+++,So+++,To+++|Green Ash,Khaya Youth,Towering Palm,Chakkanut Tree,Dikbas
+Set,Sa+++,So+++,To---|Illawara Sapling,Mimosa,Umbrella Palm,Green Ash,Jacaranda Youth
+Set,Sa+++,So---,Sp+++|Chicory,River Birch Sapling,Cerulean Blue,Cricklewood,White Pine
+Set,Sa+++,So---,Sp---|Chicory,River Birch Sapling,Royal Palm,Feather Tree Youth,Khaya Youth
+Set,Sa+++,So---,Sw+++|Japanese Cherry Sapling,Chicory,Parrotia,Bottle Tree,Hawthorn
+Set,Sa+++,So---,Sw---|Summer Maple,Chicory,Pratyeka Tree,River Birch Sapling,Summer Maple Sapling
+Set,Sa+++,So---,To+++|Summer Maple,Chicory,River Birch Sapling,Salts of Magnesium,Khaya Youth
+Set,Sa+++,So---,To---|Japanese Cherry Sapling,Bottle Tree,Parrotia,River Birch Sapling,Oil Palm
+Set,Sa+++,Sp+++,Sw+++|Anaxi,Hawthorn,Japanese Cherry Sapling,Parrotia Sapling,White Pine
+Set,Sa+++,Sp+++,Sw---|Towering Palm,Umbrella Palm,Elephantia,Trilobellia,Parrotia Sapling
+Set,Sa+++,Sp+++,To+++|Summer Maple,Salts of Magnesium,Chicory,Parrotia Sapling,Silky Oak
+Set,Sa+++,Sp+++,To---|Elephantia,Bottle Tree,Cricklewood,Umbrella Palm,Parrotia Sapling
+Set,Sa+++,Sp---,Sw+++|Feather Tree Youth,Hawthorn,Japanese Cherry Sapling,Arconis,Giant Cricklewood
+Set,Sa+++,Sp---,Sw---|Chakkanut Tree,Khaya Youth,Towering Palm,Umbrella Palm,Windriver Palm
+Set,Sa+++,Sp---,To+++|Khaya Youth,Chakkanut Tree,Khaya,Green Ash Youth,Summer Maple
+Set,Sa+++,Sp---,To---|Illawara Sapling,Bottle Tree,Japanese Cherry Sapling,Monterey Pine Middle Age,Powdered Opal
+Set,Sa+++,Sw+++,To---|Japanese Cherry Sapling,Bottle Tree,Hawthorn,Illawara Sapling,Parrotia
+Set,Sa+++,Sw---,To+++|Summer Maple,Chakkanut Tree,Khaya Youth,Towering Palm,Jacaranda
+Set,Sa+++,Sw---,To---|Umbrella Palm,Fern Palm,Summer Maple Sapling,Towering Palm,Elephantia
+Set,Sa---,So+++,Sp+++|Dikbas Sapling,Katsura Sapling,Mimosa,Montu Maple,Powdered Turquoise
+Set,Sa---,So+++,Sp---|Oranje,Katsura Sapling,Monterey Pine Middle Age,Golden Hemlock Sapling,Peaches 'n Cream Maple
+Set,Sa---,So+++,Sw+++|Dikbas Sapling,Katsura Sapling,Peaches 'n Cream Sapling,Oranje,Razor Palm
+Set,Sa---,So+++,Sw---|Katsura Sapling,Autumn Bloodbark Sapling,Oranje,Ash Palm,Bloodbark
+Set,Sa---,So+++,To+++|Katsura Sapling,Autumn Bloodbark Sapling,Oranje,Bloodbark,Dikbas
+Set,Sa---,So+++,To---|Dikbas Sapling,Golden Hemlock Sapling,Mimosa,Jacaranda Youth,Oranje
+Set,Sa---,So---,Sp+++|Deadwood Tree,Blaze Maple Sapling,Cerulean Blue,Salts of Magnesium,Katsura Tree
+Set,Sa---,So---,Sp---|Feather Tree,Feather Tree Youth,Peaches 'n Cream Maple,Katsura Tree,Blaze Maple Youth
+Set,Sa---,So---,Sw+++|Tiny Clover,Deadwood Tree,Indigo Damia,Feather Tree Youth,Verdant Squill
+Set,Sa---,So---,Sw---|Black Pepper Plant,Autumn Bloodbark Sapling,Deadwood Tree,Dikbas Youth,Blaze Maple Sapling
+Set,Sa---,So---,To+++|Katsura Tree,Salts of Magnesium,Black Pepper Plant,Autumn Bloodbark Sapling,Deadwood Tree
+Set,Sa---,So---,To---|Blaze Maple Sapling,Butterleaf Tree,Deadwood Tree,Oil Palm,Stout Palm
+Set,Sa---,Sp+++,Sw+++|Tiny Clover,Anaxi,Deadwood Tree,Dikbas Sapling,Bramble Hedge
+Set,Sa---,Sp+++,Sw---|Delta Palm,Deadwood Tree,Elephantia,Trilobellia,Powdered Black Pearl
+Set,Sa---,Sp+++,To+++|Deadwood Tree,Katsura Sapling,Katsura Tree,Salts of Magnesium,Powdered Ruby
+Set,Sa---,Sp+++,To---|Blaze Maple Sapling,Elephantia,Cricklewood,Deadwood Tree,Dikbas Sapling
+Set,Sa---,Sp---,Sw+++|Peaches 'n Cream Sapling,Feather Tree Youth,Oranje,Peaches 'n Cream Maple,Razor Palm
+Set,Sa---,Sp---,Sw---|Autumn Bloodbark Sapling,Phoenix Palm,Spindle Tree,Illawara,Oranje
+Set,Sa---,Sp---,To+++|Autumn Bloodbark Sapling,Green Ash Youth,Locust Palm,Spiked Fishtree,Katsura Sapling
+Set,Sa---,Sp---,To---|Golden Hemlock Sapling,Monterey Pine Middle Age,Oranje,Peaches 'n Cream Maple,Butterleaf Tree
+Set,Sa---,Sw+++,To---|Indigo Damia,Tiny Clover,Blaze Maple Sapling,Golden Hemlock Sapling,Peaches 'n Cream Sapling
+Set,Sa---,Sw---,To+++|Autumn Bloodbark Sapling,Bloodbark,Jacaranda,Katsura Sapling,Katsura Tree
+Set,Sa---,Sw---,To---|Blaze Maple Sapling,Elephantia,Golden Hemlock Sapling,Sweet Pine,Dwarf Safsaf
+Set,So+++,Sp+++,Sw+++|Dikbas Sapling,Anaxi,Parrotia Sapling,Safsaf Willow,Hawthorn
+Set,So+++,Sp+++,Sw---|Mimosa,Elephantia,Parrotia Sapling,Peaches 'n Cream Youth,Towering Palm
+Set,So+++,Sp+++,To+++|Katsura Sapling,Parrotia Sapling,Powdered Ruby,Salts of Nickel,Dikbas
+Set,So+++,Sp+++,To---|Mimosa,Dikbas Sapling,Elephantia,Jacaranda Youth,Parrotia Sapling
+Set,So+++,Sp---,Sw+++|Oranje,Peaches 'n Cream Sapling,Safsaf Willow,Giant Cricklewood,Razor Palm
+Set,So+++,Sp---,Sw---|Monterey Pine Middle Age,Oranje,Ash Palm,Chakkanut Tree,Illawara
+Set,So+++,Sp---,To+++|Chakkanut Tree,Green Ash Youth,Oranje,Katsura Sapling,Green Ash
+Set,So+++,Sp---,To---|Monterey Pine Middle Age,Oranje,Salts of Antimony,Illawara Sapling,Scaley Hardwood
+Set,So+++,Sw+++,To---|Dikbas Sapling,Jacaranda Youth,Salts of Antimony,Peaches 'n Cream Sapling,Razor Palm
+Set,So+++,Sw---,To+++|Autumn Bloodbark Sapling,Bloodbark,Jacaranda,Katsura Sapling,Monterey Pine Sapling
+Set,So+++,Sw---,To---|Mimosa,Monterey Pine Middle Age,Umbrella Palm,Dwarf Safsaf,Elephantia
+Set,So---,Sp+++,Sw+++|Anaxi,Cerulean Blue,Japanese Cherry Sapling,Cricklewood,Autumn Bloodbark
+Set,So---,Sp+++,Sw---|Salts of Magnesium,Salts of Copper,Cerulean Blue,Elephantia,Mimosa Youth
+Set,So---,Sp+++,To+++|Salts of Magnesium,Cerulean Blue,Summer Maple,Powdered Ruby,Acacia
+Set,So---,Sp+++,To---|Cricklewood,Elephantia,Butterleaf Tree,Japanese Cherry Sapling,Deadwood Tree
+Set,So---,Sp---,Sw+++|Feather Tree Youth,Feather Tree,Japanese Cherry Sapling,Locust Palm,Razor Palm
+Set,So---,Sp---,Sw---|Dikbas Youth,Windriver Palm,Salts of Cobalt,Chakkanut Tree,Feather Tree
+Set,So---,Sp---,To+++|Locust Palm,Chakkanut Tree,Feather Tree,Green Ash Youth,Feather Tree Youth
+Set,So---,Sp---,To---|Powdered Opal,Butterleaf Tree,Feather Tree Youth,Japanese Cherry Sapling,Dikbas Youth
+Set,So---,Sw+++,To---|Japanese Cherry Sapling,Butterleaf Tree,Oil Palm,Bottle Tree,Razor Palm
+Set,So---,Sw---,To+++|Salts of Magnesium,Summer Maple,Black Pepper Plant,Autumn Bloodbark Sapling,Bloodbark
+Set,So---,Sw---,To---|Salts of Copper,Butterleaf Tree,Dikbas Youth,Elephantia,Fern Palm
+Set,Sp+++,Sw+++,To---|Anaxi,Japanese Cherry Sapling,Cricklewood,Dikbas Sapling,Bottle Tree
+Set,Sp+++,Sw---,To+++|Salts of Magnesium,Bloodbark,Trilobellia,Powdered Ruby,Mimosa Youth
+Set,Sp+++,Sw---,To---|Elephantia,Mimosa,Cinnar,Cricklewood,Fern Palm
+Set,Sp---,Sw+++,To+++|Green Ash Youth,Khaya,Peaches 'n Cream Sapling,Razor Palm,Fool's Agar
+Set,Sp---,Sw+++,To---|Japanese Cherry Sapling,Feather Tree Youth,Giant Cricklewood,Illawara Sapling,Bottle Tree
+Set,Sp---,Sw---,To+++|Chakkanut Tree,Autumn Bloodbark Sapling,Illawara,Khaya Youth,Bloodbark
+Set,Sp---,Sw---,To---|Monterey Pine Middle Age,Powdered Garnet,Fern Palm,Umbrella Palm,Windriver Palm
 Maat,Ar+++,Sp---|Chakkanut Tree,Butterleaf Tree,Miniature Fern Palm,Feather Tree,Elephantia
 Maat,Ar+++,As---|Beetlenut,Miniature Fern Palm,Oleaceae,Royal Palm,Passam
 Maat,Ar+++,Bi---|Ash Palm,Elephantia,Kaeshra,Miniature Fern Palm,Feather Tree
