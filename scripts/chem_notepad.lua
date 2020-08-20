@@ -23,24 +23,24 @@ function browseMenu(tree)
     elseif type(nextTags) == "table" then
       table.sort(nextTags);
       for i=1,#nextTags do
-	local x = 40;
-	if i % 2 == 0 then
-	  x = 160;
-	else
-	  y = y + 30;
-	end
-	if lsButtonText(x, y, 0, 100, 0xd0ffd0ff, nextTags[i]) then
-	  table.insert(tags, nextTags[i]);
-	end
+  local x = 40;
+  if i % 2 == 0 then
+    x = 160;
+  else
+    y = y + 30;
+  end
+  if lsButtonText(x, y, 0, 100, 0xd0ffd0ff, nextTags[i]) then
+    table.insert(tags, nextTags[i]);
+  end
       end
       y = y + 30;
 --      if nextTags[1] ~= "" then
---	table.insert(nextTags, 1, "");
+--  table.insert(nextTags, 1, "");
 --      end
 --      nextIndex = lsDropdown("NoteIndex", 40, y, 0, 250, nextIndex, nextTags);
 --      if nextIndex ~= 1 then
---	table.insert(tags, nextTags[nextIndex]);
---	nextIndex = 1;
+--  table.insert(tags, nextTags[nextIndex]);
+--  nextIndex = 1;
 --      end
     else
       y = y + 30;
@@ -49,16 +49,16 @@ function browseMenu(tree)
 
     if lsButtonText(10, lsScreenY - 30, 0, 100, 0xffffffff, "Restart") then
       if #tags > 0 then
---	table.remove(tags);
-	tags = {};
-	nextIndex = 1;
+--  table.remove(tags);
+  tags = {};
+  nextIndex = 1;
       else
---	done = true;
+--  done = true;
       end
     end
 
     if lsButtonText(lsScreenX - 110, lsScreenY - 30, 0, 100, 0xffffffff,
-		    "End Script") then
+        "End Script") then
       error(quit_message);
     end
     checkBreak();
@@ -68,14 +68,18 @@ function browseMenu(tree)
 end
 
 function setLine(tree, line)
-  --local sections = csplit(line, "|");
   local sections = explode("|",line);
   if #sections ~= 2 then
     error("Cannot parse line: " .. line);
   end
-  --local tags = csplit(sections[1], ",");
-  local tags = explode(",",sections[1]);
+
+  local tags = explode(",", sections[1]);
   local data = sections[2];
+  local type = table.remove(tags, 1);
+
+  table.sort(tags);
+  table.insert(tags, 1, type);
+
   setData(tree, tags, data);
 end
 

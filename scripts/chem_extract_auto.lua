@@ -24,48 +24,44 @@ end
 
 function tryAllTypes()
   for i=1,#types do
-checkBreak();
+    checkBreak();
     local done = false;
     if typeEnabled[i] then
       statusScreen("Trying type " .. types[i]);
       srReadScreen();
       clickAllText(types[i] .. "'s Compound");
       sleepWithStatus(2750, "Waiting out requirement mutation...");  -- This line added per SomeBob's recommendation on February 23, 2019
+
       local anchor = waitForText("Required:");
       if anchor then
-	local tags = {types[i]};
-	local window = getWindowBorders(anchor[0], anchor[1]);
-	addRequirements(tags, findAllText(typePlus[i], window), typePlus[i]);
-	addRequirements(tags, findAllText(typeMinus[i], window), typeMinus[i]);
-	local recipe = lookupData(cheapRecipes, tags);
-	if not recipe and i <= 2 then
-	  recipe = lookupData(allRecipes, tags);
-	end
-	if recipe then
-	  lsPrintln("tags: " .. table.concat(tags, ", "));
---	  if not recipe then
---	    lsPrintln("Boohoo");
---	  end
---	  if recipe then
---	    lsPrintln("Impossible");
---	  else
---	    lsPrintln("else");
---	  end
---	  lsPrintln("Recipe: " .. table.concat(recipe, "---"));
-	  --local recipeList = csplit(recipe, ",");
-	  local recipeList = explode(",", recipe);
-	  lsPrintln("After csplit");
-	  done = true;
-	  local done = makeRecipe(recipeList, window);
-	  if done then
-	    break;
-	  end
-	else
-	  lsPrintln("No recipe for " .. table.concat(tags, ","));
-	end
+        local tags = {};
+        local window = getWindowBorders(anchor[0], anchor[1]);
+        addRequirements(tags, findAllText(typePlus[i], window), typePlus[i]);
+        addRequirements(tags, findAllText(typeMinus[i], window), typeMinus[i]);
+        table.sort(tags);
+        table.insert(tags, 1, types[i]);
+
+        local recipe = lookupData(cheapRecipes, tags);
+        if not recipe and i <= 2 then
+          recipe = lookupData(allRecipes, tags);
+        end
+
+        if recipe then
+          lsPrintln("tags: " .. table.concat(tags, ", "));
+          local recipeList = explode(",", recipe);
+          lsPrintln("After csplit");
+          done = true;
+          local done = makeRecipe(recipeList, window);
+          if done then
+            break;
+          end
+        else
+          lsPrintln("No recipe for " .. table.concat(tags, ","));
+        end
       end
+
       while clickAllImages("Cancel.png") == 1 do
-	sleepWithStatus(200, types[i] .. " not found: Cancel");
+        sleepWithStatus(200, types[i] .. " not found: Cancel");
       end
     end
   end
@@ -76,10 +72,10 @@ function addRequirements(tags, lines, sign)
     lsPrintln("Line: " .. lines[i][2]);
     for j=1,#properties do
       if string.match(lines[i][2], properties[j]) or
-	(properties[j] == "Toxic" and string.match(lines[i][2], "Txic"))
+        (properties[j] == "Toxic" and string.match(lines[i][2], "Txic"))
       then
-	table.insert(tags, props[j] .. sign);
-	break;
+        table.insert(tags, props[j] .. sign);
+        break;
       end
     end
   end
@@ -90,7 +86,7 @@ function makeRecipe(recipe, window)
   local ingredients = findIngredients(recipe);
   if #ingredients < 5 then
     askForWindow("Not enough essences for recipe "
-		 .. table.concat(recipe, ", "));
+     .. table.concat(recipe, ", "));
     return false;
   end
 
@@ -155,15 +151,15 @@ function findIngredients(names)
       lsSleep(100);
       current = findTextPrefix(names[i], window);
       if current then
-	local first, len, match = string.find(current[2], "%(([0-9]+)");
-	local count = tonumber(match);
-	if count and count >= 7 then
-	  table.insert(result, current);
-	elseif count then
-	  lsPrintln("No essences for: " .. names[i] .. " (" .. count .. ")");
-	else
-	  lsPrintln("No count for: " .. names[i]);
-	end
+  local first, len, match = string.find(current[2], "%(([0-9]+)");
+  local count = tonumber(match);
+  if count and count >= 7 then
+    table.insert(result, current);
+  elseif count then
+    lsPrintln("No essences for: " .. names[i] .. " (" .. count .. ")");
+  else
+    lsPrintln("No count for: " .. names[i]);
+  end
       end
     end
   end
