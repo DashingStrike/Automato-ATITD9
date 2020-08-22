@@ -242,37 +242,45 @@ local function makeItem(currentItem, window)
      safeClick(t[0]+20,t[1]+4);
      local t = waitForText("Make 1...");
      safeClick(t[0]+20,t[1]+4);
+     text = name .. " Small Gear";
    elseif lastParent == "Small Gear x10" then
       local t = waitForText("Small Gear...");
       safeClick(t[0]+20,t[1]+4);
       local t = waitForText("Make 10...");
       safeClick(t[0]+20,t[1]+4);
+      text = name .. " Small Gear";
    elseif lastParent == "Small Gear x20" then
       local t = waitForText("Small Gear...");
       safeClick(t[0]+20,t[1]+4);
       local t = waitForText("Make 20...");
       safeClick(t[0]+20,t[1]+4);
+      text = name .. " Small Gear";
    elseif lastParent == "Medium Gear x1" then
       local t = waitForText("Medium Gear...");
       safeClick(t[0]+20,t[1]+4);
       local t = waitForText("Make 10...");
       safeClick(t[0]+20,t[1]+4);
+      text = name .. " Medium Gear";
    elseif lastParent == "Medium Gear x10" then
       local t = waitForText("Medium Gear...");
       safeClick(t[0]+20,t[1]+4);
       local t = waitForText("Make 10...");
       safeClick(t[0]+20,t[1]+4);
+      text = name .. " Medium Gear";
    elseif lastParent == "Medium Gear x20" then
       local t = waitForText("Medium Gear...");
       safeClick(t[0]+20,t[1]+4);
       local t = waitForText("Make 20...");
       safeClick(t[0]+20,t[1]+4);
+      text = name .. " Medium Gear";
    elseif lastParent == "Bars x5" then
       local t = waitForText("Make 5 sets");
       safeClick(t[0]+20,t[1]+4);
+      text = name .. " Bars";
    elseif lastParent == "Bars x1" then
       local t = waitForText("Make 1 set");
       safeClick(t[0]+20,t[1]+4);
+      text = name .. " Bars";
    end
       lsSleep(100);
 
@@ -286,13 +294,11 @@ local function makeItem(currentItem, window)
       downArrow(); -- Click the Down arrow button to scroll
    end
 
-   if lastParent == "Bars x1" or lastParent == "Bars x5" then
-	text = name .. " Bars";
-   elseif lastParent == "Sheeting" or lastParent == "Wire" then
+   if lastParent == "Sheeting" or lastParent == "Wire" then
       text = string.format("Make %s %s", name, lastParent);
    elseif lastParent == "Pipes" or lastParent == "Foils" or lastParent == "Straps" then
       text = string.format("Make %s %s", name, string.sub(lastParent, 1, #lastParent-1));
-   elseif lastParent == "Large Gear" or lastParent == "Medium Gear" or lastParent == "Small Gear" then
+   elseif lastParent == "Large Gear" then
       text = string.format("Make %s %s", name, lastParent);
    elseif lastParent == "Steam Mechanics" then
       text = "Make a " .. name;
@@ -304,7 +310,7 @@ local function makeItem(currentItem, window)
       end
    elseif lastParent == "Make some Treated Metal Sheeting" then
       text = "From";
-   else
+   elseif text == nil then
       text = name;
    end
    if textLookup[text] ~= nil then
@@ -318,25 +324,7 @@ local function makeItem(currentItem, window)
    if #parents == 1 then
       t = waitForText(text, 1000, nil, window);
    elseif lastParent == "Bars x1" or lastParent == "Bars x5" then
-      srReadScreen();
-      pin = srFindImage("unpinnedPin.png");
-      thisRange = makeBox(pin[0]-165, pin[1]-2, 165, 450);
-      t = waitForText(text, 1000, nil, thisRange, EXACT);
-   elseif lastParent == "Small Gear x1" or lastParent == "Small Gear x10" then
-      srReadScreen();
-      pin = srFindImage("unpinnedPin.png");
-      smallGearRange = makeBox(pin[0]-203, pin[1]-3, 205, 450);
-      t = waitForText(text, 1000, nil, smallGearRange); 
-   elseif lastParent == "Medium Gear x1" or lastParent == "Medium Gear x10" or lastParent == "Medium Gear x20" then
-      srReadScreen();
-      pin = srFindImage("unpinnedPin.png");
-      mediumGearRange = makeBox(pin[0]-217, pin[1]-3, 220, 450);
-      t = waitForText(text, 1000, nil, mediumGearRange); 
-   elseif lastParent == "Pots" then
-      srReadScreen();
-      pin = srFindImage("unpinnedPin.png");
-      potRange = makeBox(pin[0]-200, pin[1]-5, 200, 87);
-      t = waitForText(text, 1000, nil, potRange);
+      t = waitForText(text, 1000, nil, nil, EXACT);
    else
       t = waitForText(text, 1000);
    end
@@ -410,7 +398,7 @@ function doit()
    if success == false then
       error("Could not read casting box info");
    end
-   
+
    local topLevel = {};
    topLevel.Forge = forgeItems;
    topLevel.Casting = castingItems;
@@ -459,7 +447,7 @@ function doit()
       printText = printText .. string.format("Beeswax %d\n", beeswax);
    end
    askForWindow(printText);
-   
+
    itemQueue = {};
    itemQueue["Student's Forge"] = {};
    itemQueue["Master's Forge"] = {};
@@ -470,7 +458,7 @@ function doit()
    viableQueue["Master's Forge"] = {"Master's Forge", "Student's Forge"};
    viableQueue["Student's Casting Box"] = {"Student's Casting Box"};
    viableQueue["Master's Casting Box"] = {"Master's Casting Box", "Student's Casting Box"};
-   
+
 -- Build item queues that we're going to pull from to make stuff.
 -- Add them in backwards so that we can pop cheaply
    for i=#desiredItems, 1, -1 do
@@ -494,7 +482,7 @@ function doit()
          end
       end
    end
-   
+
    srReadScreen();
    clickAllText("in the chamber");
    lsSleep(200);
@@ -524,7 +512,7 @@ function doit()
       end
    end
    clickAllText("Start fire");
-   
+
    -- Begin infinite loop. Broken out of by finishing making all items.
    local slept = true;
    while 1 do
@@ -547,7 +535,7 @@ function doit()
       -- if foundOne == false then
          -- error("done making items");
       -- end
-            
+
          -- if #itemQueue["Student's Forge"] == 0 then
             -- putOutWindows("Student's Forge");
          -- end
