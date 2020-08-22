@@ -86,5 +86,5 @@ function showButton(button)
 end
 
 function runCommand(button)
-  clickAllImages(button.image, button.offset[0], button.offset[1]);
+  return clickAllImages(button.image, button.offset[0], button.offset[1]);
 end
