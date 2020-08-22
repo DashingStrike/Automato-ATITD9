@@ -24,11 +24,31 @@ FULL = 6;
 woodAddedTotal = 0;
 waterAddedTotal = 0;
 
+-- Standard mode, teh default, where each oven runs independently
+-- Synchronous mode, where one oven is watched, and all receive the same commands
+synchronousMode = 0;
+
 function ccMenu()
-  local passCount = promptNumber("How many passes?", 1, 1.0);
+  local passCount = 1;
+  local done = false;
+  while not done do
+    lsPrint(5, 5, 5, 0.7, 0.7, 0xffffffff, "How many passes?");
+    done, passCount = lsEditBox("pass_count", 5, 35, z, 100, 30, 0.7, 0.7, 0x000000ff, passCount);
+    synchronousMode = CheckBox(5, 65, 10, 0xd0d0d0ff, " Synchronous Mode", synchronousMode, 0.7, 0.7);
+    lsPrint(5, 80, 10, 0.6, 0.6, 0xd0d0d0ff, "    Runs all ovens identically");
+    if lsButtonText(5, 110, z, 50, 0xffffffff, "OK") then
+      done = true;
+    end
+
+    lsDoFrame();
+    lsSleep(25);
+    checkBreak();
+  end
+
   askForFocus();
+
   startTime = lsGetTimer();
-  for i=1,passCount do
+  for i = 1, passCount do
     woodAdded = 0;
     waterAdded = 0;
     woodx1Click = 0;
@@ -39,6 +59,7 @@ function ccMenu()
     lsSleep(1500);
     ccRun(i, passCount);
   end
+
   Do_Take_All_Click(); -- All done, empty ovens
   lsPlaySound("Complete.wav");
   lsMessageBox("Elapsed Time:", getElapsedTime(startTime), 1);
@@ -59,7 +80,7 @@ end
 
 function setupVents(ovens)
   local result = {};
-  for i=1,#ovens do
+  for i = 1, #ovens do
     result[i] = 0;
   end
   return result;
@@ -70,18 +91,26 @@ function findButton(pos, index)
 end
 
 function clickButton(pos, index, counter)
-  local buttonPos = findButton(pos, index);
-  if buttonPos then
-    safeClick(buttonPos[0] + buttons[index].offset[0],
-          buttonPos[1] + buttons[index].offset[1]);
+  local count = nil;
 
-    if index == 3 and counter ~= nil then -- Water
-      waterAdded = waterAdded + 1;
-      waterAddedTotal = waterAddedTotal + 1;
+  if synchronousMode then
+    count = runCommand(buttons[index]);
+  else
+    local buttonPos = findButton(pos, index);
+    if buttonPos then
+      safeClick(buttonPos[0] + buttons[index].offset[0], buttonPos[1] + buttons[index].offset[1]);
+      count = 1;
     end
-    if index == 2 and counter ~= nil then -- Wood
-      woodAdded = woodAdded + 1;
-      woodAddedTotal = woodAddedTotal + 1;
+  end
+
+  if counter ~= nil and count ~= nil then
+    if index == 3 then -- Water
+      waterAdded = waterAdded + count;
+      waterAddedTotal = waterAddedTotal + count;
+    end
+    if index == 2 then -- Wood
+      woodAdded = woodAdded + count;
+      woodAddedTotal = woodAddedTotal + count;
     end
   end
 end
@@ -91,12 +120,23 @@ function ccRun(pass, passCount)
   local vents = setupVents(ovens);
   local done = false;
   while not done do
-    sleepWithStatus(2000, "Waiting on next tick ...\n\n[" .. pass .. "/" .. passCount .. "] Passes\n\nTotals: [This Pass/All Passes]\n\n[".. woodAdded*3 .. "/" ..
-        woodAddedTotal*3 .. "] Wood Used - Actual\n[" .. woodAdded.. "/" .. woodAddedTotal .. "] 'Add Wood' Button Clicked (x1)\n\n[" .. waterAdded .. "/" .. waterAddedTotal ..
-        "] Water Used\n             (Excluding cooldown water)\n\n\nElapsed Time: " .. getElapsedTime(startTime),nil, 0.7);
+    sleepWithStatus(500,
+      "Waiting on next tick ...\n\n" ..
+      "[" .. pass .. "/" .. passCount .. "] Passes\n\n" ..
+      "Totals: [This Pass/All Passes]\n\n" ..
+      "[".. woodAdded*3 .. "/" .. woodAddedTotal * 3 .. "] Wood Used - Actual\n" ..
+      "[" .. woodAdded .. "/" .. woodAddedTotal .. "] 'Add Wood' Button Clicked (x1)\n\n"..
+      "[" .. waterAdded .. "/" .. waterAddedTotal .."] Water Used\n" ..
+      "             (Excluding cooldown water)\n\n\n" ..
+      "Elapsed Time: " .. getElapsedTime(startTime), nil, 0.7);
     done = true;
     srReadScreen();
-    for i=1,#ovens do
+
+    local count = #ovens;
+    if synchronousMode then
+      count = 1;
+    end
+    for i = 1, count do
       if not findButton(ovens[i], BEGIN) then
         vents[i] = processOven(ovens[i], vents[i]);
         done = false;
@@ -107,18 +147,18 @@ end
 
 -- 0% = 56, 100% = 249, each % = 1.94
 
-minHeat = makePoint(199, 15);
-minHeatProgress = makePoint(152, 15);
-minOxy = makePoint(80, 33);
-maxOxy = makePoint(116, 33);
-maxOxyLowHeat = makePoint(160, 33);
-minWood = makePoint(108, 50);
-minWater = makePoint(58, 70);
-minWaterGreen = makePoint(96, 70);
-maxDangerGreen = makePoint(205, 90);
-maxDanger = makePoint(219, 90);
-uberDanger = makePoint(228, 90);
-progressGreen = makePoint(62, 110);
+minHeat = makePoint(199, 15); --80%
+minHeatProgress = makePoint(152, 15); --60%
+minOxy = makePoint(80, 33); --32%
+maxOxy = makePoint(116, 33); --47%
+maxOxyLowHeat = makePoint(160, 33); --64%
+minWood = makePoint(108, 50); --43%
+minWater = makePoint(58, 70); --23%
+minWaterGreen = makePoint(96, 70); --39%
+maxDangerGreen = makePoint(205, 90); --82%
+maxDanger = makePoint(219, 90); --88%
+uberDanger = makePoint(228, 90); --92%
+progressGreen = makePoint(62, 110); --25%
 
 greenColor = 0x07FE05;
 barColor = 0x0606FD;
@@ -126,38 +166,28 @@ barColor = 0x0606FD;
 function processOven(oven, vent)
   local newVent = vent;
   if pixelMatch(oven, progressGreen, greenColor, 4) then
-    -- Progress is green
-
     if not pixelMatch(oven, minWaterGreen, barColor, 8) then
-      -- Aggressively add water
       clickButton(oven, WATER);
       clickButton(oven, WATER);
     end
+
     if pixelMatch(oven, maxDangerGreen, barColor, 4) then
-      -- Danger too high
       clickButton(oven, WATER);
     elseif vent ~= 3 then
       newVent = 3;
       clickButton(oven, FULL);
     end
-
-
   else
-
-    -- Progress is not green
     if not pixelMatch(oven, minHeat, barColor, 8) then
-      -- Heat too low
       if not pixelMatch(oven, minWood, barColor, 8) then
-    -- Wood too low
-    clickButton(oven, WOOD, 1);
+        clickButton(oven, WOOD, 1);
       end
     end
 
     if not pixelMatch(oven, minOxy, barColor , 8) then
-      -- Oxygen too low
       if vent ~= 3 then
-    newVent = 3;
-    clickButton(oven, FULL);
+        newVent = 3;
+        clickButton(oven, FULL);
       end
     else
       local point = maxOxy;
@@ -165,32 +195,28 @@ function processOven(oven, vent)
         point = maxOxyLowHeat;
       end
       if pixelMatch(oven, point, barColor, 8) then
-        -- Oxygen too high
         if vent ~= 1 then
-      newVent = 1;
-      clickButton(oven, CLOSE);
+          newVent = 1;
+          clickButton(oven, CLOSE);
         end
       else
-        -- Oxygen OK
         if vent ~= 2 then
-      newVent = 2;
-      clickButton(oven, OPEN);
+          newVent = 2;
+          clickButton(oven, OPEN);
         end
       end
     end
 
     if pixelMatch(oven, maxDanger, barColor, 8) then
-      -- Danger > 85%
       if not pixelMatch(oven, minWater, barColor, 8) then
-    -- Water < 2.6%
-    clickButton(oven, WATER, 1);
-    -- Splash more water if it > 90%
-    if pixelMatch(oven, uberDanger, barColor, 8) then
-      clickButton(oven, WATER, 1);
-    end
+        clickButton(oven, WATER, 1);
+        if pixelMatch(oven, uberDanger, barColor, 8) then
+          clickButton(oven, WATER, 1);
+        end
       end
     end
   end
+
   return newVent;
 end
 
