@@ -33,7 +33,7 @@ function doit()
       clickText(wind);
     end
 
-    sleepWithStatus(1000, "Waiting on endurance\n\n" .. getStatus());
+    sleepWithStatus(1000, getStatus());
   end
   lsPlaySound("complete.wav")
 end
