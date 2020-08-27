@@ -401,7 +401,7 @@ local materials = {
           {
             min = 61,
             max = 72,
-            target = 0,
+            target = 72,
             name = "Toxic"
           }
         }
