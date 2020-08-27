@@ -907,14 +907,14 @@ function getTreatmentTime(index, treatment)
   local delta           = 0;
 
   if treatmentsRemaining() == 1 then
-    if data.value < treatmentTarget then
-      delta = square(treatmentTarget - data.attributes[data.goal].min - 1);
-    elseif data.value > treatmentTarget then
-      delta = square(data.attributes[data.goal].max - treatmentTarget - 1);
+    if data.value < treatmentTarget and data.attributes[data.goal].min < treatmentTarget then
+      delta = treatmentTarget - data.attributes[data.goal].min - 1;
+    elseif data.value > treatmentTarget and data.attributes[data.goal].max > treatmentTarget then
+      delta = data.attributes[data.goal].max - treatmentTarget - 1;
     end
   end
 
-  local time = math.ceil((square(data.value - treatmentTarget) - delta) / 9);
+  local time = math.ceil((square(data.value - treatmentTarget) - square(delta)) / 9);
   return math.min(10, time);
 end
 
@@ -1109,12 +1109,15 @@ function doit()
 
     displaySuggestedTreatment();
 
-    checkBreak();
-    lsDoFrame();
-    lsSleep(50);
+    if lsButtonText(10, lsScreenY - 30, 0, 100, 0xffff80ff, "Goals") then
+      displayGoals();
+    end
     if lsButtonText(lsScreenX - 110, lsScreenY - 30, 0, 100, 0xff8080ff, "Stop") then
       break;
     end
+    checkBreak();
+    lsDoFrame();
+    lsSleep(50);
   end
 
   displayUsage();
