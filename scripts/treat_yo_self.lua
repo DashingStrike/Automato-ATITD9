@@ -295,6 +295,7 @@ local materials = {
     building = "Wood Treatment Tank",
     treatmentMenu = "Treat...",
     treatmentMenuItem = "Treat with %s",
+    file = "treat_boards.txt",
   },
   metal = {
     attributes = {
@@ -410,55 +411,55 @@ local materials = {
         name = "Purity",
         attributes = {
           {
-            min = 69,
+            min = 68,
             max = 72,
             target = 72,
             name = "10"
           },
           {
-            min = 61,
+            min = 60,
             max = 72,
             target = 72,
             name = "9"
           },
           {
-            min = 53,
+            min = 52,
             max = 72,
             target = 72,
             name = "8"
           },
           {
-            min = 45,
+            min = 44,
             max = 72,
             target = 72,
             name = "7"
           },
           {
-            min = 37,
+            min = 36,
             max = 72,
             target = 72,
             name = "6"
           },
           {
-            min = 29,
+            min = 28,
             max = 72,
             target = 72,
             name = "5"
           },
           {
-            min = 21,
+            min = 20,
             max = 72,
             target = 72,
             name = "4"
           },
           {
-            min = 13,
+            min = 12,
             max = 72,
             target = 72,
             name = "3"
           },
           {
-            min = 5,
+            min = 4,
             max = 72,
             target = 72,
             name = "2"
@@ -619,6 +620,7 @@ local materials = {
     building = "Chemical Bath",
     treatmentMenu = "Dissolve...",
     treatmentMenuItem = "Dissolve %s in the Acid",
+    file = "treat_metal.txt",
   },
 };
 
@@ -646,6 +648,8 @@ local blueColors = {
   0xD0D0FFFF, 0x7F7FFEFF, 0x77FEFFFF,
   0x76FEFFFF
 };
+
+local recipeData = {};
 
 function matchPixel(pixel)
 local match = false;
@@ -743,7 +747,7 @@ function displayGoals()
 
     checkBreak();
     lsDoFrame();
-    if lsButtonText(lsScreenX - 110, lsScreenY - 30, 0, 100, 0x80ff80ff, "Next") then
+    if lsButtonText(lsScreenX - 105, lsScreenY - 30, 0, 100, 0x80ff80ff, "Next") then
       break;
     end
   end
@@ -769,7 +773,7 @@ If this proves reliable, a full-auto mode is feasible.
 Enjoy.
 ]]);
 
-    if lsButtonText(lsScreenX - 110, lsScreenY - 30, 0, 100, 0x80ff80ff, "Start") then
+    if lsButtonText(lsScreenX - 105, lsScreenY - 30, 0, 100, 0x80ff80ff, "Start") then
       break;
     end
 
@@ -958,6 +962,81 @@ function insertSuggestion(suggestions, treatmentIndex, score, time)
   });
 end
 
+function loadRecipes()
+  if materials[materialIndex].recipes then
+    return;
+  end
+
+  materials[materialIndex].recipes = {};
+
+  local file = io.open(materials[materialIndex].file, "r");
+  io.close(file);
+  for line in io.lines(materials[materialIndex].file) do
+    table.insert(materials[materialIndex].recipes, line);
+  end
+end
+
+function hasRecipe(recipe)
+  loadRecipes();
+
+  for _, existingRecipe in pairs(materials[materialIndex].recipes) do
+    if recipe == existingRecipe then
+      return true;
+    end
+  end
+
+  return false;
+end
+
+function saveRecipe(recipe)
+  logfile = io.open(materials[materialIndex].file, "a+");
+  logfile:write("\n" .. recipe);
+  logfile:close();
+
+  table.insert(materials[materialIndex].recipes, recipe);
+  recipeData = {};
+end
+
+function displayRecipe()
+  if #recipeData == 0 then
+    return;
+  end
+
+  local names = {};
+  for index, data in pairs(materials[materialIndex].attributes) do
+    if data.attribute ~= nil then
+      table.insert(names, data.attributes[data.attribute].name);
+    end
+  end
+
+  local steps = {};
+  for _, step in pairs(recipeData) do
+    if step.treatment == steps[#steps - 1] then
+      steps[#steps] = steps[#steps] + step.time;
+    else
+      table.insert(steps, step.treatment);
+      table.insert(steps, step.time);
+    end
+  end
+  local recipeText = table.concat(names, ", ") .. " : " .. table.concat(steps, " ") .. " - #treat_yo_self";
+
+  if materialIndex == "metal" then
+    local metalLine = findText("Metal in Bath:");
+    local parsed = explode(":", metalLine[2]);
+    local parsed = explode(",", parsed[2]);
+    recipeText = "(" .. string.sub(parsed[1], 2) .. ") " .. recipeText;
+  end
+
+  if hasRecipe(recipeText) then
+    lsPrint(5, 265, 0, 0.7, 0.7, 0xffffffff, "Recipe already in " .. materials[materialIndex].file);
+  else
+    lsPrint(80, 265, 0, 0.7, 0.7, 0xffffffff, "recipe to " .. materials[materialIndex].file)
+    if ButtonText(5, 265, 0, 100, 0x80ff80ff, "Save", 0.7, 0.7) then
+      saveRecipe(recipeText);
+    end
+  end
+end
+
 function displaySuggestedTreatment()
   srReadScreen();
   if not srFindImage("processComplete.png") then
@@ -967,6 +1046,7 @@ function displaySuggestedTreatment()
 
   if goalsRemaining() == 0 then
     lsPrint(5, 225, 5, 0.7, 0.7, 0xffffff, "Done");
+    displayRecipe();
     return;
   end
 
@@ -1013,6 +1093,10 @@ function displaySuggestedTreatment()
       if ButtonText(55, y, 5, 200, suggestionData[i].color, treatment.name, 0.7, 0.7) then
         if applyTreatment(treatment.name, suggestion.time) then
           treatment.used = treatment.used + math.ceil(suggestion.time / 10);
+          table.insert(recipeData, {
+            treatment = treatment.name,
+            time      = suggestion.time
+          });
         end
         return;
       end
@@ -1036,7 +1120,7 @@ function displayUsage()
     checkBreak();
     lsDoFrame();
     lsSleep(50);
-    if lsButtonText(lsScreenX - 110, lsScreenY - 30, 0, 100, 0xffffffff, "Done") then
+    if lsButtonText(lsScreenX - 105, lsScreenY - 30, 0, 100, 0xffffffff, "Done") then
       break;
     end
   end
@@ -1051,7 +1135,9 @@ function applyTreatment(name, time)
   lsSleep(200);
   srKeyEvent(time);
   srKeyEvent(string.char(13));  -- Send Enter Key to close the window
+  lsSleep(100);
 
+  srReadScreen();
   return not srFindImage("ok.png");
 end
 
@@ -1109,10 +1195,10 @@ function doit()
 
     displaySuggestedTreatment();
 
-    if lsButtonText(10, lsScreenY - 30, 0, 100, 0xffff80ff, "Goals") then
+    if lsButtonText(5, lsScreenY - 30, 0, 100, 0xffff80ff, "Goals") then
       displayGoals();
     end
-    if lsButtonText(lsScreenX - 110, lsScreenY - 30, 0, 100, 0xff8080ff, "Stop") then
+    if lsButtonText(lsScreenX - 105, lsScreenY - 30, 0, 100, 0xff8080ff, "Stop") then
       break;
     end
     checkBreak();
