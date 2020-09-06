@@ -567,6 +567,11 @@ end
 -------------------------------------------------------------------------------
 
 function plantAndPin(loop_count)
+  local icon_tray = srFindImage("icon_tray_opened.png");
+  if icon_tray then
+    safeClick(icon_tray[0] + 5, icon_tray[1] + 5);
+  end
+
   local xyPlantFlax = getPlantWindowPos()
 
   -- for spiral
@@ -632,6 +637,12 @@ function plantAndPin(loop_count)
       break
     end
   end
+
+  icon_tray = srFindImage("icon_tray_closed.png");
+  if icon_tray then
+    safeClick(icon_tray[0] + 5, icon_tray[1] + 5);
+  end
+
   local finalPos = {}
   finalPos[0] = x_pos
   finalPos[1] = y_pos
@@ -706,7 +717,7 @@ function dragWindows(loop_count)
   else
     arrangeStashed(nil, waterGap, window_w, window_h, space_to_leave, offsetWidth, offsetHeight);
   end
-  
+
 end
 
 -------------------------------------------------------------------------------
