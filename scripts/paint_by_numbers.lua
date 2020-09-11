@@ -303,7 +303,7 @@ function getAverageColor(colors)
 end
 
 function getReactionValue(target, color, difference)
-  local value = 0;
+  local value = nil;
   for i = 1, 3 do
     if target == i or target == 0 then
       if color[i] ~= 0 and color[i] ~= 255 then
@@ -324,7 +324,7 @@ function getReactionColor(index, reactionIndex, fixIndex)
   local indexTarget = paintData[fixIndex].reactions[index];
   if indexTarget then
     local reactionValue = playerReactions[index][fixIndex];
-    if reactionValue == 0 then
+    if reactionValue == nil then
       return false;
     end
 
@@ -340,7 +340,7 @@ function getReactionColor(index, reactionIndex, fixIndex)
   local reactionIndexTarget = paintData[fixIndex].reactions[reactionIndex];
   if reactionIndexTarget then
     local reactionValue = playerReactions[reactionIndex][fixIndex];
-    if reactionValue == 0 then
+    if reactionValue == nil then
       return false;
     end
 
@@ -382,12 +382,12 @@ function fixBoundsScore(currentColor, index, reactionIndex, fixIndex, target)
     if target == i or target == 0 then
       if currentColor[i] == 0 then
         local score = fixExpectedColor[i] - expectedColor[i];
-        if score > topScore then
+        if score <= 255 and score > topScore then
           topScore = score;
         end
       elseif currentColor[i] == 255 then
         local score = expectedColor[i] - fixExpectedColor[i];
-        if score > topScore then
+        if score <= 255 and score > topScore then
           topScore = score;
         end
       end
@@ -572,7 +572,7 @@ Hover over the ATITD window and press shift.
   for index, data in pairs(paintData) do
     playerReactions[index] = {};
     for reactionIndex, reactionTarget in pairs(data.reactions) do
-      playerReactions[index][reactionIndex] = 0;
+      playerReactions[index][reactionIndex] = nil;
     end
   end
 
@@ -612,14 +612,13 @@ Hover over the ATITD window and press shift.
 
           if not data.enabled or not paintData[reactionIndex].enabled then
             lsPrint(5, 105, 5, 0.7, 0.7, 0xff8080ff, "Disabled");
-            checkBreak();
             lsDoFrame();
             break;
           end
 
-          if playerReactions[index][reactionIndex] ~= 0 then
+          --This skips the retry if we've already got a reaction
+          if i == 2 and playerReactions[index][reactionIndex] ~= nil then
             lsPrint(5, 105, 5, 0.7, 0.7, 0xffffffff, "Reaction: " .. playerReactions[index][reactionIndex] .. " " .. reactionChars[reactionTarget]);
-            checkBreak();
             lsDoFrame();
             break;
           end
@@ -627,7 +626,7 @@ Hover over the ATITD window and press shift.
           if begin then
             lsPrint(5, 105, 5, 0.7, 0.7, 0xffffffff, "Difference: " .. difference[1] .. ", " .. difference[2] .. ", " .. difference[3]);
             playerReactions[index][reactionIndex] = getReactionValue(reactionTarget, color, difference);
-            if playerReactions[index][reactionIndex] ~= 0 then
+            if playerReactions[index][reactionIndex] ~= nil then
               lsPrint(5, 125, 5, 0.7, 0.7, 0xffffffff, "Reaction: " .. playerReactions[index][reactionIndex] .. " " .. reactionChars[reactionTarget]);
             else
               if not fixBoundsIndex then
@@ -650,7 +649,7 @@ Hover over the ATITD window and press shift.
           lsSleep(20);
 
           if begin then
-            if auto and playerReactions[index][reactionIndex] ~= 0 then
+            if auto and playerReactions[index][reactionIndex] ~= nil then
               break;
             end
 
@@ -696,7 +695,15 @@ Hover over the ATITD window and press shift.
     for reactionIndex, reactionTarget in pairs(data.reactions) do
       if index < reactionIndex then
         local reactionValue = playerReactions[index][reactionIndex];
+        if reactionValue == nil then
+          reactionValue = "";
+        end
+
         local switchedValue = playerReactions[reactionIndex][index];
+        if switchedValue == nil then
+          switchedValue = "";
+        end
+
         line = string.format("%-11s| %-11s | %s | %3s | %3s\n",
           data.ppName,
           paintData[reactionIndex].ppName,
