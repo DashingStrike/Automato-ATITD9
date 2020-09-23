@@ -911,8 +911,9 @@ end
 
 function fetchVoids()
   -- Fetch voids from Cegaiel's site
-  http = require "socket.http"
-  result, statuscode, content = http.request("http://automato.sharpnetwork.net/listvoids.asp")
+--  http = require "socket.http" -- Use this to connect to http:// address
+  http = require "ssl.https"  -- Use this to connect to https:// address
+  result, statuscode, content = http.request("https://automato.sharpnetwork.net/listvoids.asp")
   if statuscode ~= 200 then
     result = "Status Code: " .. statuscode .. "\n\nThere was a problem contacting 'Cegaiel\'s ATITD Tools' server.\n\nTry again later!";
   else
