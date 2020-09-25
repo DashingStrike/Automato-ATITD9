@@ -371,7 +371,7 @@ local http;
 
 function doit()
   askForWindow([[
-  Shroom Stalker v1.0
+  Shroom Stalker v1.1
   by Kavad.
 
   This macro will help you hunt mushrooms!
@@ -399,15 +399,19 @@ function doit()
   http = require("ssl.https");
   loadReports();
 
+  local contextDetails = true;
   while true do
-    local mushroomWindow = findText("%w+ Mushrooms", nil, REGEX);
-    if mushroomWindow then
-      local mushroomName = string.match(mushroomWindow[2], "([%w ']+) Mushrooms");
+    local mushroomWindow = findText("Pick up the [%w ']+ Mushrooms", nil, REGEX);
+    if contextDetails and mushroomWindow then
+      local mushroomName = string.match(mushroomWindow[2], "Pick up the ([%w ']+) Mushrooms");
       for _, mushroom in pairs(mushroomData) do
         if mushroomName == mushroom.name then
           displayMushroomDetails(mushroom, true);
+          contextDetails = false;
         end
       end
+    elseif not mushroomWindow then
+      contextDetails = true;
     end
 
     local status = tick();
@@ -824,8 +828,8 @@ end
 function displayMushroomDetails(mushroom, context)
   local tab = "notes";
   while true do
-    if context and not findText(mushroom.name .. " Mushrooms") then
-      break;
+    if context and not findText("Pick up the " .. mushroom.name .. " Mushrooms") then
+      return true;
     end
 
     tick();
@@ -909,7 +913,7 @@ function displayMushroomDetails(mushroom, context)
     end
 
     if lsButtonText(lsScreenX - 85, lsScreenY - 30, 5, 80, 0xffffffff, "Back") then
-      break;
+      return false;
     end
 
     lsDoFrame();
