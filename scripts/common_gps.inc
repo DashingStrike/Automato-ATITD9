@@ -142,6 +142,7 @@ local gpsStep;
 -- if fmt == "time" then Returns Time (8:52AM) - ie getTime("time")
 -- if fmt == "time2" then Returns Time in special format (8_52AM) - ie getTime("time2")
 -- if fmt == "datetime2" then Returns date/time in special format (Akhet_I-1_12_00AM) - ie getTime("datetime2")
+-- if fmt == "datetime3" then Returns date/time in special format (1_Akhet_I-1_12_00AM) - ie getTime("datetime3")
 -- if fmt == nil, then Returns the date in minutes since epoch (123456) - ie getTime()
 -- if fmt ~= nil then Returns the date in minutes since epoch (Year 1, Akhet I-1, 12:00AM) - ie getTime(1)
 --
@@ -182,6 +183,7 @@ function getTime(fmt)
          time = hour .. ":" .. minute .. ampm
          time2 = hour .. "_" .. minute .. ampm
          datetime2 = season .. "_" .. month .. "-" .. day .. "_" .. hour .. "_" .. minute .. ampm
+         datetime3 = year .. "_" .. season .. "_" .. month .. "-" .. day .. "_" .. hour .. "_" .. minute .. ampm
          -- perform data validation
          local seasonIndex = {};
          seasonIndex["Akhet"] = 1;
@@ -215,6 +217,8 @@ function getTime(fmt)
                return time2;
             elseif fmt == "datetime2" then
                return datetime2;
+            elseif fmt == "datetime3" then
+               return datetime3;
             elseif fmt ~= nil then
                return datetime;
             end
@@ -248,7 +252,7 @@ function initStep()
 
     local walk_x_drift = 14;
     local walk_y_drift = 18;
-    if (lsScreenX < 1280) then 
+    if (lsScreenX < 1280) then
       -- Have to click way off center in order to not move at high resolutions
       walk_x_drift = math.floor(walk_x_drift * pixel_scale);
       walk_y_drift = math.floor(walk_y_drift * pixel_scale);
@@ -301,7 +305,7 @@ function fastFindCoords()
 						break
 					end
 				end
-				
+
 				if(not pos) then
 					lsPrintln("fastFindCoords() : Can't find the clock");
 					return nil;
@@ -332,7 +336,7 @@ function fastFindCoords()
 		lsPrintln("fastFindCoords() : Can't find the coordinates");
 		return nil;
 	end
-	
+
 	local digits = ffc_readDigits(ffc_coordsPos);
 	if(digits) then
 		return ffc_parseDigits(digits);
