@@ -367,11 +367,13 @@ local ampms = {"AM", "PM"};
 
 local name = "";
 
+local defaultEcology = "Heavy Metals: 0.00%\npH: 13.5536\nGround Water: 0%\nPhosphorus: 0%\nSoot: 0%\nPotassium: 0%\nNitrogen: 0%\nSalinity: 0%\n";
+
 local http;
 
 function doit()
   askForWindow([[
-  Shroom Stalker v1.1
+  Shroom Stalker v1.2
   by Kavad.
 
   This macro will help you hunt mushrooms!
@@ -684,18 +686,31 @@ function reportEcology(mushroom)
   -- Clear the clipboard, so that if the copy below fails it's blank
   lsClipboardSet("");
 
-  clickText(clipboard);
+  local results = nil;
+  local i = 0;
+  while i < 5 do
+    clickText(clipboard);
+    lsSleep(100);
+    results = lsClipboardGet();
+    if results ~= defaultEcology then
+      break;
+    end
+    i = i + 1;
+    sleepWithStatus(1000, "Waiting for ecology results to update");
+  end
 
   clickText(waitForImage("ok.png", 5000, "Waiting for OK button"));
 
-  local results = lsClipboardGet();
   if string.sub(results, 1, 12) ~= "Heavy Metals" then
+    sleepWithStatus(2000, "Unable to copy results to clipboard");
     return;
   end
 
+  local coords = findCoords();
   local body, status, auth = http.request("https://docs.google.com/forms/u/0/d/e/1FAIpQLSczkTr15S3xhLN5JGZMirSjxVigZh9PXkLxU34g9mi4UGxLfQ/formResponse", table.concat({
     "entry.6633223=" .. mushroom.name,
     "entry.1567807693=" .. results,
+    "entry.1951563119=" .. coords[0] .. ", " .. coords[1],
   }, "&"));
   if status ~= 200 then
     sleepWithStatus(2000, "Error submitting report.\nStatus: " .. status);
@@ -786,7 +801,7 @@ function reportToShroomdar(mushroom)
     if not error and lsButtonText(5, lsScreenY - 30, 5, 80, 0x00ff00ff, "Report") then
       local body, status, auth = http.request("https://atitd.sharpnetwork.net/mushrooms/submit_report.asp", table.concat({
         "mushroom=" .. mushroom.shroomdarId,
-        "Year=" .. years[yearIndex],
+        "Year=" .. yearIndex,
         "Season=" .. seasons[seasonIndex],
         "Month=" .. months[monthIndex],
         "Day=" .. days[dayIndex],
