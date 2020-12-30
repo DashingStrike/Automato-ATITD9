@@ -107,14 +107,8 @@ end
 
 function repairBoards()
   srReadScreen();
-
   if not carpShop then
-    clickrepair = findAllText("Repair this Wood Plane");
-
-    for i=1,#clickrepair do
-      clickText(clickrepair[i]);
-      lsSleep(100);
-    end
+    clickAllImages("boards/repairWoodPlane.png")
   end
 end
 
