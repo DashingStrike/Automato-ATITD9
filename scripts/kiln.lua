@@ -177,6 +177,11 @@ function start()
         lsSleep(refresh_time)
         clickAllText("Fire the Kiln");
         lsSleep(refresh_time)
+		--Check Repair for any that failed this round then fire any that were broken.
+		checkRepair();
+		lsSleep(refresh_time)
+		clickAllText("Fire the Kiln");
+		lsSleep(refresh_time)
 
         closePopUp();
         checkFiring();
@@ -188,7 +193,7 @@ end
 
 function takeFromKilns()
     srReadScreen();
-    kilnRegions = findAllText("This is a [A-Za-z]+ Kiln", nil, REGION + REGEX);
+    kilnRegions = findAllText("This is [A-Za-z]+ [A-Za-z]+ Kiln", nil, REGION + REGEX);
     for i = 1, #kilnRegions do
         checkBreak();
         clickText(findText("Take...", kilnRegions[i]));
@@ -219,7 +224,7 @@ function checkFiring()
     while 1 do
         refreshWindows();
         srReadScreen();
-        firing = findAllText("Firing")
+        firing = findAllText("Firing");
         if #firing == 0 then
             break; --We break this while statement because Making is not detect, hence we're done with this round
         end
@@ -230,11 +235,15 @@ end
 function closePopUp()
     while 1 do
         srReadScreen()
-        local ok = srFindImage("OK.png")
+		local outofresource = srFindImage("YouDont.png");
+        local ok = srFindImage("OK.png");
         if ok then
             statusScreen("Found and Closing Popups ...", nil, 0.7);
-            srClickMouseNoMove(ok[0]+5,ok[1],1);
+            srClickMouseNoMove(ok[0]+2,ok[1]+2,1);
             lsSleep(100);
+			if outofresource then
+				error("Out of resources");
+			end
         else
             break;
         end
