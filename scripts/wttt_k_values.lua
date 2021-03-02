@@ -185,12 +185,12 @@ end
 function calcPos()
   srReadScreen();
 
-  tank    = findText("This is a Wood Treatment Tank", nil, REGION);
+  tank    = findText("This is [a-z]+ Wood Treatment Tank", nil, REGION + REGEX);
   utility = findText("Utility", tank);
   while not tank or not utility do
     checkBreak();
     srReadScreen();
-    tank = findText("This is a Wood Treatment Tank", nil, REGION);
+    tank = findText("This is [a-z]+ Wood Treatment Tank", nil, REGION + REGEX);
     utility = findText("Utility", tank);
     sleepWithStatus(250,"Waiting for Wood Treatment Tank window", nil, 0.7);
   end
