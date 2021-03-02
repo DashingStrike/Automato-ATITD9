@@ -417,12 +417,12 @@ function fixBounds(currentColor, index, reactionIndex, target)
 end
 
 function getUtilityMenu(name)
-  local building = findText("This is a " .. name, nil, REGION);
+  local building = findText("This is [a-z]+ " .. name, nil, REGION + REGEX);
   local utility  = findText("Utility", building);
   while not building or not utility do
     checkBreak();
     srReadScreen();
-    building = findText("This is a " .. name, nil, REGION);
+    building = findText("This is [a-z]+ " .. name, nil, REGION + REGEX);
     utility  = findText("Utility", building);
     sleepWithStatus(250,"Waiting for " .. name, nil, 0.7);
   end
