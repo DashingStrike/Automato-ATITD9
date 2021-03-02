@@ -682,12 +682,12 @@ end
 function calcPos()
   srReadScreen();
 
-  tank    = findText("This is a " .. materials[materialIndex].building, nil, REGION);
+  tank    = findText("This is [a-z]+ " .. materials[materialIndex].building, nil, REGION + REGEX);
   utility = findText("Utility", tank);
   while not tank or not utility do
     checkBreak();
     srReadScreen();
-    tank = findText("This is a " .. materials[materialIndex].building, nil, REGION);
+    tank = findText("This is [a-z]+ " .. materials[materialIndex].building, nil, REGION + REGEX);
     utility = findText("Utility", tank);
     sleepWithStatus(250,"Waiting for " .. materials[materialIndex].building .. " window", nil, 0.7);
   end
