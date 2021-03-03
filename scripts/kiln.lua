@@ -177,11 +177,11 @@ function start()
         lsSleep(refresh_time)
         clickAllText("Fire the Kiln");
         lsSleep(refresh_time)
-		--Check Repair for any that failed this round then fire any that were broken.
-		checkRepair();
-		lsSleep(refresh_time)
-		clickAllText("Fire the Kiln");
-		lsSleep(refresh_time)
+        --Check Repair for any that failed this round then fire any that were broken.
+        checkRepair();
+        lsSleep(refresh_time)
+        clickAllText("Fire the Kiln");
+        lsSleep(refresh_time)
 
         closePopUp();
         checkFiring();
@@ -235,15 +235,15 @@ end
 function closePopUp()
     while 1 do
         srReadScreen()
-		local outofresource = srFindImage("YouDont.png");
+        local outofresource = srFindImage("YouDont.png");
         local ok = srFindImage("OK.png");
         if ok then
             statusScreen("Found and Closing Popups ...", nil, 0.7);
             srClickMouseNoMove(ok[0]+2,ok[1]+2,1);
             lsSleep(100);
-			if outofresource then
-				error("Out of resources");
-			end
+            if outofresource then
+                error("Out of resources");
+            end
         else
             break;
         end
