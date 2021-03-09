@@ -516,16 +516,9 @@ function doit()
    clickAllText("Start fire");
    
    -- Begin infinite loop. Broken out of by finishing making all items.
-   local slept = true;
    while 1 do
       local t, u;
-      if slept == false then
-         sleepWithStatus(6000, "Sleeping before checking forges again", nil, 0.7);
-         slept = true;
-      else
-         sleepWithStatus(150, "Short sleep before forges", nil, 0.7);
-         slept = false;
-      end
+      sleepWithStatus(1500, "Sleeping before checking forges again", nil, 0.7);
       srReadScreen();
       -- TODO: Put out the forges when they're done.
       foundOne = false;
@@ -606,8 +599,6 @@ function doit()
       end
       lsSleep(100);
       srReadScreen();
-      clickAllText("in the chamber");
-      lsSleep(500);
       clickAllImages("ThisIs.png");
    end
 end
